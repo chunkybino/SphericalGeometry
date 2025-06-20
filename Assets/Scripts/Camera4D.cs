@@ -1,0 +1,25 @@
+using UnityEngine;
+
+[ExecuteAlways]
+public class Camera4D : MonoBehaviour
+{
+    new public Camera camera;
+    public Transform4D transform4;
+
+    public Matrix4x4 viewMatrix;
+
+    void Awake()
+    {
+        if (!camera) camera = GetComponent<Camera>();
+        if (!transform4) transform4 = GetComponent<Transform4D>();
+    }
+
+    void Update()
+    {
+        if (transform4 == null) return;
+
+        viewMatrix = transform4.GetMatrix();
+        //viewMatrix.SetRow(2, viewMatrix.GetRow(2)*-1);
+        camera.worldToCameraMatrix = viewMatrix.inverse;
+    }
+}
