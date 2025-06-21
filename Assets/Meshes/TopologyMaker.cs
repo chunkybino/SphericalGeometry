@@ -115,15 +115,19 @@ public class TopologyMaker : MonoBehaviour
         switch (axisMode)
         {
             case 0:
-                return new Vector4(Mathf.Cos(angle), Mathf.Sin(angle), 0, 0);
+                return new Vector4(Mathf.Cos(angle), 0, 0, Mathf.Sin(angle));
             case 1:
-                return new Vector4(0, 0, Mathf.Cos(angle), Mathf.Sin(angle));
-            case 2:
                 return new Vector4(0, Mathf.Cos(angle), 0, Mathf.Sin(angle));
+            case 2:
+                return new Vector4(0, 0, Mathf.Cos(angle), Mathf.Sin(angle));
             case 3:
+                return new Vector4(Mathf.Cos(angle), Mathf.Sin(angle), 0, 0);
+            case 4:
+                return new Vector4(0, Mathf.Cos(angle), Mathf.Sin(angle), 0);
+            case 5:
                 return new Vector4(Mathf.Cos(angle), 0, Mathf.Sin(angle), 0);
             default:
-                return new Vector4(Mathf.Cos(angle), Mathf.Sin(angle), 0, 0);
+                return new Vector4(Mathf.Cos(angle), 0, 0, Mathf.Sin(angle));
         }
     }
     Vector4 GetCircleThickAxis()
@@ -131,15 +135,19 @@ public class TopologyMaker : MonoBehaviour
         switch (axisMode)
         {
             case 0:
-                return new Vector4(0, 0, Mathf.Sin(thickAngle), 0);
-            case 1:
                 return new Vector4(0, Mathf.Sin(thickAngle), 0, 0);
+            case 1:
+                return new Vector4(0, 0, Mathf.Sin(thickAngle), 0);
             case 2:
                 return new Vector4(Mathf.Sin(thickAngle), 0, 0, 0);
             case 3:
+                return new Vector4(0, 0, Mathf.Sin(thickAngle), 0);
+            case 4:
+                return new Vector4(Mathf.Sin(thickAngle), 0, 0, 0);
+            case 5:
                 return new Vector4(0, Mathf.Sin(thickAngle), 0, 0);
             default:
-                return new Vector4(0, 0, Mathf.Sin(thickAngle), 0);
+                return new Vector4(0, Mathf.Sin(thickAngle), 0, 0);
         }
     }
 }

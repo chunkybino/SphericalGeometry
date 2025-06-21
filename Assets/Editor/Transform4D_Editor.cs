@@ -5,55 +5,68 @@ using UnityEditor;
 [CustomEditor(typeof(Transform4D))]
 public class Transform4D_Editor : Editor
 {
+    Transform4D transform;
+    Matrix4x4 mat;
+
     Vector3 moveDirection;
     float rotateAmount = Mathf.PI/4;
 
+    bool showButtons;
+
     public override void OnInspectorGUI()
     {
-        Transform4D transform = (Transform4D)target;
+        transform = (Transform4D)target;
+
+        mat = transform.matrix;
 
         base.OnInspectorGUI();
 
-        moveDirection = EditorGUILayout.Vector3Field("move direction", moveDirection);
-        rotateAmount = EditorGUILayout.FloatField("rotate amount", rotateAmount);
+        DisplayMatrix();
 
         Transform4D.radius = EditorGUILayout.FloatField("World Radius", Transform4D.radius);
 
-        Matrix4x4 mat = transform.matrix;
+        showButtons = EditorGUILayout.Toggle("Show Movement Buttons", showButtons);
 
-        //matrix display
+        if (showButtons) DisplayButtons();
+    }
+
+    void DisplayMatrix()
+    {
         EditorGUILayout.BeginVertical();
         for (int j = 0; j < 4; j++)
         {
-            //EditorGUILayout.BeginHorizontal();
             EditorGUILayout.LabelField(
                 GetNum(mat[0,j]) + "    " +
                 GetNum(mat[1,j]) + "    " +
                 GetNum(mat[2,j]) + "    " +
                 GetNum(mat[3,j])
             );
-
-            string GetNum(float inNum)
-            {
-                float new0 = UFunc.RoundDigit(inNum, 0);
-                float new1 = UFunc.RoundDigit(inNum, 1);
-                float new2 = UFunc.RoundDigit(inNum, 2);
-
-                if (new1 == new2) {
-                    if (new1 == new0) return new0.ToString() + ".00";
-                    return new1.ToString() + "0";
-                }
-                return new2.ToString();
-            }
-            //EditorGUILayout.EndHorizontal();
         }
         EditorGUILayout.EndVertical();
 
+        string GetNum(float inNum)
+        {
+            float new0 = UFunc.RoundDigit(inNum, 0);
+            float new1 = UFunc.RoundDigit(inNum, 1);
+            float new2 = UFunc.RoundDigit(inNum, 2);
+
+            if (new1 == new2) {
+                if (new1 == new0) return new0.ToString() + ".00";
+                return new1.ToString() + "0";
+            }
+            return new2.ToString();
+        }
+    }
+
+    void DisplayButtons()
+    {
+        moveDirection = EditorGUILayout.Vector3Field("move direction", moveDirection);
+        rotateAmount = EditorGUILayout.FloatField("rotate amount", rotateAmount);
 
         bool moved = false;
 
         if (GUILayout.Button("Move")) {
-            transform.Move(moveDirection);
+            transform.MoveRelative(moveDirection);
             moved = true;
         }
 
@@ -71,24 +84,12 @@ public class Transform4D_Editor : Editor
             transform.matrix = UFunc.MatXYRot(rotateAmount) * transform.matrix;
             moved = true;
         }
-        if (GUILayout.Button("Rot XY 2 ")) {
-            transform.matrix = transform.matrix * UFunc.MatXYRot(Mathf.PI/32);
-            moved = true;
-        }
         if (GUILayout.Button("Rot XZ")) {
             transform.matrix = UFunc.MatXZRot(rotateAmount) * transform.matrix;
             moved = true;
         }
-        if (GUILayout.Button("Rot XZ 2 ")) {
-            transform.matrix = transform.matrix * UFunc.MatXZRot(Mathf.PI/32);
-            moved = true;
-        }
         if (GUILayout.Button("Rot YZ")) {
             transform.matrix = UFunc.MatYZRot(rotateAmount) * transform.matrix;
-            moved = true;
-        }
-        if (GUILayout.Button("Rot YZ 2 ")) {
-            transform.matrix = transform.matrix * UFunc.MatYZRot(Mathf.PI/32);
             moved = true;
         }
         if (GUILayout.Button("Rot XW")) {

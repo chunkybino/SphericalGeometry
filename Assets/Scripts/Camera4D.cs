@@ -8,6 +8,8 @@ public class Camera4D : MonoBehaviour
 
     public Matrix4x4 viewMatrix;
 
+    public float pitchAngle;
+
     void Awake()
     {
         if (!camera) camera = GetComponent<Camera>();
@@ -18,7 +20,7 @@ public class Camera4D : MonoBehaviour
     {
         if (transform4 == null) return;
 
-        viewMatrix = transform4.GetMatrix();
+        viewMatrix = transform4.matrix * UFunc.MatZYRot(pitchAngle);
         //viewMatrix.SetRow(2, viewMatrix.GetRow(2)*-1);
         camera.worldToCameraMatrix = viewMatrix.inverse;
     }

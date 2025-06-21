@@ -14,6 +14,7 @@ public class MeshMaker : MonoBehaviour
     int[] trianglesInt;
 
     public bool makeNew;
+    public string makeNewName = "NewMesh";
 
     public Mesh mesh;
 
@@ -30,7 +31,7 @@ public class MeshMaker : MonoBehaviour
 
             mesh = new Mesh();
 
-            AssetDatabase.CreateAsset(mesh, "Assets/Meshes/NewMesh.asset");
+            AssetDatabase.CreateAsset(mesh, "Assets/Meshes/"+makeNewName+".asset");
         }
 
         if (saveMesh) {

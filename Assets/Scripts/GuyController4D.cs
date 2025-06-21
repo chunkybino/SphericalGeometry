@@ -1,93 +1,50 @@
 using UnityEngine;
 
-[ExecuteInEditMode]
 public class GuyController4D : MonoBehaviour
 {
-    public Transform4D transform4;
-    Vector4 position4 {
-        get{
-            if (transform4) return transform4.position;
-            return new Vector4(0,0,0,1);
-        }
-    }
+    [SerializeField] Transform4D transform4;
+    [SerializeField] Rigidbody4D rb;
+    [SerializeField] Camera4D camera;
 
-    float radius {get{return Transform4D.radius;}}
+    [SerializeField] PlayerInput input;
 
-    [SerializeField] bool doMinY;
-    [SerializeField] float minYPos;
+    [SerializeField] float speed = 0.4f;
+    [SerializeField] Vector3 moveVector;
 
-    [SerializeField] bool doYUpLock; //lock the cameras orientation to up is always toawrds the y axis
+    [SerializeField] float lookSpeed = 1;
+    [SerializeField] Vector2 lookVector;
 
-    [SerializeField] bool check;
-
-    void Awake()
-    {
-        if (!transform4) transform4 = GetComponent<Transform4D>();
-    }
-
-    void OnEnable()
-    {
-        transform4.onMove.AddListener(OnMove);
-    }
+    [SerializeField] bool doCameraPitch;
 
     void Update()
     {
-        if (doMinY) CheckMinY();
+        moveVector = Vector3.zero;
 
-        if (doYUpLock) YUpLock();
+        if (input.left) moveVector.x--;        
+        if (input.right) moveVector.x++;
+        if (input.backward) moveVector.z++;        
+        if (input.forward) moveVector.z--;  
 
-        if (check)
+        if (input.down) moveVector.y--;      
+        if (input.up) moveVector.y++;    
+
+        rb.velocity = moveVector * speed;
+
+
+        lookVector = Vector2.zero;
+
+        if (input.leftArrow) lookVector.x--;
+        if (input.rightArrow) lookVector.x++;
+        if (input.downArrow) lookVector.y--;
+        if (input.upArrow) lookVector.y++;
+
+        Vector3 angleVector = new Vector3(-lookVector.y, -lookVector.x, 0) * lookSpeed;
+        if (camera && doCameraPitch) 
         {
-            check = false;
-            YUpLock();
-        }
-    }
-
-    void OnMove()
-    {
-        if (doMinY) CheckMinY();
-
-        if (doYUpLock) YUpLock();
-    }
-
-    void CheckMinY()
-    {
-        if (position4.y < minYPos)
-        {
-            Vector4 targetPos = position4;
-            targetPos.y = minYPos;
-
-            targetPos *= Mathf.Sqrt((1 - minYPos*minYPos) / new Vector3(targetPos.x, targetPos.z, targetPos.w).magnitude);
-
-            float moveAmount = UFunc.AngleBetweenVectors(position4, targetPos);
-
-            transform4.matrix = UFunc.RotateTowardsMatrix(position4, targetPos, -moveAmount) * transform4.matrix;
-        }
-    }
-
-    void YUpLock()
-    {
-        if (transform4.xBasis.y != 0)
-        {
-            //zero the y component of xBasis
-            Vector4 XIntersectY = UFunc.LineYIntersect(transform4.xBasis, transform4.yBasis, 0);
-            float angle = -UFunc.AngleBetweenVectors(transform4.xBasis, XIntersectY);
-            if (Mathf.Sign(transform4.xBasis.y) == Mathf.Sign(transform4.yBasis.y)) angle *= -1;
-            transform4.matrix = transform4.matrix * UFunc.MatXYRot(angle);
+            camera.pitchAngle = Mathf.Clamp(camera.pitchAngle + (angleVector.x * Time.deltaTime), -Mathf.PI/2, Mathf.PI/2);
+            angleVector.x = 0;
         }
 
-        /*        
-        if (transform4.zBasis.y != 0)
-        {
-            //zero the y component of zBasis
-            Vector4 ZIntersectY = UFunc.LineYIntersect(transform4.zBasis, transform4.yBasis, 0);
-            float angle = UFunc.AngleBetweenVectors(transform4.zBasis, ZIntersectY);
-            print(ZIntersectY.normalized);
-            if (Mathf.Sign(transform4.zBasis.y) == Mathf.Sign(transform4.yBasis.y)) angle *= -1;
-            print(angle);
-            transform4.matrix = transform4.matrix * UFunc.MatYZRot(angle);
-        }
-        */
+        rb.angularVelocity = angleVector;
     }
 }
- 

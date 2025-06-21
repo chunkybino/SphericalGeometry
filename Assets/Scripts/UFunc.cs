@@ -43,7 +43,13 @@ public static class UFunc
     public static Matrix4x4 MatXYRot(float angle) {
         return MatPlaneRot(angle, 0,1);
     }
+    public static Matrix4x4 MatYXRot(float angle) {
+        return MatPlaneRot(angle, 1,0);
+    }
     public static Matrix4x4 MatXZRot(float angle) {
+        return MatPlaneRot(angle, 0,2);
+    }
+    public static Matrix4x4 MatZXRot(float angle) {
         return MatPlaneRot(angle, 0,2);
     }
     public static Matrix4x4 MatXWRot(float angle) {
@@ -51,6 +57,9 @@ public static class UFunc
     }
     public static Matrix4x4 MatYZRot(float angle) {
         return MatPlaneRot(angle, 1,2);
+    }
+    public static Matrix4x4 MatZYRot(float angle) {
+        return MatPlaneRot(angle, 2,1);
     }
     public static Matrix4x4 MatYWRot(float angle) {
         return MatPlaneRot(angle, 1,3);

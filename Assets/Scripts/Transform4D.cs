@@ -48,8 +48,6 @@ public class Transform4D : MonoBehaviour
 
     [SerializeField] Vector3 sterographicPos;
 
-    public Vector3 velocity;
-
     public bool lockSterographicPos = true;
 
     public UnityEvent onMove;
@@ -61,8 +59,6 @@ public class Transform4D : MonoBehaviour
 
     public virtual void Update()
     {
-        if (velocity != Vector3.zero) Move(velocity * Time.deltaTime);
-
         UpdateSterographicPos();
     }
 
@@ -72,7 +68,8 @@ public class Transform4D : MonoBehaviour
         if (lockSterographicPos) transform.position = sterographicPos;
     }
 
-    public void Move(Vector3 move)
+    //move relative to our orientation
+    public void MoveRelative(Vector3 move)
     {
         Vector3 moveNormal = -move.normalized;
         Vector4 moveTarget = lookMatrix * new Vector4(moveNormal.x,moveNormal.y,moveNormal.z, 0);
@@ -82,6 +79,19 @@ public class Transform4D : MonoBehaviour
         matrix = moveMatrix * matrix;
 
         onMove?.Invoke();
+    }
+
+    public void RotateRelativeXY(float angle) 
+    {
+        matrix = matrix * UFunc.MatXYRot(angle);
+    }
+    public void RotateRelativeXZ(float angle) 
+    {
+        matrix = matrix * UFunc.MatXZRot(angle);
+    }
+    public void RotateRelativeYZ(float angle) 
+    {
+        matrix = matrix * UFunc.MatYZRot(angle);
     }
 
     void OnDrawGizmosSelected()

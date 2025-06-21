@@ -46,13 +46,6 @@ public class Renderer4D : MonoBehaviour
             initialize = false;
             Initialize();
         }
-
-        /*
-        if (doVertex4 && setVertex4) {
-            setVertex4 = false;
-            SetVertex4();
-        }
-        */
     }
 
     void Update()
@@ -93,37 +86,4 @@ public class Renderer4D : MonoBehaviour
         newBounds.min = new Vector3(-99999,-99999,-99999);
         renderer.bounds = newBounds;
     }
-
-    /*
-    public struct Vertex4D
-    {
-        public Vector4 pos;
-        public Vector2 uv;
-    }
-
-    void SetVertex4()
-    {
-        var layout = new[]
-        {
-            new VertexAttributeDescriptor(VertexAttribute.Position, VertexAttributeFormat.Float32, 4),
-            new VertexAttributeDescriptor(VertexAttribute.TexCoord0, VertexAttributeFormat.Float32, 2)
-        };
-
-        int vertexCount = vertices4.Length;
-        mesh.SetVertexBufferParams(vertexCount, layout);
-
-        vertexArray = new Vertex4D[vertexCount];
-
-        for (int i = 0; i < vertexCount; i++) 
-        {
-            vertexArray[i] = new Vertex4D() {
-                pos = vertices4[i],
-                uv = uvs[i]
-            };
-        }
-
-        mesh.triangles = triangles;
-        mesh.SetVertexBufferData(vertexArray, 0, 0, vertexCount);
-    }
-    */
 }
