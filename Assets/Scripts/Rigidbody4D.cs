@@ -54,17 +54,17 @@ public class Rigidbody4D : MonoBehaviour
 
     void DoGravity()
     {
-        tangentGravity = UFunc.ProjectToVectorNormal(gravity, position4);
+        tangentGravity = UFunc.ProjectToVectorNormal(gravity, positionNorm);
         tangentGravity = tangentGravity.normalized * gravity.magnitude * gravityScale;
 
         velocity += tangentGravity * Time.fixedDeltaTime;
 
-        velocity = UFunc.ProjectToVectorNormal(velocity, position4).normalized * velocity.magnitude; //make sure its tangent just incase we pick up some imprecision along the way
+        velocity = UFunc.ProjectToVectorNormal(velocity, positionNorm).normalized * velocity.magnitude; //make sure its tangent just incase we pick up some imprecision along the way
     }
 
     public void SetVelocityTowards(Vector4 target, float vel)
     {
-        Vector4 tangetVel = UFunc.ProjectToVectorNormal(target, position4).normalized;
+        Vector4 tangetVel = UFunc.ProjectToVectorNormal(target, positionNorm).normalized;
         velocity += tangetVel * (vel - UFunc.Dot(velocity, tangetVel));
 
         velocity = UFunc.ProjectToVectorNormal(velocity, position4).normalized * velocity.magnitude; //make sure its tangent just incase we pick up some imprecision along the way
@@ -73,7 +73,7 @@ public class Rigidbody4D : MonoBehaviour
     void MoveTangent(Vector4 moveVel)
     {
         //make it actually tangent
-        moveVel = UFunc.ProjectToVectorNormal(moveVel, position4);
+        moveVel = UFunc.ProjectToVectorNormal(moveVel, positionNorm);
 
         Vector4 target = (positionNorm + moveVel).normalized;
 
@@ -122,7 +122,6 @@ public class Rigidbody4D : MonoBehaviour
     {
         if (position4.y < doYPlaneBoundVal)
         {
-            //print(position4.y - doYPlaneBoundVal);
             Vector4 targetPos = position4;
             targetPos.y = doYPlaneBoundVal;
 
