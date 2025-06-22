@@ -134,7 +134,7 @@ public class TopologyMaker : MonoBehaviour
         }
 
         Vector4[] circlePoints = new Vector4[divisions * sideDivisions + 2];
-        Vector3Int[] circleTri = new Vector3Int[2*(divisions * 2*(sideDivisions-1) + divisions)];
+        Vector3Int[] circleTri = new Vector3Int[2*(divisions * 2*(sideDivisions-1) + 4*divisions)];
         Vector2[] circleUV = new Vector2[circlePoints.Length];
 
         Vector4 thickAxis = GetCircleThickAxis();
