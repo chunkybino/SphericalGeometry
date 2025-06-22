@@ -74,7 +74,7 @@ Shader "Mine/Boring"
                 pos4 = mul(UNITY_MATRIX_V, pos4);
 
                 //sterographic projection back into 3d
-                if (IN.vertex.w == -1) {
+                if (pos4.w == -1) {
                     pos4 = float4(999999,0,0,1);
                 } else {
                     pos4 = pos4 / (1 + pos4.w);

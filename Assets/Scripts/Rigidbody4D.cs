@@ -10,14 +10,22 @@ public class Rigidbody4D : MonoBehaviour
             return new Vector4(0,0,0,1);
         }
     }
+    Vector4 positionNorm {
+        get{
+            if (transform4) return transform4.positionNorm;
+            return new Vector4(0,0,0,1);
+        }
+    }
 
     float radius {get{return Transform4D.radius;}}
 
-    public Vector3 velocity;
+    public Vector4 velocity;
     public Vector3 angularVelocity;
+    public float velocityMagnitude;
 
     public float gravityScale;
-    public Vector3 gravity = new Vector3(0,-1,0);
+    public Vector4 gravity = new Vector4(0,-1,0,0);
+    Vector4 tangentGravity;
 
     [SerializeField] bool doYPlaneBound;
     [SerializeField] float doYPlaneBoundVal;
@@ -27,6 +35,8 @@ public class Rigidbody4D : MonoBehaviour
     void Awake()
     {
         if (!transform4) transform4 = GetComponent<Transform4D>();
+
+        transform4.onLeftMult.AddListener(OnTransformLeftMult);
     }
 
     void FixedUpdate()
@@ -34,19 +44,71 @@ public class Rigidbody4D : MonoBehaviour
         if (doYPlaneBound) CheckYBound();
         if (doYUpLock) YUpLock();
 
-        if (velocity != Vector3.zero) Move(velocity * Time.fixedDeltaTime);
-
-        velocity += gravity * gravityScale;
+        DoGravity();
+        MoveTangent(velocity * Time.fixedDeltaTime);
 
         if (angularVelocity != Vector3.zero) Rotate(angularVelocity * Time.fixedDeltaTime);
+
+        velocityMagnitude = velocity.magnitude;
     }
 
-    void Move(Vector3 moveAmount)
+    void DoGravity()
+    {
+        tangentGravity = UFunc.ProjectToVectorNormal(gravity, position4);
+        tangentGravity = tangentGravity.normalized * gravity.magnitude * gravityScale;
+
+        velocity += tangentGravity * Time.fixedDeltaTime;
+
+        velocity = UFunc.ProjectToVectorNormal(velocity, position4).normalized * velocity.magnitude; //make sure its tangent just incase we pick up some imprecision along the way
+    }
+
+    public void SetVelocityTowards(Vector4 target, float vel)
+    {
+        Vector4 tangetVel = UFunc.ProjectToVectorNormal(target, position4).normalized;
+        velocity += tangetVel * (vel - UFunc.Dot(velocity, tangetVel));
+
+        velocity = UFunc.ProjectToVectorNormal(velocity, position4).normalized * velocity.magnitude; //make sure its tangent just incase we pick up some imprecision along the way
+    }
+
+    void MoveTangent(Vector4 moveVel)
+    {
+        //make it actually tangent
+        moveVel = UFunc.ProjectToVectorNormal(moveVel, position4);
+
+        Vector4 target = (positionNorm + moveVel).normalized;
+
+        Matrix4x4 mat = UFunc.RotateTowardsMatrix(positionNorm, target, -moveVel.magnitude / radius);
+
+        transform4.LeftMult(mat);
+    }
+
+    void MoveRelative(Vector3 moveAmount)
     {
         transform4.MoveRelative(moveAmount);
 
         if (doYPlaneBound) CheckYBound();
         if (doYUpLock) YUpLock();
+    }
+
+    public void SetRelativeVelocityAxis(float vel, int axisIndex)
+    {
+        Vector4 velVec = transform4.GetBasis(axisIndex);
+        float dot = UFunc.Dot(velVec, velocity);
+        velocity += (-dot+vel) * velVec;
+    }
+    public void SetRelativeVelocityX(float vel) {
+        SetRelativeVelocityAxis(vel, 0);
+    }
+    public void SetRelativeVelocityY(float vel) {
+        SetRelativeVelocityAxis(vel, 1);
+    }
+    public void SetRelativeVelocityZ(float vel) {
+        SetRelativeVelocityAxis(vel, 2);
+    }
+
+    void OnTransformLeftMult(Matrix4x4 mat)
+    {
+        velocity = mat * velocity;
     }
 
     void Rotate(Vector3 rotateAmount)
@@ -60,6 +122,7 @@ public class Rigidbody4D : MonoBehaviour
     {
         if (position4.y < doYPlaneBoundVal)
         {
+            //print(position4.y - doYPlaneBoundVal);
             Vector4 targetPos = position4;
             targetPos.y = doYPlaneBoundVal;
 
@@ -68,6 +131,8 @@ public class Rigidbody4D : MonoBehaviour
             float moveAmount = UFunc.AngleBetweenVectors(position4, targetPos);
 
             transform4.matrix = UFunc.RotateTowardsMatrix(position4, targetPos, -moveAmount) * transform4.matrix;
+
+            velocity.y = Mathf.Max(0, velocity.y);
         }
     }
 

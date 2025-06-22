@@ -20,8 +20,10 @@ public class Transform4D : MonoBehaviour
         get {
             return matrix.GetColumn(3) * radius;
         }
-        set {
-            matrix.SetColumn(3,value);
+    }
+    public Vector4 positionNorm {
+        get {
+            return matrix.GetColumn(3);
         }
     }
 
@@ -29,6 +31,9 @@ public class Transform4D : MonoBehaviour
     public Vector4 yBasis {get{return matrix.GetColumn(1);}}
     public Vector4 zBasis {get{return matrix.GetColumn(2);}}
     public Vector4 wBasis {get{return matrix.GetColumn(3);}}
+    public Vector4 GetBasis(int i) {
+        return matrix.GetColumn(i);
+    }
 
     public Matrix4x4 lookMatrix {
         get {
@@ -50,7 +55,8 @@ public class Transform4D : MonoBehaviour
 
     public bool lockSterographicPos = true;
 
-    public UnityEvent onMove;
+    public UnityEvent<Matrix4x4> onLeftMult;
+    public UnityEvent<Matrix4x4> onRightMult;
 
     void OnValidate()
     {
@@ -76,22 +82,31 @@ public class Transform4D : MonoBehaviour
 
         Matrix4x4 moveMatrix = UFunc.RotateTowardsMatrix(position, moveTarget, move.magnitude / radius);
 
-        matrix = moveMatrix * matrix;
-
-        onMove?.Invoke();
+        LeftMult(moveMatrix);
     }
 
     public void RotateRelativeXY(float angle) 
     {
-        matrix = matrix * UFunc.MatXYRot(angle);
+        RightMult(UFunc.MatXYRot(angle));
     }
     public void RotateRelativeXZ(float angle) 
     {
-        matrix = matrix * UFunc.MatXZRot(angle);
+        RightMult(UFunc.MatXZRot(angle));
     }
     public void RotateRelativeYZ(float angle) 
     {
-        matrix = matrix * UFunc.MatYZRot(angle);
+        RightMult(UFunc.MatYZRot(angle));
+    }
+
+    public void LeftMult(Matrix4x4 mat)
+    {
+        matrix = mat * matrix;
+        onLeftMult?.Invoke(mat);
+    }
+    public void RightMult(Matrix4x4 mat)
+    {
+        matrix =  matrix * mat;
+        onRightMult?.Invoke(mat);
     }
 
     void OnDrawGizmosSelected()

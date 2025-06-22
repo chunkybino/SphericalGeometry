@@ -23,6 +23,11 @@ public static class UFunc
         return v1.x*v2.x + v1.y*v2.y + v1.z*v2.z + v1.w*v2.w;
     }
 
+    public static Vector4 ProjectToVectorNormal(Vector4 v1, Vector4 normal)
+    {
+        return v1 - normal*UFunc.Dot(normal.normalized, v1);
+    }
+
     public static float AngleBetweenVectors(Vector4 v1, Vector4 v2)
     {
         return Mathf.Acos(Mathf.Clamp(Dot(v1.normalized, v2.normalized), -1, 1));

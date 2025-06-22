@@ -36,10 +36,10 @@ public class Transform4D_Editor : Editor
         for (int j = 0; j < 4; j++)
         {
             EditorGUILayout.LabelField(
-                GetNum(mat[0,j]) + "    " +
-                GetNum(mat[1,j]) + "    " +
-                GetNum(mat[2,j]) + "    " +
-                GetNum(mat[3,j])
+                GetNum(mat[j,0]) + "    " +
+                GetNum(mat[j,1]) + "    " +
+                GetNum(mat[j,2]) + "    " +
+                GetNum(mat[j,3])
             );
         }
         EditorGUILayout.EndVertical();

@@ -20,6 +20,8 @@ public class MeshMaker : MonoBehaviour
 
     public bool saveMesh;
     public bool saveTri;
+    public bool readTri;
+    public bool doubleTri;
 
     public bool doVertex4;
     public Vector4[] vertices4;
@@ -61,6 +63,25 @@ public class MeshMaker : MonoBehaviour
             mesh.triangles = trianglesInt;
 
             AssetDatabase.SaveAssets();
+        }
+
+        if (readTri)
+        {
+            readTri = false;
+            triangles = new Vector3Int[mesh.triangles.Length / 3];
+            for (int i = 0; i < triangles.Length; i++) {
+                triangles[i] = new Vector3Int(mesh.triangles[i+0],mesh.triangles[i+1],mesh.triangles[i+2]);
+            }
+        }
+        if (doubleTri)
+        {
+            doubleTri = false;
+            Vector3Int[] newTri = new Vector3Int[triangles.Length*2];
+            for (int i = 0; i < triangles.Length; i++) {
+                newTri[i] = triangles[i];
+                newTri[i+triangles.Length] = new Vector3Int(triangles[i].z,triangles[i].y,triangles[i].x);
+            }
+            triangles = newTri;
         }
     }
 
