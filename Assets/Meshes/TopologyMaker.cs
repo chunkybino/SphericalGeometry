@@ -12,28 +12,36 @@ public class TopologyMaker : MonoBehaviour
     public Vector3Int[] outTri;
 
     [SerializeField] bool makeCircleStrip;
+    [SerializeField] bool makeSphere;
 
     [SerializeField] int divisions = 16;
     [SerializeField] float thickAngle = Mathf.PI/16;
 
-    [SerializeField] int axisMode = 0;
+    [SerializeField] int axis1 = 0;
+    [SerializeField] int axis2 = 1;
+    [SerializeField] int axisThick = 3;
 
     void Update()
     {
         if (makeCircleStrip)
         {
             makeCircleStrip = false;
-            MakeSphere();
+            CircleStrip();
+        }
+        if (makeSphere)
+        {
+            makeSphere = false;
+            SphereTime();
         }
     }
 
-    void MakeSphere()
+    void CircleStrip()
     {
         Vector4[] circlePoints = new Vector4[divisions * 3];
         Vector3Int[] circleTri = new Vector3Int[divisions * 8];
         Vector2[] circleUV = new Vector2[circlePoints.Length];
 
-        Vector4 thickPos = GetCircleThickAxis();
+        Vector4 thickPos = GetCircleThickAxis() *Mathf.Sin(thickAngle);
         float thickMult = Mathf.Cos(thickAngle);
 
         for (int i = 0; i < divisions; i++)
@@ -110,44 +118,104 @@ public class TopologyMaker : MonoBehaviour
         outTri = circleTri;
     }
 
+    void SphereTime()
+    {
+        int sideDivisions = (divisions-2)/2;
+
+        float[] sideDivisonSin = new float[sideDivisions];
+        float[] sideDivisonCos = new float[sideDivisions];
+        float anglePerDivision = Mathf.PI / (sideDivisions+1);
+
+        for (int i = 0; i < sideDivisions; i++)
+        {
+            float angle = (i+1)*anglePerDivision - Mathf.PI/2;
+            sideDivisonSin[i] = Mathf.Sin(angle);
+            sideDivisonCos[i] = Mathf.Cos(angle);
+        }
+
+        Vector4[] circlePoints = new Vector4[divisions * sideDivisions + 2];
+        Vector3Int[] circleTri = new Vector3Int[2*(divisions * 2*(sideDivisions-1) + divisions)];
+        Vector2[] circleUV = new Vector2[circlePoints.Length];
+
+        Vector4 thickAxis = GetCircleThickAxis();
+        float thickMult = Mathf.Cos(thickAngle);
+
+        for (int i = 0; i < divisions; i++)
+        {
+            float angle = i * 2*Mathf.PI / divisions;
+            Vector4 circlePos = GetCircleAxis(angle);
+
+            for (int j = 0; j < sideDivisions; j++)
+            {
+                circlePoints[sideDivisions*i + j] = sideDivisonCos[j]*circlePos + sideDivisonSin[j]*thickAxis;
+                circleUV[sideDivisions*i + j] = GetUV(j);
+
+                if (j < sideDivisions-1)
+                {
+                    int index = (sideDivisions+1)*2*i + 2*j;
+                    circleTri[index] = new Vector3Int(GetIndex(j),GetIndex(j+1),GetIndexNext(j+1));
+                    circleTri[index+1] = new Vector3Int(GetIndex(j),GetIndexNext(j+1),GetIndexNext(j));
+                }
+            }
+
+            circleTri[(sideDivisions+1)*2*i + 2*(sideDivisions-1)] = new Vector3Int(circlePoints.Length-2, GetIndex(0), GetIndexNext(0));
+            circleTri[(sideDivisions+1)*2*i + 2*(sideDivisions-1) + 1] = new Vector3Int(circlePoints.Length-1, GetIndex(sideDivisions-1), GetIndexNext(sideDivisions-1));
+
+            Vector2 GetUV(int localIndex)
+            {
+                Vector2 outV = new Vector2();
+
+                outV.y = 0.5f*(localIndex%3);
+
+                if (i % 2 == 1) 
+                {
+                    outV.x = 0.5f;
+                    outV.y *= -1;
+                }
+
+                return outV;
+            }
+
+            int GetIndex(int local)
+            {
+                return sideDivisions*i + local;
+            }
+            int GetIndexNext(int local) //get tri index for the next "i" iteration
+            {
+                int anchor = i+1;
+                if (anchor >= divisions) anchor -= divisions;
+
+                return sideDivisions*anchor + local;
+            }
+        }
+
+        circlePoints[^2] = -thickAxis;
+        circlePoints[^1] = thickAxis;
+
+        circleUV[^2] = new Vector2(0.5f,0.5f);
+        circleUV[^1] = new Vector2(0.5f,0.5f);
+
+        //doubel tri
+        for (int i = 0; i < circleTri.Length/2; i++) {
+            circleTri[i+(circleTri.Length/2)] = new Vector3Int(circleTri[i].z,circleTri[i].y,circleTri[i].x);
+        }
+
+        outVertex = circlePoints;
+        outUV = circleUV;
+        outTri = circleTri;
+    }
+
     Vector4 GetCircleAxis(float angle)
     {
-        switch (axisMode)
-        {
-            case 0:
-                return new Vector4(Mathf.Cos(angle), 0, 0, Mathf.Sin(angle));
-            case 1:
-                return new Vector4(0, Mathf.Cos(angle), 0, Mathf.Sin(angle));
-            case 2:
-                return new Vector4(0, 0, Mathf.Cos(angle), Mathf.Sin(angle));
-            case 3:
-                return new Vector4(Mathf.Cos(angle), Mathf.Sin(angle), 0, 0);
-            case 4:
-                return new Vector4(0, Mathf.Cos(angle), Mathf.Sin(angle), 0);
-            case 5:
-                return new Vector4(Mathf.Cos(angle), 0, Mathf.Sin(angle), 0);
-            default:
-                return new Vector4(Mathf.Cos(angle), 0, 0, Mathf.Sin(angle));
-        }
+        Vector4 v = new Vector4();
+        v[axis1] = Mathf.Cos(angle);
+        v[axis2] = Mathf.Sin(angle);
+        return v;
     }
     Vector4 GetCircleThickAxis()
     {
-        switch (axisMode)
-        {
-            case 0:
-                return new Vector4(0, Mathf.Sin(thickAngle), 0, 0);
-            case 1:
-                return new Vector4(0, 0, Mathf.Sin(thickAngle), 0);
-            case 2:
-                return new Vector4(Mathf.Sin(thickAngle), 0, 0, 0);
-            case 3:
-                return new Vector4(0, 0, Mathf.Sin(thickAngle), 0);
-            case 4:
-                return new Vector4(Mathf.Sin(thickAngle), 0, 0, 0);
-            case 5:
-                return new Vector4(0, Mathf.Sin(thickAngle), 0, 0);
-            default:
-                return new Vector4(0, Mathf.Sin(thickAngle), 0, 0);
-        }
+        Vector4 v = new Vector4();
+        v[axisThick] = 1;
+        return v;
     }
 }
