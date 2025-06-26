@@ -18,9 +18,23 @@ public static class UFunc
         return Mathf.Sqrt(x*x + y*y + z*z + w*w);
     }
 
+    public static float Dot(Vector3 v1, Vector3 v2)
+    {
+        return v1.x*v2.x + v1.y*v2.y + v1.z*v2.z;
+    }
     public static float Dot(Vector4 v1, Vector4 v2)
     {
         return v1.x*v2.x + v1.y*v2.y + v1.z*v2.z + v1.w*v2.w;
+    }
+
+    public static Vector3 LerpVec3(Vector3 v1, Vector3 v2, float t)
+    {
+        return new Vector3(Mathf.Lerp(v1.x,v2.x,t), Mathf.Lerp(v1.y,v2.y,t), Mathf.Lerp(v1.z,v2.z,t));
+    }
+
+    public static Vector3 TriNormal(Vector3 v1, Vector3 v2, Vector3 v3)
+    {
+        return Vector3.Cross(v2-v1, v3-v1).normalized;
     }
 
     public static Vector4 ProjectToVectorNormal(Vector4 v1, Vector4 normal)
@@ -193,5 +207,10 @@ public static class UFunc
     {
         float degree = Mathf.Pow(10, digit);
         return Mathf.Round(num*degree)/degree;
+    }
+
+    public static bool SameSign(float n1, float n2)
+    {
+        return Mathf.Sign(n1) == Mathf.Sign(n2);
     }
 }
