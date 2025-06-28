@@ -194,6 +194,14 @@ public static class UFunc
         return planeToXY.transpose * MatXYRot(angle) * planeToXY;
     }
 
+    public static Vector4 LineXIntersect(Vector4 v1, Vector4 v2, float intersectVal)
+    {
+        Vector4 d = v2-v1;
+
+        float theFactor = (intersectVal-v1.x)/d.x;
+
+        return new Vector4(intersectVal, d.y*theFactor + v1.y, d.z*theFactor + v1.z, d.w*theFactor + v1.w);
+    }
     public static Vector4 LineYIntersect(Vector4 v1, Vector4 v2, float intersectVal)
     {
         Vector4 d = v2-v1;
@@ -201,6 +209,14 @@ public static class UFunc
         float theFactor = (intersectVal-v1.y)/d.y;
 
         return new Vector4(d.x*theFactor + v1.x, intersectVal, d.z*theFactor + v1.z, d.w*theFactor + v1.w);
+    }
+    public static Vector4 LineZIntersect(Vector4 v1, Vector4 v2, float intersectVal)
+    {
+        Vector4 d = v2-v1;
+
+        float theFactor = (intersectVal-v1.z)/d.z;
+
+        return new Vector4(d.x*theFactor + v1.x, d.y*theFactor + v1.y, intersectVal, d.w*theFactor + v1.w);
     }
 
     public static float RoundDigit(float num, int digit)
@@ -212,5 +228,14 @@ public static class UFunc
     public static bool SameSign(float n1, float n2)
     {
         return Mathf.Sign(n1) == Mathf.Sign(n2);
+    }
+
+    public static Vector3 VectorBasisShift(Vector3 vec, Vector3 xBase, Vector3 yBase, Vector3 zBase)
+    {
+        return new Vector3(
+            vec.x*xBase.x + vec.y*yBase.x + vec.z*zBase.x,
+            vec.x*xBase.y + vec.y*yBase.y + vec.z*zBase.y,
+            vec.x*xBase.z + vec.y*yBase.z + vec.z*zBase.z
+        );
     }
 }

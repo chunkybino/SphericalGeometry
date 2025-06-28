@@ -140,11 +140,61 @@ public class ColliderBad : MonoBehaviour
         Vector3 GetDot(Vector3 v) {
             return new Vector3(UFunc.Dot(v, normal), UFunc.Dot(v, sideNorm1), UFunc.Dot(v, sideNorm2));
         }
+        Vector3 GetDotReverse(Vector3 v) {
+            return new Vector3(UFunc.Dot(v, col.normal), UFunc.Dot(v, col.sideNorm1), UFunc.Dot(v, col.sideNorm2));
+        }
 
         Vector3 velDot = GetDot(vel);
+        Vector3 velDotReverse = GetDotReverse(-vel);
 
-        Vector3[] normalDots = new Vector3[validVertex.Count];
+        //Vector3[] normalDots = new Vector3[validVertex.Count];
 
+        Vector3[] relativeVerticiesReverse = new Vector3[4];
+        for (int i = 0; i < 4; i++) {relativeVerticiesReverse[i] = verticiesWorld[i] - col.transform.position;}
+
+        Vector3 outV = new Vector3();
+        bool hit = CheckPlane(validVertex.Count, false, ref outV);
+        if (hit) return outV;
+        hit = CheckPlane(relativeVerticiesReverse.Length, true, ref outV);
+        if (hit) {
+            print("hit "+outV.ToString());
+            return -outV;
+        }
+
+        bool CheckPlane(int validVertexLength, bool reverse, ref Vector3 outV)
+        {
+            Vector3 velD = reverse ? velDotReverse : velDot;
+            Vector3 norm = reverse ? col.normal : normal;
+            Vector2 sideLengths = reverse ? new Vector2(col.sideLength1,col.sideLength2) : new Vector2(sideLength1,sideLength2);
+
+            Vector3[] normalDots = new Vector3[validVertexLength];
+
+            int smallestNormalIndex = 0; //smallest normal that point sin direciton of velocity
+            bool allSameNormalSign = true;
+            for (int i = 0; i < normalDots.Length; i++) 
+            {
+                Vector3 vertex = reverse ? relativeVerticiesReverse[i] : validVertex[i];
+                normalDots[i] = reverse ? GetDotReverse(vertex) : GetDot(vertex);
+                if (reverse) print(normalDots[i]);
+                if (i > 0 && !UFunc.SameSign(normalDots[i].x,normalDots[i-1].x)) allSameNormalSign = false;
+
+                if (!UFunc.SameSign(normalDots[i].x, velD.x) &&
+                    Mathf.Abs(normalDots[i].x) < Mathf.Abs(normalDots[smallestNormalIndex].x))
+                {
+                    smallestNormalIndex = i;
+                }
+            }
+
+            if (allSameNormalSign)
+            {
+                //Vector3 outV = new Vector3();
+                bool hit = CheckPointOnPlane(normalDots[smallestNormalIndex], velD, norm, sideLengths, ref outV);
+                return hit;
+            }
+            return false;
+        }
+
+        /*
         int smallestNormalIndex = 0; //smallest normal that point sin direciton of velocity
         bool allSameNormalSign = true;
         for (int i = 0; i < normalDots.Length; i++) 
@@ -159,20 +209,57 @@ public class ColliderBad : MonoBehaviour
             }
         }
 
-        Vector3 smallestNormalPoint = normalDots[smallestNormalIndex];
-
         if (allSameNormalSign)
         {
+            Vector3 outV = new Vector3();
+            bool hit = CheckPointOnPlane(normalDots[smallestNormalIndex], velDot, normal, new Vector2(sideLength1,sideLength2), ref outV);
+            if (hit) return outV;
+        }
+
+        //check the reverse point against plane
+        Vector3[] relativeVerticiesReverse = new Vector3[4];
+        for (int i = 0; i < 4; i++) {relativeVerticiesReverse[i] = verticiesWorld[i] - col.transform.position;}
+        Vector3[] normalDotsReverse = new Vector3[4];
+
+        Vector3 velDotReverse = GetDotReverse(-vel);
+
+        int smallestNormalIndexReverse = 0; //smallest normal that point sin direciton of velocity
+        bool allSameNormalSignReverse = true;
+        for (int i = 0; i < relativeVerticiesReverse.Length; i++) 
+        {
+            normalDotsReverse[i] = GetDotReverse(relativeVerticiesReverse[i]);
+            
+            if (i > 0 && !UFunc.SameSign(normalDotsReverse[i].x,normalDotsReverse[i-1].x)) allSameNormalSignReverse = false;
+
+            if (!UFunc.SameSign(normalDotsReverse[i].x, velDotReverse.x) &&
+                Mathf.Abs(normalDotsReverse[i].x) < Mathf.Abs(normalDotsReverse[smallestNormalIndexReverse].x))
+            {
+                smallestNormalIndexReverse = i;
+            }
+        }
+
+        if (allSameNormalSignReverse)
+        {
+            Vector3 outV = new Vector3();
+            bool hit = CheckPointOnPlane(normalDotsReverse[smallestNormalIndexReverse], velDotReverse, col.normal, new Vector2(col.sideLength1,col.sideLength2), ref outV);
+            if (hit) return outV;
+        }
+        */
+
+        bool CheckPointOnPlane(Vector3 point, Vector3 velDot, Vector3 norm, Vector2 sideLengths, ref Vector3 outV)
+        {
             //we dont move furth enough to intersect
-            if (UFunc.SameSign(smallestNormalPoint.x, smallestNormalPoint.x + velDot.x)) return Vector3.zero;
+            if (UFunc.SameSign(point.x, point.x + velDot.x)) return false;
 
-            Vector2 planeIntersect = new Vector2(smallestNormalPoint.y, smallestNormalPoint.z) + new Vector2(velDot.y,velDot.z) * (smallestNormalPoint.x/velDot.x);
+            Vector2 planeIntersect = new Vector2(point.y, point.z) + new Vector2(velDot.y,velDot.z) * (point.x/velDot.x);
 
-            if (Mathf.Abs(planeIntersect.x) < sideLength1 && Mathf.Abs(planeIntersect.y) < sideLength2)
+            if (Mathf.Abs(planeIntersect.x) < sideLengths.x && Mathf.Abs(planeIntersect.y) < sideLengths.y)
             {
                 //the point intersects the plane
-                return normal * -(smallestNormalPoint.x + velDot.x);
+                outV = norm * -(point.x + velDot.x);
+                return true;
             }
+            return false;
         }
 
         for (int i = 0; i < validEdges.Count/2; i++)
@@ -180,15 +267,15 @@ public class ColliderBad : MonoBehaviour
             Vector3 v3 = relativeVerticies[validEdges[2*i]];
             Vector3 v4 = relativeVerticies[validEdges[2*i + 1]];
             Vector3 edgeNorm = col.GetEdgeNormal(validEdges[2*i]);
-            print(edgeNorm);
+            //print(edgeNorm);
             for (int j = 0; j < 4; j++)
             {
-                print(edgeNorm+" "+GetEdgeNormal(j).ToString());
+                //print(edgeNorm+" "+GetEdgeNormal(j).ToString());
                 if (UFunc.Dot(edgeNorm, GetEdgeNormal(j)) > 0) continue;
-                print(new Vector2(i,j));
+                //print(new Vector2(i,j));
 
                 Vector3 edgeVec = CheckEdgeOnEdge(verticies[edges[2*j]], verticies[edges[2*j+1]], v3, v4, GetEdgeNormal(j));
-                print(edgeVec);
+                //print(edgeVec);
                 if (edgeVec != Vector3.zero) return edgeVec;
             }
         }
@@ -202,11 +289,11 @@ public class ColliderBad : MonoBehaviour
 
             Vector3 norm = Vector3.Cross(delta1, delta2).normalized;
 
-            print(v1.ToString()+" "+v2.ToString()+" "+v3.ToString()+" "+v4.ToString());
-            print(delta1.ToString()+" "+delta2.ToString());
+            //print(v1.ToString()+" "+v2.ToString()+" "+v3.ToString()+" "+v4.ToString());
+            //print(delta1.ToString()+" "+delta2.ToString());
 
-            print(edgeNormal.ToString() + " " + norm.ToString());
-            print(UFunc.Dot(edgeNormal,norm));
+            //print(edgeNormal.ToString() + " " + norm.ToString());
+            //print(UFunc.Dot(edgeNormal,norm));
 
             //if (UFunc.Dot(edgeNormal,norm) > 0) return Vector3.zero;
 
@@ -217,16 +304,16 @@ public class ColliderBad : MonoBehaviour
 
             float distance = UFunc.Dot(norm, v3-v1);
 
-            print(distance);
-            print(velDot);
+            //print(distance);
+            //print(velDot);
             
             //we dont move furth enough to intersect
             if (UFunc.SameSign(distance, distance + velDot.x)) return Vector3.zero;
 
             Vector3 velMove = vel.normalized * velDot.x; //movement needed for the edges to touch
 
-            print(UFunc.Dot(deltaPerp1, (v3+velMove) - v1).ToString()+" "+UFunc.Dot(deltaPerp1, (v4+velMove) - v1).ToString());
-            print(UFunc.Dot(deltaPerp2, (v3+velMove) - v1).ToString()+" "+UFunc.Dot(deltaPerp2, (v3+velMove) - v2).ToString());
+            //print(UFunc.Dot(deltaPerp1, (v3+velMove) - v1).ToString()+" "+UFunc.Dot(deltaPerp1, (v4+velMove) - v1).ToString());
+            //print(UFunc.Dot(deltaPerp2, (v3+velMove) - v1).ToString()+" "+UFunc.Dot(deltaPerp2, (v3+velMove) - v2).ToString());
 
             //the edges dont interect in their bounds
             if (UFunc.SameSign(UFunc.Dot(deltaPerp1, (v3+velMove) - v1), UFunc.Dot(deltaPerp1, (v4+velMove) - v1))) return Vector3.zero;
