@@ -2291,9 +2291,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 908495fce537cd245877518006bb2415, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  colliderVectorX: {x: 0.9060993, y: 0.24238321, z: 0.3467483}
-  colliderVectorY: {x: -0.32463625, y: 0.9239101, z: 0.20248808}
-  colliderVectorZ: {x: -0.27128452, y: -0.29604137, z: 0.9158407}
+  colliderVectorX: {x: 0.64604586, y: -0.68109095, z: -0.3445865}
+  colliderVectorY: {x: 0.71026814, y: 0.3710841, z: 0.59817713}
+  colliderVectorZ: {x: -0.27954245, y: -0.6311987, z: 0.72349447}
   doCheck: 0
   doCheckTarget: {fileID: 1023605742}
 --- !u!4 &924585427
@@ -2304,13 +2304,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 924585425}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.12879103, y: -0.15966375, z: 0.14648487, w: 0.96770996}
-  m_LocalPosition: {x: 2.33, y: 1.5216694, z: -0.29}
+  m_LocalRotation: {x: 0.3713042, y: 0.019645043, z: -0.42022747, w: 0.8277416}
+  m_LocalPosition: {x: 1.0634876, y: 1.6108779, z: -1.8247019}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 17.22, y: -16.5, z: 14.7}
+  m_LocalEulerAnglesHint: {x: 39.139, y: -21.125, z: -61.417}
 --- !u!1 &932915822
 GameObject:
   m_ObjectHideFlags: 0

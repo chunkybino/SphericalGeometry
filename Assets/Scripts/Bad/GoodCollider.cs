@@ -106,30 +106,16 @@ public class GoodCollider : MonoBehaviour
 
     public Vector3 Check(GoodCollider col)
     {   
-        List<Vector3> validMoveVecs = new List<Vector3>();
-
         Vector3 checkMoveVec = new Vector3();
 
-        if (CheckVertexOnPlane(col, ref checkMoveVec, true)) {
-            validMoveVecs.Add(checkMoveVec);
-        }
-        if (col.CheckVertexOnPlane(this, ref checkMoveVec, false)) {
-            validMoveVecs.Add(-checkMoveVec);
+        if (CheckVertexOnPlane(col, ref checkMoveVec)) {
+            
         }
 
-        if (validMoveVecs.Count == 0) return Vector3.zero;
-
-        Vector3 minVec = validMoveVecs[0];
-        print(validMoveVecs[0]);
-        for (int i = 1; i < validMoveVecs.Count; i++) {
-            print(validMoveVecs[i]);
-            if (validMoveVecs[i].magnitude < minVec.magnitude) minVec = validMoveVecs[i];
-        }
-
-        return minVec;
+        return checkMoveVec;
     }
 
-    public bool CheckVertexOnPlane(GoodCollider col, ref Vector3 outV, bool tryEdges = true) //vertices of input collider against faces of this collider
+    public bool CheckVertexOnPlane(GoodCollider col, ref Vector3 outV) //vertices of input collider against faces of this collider
     {
         Vector3 posDifference = col.transform.position - transform.position;
         Vector3 colCenter = new Vector3(
@@ -149,249 +135,84 @@ public class GoodCollider : MonoBehaviour
             );
         }
 
-        Vector2 hiLoX = new Vector2(verticies[0].x,verticies[0].x);
-        Vector2 hiLoY = new Vector2(verticies[0].y,verticies[0].y);
-        Vector2 hiLoZ = new Vector2(verticies[0].z,verticies[0].z);
-
-        Vector2Int hiLoXIndex = new Vector2Int();
-        Vector2Int hiLoYIndex = new Vector2Int();
-        Vector2Int hiLoZIndex = new Vector2Int();
-
-        for (int i = 0; i < verticies.Length; i++)
-        {
-            Vector3 v = verticies[i];
-
-            bool inX = Mathf.Abs(v.x) <= 1;
-            bool inY = Mathf.Abs(v.y) <= 1;
-            bool inZ = Mathf.Abs(v.z) <= 1;
-            
-            if (inY & inZ) {
-                if (v.x < hiLoX.x) {
-                    hiLoX.x = v.x;
-                    hiLoXIndex.x = i;
-                }
-                if (v.x > hiLoX.y) {
-                    hiLoX.y = v.x;
-                    hiLoXIndex.y = i;
-                }
-            }
-            if (inX & inZ) {
-                if (v.y < hiLoY.x) {
-                    hiLoY.x = v.y;
-                    hiLoYIndex.x = i;
-                }
-                if (v.y > hiLoY.y) {
-                    hiLoY.y = v.y;
-                    hiLoYIndex.y = i;
-                }
-            }
-            if (inX & inY) {
-                if (v.z < hiLoZ.x) {
-                    hiLoZ.x = v.z;
-                    hiLoZIndex.x = i;
-                }
-                if (v.z > hiLoZ.y) {
-                    hiLoZ.y = v.z;
-                    hiLoZIndex.y = i;
-                }
-            }
-        }
-
         List<Vector3> moveVectors = new List<Vector3>();
 
-        for (int i = 0; i < 6; i++) {
-            CheckDirection(i);
-        }
-
-        //funtion tiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiimeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
-        void CheckDirection(int index)
-        {
-            int vertexIndex = 0;
-            float vetexSidePos = 0; //vertex posiiton around dir axis
-            Vector3 dirVec = new Vector3();
-
-            switch (index) {
-                default:
-                    vertexIndex = hiLoXIndex.y;
-                    vetexSidePos = hiLoX.y;
-                    dirVec = Vector3.left;
-                    break;
-                case 1:
-                    vertexIndex = hiLoXIndex.x;
-                    vetexSidePos = hiLoX.x;
-                    dirVec = Vector3.right;
-                    break;
-                case 2:
-                    vertexIndex = hiLoYIndex.y;
-                    vetexSidePos = hiLoY.y;
-                    dirVec = Vector3.down;
-                    break;
-                case 3:
-                    vertexIndex = hiLoYIndex.x;
-                    vetexSidePos = hiLoY.x;
-                    dirVec = Vector3.up;
-                    break;
-                case 4:
-                    vertexIndex = hiLoZIndex.y;
-                    vetexSidePos = hiLoZ.y;
-                    dirVec = Vector3.back;
-                    break;
-                case 5:
-                    vertexIndex = hiLoZIndex.x;
-                    vetexSidePos = hiLoZ.x;
-                    dirVec = Vector3.forward;
-                    break;
-            }
-
-            print("vertex " + vertexIndex.ToString());
-
-            Vector3 vertex = verticies[vertexIndex];
-
-            //the vectors that moves furthest against the dir vec
-            Vector3 furthestOpposeEdge = vertex;
-            float furthestOpposeDistance = UFunc.Dot(dirVec, vertex);
-            //print(furthestOpposeDistance);
-            //int opposeVertexCount = 0;
-            List<int> opposeVertexEdgeIndex = new List<int>();
-
-            Vector3Int adjacentEdges = edgeAdjacents[vertexIndex];
-
-            for (int i = 0; i < 3; i++) {
-                float dot = UFunc.Dot(dirVec, verticies[adjacentEdges[i]]);
-                if (dot < furthestOpposeDistance) {
-                    furthestOpposeEdge = verticies[adjacentEdges[i]];
-                    furthestOpposeDistance = dot;
-                    opposeVertexEdgeIndex.Add(i);
-                }
-                //print(dot);
-            }
-
-            print(opposeVertexEdgeIndex.Count);
-
-            if (opposeVertexEdgeIndex.Count == 0) //normal point on face collision, get the distance from face and add it to list
-            {
-                float distance = (index % 2 == 0) ? 
-                    vetexSidePos+1 : //distance from negative side
-                    -vetexSidePos+1; //distance from positive side
-
-                if (distance > 0) moveVectors.Add(dirVec * distance);
-            }
-            else if (opposeVertexEdgeIndex.Count == 1 && tryEdges && false) //edge-edge collision time
-            {
-                Vector3 vertexCenterDelta = colCenter-vertex; //distance from vertex to center of its collider
-                int cornerVertexIndex = 0;
-
-                //find whaty quadrants the delta sits in to get the corner of the edges we'll be checking
-                if (vertexCenterDelta.x > 0) cornerVertexIndex += 1;
-                if (vertexCenterDelta.y > 0) cornerVertexIndex += 2;
-                if (vertexCenterDelta.z > 0) cornerVertexIndex += 4;
-
-                Vector3 otherAdjacentVertex1 = verticies[adjacentEdges[1]]; //the adjacent vertex that is not furthestOpposeEdge
-                Vector3 otherAdjacentVertex2 = verticies[adjacentEdges[2]];
-                if (opposeVertexEdgeIndex[0] == 1) {
-                    otherAdjacentVertex1 = verticies[adjacentEdges[0]];
-                    otherAdjacentVertex2 = verticies[adjacentEdges[2]];
-                } else if (opposeVertexEdgeIndex[0] == 2) {
-                    otherAdjacentVertex1 = verticies[adjacentEdges[0]];
-                    otherAdjacentVertex2 = verticies[adjacentEdges[1]];
-                }
-
-                Vector3 minMove = new Vector3();
-
-                //if the other adjacent verticies are on opposite sides of our vertex along a certian axis, we can intersect the edge along that axis
-                List<int> edgeCheckIndex = new List<int>();
-
-                Vector3 cornerSignV = GetVertexSign(cornerVertexIndex);
-
-                bool xValid = UFunc.SameSign(otherAdjacentVertex1.x-vertex.x, cornerSignV.x) && UFunc.SameSign(otherAdjacentVertex2.x-vertex.x, cornerSignV.x);
-                bool yValid = UFunc.SameSign(otherAdjacentVertex1.y-vertex.y, cornerSignV.y) && UFunc.SameSign(otherAdjacentVertex2.y-vertex.y, cornerSignV.y);
-                bool zValid = UFunc.SameSign(otherAdjacentVertex1.z-vertex.z, cornerSignV.z) && UFunc.SameSign(otherAdjacentVertex2.z-vertex.z, cornerSignV.z);
-
-                if (yValid && zValid) edgeCheckIndex.Add(0);
-                if (xValid && zValid) edgeCheckIndex.Add(1);
-                if (xValid && yValid) edgeCheckIndex.Add(2);
-
-                for (int i = 0; i < edgeCheckIndex.Count; i++) //check the 3 edges of the corner
-                {
-                    print(cornerVertexIndex);
-                    print(edgeCheckIndex[i]);
-                    print(edgeAdjacents[cornerVertexIndex]);
-                    print(edgeAdjacents[cornerVertexIndex][edgeCheckIndex[i]]);
-                    print(furthestOpposeEdge-vertex);
-
-                    Vector3 move = CheckEdgeOnEdge(
-                        GetVertexSign(cornerVertexIndex),
-                        GetVertexSign(edgeAdjacents[cornerVertexIndex][edgeCheckIndex[i]]), 
-                        vertex, 
-                        furthestOpposeEdge
-                    );
-
-                    print("move " +move.ToString());
-
-                    if (i == 0 || move.magnitude < minMove.magnitude) minMove = -move;
-                }
-
-                print(minMove);
-
-                moveVectors.Add(minMove);
-            }
-        }
-        //fucniton eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeendddddddddddddddddddddddddddddddddddddddd
+        DoVertex();
+        DoEdge();
+        DoFace();
 
         if (moveVectors.Count == 0) return false;
 
-        Vector3 closestMoveVector = moveVectors[0];
-        float closestMag = GetWarpMagnitude(closestMoveVector);
-        
-        print("the collection");
-        for (int i = 0; i < moveVectors.Count; i++) 
+        Vector3 minVector = moveVectors[0];
+        foreach (Vector3 v in moveVectors)
         {
-            print(moveVectors[i]);
-            float mag = GetWarpMagnitude(moveVectors[i]);
-            print(mag);
-            if (mag < closestMag) {
-                closestMoveVector = moveVectors[i];// * mag;
-                closestMag = mag;
-            }
+            if (v.magnitude < minVector.magnitude) minVector = v;
         }
 
-        print(closestMoveVector);
-
-        float GetWarpMagnitude(Vector3 v) //get magnitude accounting for the scale of the collider, and how that warps the different axis lengths
-        {
-            return Mathf.Sqrt(
-                Mathf.Pow(v.x * transform.localScale.x, 2) +
-                Mathf.Pow(v.y * transform.localScale.y, 2) +
-                Mathf.Pow(v.z * transform.localScale.z, 2)
-            );
-        }
-
-        closestMoveVector = 
-            closestMoveVector.x * colliderVectorX +
-            closestMoveVector.y * colliderVectorY +
-            closestMoveVector.z * colliderVectorZ;
-
-        //closestMoveVector *= -1;
-
-        print(closestMoveVector);
-
-        outV = closestMoveVector;
+        outV = minVector;
         return true;
-    }
 
-    Vector3 CheckEdgeOnEdge(Vector3 v1, Vector3 v2, Vector3 v3, Vector3 v4)
-    {
-        print(v1.ToString()+" "+v2.ToString());
-        Vector3 d1 = v2-v1;
-        Vector3 d2 = v4-v3;
+        void DoVertex()
+        {
+            //indexes of points furthest from griven face (vertexLo is distance from -x, -y, and -z plane respectivly)
+            Vector3Int vertexLo = new Vector3Int();
+            Vector3Int vertexHi = new Vector3Int();
 
-        Vector3 norm = Vector3.Cross(d1,d2).normalized;
+            for (int i = 0; i < 8; i++)
+            {
+                if (verticies[i].x < verticies[vertexLo.x].x) vertexLo.x = i;
+                if (verticies[i].y < verticies[vertexLo.y].y) vertexLo.y = i;
+                if (verticies[i].z < verticies[vertexLo.z].z) vertexLo.z = i;
+            }
 
-        print(norm);
-        float distance = UFunc.Dot(norm, v3-v1);
-        print(distance);
+            vertexHi.x = 7-vertexLo.x; // the Hi is always the vertex on the opposite side from the Lo index
+            vertexHi.y = 7-vertexLo.y;
+            vertexHi.z = 7-vertexLo.z;
 
-        return norm * distance;
+            float[] distances = new float[] {1-verticies[vertexLo.x].x, 1+verticies[vertexHi.x].x, 1-verticies[vertexLo.y].y, 1+verticies[vertexHi.y].y, 1-verticies[vertexLo.z].z, 1+verticies[vertexHi.z].z};
+            int furthestIndex = UFunc.ClosestOfListIndex(distances);
+
+            if (distances[furthestIndex] <= 0) return;
+
+            Vector3 addVector = new Vector3();
+            addVector[furthestIndex/2] = distances[furthestIndex];
+            if (furthestIndex % 2 == 1) addVector *= -1; 
+            moveVectors.Add(addVector);
+        }
+
+        void DoEdge()
+        {
+
+        }
+
+        void DoFace()
+        {
+            Vector3[] faceNormals = new Vector3[] {
+                col.colliderVectorX.normalized, -col.colliderVectorX.normalized,
+                col.colliderVectorY.normalized, -col.colliderVectorY.normalized,
+                col.colliderVectorZ.normalized, -col.colliderVectorZ.normalized
+            };
+
+            //int[] faceFurthestVertex = new int[6];
+            float[] distances = new float[6];
+
+            for (int i = 0; i < 6; i++)
+            {
+                Vector3 norm = faceNormals[i];
+                int vertexIndex = 0;
+                if (norm.x > 0) vertexIndex += 1;
+                if (norm.y > 0) vertexIndex += 2;
+                if (norm.z > 0) vertexIndex += 4;
+
+                distances[i] = UFunc.Dot(GetVertexSign(vertexIndex)-colCenter, norm) + transform.localScale[i/3];
+            }
+
+            int minIndex = UFunc.MinIndex(distances);
+
+            if (distances[minIndex] <= 0) return;
+
+            moveVectors.Add(faceNormals[minIndex] * distances[minIndex]);
+        }
     }
 
     void OnDrawGizmos()

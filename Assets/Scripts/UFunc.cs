@@ -248,10 +248,67 @@ public static class UFunc
         }
         return true;
     }
-    public static bool FurtherThanAll(float n, float direction, params float[] list) //less than or great than depending on direciton
+    public static bool FurtherThanAll(float n, params float[] list) //further from zero
     {
-        if (direction >= 0) return GreaterThanAll(n, list);
-        return LessThanAll(n, list);
+        n = Mathf.Abs(n);
+        for (int i = 0; i < list.Length; i++) {
+            if (n < Mathf.Abs(list[i])) return false;
+        }
+        return true;
+    }
+
+    public static float FurthestOfList(params float[] list) //returns the element thats furtherst from zero
+    {
+        float furthest = list[0];
+        for (int i = 1; i < list.Length; i++) {
+            if (Mathf.Abs(list[i]) > Mathf.Abs(furthest)) furthest = list[i];
+        }
+        return furthest;
+    }
+    public static int FurthestOfListIndex(params float[] list) //returns the element thats furtherst from zero
+    {
+        float furthest = Mathf.Abs(list[0]);
+        int index = 0;
+        for (int i = 1; i < list.Length; i++) {
+            if (Mathf.Abs(list[i]) > Mathf.Abs(furthest)) {
+                furthest = Mathf.Abs(list[i]);
+                index = i;
+            }
+        }
+        return index;
+    }
+    public static int ClosestOfListIndex(params float[] list) //returns the element thats closest to zero
+    {
+        float furthest = Mathf.Abs(list[0]);
+        int index = 0;
+        for (int i = 1; i < list.Length; i++) {
+            if (Mathf.Abs(list[i]) < Mathf.Abs(furthest)) {
+                furthest = Mathf.Abs(list[i]);
+                index = i;
+            }
+        }
+        return index;
+    }
+
+    public static int MinIndex(params float[] list)
+    {
+        int index = 0;
+        for (int i = 1; i < list.Length; i++) {
+            if (list[i] < list[index]) {
+                index = i;
+            }
+        }
+        return index;
+    }
+    public static int MaxIndex(params float[] list)
+    {
+        int index = 0;
+        for (int i = 1; i < list.Length; i++) {
+            if (list[i] > list[index]) {
+                index = i;
+            }
+        }
+        return index;
     }
 
     public static Vector3 VectorBasisShift(Vector3 vec, Vector3 xBase, Vector3 yBase, Vector3 zBase)
