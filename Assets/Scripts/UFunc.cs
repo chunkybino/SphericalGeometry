@@ -18,6 +18,10 @@ public static class UFunc
         return Mathf.Sqrt(x*x + y*y + z*z + w*w);
     }
 
+    public static float Dot(Vector2 v1, Vector2 v2)
+    {
+        return v1.x*v2.x + v1.y*v2.y;
+    }
     public static float Dot(Vector3 v1, Vector3 v2)
     {
         return v1.x*v2.x + v1.y*v2.y + v1.z*v2.z;
@@ -228,6 +232,26 @@ public static class UFunc
     public static bool SameSign(float n1, float n2)
     {
         return Mathf.Sign(n1) == Mathf.Sign(n2);
+    }
+
+    public static bool LessThanAll(float n, params float[] list)
+    {
+        for (int i = 0; i < list.Length; i++) {
+            if (n > list[i]) return false;
+        }
+        return true;
+    }
+    public static bool GreaterThanAll(float n, params float[] list)
+    {
+        for (int i = 0; i < list.Length; i++) {
+            if (n < list[i]) return false;
+        }
+        return true;
+    }
+    public static bool FurtherThanAll(float n, float direction, params float[] list) //less than or great than depending on direciton
+    {
+        if (direction >= 0) return GreaterThanAll(n, list);
+        return LessThanAll(n, list);
     }
 
     public static Vector3 VectorBasisShift(Vector3 vec, Vector3 xBase, Vector3 yBase, Vector3 zBase)
