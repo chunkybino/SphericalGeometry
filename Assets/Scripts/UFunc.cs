@@ -233,6 +233,10 @@ public static class UFunc
     {
         return Mathf.Sign(n1) == Mathf.Sign(n2);
     }
+    public static bool SameSign(Vector3 n1, Vector3 n2)
+    {
+        return SameSign(n1.x,n2.x) && SameSign(n1.y,n2.y) && SameSign(n1.z,n2.z);
+    }
 
     public static bool LessThanAll(float n, params float[] list)
     {
@@ -309,6 +313,19 @@ public static class UFunc
             }
         }
         return index;
+    }
+
+    public static bool GreaterDirection(float n1, float n2, float dir) //is number greater in specified direction
+    {
+        if (dir >= 0) {
+            return n1 > n2;
+        } 
+        return n1 < n2;
+    }
+
+    public static bool SameQuadrant(Vector2 v1, Vector2 v2)
+    {
+        return SameSign(v1.x,v2.x) && SameSign(v1.y,v2.y);
     }
 
     public static Vector3 VectorBasisShift(Vector3 vec, Vector3 xBase, Vector3 yBase, Vector3 zBase)
