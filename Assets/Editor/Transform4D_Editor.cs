@@ -7,6 +7,7 @@ public class Transform4D_Editor : Editor
 {
     Transform4D transform;
     Matrix4x4 mat;
+    Matrix4x4 localMat;
 
     Vector3 moveDirection;
     float rotateAmount = Mathf.PI/4;
@@ -18,8 +19,11 @@ public class Transform4D_Editor : Editor
         transform = (Transform4D)target;
 
         mat = transform.matrix;
+        localMat = transform.localMatrix;
 
         base.OnInspectorGUI();
+
+        EditorGUILayout.ObjectField("Parent", transform.parent, typeof(Transform4D), false);
 
         DisplayMatrix();
 
@@ -33,16 +37,26 @@ public class Transform4D_Editor : Editor
     void DisplayMatrix()
     {
         EditorGUILayout.BeginVertical();
-        for (int j = 0; j < 4; j++)
-        {
-            EditorGUILayout.LabelField(
-                GetNum(mat[j,0]) + "    " +
-                GetNum(mat[j,1]) + "    " +
-                GetNum(mat[j,2]) + "    " +
-                GetNum(mat[j,3])
-            );
-        }
+
+        EditorGUILayout.LabelField("World Matrix");
+        DoMatrix(mat);
+
+        EditorGUILayout.LabelField("Local Matrix");
+        DoMatrix(localMat);
+
         EditorGUILayout.EndVertical();
+
+        void DoMatrix(Matrix4x4 m) {
+            for (int j = 0; j < 4; j++)
+            {
+                EditorGUILayout.LabelField(
+                    GetNum(m[j,0]) + "    " +
+                    GetNum(m[j,1]) + "    " +
+                    GetNum(m[j,2]) + "    " +
+                    GetNum(m[j,3])
+                );
+            }
+        }
 
         string GetNum(float inNum)
         {

@@ -20,7 +20,9 @@ public class Camera4D : MonoBehaviour
     {
         if (transform4 == null) return;
 
-        viewMatrix = transform4.matrix * UFunc.MatZYRot(pitchAngle);
+        transform4.localMatrix = UFunc.MatZYRot(pitchAngle);
+
+        viewMatrix = transform4.matrix; //* UFunc.MatZYRot(pitchAngle);
         //viewMatrix.SetRow(2, viewMatrix.GetRow(2)*-1);
         camera.worldToCameraMatrix = viewMatrix.inverse;
     }

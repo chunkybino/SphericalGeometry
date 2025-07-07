@@ -6,26 +6,89 @@ using UnityEngine.Events;
 [ExecuteAlways]
 public class Transform4D : MonoBehaviour
 {
+    [HideInInspector] public Transform4D parent;
+    [HideInInspector] public List<Transform4D> children = new List<Transform4D>();
+
     public static float radius = 1;
 
     public Transform4D()
     {
-        matrix = Matrix4x4.identity;
+        m_matrix = Matrix4x4.identity;
+        m_localMatrix = Matrix4x4.identity;
+
+        children.Remove(this);
     }
 
-    public Matrix4x4 matrix;
-    public Matrix4x4 GetMatrix() {return matrix;}
+    void Awake()
+    {
+        if (transform.parent && transform.parent.TryGetComponent<Transform4D>(out Transform4D par)) {
+            parent = par;
+            parent.children.Remove(this);
+            parent.children.Add(this);
+        }
+        if (parent == this) parent = null;
+    }
+    void OnDestroy()
+    {
+        parent?.children.Remove(this);
+    }
 
-    public Vector4 position {
+    Matrix4x4 m_matrix;
+    Matrix4x4 m_localMatrix;
+
+    Matrix4x4 parentMatrix {get{
+        if (parent) return parent.matrix;
+        return Matrix4x4.identity;
+    }}
+
+    public Matrix4x4 matrix {
         get {
-            return matrix.GetColumn(3) * radius;
+            return m_matrix;
+        }
+        set {
+            if (m_matrix == value) return;
+            m_matrix = value;
+            m_localMatrix = parentMatrix.transpose * m_matrix;
+            MatrixUpdate();
         }
     }
-    public Vector4 positionNorm {
+    public Matrix4x4 localMatrix {
         get {
-            return matrix.GetColumn(3);
+            return m_localMatrix;
+        }
+        set {
+            if (m_localMatrix == value) return;
+            m_localMatrix = value;
+            m_matrix = parentMatrix * m_localMatrix;
+            MatrixUpdate();
         }
     }
+
+    void MatrixUpdate()
+    {
+        foreach (Transform4D c in children) {
+            if (c == this) continue;
+            c.RecompMatrix();
+        }
+    }
+    public void RecompMatrix()
+    {
+        m_matrix = parentMatrix * m_localMatrix;
+        MatrixUpdate();
+    }
+
+    public Vector4 position { get {
+        return matrix.GetColumn(3) * radius;
+    }}
+    public Vector4 positionNorm { get {
+        return matrix.GetColumn(3);
+    }}
+    public Vector4 localPosition { get {
+        return localMatrix.GetColumn(3) * radius;
+    }}
+    public Vector4 localPositionNorm { get {
+        return localMatrix.GetColumn(3);
+    }}
 
     public Vector4 xBasis {get{return matrix.GetColumn(0);}}
     public Vector4 yBasis {get{return matrix.GetColumn(1);}}
@@ -55,8 +118,8 @@ public class Transform4D : MonoBehaviour
 
     public bool lockSterographicPos = true;
 
-    public UnityEvent<Matrix4x4> onLeftMult;
-    public UnityEvent<Matrix4x4> onRightMult;
+    [HideInInspector] public UnityEvent<Matrix4x4> onLeftMult;
+    [HideInInspector] public UnityEvent<Matrix4x4> onRightMult;
 
     void OnValidate()
     {
@@ -105,7 +168,7 @@ public class Transform4D : MonoBehaviour
     }
     public void RightMult(Matrix4x4 mat)
     {
-        matrix =  matrix * mat;
+        matrix = matrix * mat;
         onRightMult?.Invoke(mat);
     }
 

@@ -5,6 +5,7 @@ public class GuyController4D : MonoBehaviour
     [SerializeField] Transform4D transform4;
     [SerializeField] Rigidbody4D rb;
     [SerializeField] Camera4D camera;
+    Transform4D camTransform {get{return camera.transform4;}}
 
     [SerializeField] PlayerInput input;
 
