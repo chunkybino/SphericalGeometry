@@ -105,19 +105,10 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "MouseUp",
+                    "name": "MouseDelta",
                     "type": "Value",
                     "id": "e8043750-0d73-4966-9a2e-e8c6d122bbd0",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": true
-                },
-                {
-                    "name": "MouseRight",
-                    "type": "Value",
-                    "id": "4857d725-8806-4ed9-8c6e-458461b70c43",
-                    "expectedControlType": "",
+                    "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
@@ -248,22 +239,11 @@
                 {
                     "name": "",
                     "id": "4b7607bd-569b-4b8f-933e-1d8161c00be0",
-                    "path": "<Mouse>/delta/up",
+                    "path": "<Mouse>/delta",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "MouseUp",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "6ced8499-2686-47b9-ab7f-f8172ab35a7a",
-                    "path": "<Mouse>/delta/right",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "MouseRight",
+                    "action": "MouseDelta",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

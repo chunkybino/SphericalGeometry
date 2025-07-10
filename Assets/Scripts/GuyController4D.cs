@@ -13,11 +13,15 @@ public class GuyController4D : MonoBehaviour
     [SerializeField] Vector3 moveVector;
 
     [SerializeField] float lookSpeed = 1;
-    [SerializeField] Vector2 lookVector;
 
     [SerializeField] bool doCameraPitch;
 
     [SerializeField] float jumpForce;
+
+    void Awake()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+    }
 
     void Update()
     {
@@ -41,20 +45,13 @@ public class GuyController4D : MonoBehaviour
         }
 
         //look
-        lookVector = Vector2.zero;
+        Vector3 angleVector = input.mouseDelta * lookSpeed;
 
-        if (input.leftArrow) lookVector.x--;
-        if (input.rightArrow) lookVector.x++;
-        if (input.downArrow) lookVector.y--;
-        if (input.upArrow) lookVector.y++;
-
-        Vector3 angleVector = new Vector3(-lookVector.y, -lookVector.x, 0) * lookSpeed;
         if (camera && doCameraPitch) 
         {
-            camera.pitchAngle = Mathf.Clamp(camera.pitchAngle + (-angleVector.x * Time.deltaTime), -Mathf.PI/2, Mathf.PI/2);
-            angleVector.x = 0;
+            camera.pitchAngle = Mathf.Clamp(camera.pitchAngle + (angleVector.y * Time.deltaTime), -Mathf.PI/2, Mathf.PI/2);
         }
 
-        rb.angularVelocity = angleVector;
+        rb.angularVelocity = new Vector3(0, -angleVector.x, 0);
     }
 }
