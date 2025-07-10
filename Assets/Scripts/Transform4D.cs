@@ -11,30 +11,50 @@ public class Transform4D : MonoBehaviour
 
     public static float radius = 1;
 
-    public Transform4D()
+    Transform4D()
     {
         m_matrix = Matrix4x4.identity;
         m_localMatrix = Matrix4x4.identity;
-
-        children.Remove(this);
     }
 
-    void Awake()
+    void OnEnable()
     {
-        if (transform.parent && transform.parent.TryGetComponent<Transform4D>(out Transform4D par)) {
-            parent = par;
-            parent.children.Remove(this);
-            parent.children.Add(this);
-        }
-        if (parent == this) parent = null;
+        FindParent();
     }
     void OnDestroy()
     {
         parent?.children.Remove(this);
     }
 
-    Matrix4x4 m_matrix;
-    Matrix4x4 m_localMatrix;
+    void FindParent()
+    {
+        Check(transform);
+        if (parent == this) parent = null;
+        m_matrix = parentMatrix * m_localMatrix;
+
+        void Check(Transform t)
+        {
+            if (t.parent == null) {
+                parent = null;
+                return;
+            }
+
+            if (t.parent.TryGetComponent<Transform4D>(out Transform4D par)) 
+            {
+                parent?.children.Remove(this);
+                parent = par;
+                if (!parent.children.Contains(this)) parent.children.Add(this);
+                return;
+            }
+            else
+            {
+                Check(t.parent);
+            }
+        }
+    }
+
+    [HideInInspector] [SerializeField] Matrix4x4 m_matrix;
+    [HideInInspector] [SerializeField] Matrix4x4 m_localMatrix;
 
     Matrix4x4 parentMatrix {get{
         if (parent) return parent.matrix;
