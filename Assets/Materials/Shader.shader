@@ -63,7 +63,7 @@ Shader "Mine/Boring"
                 if (_DoV4 != 1) //skip this step if we already have out vertex in spherical coords
                 {
                     //convert model coords to sphere coords, using sterographic inverse
-                    pos4 *= _Scale;
+                    pos4 *= _Scale / _Radius;
                     pos4 = (2 / ((pos4.x*pos4.x) + (pos4.y*pos4.y) + (pos4.z*pos4.z) + 1)) * float4(pos4.x,pos4.y,pos4.z,1);
                     pos4.w -= 1;
                 }

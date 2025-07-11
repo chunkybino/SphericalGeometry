@@ -27,7 +27,7 @@ public class Transform4D_Editor : Editor
 
         DisplayMatrix();
 
-        Transform4D.radius = EditorGUILayout.FloatField("World Radius", Transform4D.radius);
+        Transform4D.radius = Mathf.Max(EditorGUILayout.FloatField("World Radius", Transform4D.radius), 0.01f);
 
         showButtons = EditorGUILayout.Toggle("Show Movement Buttons", showButtons);
 
