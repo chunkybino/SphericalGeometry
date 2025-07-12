@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 [ExecuteInEditMode]
 public class Rigidbody4D : MonoBehaviour
@@ -27,6 +28,25 @@ public class Rigidbody4D : MonoBehaviour
     public Vector4 gravity = new Vector4(0,-1,0,0);
     Vector4 tangentGravity;
 
+    public float mass = 1;
+
+    [HideInInspector] [SerializeField] bool m_isStatic;
+    public bool isStatic {
+        get {
+            return m_isStatic;
+        }
+        set {
+            if (value != m_isStatic) {
+                m_isStatic = value;
+                PhysicsHandlerS.singleton?.UpdateRigidbodyStatic(this);
+            } else {
+                m_isStatic = value;
+            }
+        }
+    }
+
+    public ColliderS collider;
+
     [SerializeField] bool doYPlaneBound;
     [SerializeField] float doYPlaneBoundVal;
 
@@ -35,12 +55,17 @@ public class Rigidbody4D : MonoBehaviour
     void Awake()
     {
         if (!transform4) transform4 = GetComponent<Transform4D>();
+        if (!collider) collider = GetComponent<ColliderS>();
 
         transform4.onLeftMult.AddListener(OnTransformLeftMult);
+
+        PhysicsHandlerS.singleton.AddRigidbody(this);
     }
 
     void FixedUpdate()
     {
+        if (isStatic) return;
+
         if (doYPlaneBound) CheckYBound();
         if (doYUpLock) YUpLock();
 
@@ -70,7 +95,7 @@ public class Rigidbody4D : MonoBehaviour
         velocity = UFunc.ProjectToVectorNormal(velocity, position4).normalized * velocity.magnitude; //make sure its tangent just incase we pick up some imprecision along the way
     }
 
-    void MoveTangent(Vector4 moveVel)
+    public void MoveTangent(Vector4 moveVel)
     {
         //make it actually tangent
         moveVel = UFunc.ProjectToVectorNormal(moveVel, positionNorm);
