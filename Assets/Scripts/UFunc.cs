@@ -189,7 +189,7 @@ public static class UFunc
 
     public static Matrix4x4 RotateTowardsMatrix(Vector4 pos, Vector4 target)
     {
-        return RotateTowardsMatrix(pos, target, -AngleBetweenVectors(pos, target));
+        return RotateTowardsMatrix(pos, target, AngleBetweenVectors(pos, target));
     }
     public static Matrix4x4 RotateTowardsMatrix(Vector4 pos, Vector4 target, float angle)
     {
@@ -323,6 +323,10 @@ public static class UFunc
         return n1 < n2;
     }
 
+    public static float Clamp01(float n) {
+        return Mathf.Clamp(n,0,1);
+    }
+
     public static bool SameQuadrant(Vector2 v1, Vector2 v2)
     {
         return SameSign(v1.x,v2.x) && SameSign(v1.y,v2.y);
@@ -335,5 +339,34 @@ public static class UFunc
             vec.x*xBase.y + vec.y*yBase.y + vec.z*zBase.y,
             vec.x*xBase.z + vec.y*yBase.z + vec.z*zBase.z
         );
+    }
+
+    public static Vector4 Slerp4(Vector4 v1, Vector4 v2, float t)
+    {
+        float j = SphericalInterpolaitonFactor(t, AngleBetweenVectors(v1,v2));
+        return Vector4.LerpUnclamped(v1,v2,j).normalized;
+    }
+
+    public static float SphericalInterpolaitonFactor(float t, float arc)
+    {  
+        //for slerp, returns the factor that you should lerp between vectors by to slerp evenly across angls based on the angle betwwen vectors
+        return (1 + Mathf.Tan((Mathf.PI + arc)/2) * Mathf.Tan(Mathf.PI + arc*(t - 0.5f))) / 2;
+    }
+
+    public static void PrintList(params string[] par)
+    {
+        string s = "";
+        for (int i = 0; i < par.Length; i++) {
+            s = s + par[i] + " ";
+        }
+        Debug.Log(s);
+    }
+    public static void PrintList(params float[] par)
+    {
+        string s = "";
+        for (int i = 0; i < par.Length; i++) {
+            s = s + par[i].ToString() + " ";
+        }
+        Debug.Log(s);
     }
 }

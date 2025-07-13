@@ -29,6 +29,7 @@ public class Rigidbody4D : MonoBehaviour
     Vector4 tangentGravity;
 
     public float mass = 1;
+    public float bounce = 0;
 
     [HideInInspector] [SerializeField] bool m_isStatic;
     public bool isStatic {
@@ -59,7 +60,7 @@ public class Rigidbody4D : MonoBehaviour
 
         transform4.onLeftMult.AddListener(OnTransformLeftMult);
 
-        PhysicsHandlerS.singleton.AddRigidbody(this);
+        PhysicsHandlerS.singleton?.AddRigidbody(this);
     }
 
     void FixedUpdate()
@@ -97,12 +98,18 @@ public class Rigidbody4D : MonoBehaviour
 
     public void MoveTangent(Vector4 moveVel)
     {
-        //make it actually tangent
-        moveVel = UFunc.ProjectToVectorNormal(moveVel, positionNorm);
-
         Vector4 target = (positionNorm + moveVel).normalized;
 
         Matrix4x4 mat = UFunc.RotateTowardsMatrix(positionNorm, target, -moveVel.magnitude / radius);
+
+        transform4.LeftMult(mat);
+    }
+
+    public void MoveFromAnchor(Vector4 moveVel, Vector4 anchor) //move, but with the movement anchored to a point other than the center
+    {
+        Vector4 target = (anchor + moveVel).normalized;
+
+        Matrix4x4 mat = UFunc.RotateTowardsMatrix(anchor, target, -moveVel.magnitude / radius);
 
         transform4.LeftMult(mat);
     }
@@ -113,6 +120,16 @@ public class Rigidbody4D : MonoBehaviour
 
         if (doYPlaneBound) CheckYBound();
         if (doYUpLock) YUpLock();
+    }
+
+    public Vector4 GetVelocityAtAnchor(Vector4 anchor)
+    {
+        return UFunc.RotateTowardsMatrix(positionNorm, anchor) * velocity;
+    }
+    public void AddVelocityAtAnchor(Vector4 vel, Vector4 anchor)
+    {
+        Matrix4x4 mat = UFunc.RotateTowardsMatrix(positionNorm, anchor);
+        velocity = mat.transpose * ((mat * velocity) + vel);
     }
 
     public void SetRelativeVelocityAxis(float vel, int axisIndex)
