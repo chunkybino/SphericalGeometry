@@ -24,6 +24,7 @@ public abstract class ColliderS : MonoBehaviour
 
     public abstract int colliderType {get;}
     public virtual SphereColliderS sphere {get{return null;}}
+    public virtual CapsuleColliderS capsule {get{return null;}}
 
     void Awake()
     {
@@ -85,24 +86,79 @@ public abstract class ColliderS : MonoBehaviour
 
         float FindCollisionType()
         {
-            return SphereOnSphere(c1.sphere, c2.sphere, ref contact1, ref contact2, ref contactNormal);
+            int type1 = c1.colliderType;
+            int type2 = c2.colliderType;
+
+            //return SphereOnSphere(c1.sphere, c2.sphere, ref contact1, ref contact2, ref contactNormal);
+
+            switch (type1) {
+                default: //sphere
+                    switch (type2) {
+                        default: //sphere-sphere
+                            return SphereOnSphere(c1.sphere, c2.sphere, ref contact1, ref contact2, ref contactNormal);
+                        case 1: //sphere-capsule
+                            return SphereOnCapsule(c1.sphere, c2.capsule, ref contact1, ref contact2, ref contactNormal);
+                    }
+                case 1: //capsule
+                    switch (type2) {
+                        default: //capsule-sphere
+                            float overlap = SphereOnCapsule(c2.sphere, c1.capsule, ref contact2, ref contact1, ref contactNormal);
+                            contactNormal *= -1;
+                            return overlap;
+                        //case 1: //capsule-capsule
+                        //    return OnCapsule(c2.capsule, c2.capsule, ref contact1, ref contact2, ref contactNormal);
+                    }
+            }
         }
     }
 
-    public static float SphereOnSphere(SphereColliderS s1, SphereColliderS s2, ref Vector4 contact1, ref Vector4 contact2, ref Vector4 contactNorm)
+    public static float SphereOnSphere(SphereColliderS c1, SphereColliderS c2, ref Vector4 contact1, ref Vector4 contact2, ref Vector4 contactNorm)
     {
+        Vector4 p1 = c1.center;
+        Vector4 p2 = c2.center;
+
         //find angle between positions of both
-        float dot = UFunc.Dot(s1.transform4.positionNorm, s2.transform4.positionNorm);
+        float dot = UFunc.Dot(p1, p2);
         float dis = Mathf.Acos(Mathf.Clamp(dot,-1,1)) * Transform4D.radius;
 
-        float overlap = s1.radius + s2.radius - dis;
+        float overlap = c1.radius + c2.radius - dis;
 
         if (overlap < 0) return overlap;
 
-        contact1 = UFunc.Slerp4(s1.transform4.positionNorm, s2.transform4.positionNorm, s1.radius / dis);
-        contact2 = UFunc.Slerp4(s2.transform4.positionNorm, s1.transform4.positionNorm, s2.radius / dis);
+        contact1 = UFunc.Slerp4(p1, p2, c1.radius / dis);
+        contact2 = UFunc.Slerp4(p2, p1, c2.radius / dis);
 
-        contactNorm = (s2.transform4.positionNorm - s1.transform4.positionNorm).normalized;
+        contactNorm = (p2 - p1).normalized;
+
+        return overlap;
+    }
+
+    public static float SphereOnCapsule(SphereColliderS c1, CapsuleColliderS c2, ref Vector4 contact1, ref Vector4 contact2, ref Vector4 contactNorm)
+    {
+        Matrix4x4 capsuleTransformMat = c2.transform4.matrix;
+        Vector4 sphereRelativePos = capsuleTransformMat.transpose * c1.center; //sphere pos relative to capsule orientation
+
+        float closestAngle = Mathf.Atan2(sphereRelativePos[c2.capsuleAxis],sphereRelativePos.w); //flatten sphere pos to XY plane, then take arctan
+
+        closestAngle = Mathf.Clamp(closestAngle, -c2.length/(2*Transform4D.radius), c2.length/2*Transform4D.radius); //clamp to the edges of our capsule
+
+        Vector4 capsuleClosest = new Vector4(0,0,0, Mathf.Cos(closestAngle));
+        capsuleClosest[c2.capsuleAxis] = Mathf.Sin(closestAngle);
+        capsuleClosest = capsuleTransformMat * capsuleClosest;
+
+        //same stuff as the sphere from here
+        //find angle between positions of both
+        float dot = UFunc.Dot(c1.center, capsuleClosest);
+        float dis = Mathf.Acos(Mathf.Clamp(dot,-1,1)) * Transform4D.radius;
+
+        float overlap = c1.radius + c2.radius - dis;
+
+        if (overlap < 0) return overlap;
+
+        contact1 = UFunc.Slerp4(c1.center, capsuleClosest, c1.radius / dis);
+        contact2 = UFunc.Slerp4(capsuleClosest, c1.center, c2.radius / dis);
+
+        contactNorm = (capsuleClosest - c1.center).normalized;
 
         return overlap;
     }

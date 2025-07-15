@@ -85,7 +85,7 @@ public class Transform4D_Editor : Editor
         }
 
         if (GUILayout.Button("Reset")) {
-            transform.matrix = Matrix4x4.identity;
+            transform.localMatrix = Matrix4x4.identity;
             moved = true;
         }
 
