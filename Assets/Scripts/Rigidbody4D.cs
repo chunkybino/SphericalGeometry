@@ -65,7 +65,10 @@ public class Rigidbody4D : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (isStatic) return;
+        if (isStatic) {
+            velocity = Vector4.zero;
+            return;
+        }
 
         if (doYPlaneBound) CheckYBound();
         if (doYUpLock) YUpLock();
@@ -128,8 +131,8 @@ public class Rigidbody4D : MonoBehaviour
     }
     public void AddVelocityAtAnchor(Vector4 vel, Vector4 anchor)
     {
-        Matrix4x4 mat = UFunc.RotateTowardsMatrix(positionNorm, anchor);
-        velocity = mat.transpose * ((mat * velocity) + vel);
+        Matrix4x4 mat = UFunc.RotateTowardsMatrix(anchor, positionNorm);
+        velocity += mat * vel;
     }
 
     public void SetRelativeVelocityAxis(float vel, int axisIndex)

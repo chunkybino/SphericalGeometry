@@ -344,13 +344,17 @@ public static class UFunc
     public static Vector4 Slerp4(Vector4 v1, Vector4 v2, float t)
     {
         float j = SphericalInterpolaitonFactor(t, AngleBetweenVectors(v1,v2));
-        return Vector4.LerpUnclamped(v1,v2,j).normalized;
+        return Vector4.Lerp(v1,v2,j).normalized;
+    }
+    public static Vector4 Slerp4(Vector4 v1, Vector4 v2, float t, float arc)
+    {
+        return Vector4.Lerp(v1,v2,SphericalInterpolaitonFactor(t, arc)).normalized;
     }
 
     public static float SphericalInterpolaitonFactor(float t, float arc)
     {  
         //for slerp, returns the factor that you should lerp between vectors by to slerp evenly across angls based on the angle betwwen vectors
-        return (1 + Mathf.Tan((Mathf.PI + arc)/2) * Mathf.Tan(Mathf.PI + arc*(t - 0.5f))) / 2;
+        return (1 + Mathf.Tan(arc * (t - 0.5f))/Mathf.Tan(arc/2)) / 2;
     }
 
     public static void PrintList(params string[] par)

@@ -60,26 +60,23 @@ public abstract class ColliderS : MonoBehaviour
             push2 = c1.mass/totalMass;
         }
 
-        float bounce = 1 - (1 - UFunc.Clamp01(c1.bounce))*(1 - UFunc.Clamp01(c2.bounce));
+        float bounce = 1 - (1 - c1.bounce)*(1 - c2.bounce);
 
-        Vector4 contact = UFunc.Slerp4(contact1, contact2, push1); 
-        contactNormal = UFunc.ProjectToVectorNormal(contact, contactNormal).normalized;
+        Vector4 contact = UFunc.Slerp4(contact1, contact2, push1, overlap); 
 
-        c1.rigidbody4?.MoveFromAnchor(contactNormal*overlap * push1, contact);
-        c2.rigidbody4?.MoveFromAnchor(-contactNormal*overlap * push2, contact);
+        contactNormal = UFunc.ProjectToVectorNormal(contactNormal, contact).normalized;
+
+        c1.transform4.LeftMult(UFunc.RotateTowardsMatrix(contact1, contact2, -overlap*push1/Transform4D.radius));
+        c2.transform4.LeftMult(UFunc.RotateTowardsMatrix(contact2, contact1, -overlap*push2/Transform4D.radius));
 
         Vector4 vel1 = c1.rigidbody4 != null ? c1.rigidbody4.GetVelocityAtAnchor(contact) : Vector4.zero;
         Vector4 vel2 = c2.rigidbody4 != null ? c2.rigidbody4.GetVelocityAtAnchor(contact) : Vector4.zero;
 
-        Vector4 relativeVel = vel1 - vel2;
+        float velDot1 = UFunc.Dot(vel1, contactNormal);
+        float velDot2 = UFunc.Dot(vel2, contactNormal);
 
-        float relativeVelDot = UFunc.Dot(relativeVel, contactNormal);
-
-        //print(relativeVelDot);
-        //print(contactNormal * -relativeVelDot * push1);
-
-        c1.rigidbody4?.AddVelocityAtAnchor(-contactNormal * relativeVelDot * push1, contact);
-        c2.rigidbody4?.AddVelocityAtAnchor(contactNormal * relativeVelDot * push2, contact);
+        c1.rigidbody4?.AddVelocityAtAnchor(contactNormal * (velDot2-velDot1)*push1*(1+bounce), contact);
+        c2.rigidbody4?.AddVelocityAtAnchor(contactNormal * (velDot1-velDot2)*push2*(1+bounce), contact);
 
         return true;
 
