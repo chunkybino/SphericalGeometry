@@ -89,26 +89,40 @@ public abstract class ColliderS : MonoBehaviour
             int type1 = c1.colliderType;
             int type2 = c2.colliderType;
 
-            ///important noooooote ------------------
-            /// when we flip the order that c1 and c2 are inputing into these functions, we haave to flip the normal too
+            if (type1 > type2) {
+                (c1,c2) = (c2,c1);
+                (type1,type2) = (type2,type1);
+            }
+            
+            float over = Find();
 
-            switch (type1) {
-                default: //sphere
-                    switch (type2) {
-                        default: //sphere-sphere
-                            return SphereOnSphere(c1.sphere, c2.sphere, ref contact1, ref contact2, ref contactNormal);
-                        case 1: //sphere-capsule
-                            return SphereOnCapsule(c1.sphere, c2.capsule, ref contact1, ref contact2, ref contactNormal);
-                    }
-                case 1: //capsule
-                    switch (type2) {
-                        default: //capsule-sphere
-                            float over = SphereOnCapsule(c2.sphere, c1.capsule, ref contact2, ref contact1, ref contactNormal);
-                            contactNormal *= -1;
-                            return over;
-                        //case 1: //capsule-capsule
-                        //    return OnCapsule(c2.capsule, c2.capsule, ref contact1, ref contact2, ref contactNormal);
-                    }
+            //important noooooote ------------------
+            // when we flip the order that c1 and c2 are inputing into these functions, we haave to flip the normal too, this happens when ever type2>type1
+            /*if (type2 > type1) {
+                print(contact1+" "+contact2+" "+contactNormal);
+                //contactNormal *= -1;
+            }*/
+
+            return over;
+
+            float Find()
+            {
+                switch (type1) {
+                    default: //sphere
+                        switch (type2) {
+                            default: //sphere-sphere
+                                return SphereOnSphere(c1.sphere, c2.sphere, ref contact1, ref contact2, ref contactNormal);
+                            case 1: //sphere-capsule
+                                return SphereOnCapsule(c1.sphere, c2.capsule, ref contact1, ref contact2, ref contactNormal);
+                        }
+                    case 1: //capsule
+                        switch (type2) {
+                            default: //capsule-capsule
+                                return CapsuleOnCapsule(c1.capsule, c2.capsule, ref contact1, ref contact2, ref contactNormal);
+                        }
+                }
+
+                return 1;
             }
         }
     }
@@ -142,24 +156,51 @@ public abstract class ColliderS : MonoBehaviour
     public static float SphereOnCapsule(SphereColliderS c1, CapsuleColliderS c2, ref Vector4 contact1, ref Vector4 contact2, ref Vector4 contactNorm)
     {
         Vector4 capPoint = UFunc.SlerpPointClose(c2.point1,c2.point2,c1.center);
-        float slerpFac = UFunc.SlerpPointCloseFactor(c2.point1,c2.point2,c1.center);
-
-        float dot = UFunc.Dot(capPoint, c1.center);
-        float dis = Mathf.Acos(UFunc.Clamp1(dot)) * Transform4D.radius;
-        float overlap = c1.radius + c2.radius - dis;
 
         return PointRadiusContact(c1.center, c1.radius, capPoint, c2.radius, ref contact1, ref contact2, ref contactNorm);
     }
 
     public static float CapsuleOnCapsule(CapsuleColliderS c1, CapsuleColliderS c2, ref Vector4 contact1, ref Vector4 contact2, ref Vector4 contactNorm)
     {
-        Vector4[] points = new Vector4[] {
-            c1.point1,
-            c1.point2,
-            c1.point1,
-            c1.point2
-        };
+        Vector4 point1_1 = new Vector4();
+        Vector4 point2_1 = new Vector4();
+        FindMin(0, 0, ref point1_1, ref point2_1);
 
-        return 1;
+        Vector4 point1_2 = new Vector4();
+        Vector4 point2_2 = new Vector4();
+        FindMin(1, 1, ref point1_1, ref point2_1);
+
+        if (UFunc.Dot(point1_1,point2_1) > UFunc.Dot(point1_2,point2_2))
+        {
+            return PointRadiusContact(point1_1, c1.radius, point2_1, c2.radius, ref contact1, ref contact2, ref contactNorm);
+        }
+        else
+        {
+            return PointRadiusContact(point1_2, c1.radius, point2_2, c2.radius, ref contact1, ref contact2, ref contactNorm);
+        }
+
+        void FindMin(float t1, float t2, ref Vector4 point1, ref Vector4 point2)
+        {
+            int iterations = 8;
+
+            point1 = UFunc.Slerp4(c1.point1,c1.point2, t1);
+            point2 = UFunc.Slerp4(c2.point1,c2.point2, t2);
+
+            for (int i = 0; i < iterations; i++)
+            {
+                if (i % 2 == 0)
+                {
+                    t1 = UFunc.SlerpPointCloseFactor(c1.point1,c1.point2,point2);
+                    point1 = UFunc.Slerp4(c1.point1,c1.point2, t1);
+                }
+                else
+                {
+                    t2 = UFunc.SlerpPointCloseFactor(c2.point1,c2.point2,point1);
+                    point2 = UFunc.Slerp4(c2.point1,c2.point2, t2);
+                }
+
+                if (point1 == point2) break;
+            }
+        }
     }
 }
