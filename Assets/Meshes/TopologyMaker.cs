@@ -8,11 +8,13 @@ public class TopologyMaker : MonoBehaviour
     public Vector4[] inVertex;
 
     public Vector4[] outVertex;
+    public Vector3[] outVertex3D;
     public Vector2[] outUV;
     public Vector3Int[] outTri;
 
     [SerializeField] bool makeCircleStrip;
     [SerializeField] bool makeSphere;
+    [SerializeField] bool makeD20;
 
     [SerializeField] int divisions = 16;
     [SerializeField] float thickAngle = Mathf.PI/16;
@@ -32,6 +34,12 @@ public class TopologyMaker : MonoBehaviour
         {
             makeSphere = false;
             SphereTime();
+        }
+
+        if (makeD20)
+        {
+            makeD20 = false;
+            MakeD20();
         }
     }
 
@@ -203,6 +211,39 @@ public class TopologyMaker : MonoBehaviour
         outVertex = circlePoints;
         outUV = circleUV;
         outTri = circleTri;
+    }
+
+    void MakeD20()
+    {
+        float coolAngle = 2*Mathf.PI/5; //just 1/5 of circle
+
+        //5 equally spaces points along the z=0 equator, these are the points we lerp towards
+        Vector3[] midPoints = new Vector3[5];
+        for (int i = 0; i < 5; i++) {
+            midPoints[i] = new Vector3(Mathf.Cos(i*coolAngle),Mathf.Sin(i*coolAngle),0);
+        }
+
+        float slerpFactor = (2/Mathf.PI) *Mathf.Acos(( 1/(1-Mathf.Cos(coolAngle)) ) - 1);
+
+        Vector3[] vert12 = new Vector3[12];
+        Vector3Int[] tri = new Vector3Int[20];
+
+        vert12[0] = new Vector3(0,0,1); //top and bottom points
+        vert12[6] = new Vector3(0,0,-1);
+
+        for (int i = 0; i < 5; i++)
+        {
+            vert12[i+1] = Vector3.Slerp(vert12[0], midPoints[i], slerpFactor);
+            vert12[i+7] = Vector3.SlerpUnclamped(vert12[6], midPoints[i], -slerpFactor);
+
+            tri[2*i] = new Vector3Int(0, (i+1)%5 + 1, i+1);
+            tri[2*i + 1] = new Vector3Int(i+1, (i+1)%5 + 1, (i+3)%5 + 7);
+            tri[2*i + 10] = new Vector3Int(6, i+7, (i+1)%5 + 7);
+            tri[2*i + 11] = new Vector3Int(i+7, (i+3)%5 + 1, (i+1)%5 + 7);
+        }
+
+        outVertex3D = vert12;
+        outTri = tri;
     }
 
     Vector4 GetCircleAxis(float angle)
