@@ -63,7 +63,7 @@ public class Rigidbody4D : MonoBehaviour
         PhysicsHandlerS.singleton?.AddRigidbody(this);
     }
 
-    void FixedUpdate()
+    public void PhysicsUpdate()
     {
         if (isStatic) {
             velocity = Vector4.zero;

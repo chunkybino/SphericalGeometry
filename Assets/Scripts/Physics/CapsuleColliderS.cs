@@ -14,6 +14,23 @@ public class CapsuleColliderS : ColliderS
         return 2;
     }}
 
+    public Vector4 point1 {get{
+        return transform4.matrix * point1local;
+    }}
+    public Vector4 point2 {get{
+        return transform4.matrix * point2local;
+    }}
+    public Vector4 point1local {get{
+        Vector4 v = new Vector4(0,0,0,Mathf.Cos(length/Transform4D.radius));
+        v[capsuleAxis] = Mathf.Sin(length/Transform4D.radius);
+        return v;
+    }}
+    public Vector4 point2local {get{
+        Vector4 v = new Vector4(0,0,0,Mathf.Cos(length/Transform4D.radius));
+        v[capsuleAxis] = -Mathf.Sin(length/Transform4D.radius);
+        return v;
+    }}
+
     public override int colliderType {get{return 1;}}
     public override CapsuleColliderS capsule {get{return this;}}
 }

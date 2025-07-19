@@ -326,6 +326,9 @@ public static class UFunc
     public static float Clamp01(float n) {
         return Mathf.Clamp(n,0,1);
     }
+    public static float Clamp1(float n) {
+        return Mathf.Clamp(n,-1,1);
+    }
 
     public static bool SameQuadrant(Vector2 v1, Vector2 v2)
     {
@@ -343,18 +346,74 @@ public static class UFunc
 
     public static Vector4 Slerp4(Vector4 v1, Vector4 v2, float t)
     {
-        float j = SphericalInterpolaitonFactor(t, AngleBetweenVectors(v1,v2));
-        return Vector4.Lerp(v1,v2,j).normalized;
+        float arc = Mathf.Acos(Clamp1(Dot(v1,v2)));
+        float shift = arc*(t-0.5f);
+
+        if (arc == 0) return v1;
+
+        Vector4 outV = new Vector4();
+
+        for (int i = 0; i < 4; i++)
+        {
+            outV[i] = (v1[i]*Mathf.Sin(arc*0.5f - shift) + v2[i]*Mathf.Sin(arc*0.5f + shift)) / Mathf.Sin(arc);
+        }
+
+        return outV;
     }
-    public static Vector4 Slerp4(Vector4 v1, Vector4 v2, float t, float arc)
+    public static float SlerpClamp(float t, float arc) //clamps a slerp value to 0-1, direciton depends on arc length since thats how circles work
     {
-        return Vector4.Lerp(v1,v2,SphericalInterpolaitonFactor(t, arc)).normalized;
+        float period = 2*Mathf.PI/arc;
+        float mod = t - period*Mathf.Floor(t/period);
+        //PrintList(t, mod, period, (period+1)/2);
+
+        if (mod <= 1) {
+            return mod;
+        } else if (mod > (period+1)/2) {
+            return 0;
+        } else {
+            return 1;
+        }
     }
 
-    public static float SphericalInterpolaitonFactor(float t, float arc)
-    {  
-        //for slerp, returns the factor that you should lerp between vectors by to slerp evenly across angls based on the angle betwwen vectors
-        return (1 + Mathf.Tan(arc * (t - 0.5f))/Mathf.Tan(arc/2)) / 2;
+    //slerp between v1 and v2 till we find the point closest to the target point
+    public static Vector4 SlerpPointClose(Vector4 v1, Vector4 v2, Vector4 target)
+    {
+        return Slerp4(v1,v2,SlerpPointCloseFactor(v1,v2,target,false));
+    }
+    public static Vector4 SlerpPointCloseUnclamped(Vector4 v1, Vector4 v2, Vector4 target)
+    {
+        return Slerp4(v1,v2,SlerpPointCloseFactor(v1,v2,target,true));
+    }
+    public static float SlerpPointCloseFactor(Vector4 v1, Vector4 v2, Vector4 target, bool unclamped = false)
+    {
+        float dot1 = Clamp1(Dot(v1,v2));
+        float dot2 = Clamp1(Dot(v1,target));
+        float dot3 = Clamp1(Dot(v2,target));
+
+        float arc = Mathf.Acos(dot1);
+
+        if (arc == 0) return 0;
+
+        float sign = Mathf.Sign(dot2 - dot1*Mathf.Cos(arc));
+
+        float tan = Mathf.Atan(((dot2/dot3) - dot1) / Mathf.Sin(arc));
+        if (dot2 == 0 || dot1 == 0) tan = Mathf.PI/2;
+
+        //float factor = ( (sign*Mathf.PI/2) + tan ) / arc;
+        float factor = 1 - tan/arc;
+
+        if (unclamped) return factor;
+        //return SlerpClamp(factor,arc);
+
+        //check edges
+        if (factor < 0 || factor > 1)
+        {
+            float dis1 = Dot(v1,target);
+            float dis2 = Dot(v2,target);
+            factor = dis1 > dis2 ? 0 : 1; //take greatest, since we actual comparing dot product, not distance
+        }
+
+        return factor;
     }
 
     public static void PrintList(params string[] par)

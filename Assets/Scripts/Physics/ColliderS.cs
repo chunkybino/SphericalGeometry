@@ -63,7 +63,7 @@ public abstract class ColliderS : MonoBehaviour
 
         float bounce = 1 - (1 - c1.bounce)*(1 - c2.bounce);
 
-        Vector4 contact = UFunc.Slerp4(contact1, contact2, push1, overlap); 
+        Vector4 contact = UFunc.Slerp4(contact1, contact2, push1); 
 
         contactNormal = UFunc.ProjectToVectorNormal(contactNormal, contact).normalized;
 
@@ -89,7 +89,8 @@ public abstract class ColliderS : MonoBehaviour
             int type1 = c1.colliderType;
             int type2 = c2.colliderType;
 
-            //return SphereOnSphere(c1.sphere, c2.sphere, ref contact1, ref contact2, ref contactNormal);
+            ///important noooooote ------------------
+            /// when we flip the order that c1 and c2 are inputing into these functions, we haave to flip the normal too
 
             switch (type1) {
                 default: //sphere
@@ -102,9 +103,9 @@ public abstract class ColliderS : MonoBehaviour
                 case 1: //capsule
                     switch (type2) {
                         default: //capsule-sphere
-                            float overlap = SphereOnCapsule(c2.sphere, c1.capsule, ref contact2, ref contact1, ref contactNormal);
+                            float over = SphereOnCapsule(c2.sphere, c1.capsule, ref contact2, ref contact1, ref contactNormal);
                             contactNormal *= -1;
-                            return overlap;
+                            return over;
                         //case 1: //capsule-capsule
                         //    return OnCapsule(c2.capsule, c2.capsule, ref contact1, ref contact2, ref contactNormal);
                     }
@@ -112,54 +113,53 @@ public abstract class ColliderS : MonoBehaviour
         }
     }
 
-    public static float SphereOnSphere(SphereColliderS c1, SphereColliderS c2, ref Vector4 contact1, ref Vector4 contact2, ref Vector4 contactNorm)
+    public static float PointRadiusContact(Vector4 p1, float r1, Vector4 p2, float r2, ref Vector4 contact1, ref Vector4 contact2, ref Vector4 contactNorm)
     {
-        Vector4 p1 = c1.center;
-        Vector4 p2 = c2.center;
-
         //find angle between positions of both
         float dot = UFunc.Dot(p1, p2);
         float dis = Mathf.Acos(Mathf.Clamp(dot,-1,1)) * Transform4D.radius;
 
-        float overlap = c1.radius + c2.radius - dis;
+        float overlap = r1 + r2 - dis;
 
         if (overlap < 0) return overlap;
 
-        contact1 = UFunc.Slerp4(p1, p2, c1.radius / dis);
-        contact2 = UFunc.Slerp4(p2, p1, c2.radius / dis);
+        contact1 = UFunc.Slerp4(p1, p2, r1 / dis);
+        contact2 = UFunc.Slerp4(p2, p1, r2 / dis);
 
         contactNorm = (p2 - p1).normalized;
 
         return overlap;
     }
 
+    public static float SphereOnSphere(SphereColliderS c1, SphereColliderS c2, ref Vector4 contact1, ref Vector4 contact2, ref Vector4 contactNorm)
+    {
+        Vector4 p1 = c1.center;
+        Vector4 p2 = c2.center;
+
+        return PointRadiusContact(p1, c1.radius, p2, c2.radius, ref contact1, ref contact2, ref contactNorm);
+    }
+
     public static float SphereOnCapsule(SphereColliderS c1, CapsuleColliderS c2, ref Vector4 contact1, ref Vector4 contact2, ref Vector4 contactNorm)
     {
-        Matrix4x4 capsuleTransformMat = c2.transform4.matrix;
-        Vector4 sphereRelativePos = capsuleTransformMat.transpose * c1.center; //sphere pos relative to capsule orientation
+        Vector4 capPoint = UFunc.SlerpPointClose(c2.point1,c2.point2,c1.center);
+        float slerpFac = UFunc.SlerpPointCloseFactor(c2.point1,c2.point2,c1.center);
 
-        float closestAngle = Mathf.Atan2(sphereRelativePos[c2.capsuleAxis],sphereRelativePos.w); //flatten sphere pos to XY plane, then take arctan
-
-        closestAngle = Mathf.Clamp(closestAngle, -c2.length/(2*Transform4D.radius), c2.length/2*Transform4D.radius); //clamp to the edges of our capsule
-
-        Vector4 capsuleClosest = new Vector4(0,0,0, Mathf.Cos(closestAngle));
-        capsuleClosest[c2.capsuleAxis] = Mathf.Sin(closestAngle);
-        capsuleClosest = capsuleTransformMat * capsuleClosest;
-
-        //same stuff as the sphere from here
-        //find angle between positions of both
-        float dot = UFunc.Dot(c1.center, capsuleClosest);
-        float dis = Mathf.Acos(Mathf.Clamp(dot,-1,1)) * Transform4D.radius;
-
+        float dot = UFunc.Dot(capPoint, c1.center);
+        float dis = Mathf.Acos(UFunc.Clamp1(dot)) * Transform4D.radius;
         float overlap = c1.radius + c2.radius - dis;
 
-        if (overlap < 0) return overlap;
+        return PointRadiusContact(c1.center, c1.radius, capPoint, c2.radius, ref contact1, ref contact2, ref contactNorm);
+    }
 
-        contact1 = UFunc.Slerp4(c1.center, capsuleClosest, c1.radius / dis);
-        contact2 = UFunc.Slerp4(capsuleClosest, c1.center, c2.radius / dis);
+    public static float CapsuleOnCapsule(CapsuleColliderS c1, CapsuleColliderS c2, ref Vector4 contact1, ref Vector4 contact2, ref Vector4 contactNorm)
+    {
+        Vector4[] points = new Vector4[] {
+            c1.point1,
+            c1.point2,
+            c1.point1,
+            c1.point2
+        };
 
-        contactNorm = (capsuleClosest - c1.center).normalized;
-
-        return overlap;
+        return 1;
     }
 }

@@ -42,6 +42,14 @@ public class PhysicsHandlerS : MonoBehaviour
 
     void FixedUpdate()
     {
+        //normal physics update
+        foreach (Rigidbody4D rb in rigidbodyList)
+        {
+            rb.PhysicsUpdate();
+        }
+
+        //collision
+
         //do all dynamic against static collisions first
         foreach (Rigidbody4D rb in dynamicBodies)
         {
@@ -49,6 +57,8 @@ public class PhysicsHandlerS : MonoBehaviour
             foreach (Rigidbody4D staticRb in staticBodies)
             {
                 if (staticRb.collider == null) continue;
+                Vector4 prev1 = rb.transform4.positionNorm;
+                Vector4 prev2 = staticRb.transform4.positionNorm;
                 ColliderS.CollisionPhysic(rb.collider, staticRb.collider);
             }
         }
