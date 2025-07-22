@@ -1018,6 +1018,148 @@ MonoBehaviour:
   onRightMult:
     m_PersistentCalls:
       m_Calls: []
+--- !u!1 &360525048
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 360525052}
+  - component: {fileID: 360525049}
+  - component: {fileID: 360525051}
+  - component: {fileID: 360525050}
+  m_Layer: 0
+  m_Name: DudeCollider1 (3)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &360525049
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 360525048}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3e9696e169808a4390b5d2c1be30c0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parent: {fileID: 1423516412}
+  children: []
+  m_matrix:
+    e00: 0.70710677
+    e01: -0.000000012802767
+    e02: 0
+    e03: 0.7071067
+    e10: -0.00000001280277
+    e11: 1
+    e12: 0
+    e13: 0.00000003090862
+    e20: -0.5
+    e21: -0.000000021855694
+    e22: 0.70710677
+    e23: 0.49999997
+    e30: -0.5
+    e31: -0.000000021855694
+    e32: -0.70710677
+    e33: 0.49999997
+  m_localMatrix:
+    e00: 1
+    e01: 0
+    e02: 0
+    e03: 0
+    e10: 0
+    e11: 1
+    e12: 0
+    e13: 0
+    e20: 0
+    e21: 0
+    e22: 1
+    e23: 0
+    e30: 0
+    e31: 0
+    e32: 0
+    e33: 1
+  scale: {x: 1, y: 1, z: 1}
+  sterographicPos: {x: 0.47140446, y: 0.000000020605746, z: 0.3333333}
+  lockSterographicPos: 1
+  onLeftMult:
+    m_PersistentCalls:
+      m_Calls: []
+  onRightMult:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &360525050
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 360525048}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 187a13cfed18ce14ea42e925377bbdf9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  transform4: {fileID: 360525049}
+  rigidbody4: {fileID: 360525051}
+  isTrigger: 0
+  vertex1: {x: 0.2, y: 0, z: 0}
+  vertex2: {x: 0, y: 0.2, z: 0}
+  vertex3: {x: 0, y: 0, z: -0.2}
+  gizmo: 0
+  localVertex1: {x: 0, y: 0, z: 0, w: 0}
+  localVertex2: {x: 0, y: 0, z: 0, w: 0}
+  localVertex3: {x: 0, y: 0, z: 0, w: 0}
+  worldVertex1: {x: 0, y: 0, z: 0, w: 0}
+  worldVertex2: {x: 0, y: 0, z: 0, w: 0}
+  worldVertex3: {x: 0, y: 0, z: 0, w: 0}
+  planeCenter: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &360525051
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 360525048}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24dff4cfeaa0b5843ac567635c9b493d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  transform4: {fileID: 360525049}
+  velocity: {x: 0, y: 0, z: 0, w: 0}
+  angularVelocity: {x: 0, y: 0, z: 0}
+  velocityMagnitude: 0
+  gravityScale: 0
+  gravity: {x: 0, y: -1, z: 0, w: 0}
+  mass: 1
+  bounce: 0
+  m_isStatic: 1
+  collider: {fileID: 360525050}
+  doYPlaneBound: 0
+  doYPlaneBoundVal: 0
+  doYUpLock: 0
+--- !u!4 &360525052
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 360525048}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1423516413}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &363402351
 GameObject:
   m_ObjectHideFlags: 0
@@ -1202,6 +1344,148 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 778555252}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &407027000
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 407027004}
+  - component: {fileID: 407027001}
+  - component: {fileID: 407027003}
+  - component: {fileID: 407027002}
+  m_Layer: 0
+  m_Name: DudeCollider1 (2)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &407027001
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 407027000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3e9696e169808a4390b5d2c1be30c0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parent: {fileID: 1509006516}
+  children: []
+  m_matrix:
+    e00: 1
+    e01: 0
+    e02: 0
+    e03: 0
+    e10: 0
+    e11: 1
+    e12: 0
+    e13: 0
+    e20: 0
+    e21: 0
+    e22: 1
+    e23: 0
+    e30: 0
+    e31: 0
+    e32: 0
+    e33: 1
+  m_localMatrix:
+    e00: 1
+    e01: 0
+    e02: 0
+    e03: 0
+    e10: 0
+    e11: 1
+    e12: 0
+    e13: 0
+    e20: 0
+    e21: 0
+    e22: 1
+    e23: 0
+    e30: 0
+    e31: 0
+    e32: 0
+    e33: 1
+  scale: {x: 1, y: 1, z: 1}
+  sterographicPos: {x: 0, y: 0, z: 0}
+  lockSterographicPos: 1
+  onLeftMult:
+    m_PersistentCalls:
+      m_Calls: []
+  onRightMult:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &407027002
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 407027000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 187a13cfed18ce14ea42e925377bbdf9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  transform4: {fileID: 407027001}
+  rigidbody4: {fileID: 407027003}
+  isTrigger: 0
+  vertex1: {x: -0.5, y: 0, z: 0}
+  vertex2: {x: 0, y: 0.5, z: 0}
+  vertex3: {x: 0, y: 0, z: -0.5}
+  gizmo: 0
+  localVertex1: {x: -0.4472136, y: 0, z: 0, w: 0.8944272}
+  localVertex2: {x: 0, y: 0.4472136, z: 0, w: 0.8944272}
+  localVertex3: {x: 0, y: 0, z: -0.4472136, w: 0.8944272}
+  worldVertex1: {x: -0.4472136, y: 0, z: 0, w: 0.8944272}
+  worldVertex2: {x: 0, y: 0.4472136, z: 0, w: 0.8944272}
+  worldVertex3: {x: 0, y: 0, z: -0.4472136, w: 0.8944272}
+  planeCenter: {x: -0.5547002, y: -0.5547002, z: -0.5547002, w: 0.2773501}
+--- !u!114 &407027003
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 407027000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24dff4cfeaa0b5843ac567635c9b493d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  transform4: {fileID: 407027001}
+  velocity: {x: 0, y: 0, z: 0, w: 0}
+  angularVelocity: {x: 0, y: 0, z: 0}
+  velocityMagnitude: 0
+  gravityScale: 0
+  gravity: {x: 0, y: -1, z: 0, w: 0}
+  mass: 1
+  bounce: 0
+  m_isStatic: 1
+  collider: {fileID: 407027002}
+  doYPlaneBound: 0
+  doYPlaneBoundVal: 0
+  doYUpLock: 0
+--- !u!4 &407027004
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 407027000}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1509006517}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &410087039
 GameObject:
@@ -1546,6 +1830,148 @@ Transform:
   - {fileID: 1181574187}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &622870404
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 622870408}
+  - component: {fileID: 622870405}
+  - component: {fileID: 622870407}
+  - component: {fileID: 622870406}
+  m_Layer: 0
+  m_Name: DudeCollider1 (3)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &622870405
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 622870404}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3e9696e169808a4390b5d2c1be30c0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parent: {fileID: 1509006516}
+  children: []
+  m_matrix:
+    e00: 1
+    e01: 0
+    e02: 0
+    e03: 0
+    e10: 0
+    e11: 1
+    e12: 0
+    e13: 0
+    e20: 0
+    e21: 0
+    e22: 1
+    e23: 0
+    e30: 0
+    e31: 0
+    e32: 0
+    e33: 1
+  m_localMatrix:
+    e00: 1
+    e01: 0
+    e02: 0
+    e03: 0
+    e10: 0
+    e11: 1
+    e12: 0
+    e13: 0
+    e20: 0
+    e21: 0
+    e22: 1
+    e23: 0
+    e30: 0
+    e31: 0
+    e32: 0
+    e33: 1
+  scale: {x: 1, y: 1, z: 1}
+  sterographicPos: {x: 0, y: 0, z: 0}
+  lockSterographicPos: 1
+  onLeftMult:
+    m_PersistentCalls:
+      m_Calls: []
+  onRightMult:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &622870406
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 622870404}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 187a13cfed18ce14ea42e925377bbdf9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  transform4: {fileID: 622870405}
+  rigidbody4: {fileID: 622870407}
+  isTrigger: 0
+  vertex1: {x: 0.5, y: 0, z: 0}
+  vertex2: {x: 0, y: 0.5, z: 0}
+  vertex3: {x: 0, y: 0, z: -0.5}
+  gizmo: 0
+  localVertex1: {x: 0.4472136, y: 0, z: 0, w: 0.8944272}
+  localVertex2: {x: 0, y: 0.4472136, z: 0, w: 0.8944272}
+  localVertex3: {x: 0, y: 0, z: -0.4472136, w: 0.8944272}
+  worldVertex1: {x: 0.4472136, y: 0, z: 0, w: 0.8944272}
+  worldVertex2: {x: 0, y: 0.4472136, z: 0, w: 0.8944272}
+  worldVertex3: {x: 0, y: 0, z: -0.4472136, w: 0.8944272}
+  planeCenter: {x: -0.5547002, y: 0.5547002, z: 0.5547002, w: -0.2773501}
+--- !u!114 &622870407
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 622870404}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24dff4cfeaa0b5843ac567635c9b493d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  transform4: {fileID: 622870405}
+  velocity: {x: 0, y: 0, z: 0, w: 0}
+  angularVelocity: {x: 0, y: 0, z: 0}
+  velocityMagnitude: 0
+  gravityScale: 0
+  gravity: {x: 0, y: -1, z: 0, w: 0}
+  mass: 1
+  bounce: 0
+  m_isStatic: 1
+  collider: {fileID: 622870406}
+  doYPlaneBound: 0
+  doYPlaneBoundVal: 0
+  doYUpLock: 0
+--- !u!4 &622870408
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 622870404}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1509006517}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &627372888
 GameObject:
   m_ObjectHideFlags: 0
@@ -1848,6 +2274,7 @@ GameObject:
   - component: {fileID: 665110783}
   - component: {fileID: 665110782}
   - component: {fileID: 665110788}
+  - component: {fileID: 665110789}
   m_Layer: 0
   m_Name: Guy
   m_TagString: MainCamera
@@ -2017,7 +2444,7 @@ MonoBehaviour:
   mass: 4
   bounce: 0
   m_isStatic: 0
-  collider: {fileID: 665110788}
+  collider: {fileID: 665110789}
   doYPlaneBound: 0
   doYPlaneBoundVal: 0.15
   doYUpLock: 1
@@ -2102,7 +2529,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 665110781}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 569371a861ba7b046bfea074afc23fc9, type: 3}
   m_Name: 
@@ -2113,6 +2540,164 @@ MonoBehaviour:
   radius: 0.1
   length: 0.1
   axis: 1
+--- !u!114 &665110789
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 665110781}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 703f70a78aa355b47870a272af901da4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  transform4: {fileID: 665110785}
+  rigidbody4: {fileID: 665110784}
+  isTrigger: 0
+  radius: 0.15
+--- !u!1 &688829222
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 688829226}
+  - component: {fileID: 688829223}
+  - component: {fileID: 688829225}
+  - component: {fileID: 688829224}
+  m_Layer: 0
+  m_Name: DudeCollider1 (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &688829223
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 688829222}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3e9696e169808a4390b5d2c1be30c0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parent: {fileID: 1509006516}
+  children: []
+  m_matrix:
+    e00: 1
+    e01: 0
+    e02: 0
+    e03: 0
+    e10: 0
+    e11: 1
+    e12: 0
+    e13: 0
+    e20: 0
+    e21: 0
+    e22: 1
+    e23: 0
+    e30: 0
+    e31: 0
+    e32: 0
+    e33: 1
+  m_localMatrix:
+    e00: 1
+    e01: 0
+    e02: 0
+    e03: 0
+    e10: 0
+    e11: 1
+    e12: 0
+    e13: 0
+    e20: 0
+    e21: 0
+    e22: 1
+    e23: 0
+    e30: 0
+    e31: 0
+    e32: 0
+    e33: 1
+  scale: {x: 1, y: 1, z: 1}
+  sterographicPos: {x: 0, y: 0, z: 0}
+  lockSterographicPos: 1
+  onLeftMult:
+    m_PersistentCalls:
+      m_Calls: []
+  onRightMult:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &688829224
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 688829222}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 187a13cfed18ce14ea42e925377bbdf9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  transform4: {fileID: 688829223}
+  rigidbody4: {fileID: 688829225}
+  isTrigger: 0
+  vertex1: {x: -0.5, y: 0, z: 0}
+  vertex2: {x: 0, y: 0.5, z: 0}
+  vertex3: {x: 0, y: 0, z: 0.5}
+  gizmo: 0
+  localVertex1: {x: -0.4472136, y: 0, z: 0, w: 0.8944272}
+  localVertex2: {x: 0, y: 0.4472136, z: 0, w: 0.8944272}
+  localVertex3: {x: 0, y: 0, z: 0.4472136, w: 0.8944272}
+  worldVertex1: {x: -0.4472136, y: 0, z: 0, w: 0.8944272}
+  worldVertex2: {x: 0, y: 0.4472136, z: 0, w: 0.8944272}
+  worldVertex3: {x: 0, y: 0, z: 0.4472136, w: 0.8944272}
+  planeCenter: {x: 0.5547002, y: 0.5547002, z: -0.5547002, w: -0.2773501}
+--- !u!114 &688829225
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 688829222}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24dff4cfeaa0b5843ac567635c9b493d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  transform4: {fileID: 688829223}
+  velocity: {x: 0, y: 0, z: 0, w: 0}
+  angularVelocity: {x: 0, y: 0, z: 0}
+  velocityMagnitude: 0
+  gravityScale: 0
+  gravity: {x: 0, y: -1, z: 0, w: 0}
+  mass: 1
+  bounce: 0
+  m_isStatic: 1
+  collider: {fileID: 688829224}
+  doYPlaneBound: 0
+  doYPlaneBoundVal: 0
+  doYUpLock: 0
+--- !u!4 &688829226
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 688829222}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1509006517}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &696461015
 GameObject:
   m_ObjectHideFlags: 0
@@ -2757,7 +3342,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 929819531}
-  m_Mesh: {fileID: 4300000, guid: af442388091514041be73133fd807282, type: 2}
+  m_Mesh: {fileID: 4300000, guid: b92bb0fdb11fc5047a30bbf146c44cfa, type: 2}
 --- !u!114 &929819534
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2773,7 +3358,7 @@ MonoBehaviour:
   transform4: {fileID: 929819537}
   renderer: {fileID: 929819532}
   filter: {fileID: 929819533}
-  mesh: {fileID: 4300000, guid: af442388091514041be73133fd807282, type: 2}
+  mesh: {fileID: 4300000, guid: b92bb0fdb11fc5047a30bbf146c44cfa, type: 2}
   meshColor: {r: 1, g: 0.11764705, b: 0.36451927, a: 1}
   initialize: 0
   transformMatrix:
@@ -3608,2552 +4193,60 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   vertices:
-  - {x: 1, y: 0, z: 0}
-  - {x: 0, y: 1, z: 0}
   - {x: 0, y: 0, z: 1}
-  - {x: -1, y: 0, z: 0}
-  - {x: 0, y: -1, z: 0}
+  - {x: 0.89442724, y: 0, z: 0.44721356}
+  - {x: 0.2763932, y: 0.85065085, z: 0.44721356}
+  - {x: -0.7236069, y: 0.5257311, z: 0.44721356}
+  - {x: -0.72360677, y: -0.52573127, z: 0.44721356}
+  - {x: 0.27639332, y: -0.85065085, z: 0.44721356}
   - {x: 0, y: 0, z: -1}
+  - {x: -0.89442724, y: 0, z: -0.44721356}
+  - {x: -0.2763932, y: -0.85065085, z: -0.44721356}
+  - {x: 0.7236069, y: -0.5257311, z: -0.44721356}
+  - {x: 0.72360677, y: 0.52573127, z: -0.44721356}
+  - {x: -0.27639332, y: 0.85065085, z: -0.44721356}
   uv:
   - {x: 0, y: 0}
-  - {x: 0, y: 0.5}
-  - {x: 0, y: 1}
-  - {x: 0, y: 0}
-  - {x: 0, y: 0.5}
-  - {x: 0, y: 1}
-  - {x: 0, y: 0}
-  - {x: 0, y: 0.5}
-  - {x: 0, y: 1}
-  - {x: 0, y: 0}
-  - {x: 0, y: 0.5}
-  - {x: 0, y: 1}
-  - {x: 0, y: 0}
-  - {x: 0, y: 0.5}
-  - {x: 0, y: 1}
-  - {x: 0.5, y: 0}
-  - {x: 0.5, y: -0.5}
-  - {x: 0.5, y: -1}
-  - {x: 0.5, y: 0}
-  - {x: 0.5, y: -0.5}
-  - {x: 0.5, y: -1}
-  - {x: 0.5, y: 0}
-  - {x: 0.5, y: -0.5}
-  - {x: 0.5, y: -1}
-  - {x: 0.5, y: 0}
-  - {x: 0.5, y: -0.5}
-  - {x: 0.5, y: -1}
-  - {x: 0.5, y: 0}
-  - {x: 0.5, y: -0.5}
-  - {x: 0.5, y: -1}
-  - {x: 0, y: 0}
-  - {x: 0, y: 0.5}
-  - {x: 0, y: 1}
-  - {x: 0, y: 0}
-  - {x: 0, y: 0.5}
-  - {x: 0, y: 1}
-  - {x: 0, y: 0}
-  - {x: 0, y: 0.5}
-  - {x: 0, y: 1}
-  - {x: 0, y: 0}
-  - {x: 0, y: 0.5}
-  - {x: 0, y: 1}
-  - {x: 0, y: 0}
-  - {x: 0, y: 0.5}
-  - {x: 0, y: 1}
-  - {x: 0.5, y: 0}
-  - {x: 0.5, y: -0.5}
-  - {x: 0.5, y: -1}
-  - {x: 0.5, y: 0}
-  - {x: 0.5, y: -0.5}
-  - {x: 0.5, y: -1}
-  - {x: 0.5, y: 0}
-  - {x: 0.5, y: -0.5}
-  - {x: 0.5, y: -1}
-  - {x: 0.5, y: 0}
-  - {x: 0.5, y: -0.5}
-  - {x: 0.5, y: -1}
-  - {x: 0.5, y: 0}
-  - {x: 0.5, y: -0.5}
-  - {x: 0.5, y: -1}
-  - {x: 0, y: 0}
-  - {x: 0, y: 0.5}
-  - {x: 0, y: 1}
-  - {x: 0, y: 0}
-  - {x: 0, y: 0.5}
-  - {x: 0, y: 1}
-  - {x: 0, y: 0}
-  - {x: 0, y: 0.5}
-  - {x: 0, y: 1}
-  - {x: 0, y: 0}
-  - {x: 0, y: 0.5}
-  - {x: 0, y: 1}
-  - {x: 0, y: 0}
-  - {x: 0, y: 0.5}
-  - {x: 0, y: 1}
-  - {x: 0.5, y: 0}
-  - {x: 0.5, y: -0.5}
-  - {x: 0.5, y: -1}
-  - {x: 0.5, y: 0}
-  - {x: 0.5, y: -0.5}
-  - {x: 0.5, y: -1}
-  - {x: 0.5, y: 0}
-  - {x: 0.5, y: -0.5}
-  - {x: 0.5, y: -1}
-  - {x: 0.5, y: 0}
-  - {x: 0.5, y: -0.5}
-  - {x: 0.5, y: -1}
-  - {x: 0.5, y: 0}
-  - {x: 0.5, y: -0.5}
-  - {x: 0.5, y: -1}
-  - {x: 0, y: 0}
-  - {x: 0, y: 0.5}
-  - {x: 0, y: 1}
-  - {x: 0, y: 0}
-  - {x: 0, y: 0.5}
-  - {x: 0, y: 1}
-  - {x: 0, y: 0}
-  - {x: 0, y: 0.5}
-  - {x: 0, y: 1}
-  - {x: 0, y: 0}
-  - {x: 0, y: 0.5}
-  - {x: 0, y: 1}
-  - {x: 0, y: 0}
-  - {x: 0, y: 0.5}
-  - {x: 0, y: 1}
-  - {x: 0.5, y: 0}
-  - {x: 0.5, y: -0.5}
-  - {x: 0.5, y: -1}
-  - {x: 0.5, y: 0}
-  - {x: 0.5, y: -0.5}
-  - {x: 0.5, y: -1}
-  - {x: 0.5, y: 0}
-  - {x: 0.5, y: -0.5}
-  - {x: 0.5, y: -1}
-  - {x: 0.5, y: 0}
-  - {x: 0.5, y: -0.5}
-  - {x: 0.5, y: -1}
-  - {x: 0.5, y: 0}
-  - {x: 0.5, y: -0.5}
-  - {x: 0.5, y: -1}
-  - {x: 0, y: 0}
-  - {x: 0, y: 0.5}
-  - {x: 0, y: 1}
-  - {x: 0, y: 0}
-  - {x: 0, y: 0.5}
-  - {x: 0, y: 1}
-  - {x: 0, y: 0}
-  - {x: 0, y: 0.5}
-  - {x: 0, y: 1}
-  - {x: 0, y: 0}
-  - {x: 0, y: 0.5}
-  - {x: 0, y: 1}
-  - {x: 0, y: 0}
-  - {x: 0, y: 0.5}
-  - {x: 0, y: 1}
-  - {x: 0.5, y: 0}
-  - {x: 0.5, y: -0.5}
-  - {x: 0.5, y: -1}
-  - {x: 0.5, y: 0}
-  - {x: 0.5, y: -0.5}
-  - {x: 0.5, y: -1}
-  - {x: 0.5, y: 0}
-  - {x: 0.5, y: -0.5}
-  - {x: 0.5, y: -1}
-  - {x: 0.5, y: 0}
-  - {x: 0.5, y: -0.5}
-  - {x: 0.5, y: -1}
-  - {x: 0.5, y: 0}
-  - {x: 0.5, y: -0.5}
-  - {x: 0.5, y: -1}
-  - {x: 0, y: 0}
-  - {x: 0, y: 0.5}
-  - {x: 0, y: 1}
-  - {x: 0, y: 0}
-  - {x: 0, y: 0.5}
-  - {x: 0, y: 1}
-  - {x: 0, y: 0}
-  - {x: 0, y: 0.5}
-  - {x: 0, y: 1}
-  - {x: 0, y: 0}
-  - {x: 0, y: 0.5}
-  - {x: 0, y: 1}
-  - {x: 0, y: 0}
-  - {x: 0, y: 0.5}
-  - {x: 0, y: 1}
-  - {x: 0.5, y: 0}
-  - {x: 0.5, y: -0.5}
-  - {x: 0.5, y: -1}
-  - {x: 0.5, y: 0}
-  - {x: 0.5, y: -0.5}
-  - {x: 0.5, y: -1}
-  - {x: 0.5, y: 0}
-  - {x: 0.5, y: -0.5}
-  - {x: 0.5, y: -1}
-  - {x: 0.5, y: 0}
-  - {x: 0.5, y: -0.5}
-  - {x: 0.5, y: -1}
-  - {x: 0.5, y: 0}
-  - {x: 0.5, y: -0.5}
-  - {x: 0.5, y: -1}
-  - {x: 0, y: 0}
-  - {x: 0, y: 0.5}
-  - {x: 0, y: 1}
-  - {x: 0, y: 0}
-  - {x: 0, y: 0.5}
-  - {x: 0, y: 1}
-  - {x: 0, y: 0}
-  - {x: 0, y: 0.5}
-  - {x: 0, y: 1}
-  - {x: 0, y: 0}
-  - {x: 0, y: 0.5}
-  - {x: 0, y: 1}
-  - {x: 0, y: 0}
-  - {x: 0, y: 0.5}
-  - {x: 0, y: 1}
-  - {x: 0.5, y: 0}
-  - {x: 0.5, y: -0.5}
-  - {x: 0.5, y: -1}
-  - {x: 0.5, y: 0}
-  - {x: 0.5, y: -0.5}
-  - {x: 0.5, y: -1}
-  - {x: 0.5, y: 0}
-  - {x: 0.5, y: -0.5}
-  - {x: 0.5, y: -1}
-  - {x: 0.5, y: 0}
-  - {x: 0.5, y: -0.5}
-  - {x: 0.5, y: -1}
-  - {x: 0.5, y: 0}
-  - {x: 0.5, y: -0.5}
-  - {x: 0.5, y: -1}
-  - {x: 0, y: 0}
-  - {x: 0, y: 0.5}
-  - {x: 0, y: 1}
-  - {x: 0, y: 0}
-  - {x: 0, y: 0.5}
-  - {x: 0, y: 1}
-  - {x: 0, y: 0}
-  - {x: 0, y: 0.5}
-  - {x: 0, y: 1}
-  - {x: 0, y: 0}
-  - {x: 0, y: 0.5}
-  - {x: 0, y: 1}
+  - {x: 1, y: 0.5}
+  - {x: 1, y: 1}
   - {x: 0, y: 0}
   - {x: 0, y: 0.5}
   - {x: 0, y: 1}
-  - {x: 0.5, y: 0}
-  - {x: 0.5, y: -0.5}
-  - {x: 0.5, y: -1}
-  - {x: 0.5, y: 0}
-  - {x: 0.5, y: -0.5}
-  - {x: 0.5, y: -1}
-  - {x: 0.5, y: 0}
-  - {x: 0.5, y: -0.5}
-  - {x: 0.5, y: -1}
-  - {x: 0.5, y: 0}
-  - {x: 0.5, y: -0.5}
-  - {x: 0.5, y: -1}
-  - {x: 0.5, y: 0}
-  - {x: 0.5, y: -0.5}
-  - {x: 0.5, y: -1}
-  - {x: 0, y: 0}
-  - {x: 0, y: 0.5}
-  - {x: 0, y: 1}
-  - {x: 0, y: 0}
-  - {x: 0, y: 0.5}
-  - {x: 0, y: 1}
-  - {x: 0, y: 0}
-  - {x: 0, y: 0.5}
-  - {x: 0, y: 1}
-  - {x: 0, y: 0}
-  - {x: 0, y: 0.5}
-  - {x: 0, y: 1}
-  - {x: 0, y: 0}
-  - {x: 0, y: 0.5}
-  - {x: 0, y: 1}
-  - {x: 0.5, y: 0}
-  - {x: 0.5, y: -0.5}
-  - {x: 0.5, y: -1}
-  - {x: 0.5, y: 0}
-  - {x: 0.5, y: -0.5}
-  - {x: 0.5, y: -1}
-  - {x: 0.5, y: 0}
-  - {x: 0.5, y: -0.5}
-  - {x: 0.5, y: -1}
-  - {x: 0.5, y: 0}
-  - {x: 0.5, y: -0.5}
-  - {x: 0.5, y: -1}
-  - {x: 0.5, y: 0}
-  - {x: 0.5, y: -0.5}
-  - {x: 0.5, y: -1}
-  - {x: 0, y: 0}
-  - {x: 0, y: 0.5}
-  - {x: 0, y: 1}
-  - {x: 0, y: 0}
-  - {x: 0, y: 0.5}
-  - {x: 0, y: 1}
-  - {x: 0, y: 0}
-  - {x: 0, y: 0.5}
-  - {x: 0, y: 1}
-  - {x: 0, y: 0}
-  - {x: 0, y: 0.5}
-  - {x: 0, y: 1}
-  - {x: 0, y: 0}
-  - {x: 0, y: 0.5}
-  - {x: 0, y: 1}
-  - {x: 0.5, y: 0}
-  - {x: 0.5, y: -0.5}
-  - {x: 0.5, y: -1}
-  - {x: 0.5, y: 0}
-  - {x: 0.5, y: -0.5}
-  - {x: 0.5, y: -1}
-  - {x: 0.5, y: 0}
-  - {x: 0.5, y: -0.5}
-  - {x: 0.5, y: -1}
-  - {x: 0.5, y: 0}
-  - {x: 0.5, y: -0.5}
-  - {x: 0.5, y: -1}
-  - {x: 0.5, y: 0}
-  - {x: 0.5, y: -0.5}
-  - {x: 0.5, y: -1}
-  - {x: 0, y: 0}
-  - {x: 0, y: 0.5}
-  - {x: 0, y: 1}
-  - {x: 0, y: 0}
-  - {x: 0, y: 0.5}
-  - {x: 0, y: 1}
-  - {x: 0, y: 0}
-  - {x: 0, y: 0.5}
-  - {x: 0, y: 1}
-  - {x: 0, y: 0}
-  - {x: 0, y: 0.5}
-  - {x: 0, y: 1}
-  - {x: 0, y: 0}
-  - {x: 0, y: 0.5}
-  - {x: 0, y: 1}
-  - {x: 0.5, y: 0}
-  - {x: 0.5, y: -0.5}
-  - {x: 0.5, y: -1}
-  - {x: 0.5, y: 0}
-  - {x: 0.5, y: -0.5}
-  - {x: 0.5, y: -1}
-  - {x: 0.5, y: 0}
-  - {x: 0.5, y: -0.5}
-  - {x: 0.5, y: -1}
-  - {x: 0.5, y: 0}
-  - {x: 0.5, y: -0.5}
-  - {x: 0.5, y: -1}
-  - {x: 0.5, y: 0}
-  - {x: 0.5, y: -0.5}
-  - {x: 0.5, y: -1}
-  - {x: 0, y: 0}
-  - {x: 0, y: 0.5}
-  - {x: 0, y: 1}
-  - {x: 0, y: 0}
-  - {x: 0, y: 0.5}
-  - {x: 0, y: 1}
-  - {x: 0, y: 0}
-  - {x: 0, y: 0.5}
-  - {x: 0, y: 1}
-  - {x: 0, y: 0}
-  - {x: 0, y: 0.5}
-  - {x: 0, y: 1}
-  - {x: 0, y: 0}
+  - {x: 1, y: 0}
   - {x: 0, y: 0.5}
   - {x: 0, y: 1}
-  - {x: 0.5, y: 0}
-  - {x: 0.5, y: -0.5}
-  - {x: 0.5, y: -1}
-  - {x: 0.5, y: 0}
-  - {x: 0.5, y: -0.5}
-  - {x: 0.5, y: -1}
-  - {x: 0.5, y: 0}
-  - {x: 0.5, y: -0.5}
-  - {x: 0.5, y: -1}
-  - {x: 0.5, y: 0}
-  - {x: 0.5, y: -0.5}
-  - {x: 0.5, y: -1}
-  - {x: 0.5, y: 0}
-  - {x: 0.5, y: -0.5}
-  - {x: 0.5, y: -1}
-  - {x: 0, y: 0}
-  - {x: 0, y: 0.5}
-  - {x: 0, y: 1}
-  - {x: 0, y: 0}
-  - {x: 0, y: 0.5}
-  - {x: 0, y: 1}
-  - {x: 0, y: 0}
-  - {x: 0, y: 0.5}
-  - {x: 0, y: 1}
-  - {x: 0, y: 0}
-  - {x: 0, y: 0.5}
-  - {x: 0, y: 1}
-  - {x: 0, y: 0}
-  - {x: 0, y: 0.5}
-  - {x: 0, y: 1}
-  - {x: 0.5, y: 0}
-  - {x: 0.5, y: -0.5}
-  - {x: 0.5, y: -1}
-  - {x: 0.5, y: 0}
-  - {x: 0.5, y: -0.5}
-  - {x: 0.5, y: -1}
-  - {x: 0.5, y: 0}
-  - {x: 0.5, y: -0.5}
-  - {x: 0.5, y: -1}
-  - {x: 0.5, y: 0}
-  - {x: 0.5, y: -0.5}
-  - {x: 0.5, y: -1}
-  - {x: 0.5, y: 0}
-  - {x: 0.5, y: -0.5}
-  - {x: 0.5, y: -1}
-  - {x: 0, y: 0}
-  - {x: 0, y: 0.5}
-  - {x: 0, y: 1}
-  - {x: 0, y: 0}
-  - {x: 0, y: 0.5}
-  - {x: 0, y: 1}
-  - {x: 0, y: 0}
-  - {x: 0, y: 0.5}
-  - {x: 0, y: 1}
-  - {x: 0, y: 0}
-  - {x: 0, y: 0.5}
-  - {x: 0, y: 1}
-  - {x: 0, y: 0}
-  - {x: 0, y: 0.5}
-  - {x: 0, y: 1}
-  - {x: 0.5, y: 0}
-  - {x: 0.5, y: -0.5}
-  - {x: 0.5, y: -1}
-  - {x: 0.5, y: 0}
-  - {x: 0.5, y: -0.5}
-  - {x: 0.5, y: -1}
-  - {x: 0.5, y: 0}
-  - {x: 0.5, y: -0.5}
-  - {x: 0.5, y: -1}
-  - {x: 0.5, y: 0}
-  - {x: 0.5, y: -0.5}
-  - {x: 0.5, y: -1}
-  - {x: 0.5, y: 0}
-  - {x: 0.5, y: -0.5}
-  - {x: 0.5, y: -1}
-  - {x: 0, y: 0}
-  - {x: 0, y: 0.5}
-  - {x: 0, y: 1}
-  - {x: 0, y: 0}
-  - {x: 0, y: 0.5}
-  - {x: 0, y: 1}
-  - {x: 0, y: 0}
-  - {x: 0, y: 0.5}
-  - {x: 0, y: 1}
-  - {x: 0, y: 0}
-  - {x: 0, y: 0.5}
-  - {x: 0, y: 1}
-  - {x: 0, y: 0}
-  - {x: 0, y: 0.5}
-  - {x: 0, y: 1}
-  - {x: 0.5, y: 0}
-  - {x: 0.5, y: -0.5}
-  - {x: 0.5, y: -1}
-  - {x: 0.5, y: 0}
-  - {x: 0.5, y: -0.5}
-  - {x: 0.5, y: -1}
-  - {x: 0.5, y: 0}
-  - {x: 0.5, y: -0.5}
-  - {x: 0.5, y: -1}
-  - {x: 0.5, y: 0}
-  - {x: 0.5, y: -0.5}
-  - {x: 0.5, y: -1}
-  - {x: 0.5, y: 0}
-  - {x: 0.5, y: -0.5}
-  - {x: 0.5, y: -1}
-  - {x: 0, y: 0}
-  - {x: 0, y: 0.5}
-  - {x: 0, y: 1}
-  - {x: 0, y: 0}
-  - {x: 0, y: 0.5}
-  - {x: 0, y: 1}
-  - {x: 0, y: 0}
-  - {x: 0, y: 0.5}
-  - {x: 0, y: 1}
-  - {x: 0, y: 0}
-  - {x: 0, y: 0.5}
-  - {x: 0, y: 1}
-  - {x: 0, y: 0}
+  - {x: 1, y: 0}
   - {x: 0, y: 0.5}
   - {x: 0, y: 1}
-  - {x: 0.5, y: 0}
-  - {x: 0.5, y: -0.5}
-  - {x: 0.5, y: -1}
-  - {x: 0.5, y: 0}
-  - {x: 0.5, y: -0.5}
-  - {x: 0.5, y: -1}
-  - {x: 0.5, y: 0}
-  - {x: 0.5, y: -0.5}
-  - {x: 0.5, y: -1}
-  - {x: 0.5, y: 0}
-  - {x: 0.5, y: -0.5}
-  - {x: 0.5, y: -1}
-  - {x: 0.5, y: 0}
-  - {x: 0.5, y: -0.5}
-  - {x: 0.5, y: -1}
-  - {x: 0.5, y: 0.5}
-  - {x: 0.5, y: 0.5}
   triangles:
-  - {x: 0, y: 1, z: 16}
-  - {x: 0, y: 16, z: 15}
-  - {x: 1, y: 2, z: 17}
-  - {x: 1, y: 17, z: 16}
-  - {x: 2, y: 3, z: 18}
-  - {x: 2, y: 18, z: 17}
-  - {x: 3, y: 4, z: 19}
-  - {x: 3, y: 19, z: 18}
-  - {x: 4, y: 5, z: 20}
-  - {x: 4, y: 20, z: 19}
-  - {x: 5, y: 6, z: 21}
-  - {x: 5, y: 21, z: 20}
-  - {x: 6, y: 7, z: 22}
-  - {x: 6, y: 22, z: 21}
-  - {x: 7, y: 8, z: 23}
-  - {x: 7, y: 23, z: 22}
-  - {x: 8, y: 9, z: 24}
-  - {x: 8, y: 24, z: 23}
-  - {x: 9, y: 10, z: 25}
-  - {x: 9, y: 25, z: 24}
-  - {x: 10, y: 11, z: 26}
-  - {x: 10, y: 26, z: 25}
-  - {x: 11, y: 12, z: 27}
-  - {x: 11, y: 27, z: 26}
-  - {x: 12, y: 13, z: 28}
-  - {x: 12, y: 28, z: 27}
-  - {x: 13, y: 14, z: 29}
-  - {x: 13, y: 29, z: 28}
-  - {x: 480, y: 0, z: 15}
-  - {x: 481, y: 14, z: 29}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 15, y: 16, z: 31}
-  - {x: 15, y: 31, z: 30}
-  - {x: 16, y: 17, z: 32}
-  - {x: 16, y: 32, z: 31}
-  - {x: 17, y: 18, z: 33}
-  - {x: 17, y: 33, z: 32}
-  - {x: 18, y: 19, z: 34}
-  - {x: 18, y: 34, z: 33}
-  - {x: 19, y: 20, z: 35}
-  - {x: 19, y: 35, z: 34}
-  - {x: 20, y: 21, z: 36}
-  - {x: 20, y: 36, z: 35}
-  - {x: 21, y: 22, z: 37}
-  - {x: 21, y: 37, z: 36}
-  - {x: 22, y: 23, z: 38}
-  - {x: 22, y: 38, z: 37}
-  - {x: 23, y: 24, z: 39}
-  - {x: 23, y: 39, z: 38}
-  - {x: 24, y: 25, z: 40}
-  - {x: 24, y: 40, z: 39}
-  - {x: 25, y: 26, z: 41}
-  - {x: 25, y: 41, z: 40}
-  - {x: 26, y: 27, z: 42}
-  - {x: 26, y: 42, z: 41}
-  - {x: 27, y: 28, z: 43}
-  - {x: 27, y: 43, z: 42}
-  - {x: 28, y: 29, z: 44}
-  - {x: 28, y: 44, z: 43}
-  - {x: 480, y: 15, z: 30}
-  - {x: 481, y: 29, z: 44}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 30, y: 31, z: 46}
-  - {x: 30, y: 46, z: 45}
-  - {x: 31, y: 32, z: 47}
-  - {x: 31, y: 47, z: 46}
-  - {x: 32, y: 33, z: 48}
-  - {x: 32, y: 48, z: 47}
-  - {x: 33, y: 34, z: 49}
-  - {x: 33, y: 49, z: 48}
-  - {x: 34, y: 35, z: 50}
-  - {x: 34, y: 50, z: 49}
-  - {x: 35, y: 36, z: 51}
-  - {x: 35, y: 51, z: 50}
-  - {x: 36, y: 37, z: 52}
-  - {x: 36, y: 52, z: 51}
-  - {x: 37, y: 38, z: 53}
-  - {x: 37, y: 53, z: 52}
-  - {x: 38, y: 39, z: 54}
-  - {x: 38, y: 54, z: 53}
-  - {x: 39, y: 40, z: 55}
-  - {x: 39, y: 55, z: 54}
-  - {x: 40, y: 41, z: 56}
-  - {x: 40, y: 56, z: 55}
-  - {x: 41, y: 42, z: 57}
-  - {x: 41, y: 57, z: 56}
-  - {x: 42, y: 43, z: 58}
-  - {x: 42, y: 58, z: 57}
-  - {x: 43, y: 44, z: 59}
-  - {x: 43, y: 59, z: 58}
-  - {x: 480, y: 30, z: 45}
-  - {x: 481, y: 44, z: 59}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 45, y: 46, z: 61}
-  - {x: 45, y: 61, z: 60}
-  - {x: 46, y: 47, z: 62}
-  - {x: 46, y: 62, z: 61}
-  - {x: 47, y: 48, z: 63}
-  - {x: 47, y: 63, z: 62}
-  - {x: 48, y: 49, z: 64}
-  - {x: 48, y: 64, z: 63}
-  - {x: 49, y: 50, z: 65}
-  - {x: 49, y: 65, z: 64}
-  - {x: 50, y: 51, z: 66}
-  - {x: 50, y: 66, z: 65}
-  - {x: 51, y: 52, z: 67}
-  - {x: 51, y: 67, z: 66}
-  - {x: 52, y: 53, z: 68}
-  - {x: 52, y: 68, z: 67}
-  - {x: 53, y: 54, z: 69}
-  - {x: 53, y: 69, z: 68}
-  - {x: 54, y: 55, z: 70}
-  - {x: 54, y: 70, z: 69}
-  - {x: 55, y: 56, z: 71}
-  - {x: 55, y: 71, z: 70}
-  - {x: 56, y: 57, z: 72}
-  - {x: 56, y: 72, z: 71}
-  - {x: 57, y: 58, z: 73}
-  - {x: 57, y: 73, z: 72}
-  - {x: 58, y: 59, z: 74}
-  - {x: 58, y: 74, z: 73}
-  - {x: 480, y: 45, z: 60}
-  - {x: 481, y: 59, z: 74}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 60, y: 61, z: 76}
-  - {x: 60, y: 76, z: 75}
-  - {x: 61, y: 62, z: 77}
-  - {x: 61, y: 77, z: 76}
-  - {x: 62, y: 63, z: 78}
-  - {x: 62, y: 78, z: 77}
-  - {x: 63, y: 64, z: 79}
-  - {x: 63, y: 79, z: 78}
-  - {x: 64, y: 65, z: 80}
-  - {x: 64, y: 80, z: 79}
-  - {x: 65, y: 66, z: 81}
-  - {x: 65, y: 81, z: 80}
-  - {x: 66, y: 67, z: 82}
-  - {x: 66, y: 82, z: 81}
-  - {x: 67, y: 68, z: 83}
-  - {x: 67, y: 83, z: 82}
-  - {x: 68, y: 69, z: 84}
-  - {x: 68, y: 84, z: 83}
-  - {x: 69, y: 70, z: 85}
-  - {x: 69, y: 85, z: 84}
-  - {x: 70, y: 71, z: 86}
-  - {x: 70, y: 86, z: 85}
-  - {x: 71, y: 72, z: 87}
-  - {x: 71, y: 87, z: 86}
-  - {x: 72, y: 73, z: 88}
-  - {x: 72, y: 88, z: 87}
-  - {x: 73, y: 74, z: 89}
-  - {x: 73, y: 89, z: 88}
-  - {x: 480, y: 60, z: 75}
-  - {x: 481, y: 74, z: 89}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 75, y: 76, z: 91}
-  - {x: 75, y: 91, z: 90}
-  - {x: 76, y: 77, z: 92}
-  - {x: 76, y: 92, z: 91}
-  - {x: 77, y: 78, z: 93}
-  - {x: 77, y: 93, z: 92}
-  - {x: 78, y: 79, z: 94}
-  - {x: 78, y: 94, z: 93}
-  - {x: 79, y: 80, z: 95}
-  - {x: 79, y: 95, z: 94}
-  - {x: 80, y: 81, z: 96}
-  - {x: 80, y: 96, z: 95}
-  - {x: 81, y: 82, z: 97}
-  - {x: 81, y: 97, z: 96}
-  - {x: 82, y: 83, z: 98}
-  - {x: 82, y: 98, z: 97}
-  - {x: 83, y: 84, z: 99}
-  - {x: 83, y: 99, z: 98}
-  - {x: 84, y: 85, z: 100}
-  - {x: 84, y: 100, z: 99}
-  - {x: 85, y: 86, z: 101}
-  - {x: 85, y: 101, z: 100}
-  - {x: 86, y: 87, z: 102}
-  - {x: 86, y: 102, z: 101}
-  - {x: 87, y: 88, z: 103}
-  - {x: 87, y: 103, z: 102}
-  - {x: 88, y: 89, z: 104}
-  - {x: 88, y: 104, z: 103}
-  - {x: 480, y: 75, z: 90}
-  - {x: 481, y: 89, z: 104}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 90, y: 91, z: 106}
-  - {x: 90, y: 106, z: 105}
-  - {x: 91, y: 92, z: 107}
-  - {x: 91, y: 107, z: 106}
-  - {x: 92, y: 93, z: 108}
-  - {x: 92, y: 108, z: 107}
-  - {x: 93, y: 94, z: 109}
-  - {x: 93, y: 109, z: 108}
-  - {x: 94, y: 95, z: 110}
-  - {x: 94, y: 110, z: 109}
-  - {x: 95, y: 96, z: 111}
-  - {x: 95, y: 111, z: 110}
-  - {x: 96, y: 97, z: 112}
-  - {x: 96, y: 112, z: 111}
-  - {x: 97, y: 98, z: 113}
-  - {x: 97, y: 113, z: 112}
-  - {x: 98, y: 99, z: 114}
-  - {x: 98, y: 114, z: 113}
-  - {x: 99, y: 100, z: 115}
-  - {x: 99, y: 115, z: 114}
-  - {x: 100, y: 101, z: 116}
-  - {x: 100, y: 116, z: 115}
-  - {x: 101, y: 102, z: 117}
-  - {x: 101, y: 117, z: 116}
-  - {x: 102, y: 103, z: 118}
-  - {x: 102, y: 118, z: 117}
-  - {x: 103, y: 104, z: 119}
-  - {x: 103, y: 119, z: 118}
-  - {x: 480, y: 90, z: 105}
-  - {x: 481, y: 104, z: 119}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 105, y: 106, z: 121}
-  - {x: 105, y: 121, z: 120}
-  - {x: 106, y: 107, z: 122}
-  - {x: 106, y: 122, z: 121}
-  - {x: 107, y: 108, z: 123}
-  - {x: 107, y: 123, z: 122}
-  - {x: 108, y: 109, z: 124}
-  - {x: 108, y: 124, z: 123}
-  - {x: 109, y: 110, z: 125}
-  - {x: 109, y: 125, z: 124}
-  - {x: 110, y: 111, z: 126}
-  - {x: 110, y: 126, z: 125}
-  - {x: 111, y: 112, z: 127}
-  - {x: 111, y: 127, z: 126}
-  - {x: 112, y: 113, z: 128}
-  - {x: 112, y: 128, z: 127}
-  - {x: 113, y: 114, z: 129}
-  - {x: 113, y: 129, z: 128}
-  - {x: 114, y: 115, z: 130}
-  - {x: 114, y: 130, z: 129}
-  - {x: 115, y: 116, z: 131}
-  - {x: 115, y: 131, z: 130}
-  - {x: 116, y: 117, z: 132}
-  - {x: 116, y: 132, z: 131}
-  - {x: 117, y: 118, z: 133}
-  - {x: 117, y: 133, z: 132}
-  - {x: 118, y: 119, z: 134}
-  - {x: 118, y: 134, z: 133}
-  - {x: 480, y: 105, z: 120}
-  - {x: 481, y: 119, z: 134}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 120, y: 121, z: 136}
-  - {x: 120, y: 136, z: 135}
-  - {x: 121, y: 122, z: 137}
-  - {x: 121, y: 137, z: 136}
-  - {x: 122, y: 123, z: 138}
-  - {x: 122, y: 138, z: 137}
-  - {x: 123, y: 124, z: 139}
-  - {x: 123, y: 139, z: 138}
-  - {x: 124, y: 125, z: 140}
-  - {x: 124, y: 140, z: 139}
-  - {x: 125, y: 126, z: 141}
-  - {x: 125, y: 141, z: 140}
-  - {x: 126, y: 127, z: 142}
-  - {x: 126, y: 142, z: 141}
-  - {x: 127, y: 128, z: 143}
-  - {x: 127, y: 143, z: 142}
-  - {x: 128, y: 129, z: 144}
-  - {x: 128, y: 144, z: 143}
-  - {x: 129, y: 130, z: 145}
-  - {x: 129, y: 145, z: 144}
-  - {x: 130, y: 131, z: 146}
-  - {x: 130, y: 146, z: 145}
-  - {x: 131, y: 132, z: 147}
-  - {x: 131, y: 147, z: 146}
-  - {x: 132, y: 133, z: 148}
-  - {x: 132, y: 148, z: 147}
-  - {x: 133, y: 134, z: 149}
-  - {x: 133, y: 149, z: 148}
-  - {x: 480, y: 120, z: 135}
-  - {x: 481, y: 134, z: 149}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 135, y: 136, z: 151}
-  - {x: 135, y: 151, z: 150}
-  - {x: 136, y: 137, z: 152}
-  - {x: 136, y: 152, z: 151}
-  - {x: 137, y: 138, z: 153}
-  - {x: 137, y: 153, z: 152}
-  - {x: 138, y: 139, z: 154}
-  - {x: 138, y: 154, z: 153}
-  - {x: 139, y: 140, z: 155}
-  - {x: 139, y: 155, z: 154}
-  - {x: 140, y: 141, z: 156}
-  - {x: 140, y: 156, z: 155}
-  - {x: 141, y: 142, z: 157}
-  - {x: 141, y: 157, z: 156}
-  - {x: 142, y: 143, z: 158}
-  - {x: 142, y: 158, z: 157}
-  - {x: 143, y: 144, z: 159}
-  - {x: 143, y: 159, z: 158}
-  - {x: 144, y: 145, z: 160}
-  - {x: 144, y: 160, z: 159}
-  - {x: 145, y: 146, z: 161}
-  - {x: 145, y: 161, z: 160}
-  - {x: 146, y: 147, z: 162}
-  - {x: 146, y: 162, z: 161}
-  - {x: 147, y: 148, z: 163}
-  - {x: 147, y: 163, z: 162}
-  - {x: 148, y: 149, z: 164}
-  - {x: 148, y: 164, z: 163}
-  - {x: 480, y: 135, z: 150}
-  - {x: 481, y: 149, z: 164}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 150, y: 151, z: 166}
-  - {x: 150, y: 166, z: 165}
-  - {x: 151, y: 152, z: 167}
-  - {x: 151, y: 167, z: 166}
-  - {x: 152, y: 153, z: 168}
-  - {x: 152, y: 168, z: 167}
-  - {x: 153, y: 154, z: 169}
-  - {x: 153, y: 169, z: 168}
-  - {x: 154, y: 155, z: 170}
-  - {x: 154, y: 170, z: 169}
-  - {x: 155, y: 156, z: 171}
-  - {x: 155, y: 171, z: 170}
-  - {x: 156, y: 157, z: 172}
-  - {x: 156, y: 172, z: 171}
-  - {x: 157, y: 158, z: 173}
-  - {x: 157, y: 173, z: 172}
-  - {x: 158, y: 159, z: 174}
-  - {x: 158, y: 174, z: 173}
-  - {x: 159, y: 160, z: 175}
-  - {x: 159, y: 175, z: 174}
-  - {x: 160, y: 161, z: 176}
-  - {x: 160, y: 176, z: 175}
-  - {x: 161, y: 162, z: 177}
-  - {x: 161, y: 177, z: 176}
-  - {x: 162, y: 163, z: 178}
-  - {x: 162, y: 178, z: 177}
-  - {x: 163, y: 164, z: 179}
-  - {x: 163, y: 179, z: 178}
-  - {x: 480, y: 150, z: 165}
-  - {x: 481, y: 164, z: 179}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 165, y: 166, z: 181}
-  - {x: 165, y: 181, z: 180}
-  - {x: 166, y: 167, z: 182}
-  - {x: 166, y: 182, z: 181}
-  - {x: 167, y: 168, z: 183}
-  - {x: 167, y: 183, z: 182}
-  - {x: 168, y: 169, z: 184}
-  - {x: 168, y: 184, z: 183}
-  - {x: 169, y: 170, z: 185}
-  - {x: 169, y: 185, z: 184}
-  - {x: 170, y: 171, z: 186}
-  - {x: 170, y: 186, z: 185}
-  - {x: 171, y: 172, z: 187}
-  - {x: 171, y: 187, z: 186}
-  - {x: 172, y: 173, z: 188}
-  - {x: 172, y: 188, z: 187}
-  - {x: 173, y: 174, z: 189}
-  - {x: 173, y: 189, z: 188}
-  - {x: 174, y: 175, z: 190}
-  - {x: 174, y: 190, z: 189}
-  - {x: 175, y: 176, z: 191}
-  - {x: 175, y: 191, z: 190}
-  - {x: 176, y: 177, z: 192}
-  - {x: 176, y: 192, z: 191}
-  - {x: 177, y: 178, z: 193}
-  - {x: 177, y: 193, z: 192}
-  - {x: 178, y: 179, z: 194}
-  - {x: 178, y: 194, z: 193}
-  - {x: 480, y: 165, z: 180}
-  - {x: 481, y: 179, z: 194}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 180, y: 181, z: 196}
-  - {x: 180, y: 196, z: 195}
-  - {x: 181, y: 182, z: 197}
-  - {x: 181, y: 197, z: 196}
-  - {x: 182, y: 183, z: 198}
-  - {x: 182, y: 198, z: 197}
-  - {x: 183, y: 184, z: 199}
-  - {x: 183, y: 199, z: 198}
-  - {x: 184, y: 185, z: 200}
-  - {x: 184, y: 200, z: 199}
-  - {x: 185, y: 186, z: 201}
-  - {x: 185, y: 201, z: 200}
-  - {x: 186, y: 187, z: 202}
-  - {x: 186, y: 202, z: 201}
-  - {x: 187, y: 188, z: 203}
-  - {x: 187, y: 203, z: 202}
-  - {x: 188, y: 189, z: 204}
-  - {x: 188, y: 204, z: 203}
-  - {x: 189, y: 190, z: 205}
-  - {x: 189, y: 205, z: 204}
-  - {x: 190, y: 191, z: 206}
-  - {x: 190, y: 206, z: 205}
-  - {x: 191, y: 192, z: 207}
-  - {x: 191, y: 207, z: 206}
-  - {x: 192, y: 193, z: 208}
-  - {x: 192, y: 208, z: 207}
-  - {x: 193, y: 194, z: 209}
-  - {x: 193, y: 209, z: 208}
-  - {x: 480, y: 180, z: 195}
-  - {x: 481, y: 194, z: 209}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 195, y: 196, z: 211}
-  - {x: 195, y: 211, z: 210}
-  - {x: 196, y: 197, z: 212}
-  - {x: 196, y: 212, z: 211}
-  - {x: 197, y: 198, z: 213}
-  - {x: 197, y: 213, z: 212}
-  - {x: 198, y: 199, z: 214}
-  - {x: 198, y: 214, z: 213}
-  - {x: 199, y: 200, z: 215}
-  - {x: 199, y: 215, z: 214}
-  - {x: 200, y: 201, z: 216}
-  - {x: 200, y: 216, z: 215}
-  - {x: 201, y: 202, z: 217}
-  - {x: 201, y: 217, z: 216}
-  - {x: 202, y: 203, z: 218}
-  - {x: 202, y: 218, z: 217}
-  - {x: 203, y: 204, z: 219}
-  - {x: 203, y: 219, z: 218}
-  - {x: 204, y: 205, z: 220}
-  - {x: 204, y: 220, z: 219}
-  - {x: 205, y: 206, z: 221}
-  - {x: 205, y: 221, z: 220}
-  - {x: 206, y: 207, z: 222}
-  - {x: 206, y: 222, z: 221}
-  - {x: 207, y: 208, z: 223}
-  - {x: 207, y: 223, z: 222}
-  - {x: 208, y: 209, z: 224}
-  - {x: 208, y: 224, z: 223}
-  - {x: 480, y: 195, z: 210}
-  - {x: 481, y: 209, z: 224}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 210, y: 211, z: 226}
-  - {x: 210, y: 226, z: 225}
-  - {x: 211, y: 212, z: 227}
-  - {x: 211, y: 227, z: 226}
-  - {x: 212, y: 213, z: 228}
-  - {x: 212, y: 228, z: 227}
-  - {x: 213, y: 214, z: 229}
-  - {x: 213, y: 229, z: 228}
-  - {x: 214, y: 215, z: 230}
-  - {x: 214, y: 230, z: 229}
-  - {x: 215, y: 216, z: 231}
-  - {x: 215, y: 231, z: 230}
-  - {x: 216, y: 217, z: 232}
-  - {x: 216, y: 232, z: 231}
-  - {x: 217, y: 218, z: 233}
-  - {x: 217, y: 233, z: 232}
-  - {x: 218, y: 219, z: 234}
-  - {x: 218, y: 234, z: 233}
-  - {x: 219, y: 220, z: 235}
-  - {x: 219, y: 235, z: 234}
-  - {x: 220, y: 221, z: 236}
-  - {x: 220, y: 236, z: 235}
-  - {x: 221, y: 222, z: 237}
-  - {x: 221, y: 237, z: 236}
-  - {x: 222, y: 223, z: 238}
-  - {x: 222, y: 238, z: 237}
-  - {x: 223, y: 224, z: 239}
-  - {x: 223, y: 239, z: 238}
-  - {x: 480, y: 210, z: 225}
-  - {x: 481, y: 224, z: 239}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 225, y: 226, z: 241}
-  - {x: 225, y: 241, z: 240}
-  - {x: 226, y: 227, z: 242}
-  - {x: 226, y: 242, z: 241}
-  - {x: 227, y: 228, z: 243}
-  - {x: 227, y: 243, z: 242}
-  - {x: 228, y: 229, z: 244}
-  - {x: 228, y: 244, z: 243}
-  - {x: 229, y: 230, z: 245}
-  - {x: 229, y: 245, z: 244}
-  - {x: 230, y: 231, z: 246}
-  - {x: 230, y: 246, z: 245}
-  - {x: 231, y: 232, z: 247}
-  - {x: 231, y: 247, z: 246}
-  - {x: 232, y: 233, z: 248}
-  - {x: 232, y: 248, z: 247}
-  - {x: 233, y: 234, z: 249}
-  - {x: 233, y: 249, z: 248}
-  - {x: 234, y: 235, z: 250}
-  - {x: 234, y: 250, z: 249}
-  - {x: 235, y: 236, z: 251}
-  - {x: 235, y: 251, z: 250}
-  - {x: 236, y: 237, z: 252}
-  - {x: 236, y: 252, z: 251}
-  - {x: 237, y: 238, z: 253}
-  - {x: 237, y: 253, z: 252}
-  - {x: 238, y: 239, z: 254}
-  - {x: 238, y: 254, z: 253}
-  - {x: 480, y: 225, z: 240}
-  - {x: 481, y: 239, z: 254}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 240, y: 241, z: 256}
-  - {x: 240, y: 256, z: 255}
-  - {x: 241, y: 242, z: 257}
-  - {x: 241, y: 257, z: 256}
-  - {x: 242, y: 243, z: 258}
-  - {x: 242, y: 258, z: 257}
-  - {x: 243, y: 244, z: 259}
-  - {x: 243, y: 259, z: 258}
-  - {x: 244, y: 245, z: 260}
-  - {x: 244, y: 260, z: 259}
-  - {x: 245, y: 246, z: 261}
-  - {x: 245, y: 261, z: 260}
-  - {x: 246, y: 247, z: 262}
-  - {x: 246, y: 262, z: 261}
-  - {x: 247, y: 248, z: 263}
-  - {x: 247, y: 263, z: 262}
-  - {x: 248, y: 249, z: 264}
-  - {x: 248, y: 264, z: 263}
-  - {x: 249, y: 250, z: 265}
-  - {x: 249, y: 265, z: 264}
-  - {x: 250, y: 251, z: 266}
-  - {x: 250, y: 266, z: 265}
-  - {x: 251, y: 252, z: 267}
-  - {x: 251, y: 267, z: 266}
-  - {x: 252, y: 253, z: 268}
-  - {x: 252, y: 268, z: 267}
-  - {x: 253, y: 254, z: 269}
-  - {x: 253, y: 269, z: 268}
-  - {x: 480, y: 240, z: 255}
-  - {x: 481, y: 254, z: 269}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 255, y: 256, z: 271}
-  - {x: 255, y: 271, z: 270}
-  - {x: 256, y: 257, z: 272}
-  - {x: 256, y: 272, z: 271}
-  - {x: 257, y: 258, z: 273}
-  - {x: 257, y: 273, z: 272}
-  - {x: 258, y: 259, z: 274}
-  - {x: 258, y: 274, z: 273}
-  - {x: 259, y: 260, z: 275}
-  - {x: 259, y: 275, z: 274}
-  - {x: 260, y: 261, z: 276}
-  - {x: 260, y: 276, z: 275}
-  - {x: 261, y: 262, z: 277}
-  - {x: 261, y: 277, z: 276}
-  - {x: 262, y: 263, z: 278}
-  - {x: 262, y: 278, z: 277}
-  - {x: 263, y: 264, z: 279}
-  - {x: 263, y: 279, z: 278}
-  - {x: 264, y: 265, z: 280}
-  - {x: 264, y: 280, z: 279}
-  - {x: 265, y: 266, z: 281}
-  - {x: 265, y: 281, z: 280}
-  - {x: 266, y: 267, z: 282}
-  - {x: 266, y: 282, z: 281}
-  - {x: 267, y: 268, z: 283}
-  - {x: 267, y: 283, z: 282}
-  - {x: 268, y: 269, z: 284}
-  - {x: 268, y: 284, z: 283}
-  - {x: 480, y: 255, z: 270}
-  - {x: 481, y: 269, z: 284}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 270, y: 271, z: 286}
-  - {x: 270, y: 286, z: 285}
-  - {x: 271, y: 272, z: 287}
-  - {x: 271, y: 287, z: 286}
-  - {x: 272, y: 273, z: 288}
-  - {x: 272, y: 288, z: 287}
-  - {x: 273, y: 274, z: 289}
-  - {x: 273, y: 289, z: 288}
-  - {x: 274, y: 275, z: 290}
-  - {x: 274, y: 290, z: 289}
-  - {x: 275, y: 276, z: 291}
-  - {x: 275, y: 291, z: 290}
-  - {x: 276, y: 277, z: 292}
-  - {x: 276, y: 292, z: 291}
-  - {x: 277, y: 278, z: 293}
-  - {x: 277, y: 293, z: 292}
-  - {x: 278, y: 279, z: 294}
-  - {x: 278, y: 294, z: 293}
-  - {x: 279, y: 280, z: 295}
-  - {x: 279, y: 295, z: 294}
-  - {x: 280, y: 281, z: 296}
-  - {x: 280, y: 296, z: 295}
-  - {x: 281, y: 282, z: 297}
-  - {x: 281, y: 297, z: 296}
-  - {x: 282, y: 283, z: 298}
-  - {x: 282, y: 298, z: 297}
-  - {x: 283, y: 284, z: 299}
-  - {x: 283, y: 299, z: 298}
-  - {x: 480, y: 270, z: 285}
-  - {x: 481, y: 284, z: 299}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 285, y: 286, z: 301}
-  - {x: 285, y: 301, z: 300}
-  - {x: 286, y: 287, z: 302}
-  - {x: 286, y: 302, z: 301}
-  - {x: 287, y: 288, z: 303}
-  - {x: 287, y: 303, z: 302}
-  - {x: 288, y: 289, z: 304}
-  - {x: 288, y: 304, z: 303}
-  - {x: 289, y: 290, z: 305}
-  - {x: 289, y: 305, z: 304}
-  - {x: 290, y: 291, z: 306}
-  - {x: 290, y: 306, z: 305}
-  - {x: 291, y: 292, z: 307}
-  - {x: 291, y: 307, z: 306}
-  - {x: 292, y: 293, z: 308}
-  - {x: 292, y: 308, z: 307}
-  - {x: 293, y: 294, z: 309}
-  - {x: 293, y: 309, z: 308}
-  - {x: 294, y: 295, z: 310}
-  - {x: 294, y: 310, z: 309}
-  - {x: 295, y: 296, z: 311}
-  - {x: 295, y: 311, z: 310}
-  - {x: 296, y: 297, z: 312}
-  - {x: 296, y: 312, z: 311}
-  - {x: 297, y: 298, z: 313}
-  - {x: 297, y: 313, z: 312}
-  - {x: 298, y: 299, z: 314}
-  - {x: 298, y: 314, z: 313}
-  - {x: 480, y: 285, z: 300}
-  - {x: 481, y: 299, z: 314}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 300, y: 301, z: 316}
-  - {x: 300, y: 316, z: 315}
-  - {x: 301, y: 302, z: 317}
-  - {x: 301, y: 317, z: 316}
-  - {x: 302, y: 303, z: 318}
-  - {x: 302, y: 318, z: 317}
-  - {x: 303, y: 304, z: 319}
-  - {x: 303, y: 319, z: 318}
-  - {x: 304, y: 305, z: 320}
-  - {x: 304, y: 320, z: 319}
-  - {x: 305, y: 306, z: 321}
-  - {x: 305, y: 321, z: 320}
-  - {x: 306, y: 307, z: 322}
-  - {x: 306, y: 322, z: 321}
-  - {x: 307, y: 308, z: 323}
-  - {x: 307, y: 323, z: 322}
-  - {x: 308, y: 309, z: 324}
-  - {x: 308, y: 324, z: 323}
-  - {x: 309, y: 310, z: 325}
-  - {x: 309, y: 325, z: 324}
-  - {x: 310, y: 311, z: 326}
-  - {x: 310, y: 326, z: 325}
-  - {x: 311, y: 312, z: 327}
-  - {x: 311, y: 327, z: 326}
-  - {x: 312, y: 313, z: 328}
-  - {x: 312, y: 328, z: 327}
-  - {x: 313, y: 314, z: 329}
-  - {x: 313, y: 329, z: 328}
-  - {x: 480, y: 300, z: 315}
-  - {x: 481, y: 314, z: 329}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 315, y: 316, z: 331}
-  - {x: 315, y: 331, z: 330}
-  - {x: 316, y: 317, z: 332}
-  - {x: 316, y: 332, z: 331}
-  - {x: 317, y: 318, z: 333}
-  - {x: 317, y: 333, z: 332}
-  - {x: 318, y: 319, z: 334}
-  - {x: 318, y: 334, z: 333}
-  - {x: 319, y: 320, z: 335}
-  - {x: 319, y: 335, z: 334}
-  - {x: 320, y: 321, z: 336}
-  - {x: 320, y: 336, z: 335}
-  - {x: 321, y: 322, z: 337}
-  - {x: 321, y: 337, z: 336}
-  - {x: 322, y: 323, z: 338}
-  - {x: 322, y: 338, z: 337}
-  - {x: 323, y: 324, z: 339}
-  - {x: 323, y: 339, z: 338}
-  - {x: 324, y: 325, z: 340}
-  - {x: 324, y: 340, z: 339}
-  - {x: 325, y: 326, z: 341}
-  - {x: 325, y: 341, z: 340}
-  - {x: 326, y: 327, z: 342}
-  - {x: 326, y: 342, z: 341}
-  - {x: 327, y: 328, z: 343}
-  - {x: 327, y: 343, z: 342}
-  - {x: 328, y: 329, z: 344}
-  - {x: 328, y: 344, z: 343}
-  - {x: 480, y: 315, z: 330}
-  - {x: 481, y: 329, z: 344}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 330, y: 331, z: 346}
-  - {x: 330, y: 346, z: 345}
-  - {x: 331, y: 332, z: 347}
-  - {x: 331, y: 347, z: 346}
-  - {x: 332, y: 333, z: 348}
-  - {x: 332, y: 348, z: 347}
-  - {x: 333, y: 334, z: 349}
-  - {x: 333, y: 349, z: 348}
-  - {x: 334, y: 335, z: 350}
-  - {x: 334, y: 350, z: 349}
-  - {x: 335, y: 336, z: 351}
-  - {x: 335, y: 351, z: 350}
-  - {x: 336, y: 337, z: 352}
-  - {x: 336, y: 352, z: 351}
-  - {x: 337, y: 338, z: 353}
-  - {x: 337, y: 353, z: 352}
-  - {x: 338, y: 339, z: 354}
-  - {x: 338, y: 354, z: 353}
-  - {x: 339, y: 340, z: 355}
-  - {x: 339, y: 355, z: 354}
-  - {x: 340, y: 341, z: 356}
-  - {x: 340, y: 356, z: 355}
-  - {x: 341, y: 342, z: 357}
-  - {x: 341, y: 357, z: 356}
-  - {x: 342, y: 343, z: 358}
-  - {x: 342, y: 358, z: 357}
-  - {x: 343, y: 344, z: 359}
-  - {x: 343, y: 359, z: 358}
-  - {x: 480, y: 330, z: 345}
-  - {x: 481, y: 344, z: 359}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 345, y: 346, z: 361}
-  - {x: 345, y: 361, z: 360}
-  - {x: 346, y: 347, z: 362}
-  - {x: 346, y: 362, z: 361}
-  - {x: 347, y: 348, z: 363}
-  - {x: 347, y: 363, z: 362}
-  - {x: 348, y: 349, z: 364}
-  - {x: 348, y: 364, z: 363}
-  - {x: 349, y: 350, z: 365}
-  - {x: 349, y: 365, z: 364}
-  - {x: 350, y: 351, z: 366}
-  - {x: 350, y: 366, z: 365}
-  - {x: 351, y: 352, z: 367}
-  - {x: 351, y: 367, z: 366}
-  - {x: 352, y: 353, z: 368}
-  - {x: 352, y: 368, z: 367}
-  - {x: 353, y: 354, z: 369}
-  - {x: 353, y: 369, z: 368}
-  - {x: 354, y: 355, z: 370}
-  - {x: 354, y: 370, z: 369}
-  - {x: 355, y: 356, z: 371}
-  - {x: 355, y: 371, z: 370}
-  - {x: 356, y: 357, z: 372}
-  - {x: 356, y: 372, z: 371}
-  - {x: 357, y: 358, z: 373}
-  - {x: 357, y: 373, z: 372}
-  - {x: 358, y: 359, z: 374}
-  - {x: 358, y: 374, z: 373}
-  - {x: 480, y: 345, z: 360}
-  - {x: 481, y: 359, z: 374}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 360, y: 361, z: 376}
-  - {x: 360, y: 376, z: 375}
-  - {x: 361, y: 362, z: 377}
-  - {x: 361, y: 377, z: 376}
-  - {x: 362, y: 363, z: 378}
-  - {x: 362, y: 378, z: 377}
-  - {x: 363, y: 364, z: 379}
-  - {x: 363, y: 379, z: 378}
-  - {x: 364, y: 365, z: 380}
-  - {x: 364, y: 380, z: 379}
-  - {x: 365, y: 366, z: 381}
-  - {x: 365, y: 381, z: 380}
-  - {x: 366, y: 367, z: 382}
-  - {x: 366, y: 382, z: 381}
-  - {x: 367, y: 368, z: 383}
-  - {x: 367, y: 383, z: 382}
-  - {x: 368, y: 369, z: 384}
-  - {x: 368, y: 384, z: 383}
-  - {x: 369, y: 370, z: 385}
-  - {x: 369, y: 385, z: 384}
-  - {x: 370, y: 371, z: 386}
-  - {x: 370, y: 386, z: 385}
-  - {x: 371, y: 372, z: 387}
-  - {x: 371, y: 387, z: 386}
-  - {x: 372, y: 373, z: 388}
-  - {x: 372, y: 388, z: 387}
-  - {x: 373, y: 374, z: 389}
-  - {x: 373, y: 389, z: 388}
-  - {x: 480, y: 360, z: 375}
-  - {x: 481, y: 374, z: 389}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 375, y: 376, z: 391}
-  - {x: 375, y: 391, z: 390}
-  - {x: 376, y: 377, z: 392}
-  - {x: 376, y: 392, z: 391}
-  - {x: 377, y: 378, z: 393}
-  - {x: 377, y: 393, z: 392}
-  - {x: 378, y: 379, z: 394}
-  - {x: 378, y: 394, z: 393}
-  - {x: 379, y: 380, z: 395}
-  - {x: 379, y: 395, z: 394}
-  - {x: 380, y: 381, z: 396}
-  - {x: 380, y: 396, z: 395}
-  - {x: 381, y: 382, z: 397}
-  - {x: 381, y: 397, z: 396}
-  - {x: 382, y: 383, z: 398}
-  - {x: 382, y: 398, z: 397}
-  - {x: 383, y: 384, z: 399}
-  - {x: 383, y: 399, z: 398}
-  - {x: 384, y: 385, z: 400}
-  - {x: 384, y: 400, z: 399}
-  - {x: 385, y: 386, z: 401}
-  - {x: 385, y: 401, z: 400}
-  - {x: 386, y: 387, z: 402}
-  - {x: 386, y: 402, z: 401}
-  - {x: 387, y: 388, z: 403}
-  - {x: 387, y: 403, z: 402}
-  - {x: 388, y: 389, z: 404}
-  - {x: 388, y: 404, z: 403}
-  - {x: 480, y: 375, z: 390}
-  - {x: 481, y: 389, z: 404}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 390, y: 391, z: 406}
-  - {x: 390, y: 406, z: 405}
-  - {x: 391, y: 392, z: 407}
-  - {x: 391, y: 407, z: 406}
-  - {x: 392, y: 393, z: 408}
-  - {x: 392, y: 408, z: 407}
-  - {x: 393, y: 394, z: 409}
-  - {x: 393, y: 409, z: 408}
-  - {x: 394, y: 395, z: 410}
-  - {x: 394, y: 410, z: 409}
-  - {x: 395, y: 396, z: 411}
-  - {x: 395, y: 411, z: 410}
-  - {x: 396, y: 397, z: 412}
-  - {x: 396, y: 412, z: 411}
-  - {x: 397, y: 398, z: 413}
-  - {x: 397, y: 413, z: 412}
-  - {x: 398, y: 399, z: 414}
-  - {x: 398, y: 414, z: 413}
-  - {x: 399, y: 400, z: 415}
-  - {x: 399, y: 415, z: 414}
-  - {x: 400, y: 401, z: 416}
-  - {x: 400, y: 416, z: 415}
-  - {x: 401, y: 402, z: 417}
-  - {x: 401, y: 417, z: 416}
-  - {x: 402, y: 403, z: 418}
-  - {x: 402, y: 418, z: 417}
-  - {x: 403, y: 404, z: 419}
-  - {x: 403, y: 419, z: 418}
-  - {x: 480, y: 390, z: 405}
-  - {x: 481, y: 404, z: 419}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 405, y: 406, z: 421}
-  - {x: 405, y: 421, z: 420}
-  - {x: 406, y: 407, z: 422}
-  - {x: 406, y: 422, z: 421}
-  - {x: 407, y: 408, z: 423}
-  - {x: 407, y: 423, z: 422}
-  - {x: 408, y: 409, z: 424}
-  - {x: 408, y: 424, z: 423}
-  - {x: 409, y: 410, z: 425}
-  - {x: 409, y: 425, z: 424}
-  - {x: 410, y: 411, z: 426}
-  - {x: 410, y: 426, z: 425}
-  - {x: 411, y: 412, z: 427}
-  - {x: 411, y: 427, z: 426}
-  - {x: 412, y: 413, z: 428}
-  - {x: 412, y: 428, z: 427}
-  - {x: 413, y: 414, z: 429}
-  - {x: 413, y: 429, z: 428}
-  - {x: 414, y: 415, z: 430}
-  - {x: 414, y: 430, z: 429}
-  - {x: 415, y: 416, z: 431}
-  - {x: 415, y: 431, z: 430}
-  - {x: 416, y: 417, z: 432}
-  - {x: 416, y: 432, z: 431}
-  - {x: 417, y: 418, z: 433}
-  - {x: 417, y: 433, z: 432}
-  - {x: 418, y: 419, z: 434}
-  - {x: 418, y: 434, z: 433}
-  - {x: 480, y: 405, z: 420}
-  - {x: 481, y: 419, z: 434}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 420, y: 421, z: 436}
-  - {x: 420, y: 436, z: 435}
-  - {x: 421, y: 422, z: 437}
-  - {x: 421, y: 437, z: 436}
-  - {x: 422, y: 423, z: 438}
-  - {x: 422, y: 438, z: 437}
-  - {x: 423, y: 424, z: 439}
-  - {x: 423, y: 439, z: 438}
-  - {x: 424, y: 425, z: 440}
-  - {x: 424, y: 440, z: 439}
-  - {x: 425, y: 426, z: 441}
-  - {x: 425, y: 441, z: 440}
-  - {x: 426, y: 427, z: 442}
-  - {x: 426, y: 442, z: 441}
-  - {x: 427, y: 428, z: 443}
-  - {x: 427, y: 443, z: 442}
-  - {x: 428, y: 429, z: 444}
-  - {x: 428, y: 444, z: 443}
-  - {x: 429, y: 430, z: 445}
-  - {x: 429, y: 445, z: 444}
-  - {x: 430, y: 431, z: 446}
-  - {x: 430, y: 446, z: 445}
-  - {x: 431, y: 432, z: 447}
-  - {x: 431, y: 447, z: 446}
-  - {x: 432, y: 433, z: 448}
-  - {x: 432, y: 448, z: 447}
-  - {x: 433, y: 434, z: 449}
-  - {x: 433, y: 449, z: 448}
-  - {x: 480, y: 420, z: 435}
-  - {x: 481, y: 434, z: 449}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 435, y: 436, z: 451}
-  - {x: 435, y: 451, z: 450}
-  - {x: 436, y: 437, z: 452}
-  - {x: 436, y: 452, z: 451}
-  - {x: 437, y: 438, z: 453}
-  - {x: 437, y: 453, z: 452}
-  - {x: 438, y: 439, z: 454}
-  - {x: 438, y: 454, z: 453}
-  - {x: 439, y: 440, z: 455}
-  - {x: 439, y: 455, z: 454}
-  - {x: 440, y: 441, z: 456}
-  - {x: 440, y: 456, z: 455}
-  - {x: 441, y: 442, z: 457}
-  - {x: 441, y: 457, z: 456}
-  - {x: 442, y: 443, z: 458}
-  - {x: 442, y: 458, z: 457}
-  - {x: 443, y: 444, z: 459}
-  - {x: 443, y: 459, z: 458}
-  - {x: 444, y: 445, z: 460}
-  - {x: 444, y: 460, z: 459}
-  - {x: 445, y: 446, z: 461}
-  - {x: 445, y: 461, z: 460}
-  - {x: 446, y: 447, z: 462}
-  - {x: 446, y: 462, z: 461}
-  - {x: 447, y: 448, z: 463}
-  - {x: 447, y: 463, z: 462}
-  - {x: 448, y: 449, z: 464}
-  - {x: 448, y: 464, z: 463}
-  - {x: 480, y: 435, z: 450}
-  - {x: 481, y: 449, z: 464}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 450, y: 451, z: 466}
-  - {x: 450, y: 466, z: 465}
-  - {x: 451, y: 452, z: 467}
-  - {x: 451, y: 467, z: 466}
-  - {x: 452, y: 453, z: 468}
-  - {x: 452, y: 468, z: 467}
-  - {x: 453, y: 454, z: 469}
-  - {x: 453, y: 469, z: 468}
-  - {x: 454, y: 455, z: 470}
-  - {x: 454, y: 470, z: 469}
-  - {x: 455, y: 456, z: 471}
-  - {x: 455, y: 471, z: 470}
-  - {x: 456, y: 457, z: 472}
-  - {x: 456, y: 472, z: 471}
-  - {x: 457, y: 458, z: 473}
-  - {x: 457, y: 473, z: 472}
-  - {x: 458, y: 459, z: 474}
-  - {x: 458, y: 474, z: 473}
-  - {x: 459, y: 460, z: 475}
-  - {x: 459, y: 475, z: 474}
-  - {x: 460, y: 461, z: 476}
-  - {x: 460, y: 476, z: 475}
-  - {x: 461, y: 462, z: 477}
-  - {x: 461, y: 477, z: 476}
-  - {x: 462, y: 463, z: 478}
-  - {x: 462, y: 478, z: 477}
-  - {x: 463, y: 464, z: 479}
-  - {x: 463, y: 479, z: 478}
-  - {x: 480, y: 450, z: 465}
-  - {x: 481, y: 464, z: 479}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 465, y: 466, z: 1}
-  - {x: 465, y: 1, z: 0}
-  - {x: 466, y: 467, z: 2}
-  - {x: 466, y: 2, z: 1}
-  - {x: 467, y: 468, z: 3}
-  - {x: 467, y: 3, z: 2}
-  - {x: 468, y: 469, z: 4}
-  - {x: 468, y: 4, z: 3}
-  - {x: 469, y: 470, z: 5}
-  - {x: 469, y: 5, z: 4}
-  - {x: 470, y: 471, z: 6}
-  - {x: 470, y: 6, z: 5}
-  - {x: 471, y: 472, z: 7}
-  - {x: 471, y: 7, z: 6}
-  - {x: 472, y: 473, z: 8}
-  - {x: 472, y: 8, z: 7}
-  - {x: 473, y: 474, z: 9}
-  - {x: 473, y: 9, z: 8}
-  - {x: 474, y: 475, z: 10}
-  - {x: 474, y: 10, z: 9}
-  - {x: 475, y: 476, z: 11}
-  - {x: 475, y: 11, z: 10}
-  - {x: 476, y: 477, z: 12}
-  - {x: 476, y: 12, z: 11}
-  - {x: 477, y: 478, z: 13}
-  - {x: 477, y: 13, z: 12}
-  - {x: 478, y: 479, z: 14}
-  - {x: 478, y: 14, z: 13}
-  - {x: 480, y: 465, z: 0}
-  - {x: 481, y: 479, z: 14}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 16, y: 1, z: 0}
-  - {x: 15, y: 16, z: 0}
-  - {x: 17, y: 2, z: 1}
-  - {x: 16, y: 17, z: 1}
-  - {x: 18, y: 3, z: 2}
-  - {x: 17, y: 18, z: 2}
-  - {x: 19, y: 4, z: 3}
-  - {x: 18, y: 19, z: 3}
-  - {x: 20, y: 5, z: 4}
-  - {x: 19, y: 20, z: 4}
-  - {x: 21, y: 6, z: 5}
-  - {x: 20, y: 21, z: 5}
-  - {x: 22, y: 7, z: 6}
-  - {x: 21, y: 22, z: 6}
-  - {x: 23, y: 8, z: 7}
-  - {x: 22, y: 23, z: 7}
-  - {x: 24, y: 9, z: 8}
-  - {x: 23, y: 24, z: 8}
-  - {x: 25, y: 10, z: 9}
-  - {x: 24, y: 25, z: 9}
-  - {x: 26, y: 11, z: 10}
-  - {x: 25, y: 26, z: 10}
-  - {x: 27, y: 12, z: 11}
-  - {x: 26, y: 27, z: 11}
-  - {x: 28, y: 13, z: 12}
-  - {x: 27, y: 28, z: 12}
-  - {x: 29, y: 14, z: 13}
-  - {x: 28, y: 29, z: 13}
-  - {x: 15, y: 0, z: 480}
-  - {x: 29, y: 14, z: 481}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 31, y: 16, z: 15}
-  - {x: 30, y: 31, z: 15}
-  - {x: 32, y: 17, z: 16}
-  - {x: 31, y: 32, z: 16}
-  - {x: 33, y: 18, z: 17}
-  - {x: 32, y: 33, z: 17}
-  - {x: 34, y: 19, z: 18}
-  - {x: 33, y: 34, z: 18}
-  - {x: 35, y: 20, z: 19}
-  - {x: 34, y: 35, z: 19}
-  - {x: 36, y: 21, z: 20}
-  - {x: 35, y: 36, z: 20}
-  - {x: 37, y: 22, z: 21}
-  - {x: 36, y: 37, z: 21}
-  - {x: 38, y: 23, z: 22}
-  - {x: 37, y: 38, z: 22}
-  - {x: 39, y: 24, z: 23}
-  - {x: 38, y: 39, z: 23}
-  - {x: 40, y: 25, z: 24}
-  - {x: 39, y: 40, z: 24}
-  - {x: 41, y: 26, z: 25}
-  - {x: 40, y: 41, z: 25}
-  - {x: 42, y: 27, z: 26}
-  - {x: 41, y: 42, z: 26}
-  - {x: 43, y: 28, z: 27}
-  - {x: 42, y: 43, z: 27}
-  - {x: 44, y: 29, z: 28}
-  - {x: 43, y: 44, z: 28}
-  - {x: 30, y: 15, z: 480}
-  - {x: 44, y: 29, z: 481}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 46, y: 31, z: 30}
-  - {x: 45, y: 46, z: 30}
-  - {x: 47, y: 32, z: 31}
-  - {x: 46, y: 47, z: 31}
-  - {x: 48, y: 33, z: 32}
-  - {x: 47, y: 48, z: 32}
-  - {x: 49, y: 34, z: 33}
-  - {x: 48, y: 49, z: 33}
-  - {x: 50, y: 35, z: 34}
-  - {x: 49, y: 50, z: 34}
-  - {x: 51, y: 36, z: 35}
-  - {x: 50, y: 51, z: 35}
-  - {x: 52, y: 37, z: 36}
-  - {x: 51, y: 52, z: 36}
-  - {x: 53, y: 38, z: 37}
-  - {x: 52, y: 53, z: 37}
-  - {x: 54, y: 39, z: 38}
-  - {x: 53, y: 54, z: 38}
-  - {x: 55, y: 40, z: 39}
-  - {x: 54, y: 55, z: 39}
-  - {x: 56, y: 41, z: 40}
-  - {x: 55, y: 56, z: 40}
-  - {x: 57, y: 42, z: 41}
-  - {x: 56, y: 57, z: 41}
-  - {x: 58, y: 43, z: 42}
-  - {x: 57, y: 58, z: 42}
-  - {x: 59, y: 44, z: 43}
-  - {x: 58, y: 59, z: 43}
-  - {x: 45, y: 30, z: 480}
-  - {x: 59, y: 44, z: 481}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 61, y: 46, z: 45}
-  - {x: 60, y: 61, z: 45}
-  - {x: 62, y: 47, z: 46}
-  - {x: 61, y: 62, z: 46}
-  - {x: 63, y: 48, z: 47}
-  - {x: 62, y: 63, z: 47}
-  - {x: 64, y: 49, z: 48}
-  - {x: 63, y: 64, z: 48}
-  - {x: 65, y: 50, z: 49}
-  - {x: 64, y: 65, z: 49}
-  - {x: 66, y: 51, z: 50}
-  - {x: 65, y: 66, z: 50}
-  - {x: 67, y: 52, z: 51}
-  - {x: 66, y: 67, z: 51}
-  - {x: 68, y: 53, z: 52}
-  - {x: 67, y: 68, z: 52}
-  - {x: 69, y: 54, z: 53}
-  - {x: 68, y: 69, z: 53}
-  - {x: 70, y: 55, z: 54}
-  - {x: 69, y: 70, z: 54}
-  - {x: 71, y: 56, z: 55}
-  - {x: 70, y: 71, z: 55}
-  - {x: 72, y: 57, z: 56}
-  - {x: 71, y: 72, z: 56}
-  - {x: 73, y: 58, z: 57}
-  - {x: 72, y: 73, z: 57}
-  - {x: 74, y: 59, z: 58}
-  - {x: 73, y: 74, z: 58}
-  - {x: 60, y: 45, z: 480}
-  - {x: 74, y: 59, z: 481}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 76, y: 61, z: 60}
-  - {x: 75, y: 76, z: 60}
-  - {x: 77, y: 62, z: 61}
-  - {x: 76, y: 77, z: 61}
-  - {x: 78, y: 63, z: 62}
-  - {x: 77, y: 78, z: 62}
-  - {x: 79, y: 64, z: 63}
-  - {x: 78, y: 79, z: 63}
-  - {x: 80, y: 65, z: 64}
-  - {x: 79, y: 80, z: 64}
-  - {x: 81, y: 66, z: 65}
-  - {x: 80, y: 81, z: 65}
-  - {x: 82, y: 67, z: 66}
-  - {x: 81, y: 82, z: 66}
-  - {x: 83, y: 68, z: 67}
-  - {x: 82, y: 83, z: 67}
-  - {x: 84, y: 69, z: 68}
-  - {x: 83, y: 84, z: 68}
-  - {x: 85, y: 70, z: 69}
-  - {x: 84, y: 85, z: 69}
-  - {x: 86, y: 71, z: 70}
-  - {x: 85, y: 86, z: 70}
-  - {x: 87, y: 72, z: 71}
-  - {x: 86, y: 87, z: 71}
-  - {x: 88, y: 73, z: 72}
-  - {x: 87, y: 88, z: 72}
-  - {x: 89, y: 74, z: 73}
-  - {x: 88, y: 89, z: 73}
-  - {x: 75, y: 60, z: 480}
-  - {x: 89, y: 74, z: 481}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 91, y: 76, z: 75}
-  - {x: 90, y: 91, z: 75}
-  - {x: 92, y: 77, z: 76}
-  - {x: 91, y: 92, z: 76}
-  - {x: 93, y: 78, z: 77}
-  - {x: 92, y: 93, z: 77}
-  - {x: 94, y: 79, z: 78}
-  - {x: 93, y: 94, z: 78}
-  - {x: 95, y: 80, z: 79}
-  - {x: 94, y: 95, z: 79}
-  - {x: 96, y: 81, z: 80}
-  - {x: 95, y: 96, z: 80}
-  - {x: 97, y: 82, z: 81}
-  - {x: 96, y: 97, z: 81}
-  - {x: 98, y: 83, z: 82}
-  - {x: 97, y: 98, z: 82}
-  - {x: 99, y: 84, z: 83}
-  - {x: 98, y: 99, z: 83}
-  - {x: 100, y: 85, z: 84}
-  - {x: 99, y: 100, z: 84}
-  - {x: 101, y: 86, z: 85}
-  - {x: 100, y: 101, z: 85}
-  - {x: 102, y: 87, z: 86}
-  - {x: 101, y: 102, z: 86}
-  - {x: 103, y: 88, z: 87}
-  - {x: 102, y: 103, z: 87}
-  - {x: 104, y: 89, z: 88}
-  - {x: 103, y: 104, z: 88}
-  - {x: 90, y: 75, z: 480}
-  - {x: 104, y: 89, z: 481}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 106, y: 91, z: 90}
-  - {x: 105, y: 106, z: 90}
-  - {x: 107, y: 92, z: 91}
-  - {x: 106, y: 107, z: 91}
-  - {x: 108, y: 93, z: 92}
-  - {x: 107, y: 108, z: 92}
-  - {x: 109, y: 94, z: 93}
-  - {x: 108, y: 109, z: 93}
-  - {x: 110, y: 95, z: 94}
-  - {x: 109, y: 110, z: 94}
-  - {x: 111, y: 96, z: 95}
-  - {x: 110, y: 111, z: 95}
-  - {x: 112, y: 97, z: 96}
-  - {x: 111, y: 112, z: 96}
-  - {x: 113, y: 98, z: 97}
-  - {x: 112, y: 113, z: 97}
-  - {x: 114, y: 99, z: 98}
-  - {x: 113, y: 114, z: 98}
-  - {x: 115, y: 100, z: 99}
-  - {x: 114, y: 115, z: 99}
-  - {x: 116, y: 101, z: 100}
-  - {x: 115, y: 116, z: 100}
-  - {x: 117, y: 102, z: 101}
-  - {x: 116, y: 117, z: 101}
-  - {x: 118, y: 103, z: 102}
-  - {x: 117, y: 118, z: 102}
-  - {x: 119, y: 104, z: 103}
-  - {x: 118, y: 119, z: 103}
-  - {x: 105, y: 90, z: 480}
-  - {x: 119, y: 104, z: 481}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 121, y: 106, z: 105}
-  - {x: 120, y: 121, z: 105}
-  - {x: 122, y: 107, z: 106}
-  - {x: 121, y: 122, z: 106}
-  - {x: 123, y: 108, z: 107}
-  - {x: 122, y: 123, z: 107}
-  - {x: 124, y: 109, z: 108}
-  - {x: 123, y: 124, z: 108}
-  - {x: 125, y: 110, z: 109}
-  - {x: 124, y: 125, z: 109}
-  - {x: 126, y: 111, z: 110}
-  - {x: 125, y: 126, z: 110}
-  - {x: 127, y: 112, z: 111}
-  - {x: 126, y: 127, z: 111}
-  - {x: 128, y: 113, z: 112}
-  - {x: 127, y: 128, z: 112}
-  - {x: 129, y: 114, z: 113}
-  - {x: 128, y: 129, z: 113}
-  - {x: 130, y: 115, z: 114}
-  - {x: 129, y: 130, z: 114}
-  - {x: 131, y: 116, z: 115}
-  - {x: 130, y: 131, z: 115}
-  - {x: 132, y: 117, z: 116}
-  - {x: 131, y: 132, z: 116}
-  - {x: 133, y: 118, z: 117}
-  - {x: 132, y: 133, z: 117}
-  - {x: 134, y: 119, z: 118}
-  - {x: 133, y: 134, z: 118}
-  - {x: 120, y: 105, z: 480}
-  - {x: 134, y: 119, z: 481}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 136, y: 121, z: 120}
-  - {x: 135, y: 136, z: 120}
-  - {x: 137, y: 122, z: 121}
-  - {x: 136, y: 137, z: 121}
-  - {x: 138, y: 123, z: 122}
-  - {x: 137, y: 138, z: 122}
-  - {x: 139, y: 124, z: 123}
-  - {x: 138, y: 139, z: 123}
-  - {x: 140, y: 125, z: 124}
-  - {x: 139, y: 140, z: 124}
-  - {x: 141, y: 126, z: 125}
-  - {x: 140, y: 141, z: 125}
-  - {x: 142, y: 127, z: 126}
-  - {x: 141, y: 142, z: 126}
-  - {x: 143, y: 128, z: 127}
-  - {x: 142, y: 143, z: 127}
-  - {x: 144, y: 129, z: 128}
-  - {x: 143, y: 144, z: 128}
-  - {x: 145, y: 130, z: 129}
-  - {x: 144, y: 145, z: 129}
-  - {x: 146, y: 131, z: 130}
-  - {x: 145, y: 146, z: 130}
-  - {x: 147, y: 132, z: 131}
-  - {x: 146, y: 147, z: 131}
-  - {x: 148, y: 133, z: 132}
-  - {x: 147, y: 148, z: 132}
-  - {x: 149, y: 134, z: 133}
-  - {x: 148, y: 149, z: 133}
-  - {x: 135, y: 120, z: 480}
-  - {x: 149, y: 134, z: 481}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 151, y: 136, z: 135}
-  - {x: 150, y: 151, z: 135}
-  - {x: 152, y: 137, z: 136}
-  - {x: 151, y: 152, z: 136}
-  - {x: 153, y: 138, z: 137}
-  - {x: 152, y: 153, z: 137}
-  - {x: 154, y: 139, z: 138}
-  - {x: 153, y: 154, z: 138}
-  - {x: 155, y: 140, z: 139}
-  - {x: 154, y: 155, z: 139}
-  - {x: 156, y: 141, z: 140}
-  - {x: 155, y: 156, z: 140}
-  - {x: 157, y: 142, z: 141}
-  - {x: 156, y: 157, z: 141}
-  - {x: 158, y: 143, z: 142}
-  - {x: 157, y: 158, z: 142}
-  - {x: 159, y: 144, z: 143}
-  - {x: 158, y: 159, z: 143}
-  - {x: 160, y: 145, z: 144}
-  - {x: 159, y: 160, z: 144}
-  - {x: 161, y: 146, z: 145}
-  - {x: 160, y: 161, z: 145}
-  - {x: 162, y: 147, z: 146}
-  - {x: 161, y: 162, z: 146}
-  - {x: 163, y: 148, z: 147}
-  - {x: 162, y: 163, z: 147}
-  - {x: 164, y: 149, z: 148}
-  - {x: 163, y: 164, z: 148}
-  - {x: 150, y: 135, z: 480}
-  - {x: 164, y: 149, z: 481}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 166, y: 151, z: 150}
-  - {x: 165, y: 166, z: 150}
-  - {x: 167, y: 152, z: 151}
-  - {x: 166, y: 167, z: 151}
-  - {x: 168, y: 153, z: 152}
-  - {x: 167, y: 168, z: 152}
-  - {x: 169, y: 154, z: 153}
-  - {x: 168, y: 169, z: 153}
-  - {x: 170, y: 155, z: 154}
-  - {x: 169, y: 170, z: 154}
-  - {x: 171, y: 156, z: 155}
-  - {x: 170, y: 171, z: 155}
-  - {x: 172, y: 157, z: 156}
-  - {x: 171, y: 172, z: 156}
-  - {x: 173, y: 158, z: 157}
-  - {x: 172, y: 173, z: 157}
-  - {x: 174, y: 159, z: 158}
-  - {x: 173, y: 174, z: 158}
-  - {x: 175, y: 160, z: 159}
-  - {x: 174, y: 175, z: 159}
-  - {x: 176, y: 161, z: 160}
-  - {x: 175, y: 176, z: 160}
-  - {x: 177, y: 162, z: 161}
-  - {x: 176, y: 177, z: 161}
-  - {x: 178, y: 163, z: 162}
-  - {x: 177, y: 178, z: 162}
-  - {x: 179, y: 164, z: 163}
-  - {x: 178, y: 179, z: 163}
-  - {x: 165, y: 150, z: 480}
-  - {x: 179, y: 164, z: 481}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 181, y: 166, z: 165}
-  - {x: 180, y: 181, z: 165}
-  - {x: 182, y: 167, z: 166}
-  - {x: 181, y: 182, z: 166}
-  - {x: 183, y: 168, z: 167}
-  - {x: 182, y: 183, z: 167}
-  - {x: 184, y: 169, z: 168}
-  - {x: 183, y: 184, z: 168}
-  - {x: 185, y: 170, z: 169}
-  - {x: 184, y: 185, z: 169}
-  - {x: 186, y: 171, z: 170}
-  - {x: 185, y: 186, z: 170}
-  - {x: 187, y: 172, z: 171}
-  - {x: 186, y: 187, z: 171}
-  - {x: 188, y: 173, z: 172}
-  - {x: 187, y: 188, z: 172}
-  - {x: 189, y: 174, z: 173}
-  - {x: 188, y: 189, z: 173}
-  - {x: 190, y: 175, z: 174}
-  - {x: 189, y: 190, z: 174}
-  - {x: 191, y: 176, z: 175}
-  - {x: 190, y: 191, z: 175}
-  - {x: 192, y: 177, z: 176}
-  - {x: 191, y: 192, z: 176}
-  - {x: 193, y: 178, z: 177}
-  - {x: 192, y: 193, z: 177}
-  - {x: 194, y: 179, z: 178}
-  - {x: 193, y: 194, z: 178}
-  - {x: 180, y: 165, z: 480}
-  - {x: 194, y: 179, z: 481}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 196, y: 181, z: 180}
-  - {x: 195, y: 196, z: 180}
-  - {x: 197, y: 182, z: 181}
-  - {x: 196, y: 197, z: 181}
-  - {x: 198, y: 183, z: 182}
-  - {x: 197, y: 198, z: 182}
-  - {x: 199, y: 184, z: 183}
-  - {x: 198, y: 199, z: 183}
-  - {x: 200, y: 185, z: 184}
-  - {x: 199, y: 200, z: 184}
-  - {x: 201, y: 186, z: 185}
-  - {x: 200, y: 201, z: 185}
-  - {x: 202, y: 187, z: 186}
-  - {x: 201, y: 202, z: 186}
-  - {x: 203, y: 188, z: 187}
-  - {x: 202, y: 203, z: 187}
-  - {x: 204, y: 189, z: 188}
-  - {x: 203, y: 204, z: 188}
-  - {x: 205, y: 190, z: 189}
-  - {x: 204, y: 205, z: 189}
-  - {x: 206, y: 191, z: 190}
-  - {x: 205, y: 206, z: 190}
-  - {x: 207, y: 192, z: 191}
-  - {x: 206, y: 207, z: 191}
-  - {x: 208, y: 193, z: 192}
-  - {x: 207, y: 208, z: 192}
-  - {x: 209, y: 194, z: 193}
-  - {x: 208, y: 209, z: 193}
-  - {x: 195, y: 180, z: 480}
-  - {x: 209, y: 194, z: 481}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 211, y: 196, z: 195}
-  - {x: 210, y: 211, z: 195}
-  - {x: 212, y: 197, z: 196}
-  - {x: 211, y: 212, z: 196}
-  - {x: 213, y: 198, z: 197}
-  - {x: 212, y: 213, z: 197}
-  - {x: 214, y: 199, z: 198}
-  - {x: 213, y: 214, z: 198}
-  - {x: 215, y: 200, z: 199}
-  - {x: 214, y: 215, z: 199}
-  - {x: 216, y: 201, z: 200}
-  - {x: 215, y: 216, z: 200}
-  - {x: 217, y: 202, z: 201}
-  - {x: 216, y: 217, z: 201}
-  - {x: 218, y: 203, z: 202}
-  - {x: 217, y: 218, z: 202}
-  - {x: 219, y: 204, z: 203}
-  - {x: 218, y: 219, z: 203}
-  - {x: 220, y: 205, z: 204}
-  - {x: 219, y: 220, z: 204}
-  - {x: 221, y: 206, z: 205}
-  - {x: 220, y: 221, z: 205}
-  - {x: 222, y: 207, z: 206}
-  - {x: 221, y: 222, z: 206}
-  - {x: 223, y: 208, z: 207}
-  - {x: 222, y: 223, z: 207}
-  - {x: 224, y: 209, z: 208}
-  - {x: 223, y: 224, z: 208}
-  - {x: 210, y: 195, z: 480}
-  - {x: 224, y: 209, z: 481}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 226, y: 211, z: 210}
-  - {x: 225, y: 226, z: 210}
-  - {x: 227, y: 212, z: 211}
-  - {x: 226, y: 227, z: 211}
-  - {x: 228, y: 213, z: 212}
-  - {x: 227, y: 228, z: 212}
-  - {x: 229, y: 214, z: 213}
-  - {x: 228, y: 229, z: 213}
-  - {x: 230, y: 215, z: 214}
-  - {x: 229, y: 230, z: 214}
-  - {x: 231, y: 216, z: 215}
-  - {x: 230, y: 231, z: 215}
-  - {x: 232, y: 217, z: 216}
-  - {x: 231, y: 232, z: 216}
-  - {x: 233, y: 218, z: 217}
-  - {x: 232, y: 233, z: 217}
-  - {x: 234, y: 219, z: 218}
-  - {x: 233, y: 234, z: 218}
-  - {x: 235, y: 220, z: 219}
-  - {x: 234, y: 235, z: 219}
-  - {x: 236, y: 221, z: 220}
-  - {x: 235, y: 236, z: 220}
-  - {x: 237, y: 222, z: 221}
-  - {x: 236, y: 237, z: 221}
-  - {x: 238, y: 223, z: 222}
-  - {x: 237, y: 238, z: 222}
-  - {x: 239, y: 224, z: 223}
-  - {x: 238, y: 239, z: 223}
-  - {x: 225, y: 210, z: 480}
-  - {x: 239, y: 224, z: 481}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 241, y: 226, z: 225}
-  - {x: 240, y: 241, z: 225}
-  - {x: 242, y: 227, z: 226}
-  - {x: 241, y: 242, z: 226}
-  - {x: 243, y: 228, z: 227}
-  - {x: 242, y: 243, z: 227}
-  - {x: 244, y: 229, z: 228}
-  - {x: 243, y: 244, z: 228}
-  - {x: 245, y: 230, z: 229}
-  - {x: 244, y: 245, z: 229}
-  - {x: 246, y: 231, z: 230}
-  - {x: 245, y: 246, z: 230}
-  - {x: 247, y: 232, z: 231}
-  - {x: 246, y: 247, z: 231}
-  - {x: 248, y: 233, z: 232}
-  - {x: 247, y: 248, z: 232}
-  - {x: 249, y: 234, z: 233}
-  - {x: 248, y: 249, z: 233}
-  - {x: 250, y: 235, z: 234}
-  - {x: 249, y: 250, z: 234}
-  - {x: 251, y: 236, z: 235}
-  - {x: 250, y: 251, z: 235}
-  - {x: 252, y: 237, z: 236}
-  - {x: 251, y: 252, z: 236}
-  - {x: 253, y: 238, z: 237}
-  - {x: 252, y: 253, z: 237}
-  - {x: 254, y: 239, z: 238}
-  - {x: 253, y: 254, z: 238}
-  - {x: 240, y: 225, z: 480}
-  - {x: 254, y: 239, z: 481}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 256, y: 241, z: 240}
-  - {x: 255, y: 256, z: 240}
-  - {x: 257, y: 242, z: 241}
-  - {x: 256, y: 257, z: 241}
-  - {x: 258, y: 243, z: 242}
-  - {x: 257, y: 258, z: 242}
-  - {x: 259, y: 244, z: 243}
-  - {x: 258, y: 259, z: 243}
-  - {x: 260, y: 245, z: 244}
-  - {x: 259, y: 260, z: 244}
-  - {x: 261, y: 246, z: 245}
-  - {x: 260, y: 261, z: 245}
-  - {x: 262, y: 247, z: 246}
-  - {x: 261, y: 262, z: 246}
-  - {x: 263, y: 248, z: 247}
-  - {x: 262, y: 263, z: 247}
-  - {x: 264, y: 249, z: 248}
-  - {x: 263, y: 264, z: 248}
-  - {x: 265, y: 250, z: 249}
-  - {x: 264, y: 265, z: 249}
-  - {x: 266, y: 251, z: 250}
-  - {x: 265, y: 266, z: 250}
-  - {x: 267, y: 252, z: 251}
-  - {x: 266, y: 267, z: 251}
-  - {x: 268, y: 253, z: 252}
-  - {x: 267, y: 268, z: 252}
-  - {x: 269, y: 254, z: 253}
-  - {x: 268, y: 269, z: 253}
-  - {x: 255, y: 240, z: 480}
-  - {x: 269, y: 254, z: 481}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 271, y: 256, z: 255}
-  - {x: 270, y: 271, z: 255}
-  - {x: 272, y: 257, z: 256}
-  - {x: 271, y: 272, z: 256}
-  - {x: 273, y: 258, z: 257}
-  - {x: 272, y: 273, z: 257}
-  - {x: 274, y: 259, z: 258}
-  - {x: 273, y: 274, z: 258}
-  - {x: 275, y: 260, z: 259}
-  - {x: 274, y: 275, z: 259}
-  - {x: 276, y: 261, z: 260}
-  - {x: 275, y: 276, z: 260}
-  - {x: 277, y: 262, z: 261}
-  - {x: 276, y: 277, z: 261}
-  - {x: 278, y: 263, z: 262}
-  - {x: 277, y: 278, z: 262}
-  - {x: 279, y: 264, z: 263}
-  - {x: 278, y: 279, z: 263}
-  - {x: 280, y: 265, z: 264}
-  - {x: 279, y: 280, z: 264}
-  - {x: 281, y: 266, z: 265}
-  - {x: 280, y: 281, z: 265}
-  - {x: 282, y: 267, z: 266}
-  - {x: 281, y: 282, z: 266}
-  - {x: 283, y: 268, z: 267}
-  - {x: 282, y: 283, z: 267}
-  - {x: 284, y: 269, z: 268}
-  - {x: 283, y: 284, z: 268}
-  - {x: 270, y: 255, z: 480}
-  - {x: 284, y: 269, z: 481}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 286, y: 271, z: 270}
-  - {x: 285, y: 286, z: 270}
-  - {x: 287, y: 272, z: 271}
-  - {x: 286, y: 287, z: 271}
-  - {x: 288, y: 273, z: 272}
-  - {x: 287, y: 288, z: 272}
-  - {x: 289, y: 274, z: 273}
-  - {x: 288, y: 289, z: 273}
-  - {x: 290, y: 275, z: 274}
-  - {x: 289, y: 290, z: 274}
-  - {x: 291, y: 276, z: 275}
-  - {x: 290, y: 291, z: 275}
-  - {x: 292, y: 277, z: 276}
-  - {x: 291, y: 292, z: 276}
-  - {x: 293, y: 278, z: 277}
-  - {x: 292, y: 293, z: 277}
-  - {x: 294, y: 279, z: 278}
-  - {x: 293, y: 294, z: 278}
-  - {x: 295, y: 280, z: 279}
-  - {x: 294, y: 295, z: 279}
-  - {x: 296, y: 281, z: 280}
-  - {x: 295, y: 296, z: 280}
-  - {x: 297, y: 282, z: 281}
-  - {x: 296, y: 297, z: 281}
-  - {x: 298, y: 283, z: 282}
-  - {x: 297, y: 298, z: 282}
-  - {x: 299, y: 284, z: 283}
-  - {x: 298, y: 299, z: 283}
-  - {x: 285, y: 270, z: 480}
-  - {x: 299, y: 284, z: 481}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 301, y: 286, z: 285}
-  - {x: 300, y: 301, z: 285}
-  - {x: 302, y: 287, z: 286}
-  - {x: 301, y: 302, z: 286}
-  - {x: 303, y: 288, z: 287}
-  - {x: 302, y: 303, z: 287}
-  - {x: 304, y: 289, z: 288}
-  - {x: 303, y: 304, z: 288}
-  - {x: 305, y: 290, z: 289}
-  - {x: 304, y: 305, z: 289}
-  - {x: 306, y: 291, z: 290}
-  - {x: 305, y: 306, z: 290}
-  - {x: 307, y: 292, z: 291}
-  - {x: 306, y: 307, z: 291}
-  - {x: 308, y: 293, z: 292}
-  - {x: 307, y: 308, z: 292}
-  - {x: 309, y: 294, z: 293}
-  - {x: 308, y: 309, z: 293}
-  - {x: 310, y: 295, z: 294}
-  - {x: 309, y: 310, z: 294}
-  - {x: 311, y: 296, z: 295}
-  - {x: 310, y: 311, z: 295}
-  - {x: 312, y: 297, z: 296}
-  - {x: 311, y: 312, z: 296}
-  - {x: 313, y: 298, z: 297}
-  - {x: 312, y: 313, z: 297}
-  - {x: 314, y: 299, z: 298}
-  - {x: 313, y: 314, z: 298}
-  - {x: 300, y: 285, z: 480}
-  - {x: 314, y: 299, z: 481}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 316, y: 301, z: 300}
-  - {x: 315, y: 316, z: 300}
-  - {x: 317, y: 302, z: 301}
-  - {x: 316, y: 317, z: 301}
-  - {x: 318, y: 303, z: 302}
-  - {x: 317, y: 318, z: 302}
-  - {x: 319, y: 304, z: 303}
-  - {x: 318, y: 319, z: 303}
-  - {x: 320, y: 305, z: 304}
-  - {x: 319, y: 320, z: 304}
-  - {x: 321, y: 306, z: 305}
-  - {x: 320, y: 321, z: 305}
-  - {x: 322, y: 307, z: 306}
-  - {x: 321, y: 322, z: 306}
-  - {x: 323, y: 308, z: 307}
-  - {x: 322, y: 323, z: 307}
-  - {x: 324, y: 309, z: 308}
-  - {x: 323, y: 324, z: 308}
-  - {x: 325, y: 310, z: 309}
-  - {x: 324, y: 325, z: 309}
-  - {x: 326, y: 311, z: 310}
-  - {x: 325, y: 326, z: 310}
-  - {x: 327, y: 312, z: 311}
-  - {x: 326, y: 327, z: 311}
-  - {x: 328, y: 313, z: 312}
-  - {x: 327, y: 328, z: 312}
-  - {x: 329, y: 314, z: 313}
-  - {x: 328, y: 329, z: 313}
-  - {x: 315, y: 300, z: 480}
-  - {x: 329, y: 314, z: 481}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 331, y: 316, z: 315}
-  - {x: 330, y: 331, z: 315}
-  - {x: 332, y: 317, z: 316}
-  - {x: 331, y: 332, z: 316}
-  - {x: 333, y: 318, z: 317}
-  - {x: 332, y: 333, z: 317}
-  - {x: 334, y: 319, z: 318}
-  - {x: 333, y: 334, z: 318}
-  - {x: 335, y: 320, z: 319}
-  - {x: 334, y: 335, z: 319}
-  - {x: 336, y: 321, z: 320}
-  - {x: 335, y: 336, z: 320}
-  - {x: 337, y: 322, z: 321}
-  - {x: 336, y: 337, z: 321}
-  - {x: 338, y: 323, z: 322}
-  - {x: 337, y: 338, z: 322}
-  - {x: 339, y: 324, z: 323}
-  - {x: 338, y: 339, z: 323}
-  - {x: 340, y: 325, z: 324}
-  - {x: 339, y: 340, z: 324}
-  - {x: 341, y: 326, z: 325}
-  - {x: 340, y: 341, z: 325}
-  - {x: 342, y: 327, z: 326}
-  - {x: 341, y: 342, z: 326}
-  - {x: 343, y: 328, z: 327}
-  - {x: 342, y: 343, z: 327}
-  - {x: 344, y: 329, z: 328}
-  - {x: 343, y: 344, z: 328}
-  - {x: 330, y: 315, z: 480}
-  - {x: 344, y: 329, z: 481}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 346, y: 331, z: 330}
-  - {x: 345, y: 346, z: 330}
-  - {x: 347, y: 332, z: 331}
-  - {x: 346, y: 347, z: 331}
-  - {x: 348, y: 333, z: 332}
-  - {x: 347, y: 348, z: 332}
-  - {x: 349, y: 334, z: 333}
-  - {x: 348, y: 349, z: 333}
-  - {x: 350, y: 335, z: 334}
-  - {x: 349, y: 350, z: 334}
-  - {x: 351, y: 336, z: 335}
-  - {x: 350, y: 351, z: 335}
-  - {x: 352, y: 337, z: 336}
-  - {x: 351, y: 352, z: 336}
-  - {x: 353, y: 338, z: 337}
-  - {x: 352, y: 353, z: 337}
-  - {x: 354, y: 339, z: 338}
-  - {x: 353, y: 354, z: 338}
-  - {x: 355, y: 340, z: 339}
-  - {x: 354, y: 355, z: 339}
-  - {x: 356, y: 341, z: 340}
-  - {x: 355, y: 356, z: 340}
-  - {x: 357, y: 342, z: 341}
-  - {x: 356, y: 357, z: 341}
-  - {x: 358, y: 343, z: 342}
-  - {x: 357, y: 358, z: 342}
-  - {x: 359, y: 344, z: 343}
-  - {x: 358, y: 359, z: 343}
-  - {x: 345, y: 330, z: 480}
-  - {x: 359, y: 344, z: 481}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 361, y: 346, z: 345}
-  - {x: 360, y: 361, z: 345}
-  - {x: 362, y: 347, z: 346}
-  - {x: 361, y: 362, z: 346}
-  - {x: 363, y: 348, z: 347}
-  - {x: 362, y: 363, z: 347}
-  - {x: 364, y: 349, z: 348}
-  - {x: 363, y: 364, z: 348}
-  - {x: 365, y: 350, z: 349}
-  - {x: 364, y: 365, z: 349}
-  - {x: 366, y: 351, z: 350}
-  - {x: 365, y: 366, z: 350}
-  - {x: 367, y: 352, z: 351}
-  - {x: 366, y: 367, z: 351}
-  - {x: 368, y: 353, z: 352}
-  - {x: 367, y: 368, z: 352}
-  - {x: 369, y: 354, z: 353}
-  - {x: 368, y: 369, z: 353}
-  - {x: 370, y: 355, z: 354}
-  - {x: 369, y: 370, z: 354}
-  - {x: 371, y: 356, z: 355}
-  - {x: 370, y: 371, z: 355}
-  - {x: 372, y: 357, z: 356}
-  - {x: 371, y: 372, z: 356}
-  - {x: 373, y: 358, z: 357}
-  - {x: 372, y: 373, z: 357}
-  - {x: 374, y: 359, z: 358}
-  - {x: 373, y: 374, z: 358}
-  - {x: 360, y: 345, z: 480}
-  - {x: 374, y: 359, z: 481}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 376, y: 361, z: 360}
-  - {x: 375, y: 376, z: 360}
-  - {x: 377, y: 362, z: 361}
-  - {x: 376, y: 377, z: 361}
-  - {x: 378, y: 363, z: 362}
-  - {x: 377, y: 378, z: 362}
-  - {x: 379, y: 364, z: 363}
-  - {x: 378, y: 379, z: 363}
-  - {x: 380, y: 365, z: 364}
-  - {x: 379, y: 380, z: 364}
-  - {x: 381, y: 366, z: 365}
-  - {x: 380, y: 381, z: 365}
-  - {x: 382, y: 367, z: 366}
-  - {x: 381, y: 382, z: 366}
-  - {x: 383, y: 368, z: 367}
-  - {x: 382, y: 383, z: 367}
-  - {x: 384, y: 369, z: 368}
-  - {x: 383, y: 384, z: 368}
-  - {x: 385, y: 370, z: 369}
-  - {x: 384, y: 385, z: 369}
-  - {x: 386, y: 371, z: 370}
-  - {x: 385, y: 386, z: 370}
-  - {x: 387, y: 372, z: 371}
-  - {x: 386, y: 387, z: 371}
-  - {x: 388, y: 373, z: 372}
-  - {x: 387, y: 388, z: 372}
-  - {x: 389, y: 374, z: 373}
-  - {x: 388, y: 389, z: 373}
-  - {x: 375, y: 360, z: 480}
-  - {x: 389, y: 374, z: 481}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 391, y: 376, z: 375}
-  - {x: 390, y: 391, z: 375}
-  - {x: 392, y: 377, z: 376}
-  - {x: 391, y: 392, z: 376}
-  - {x: 393, y: 378, z: 377}
-  - {x: 392, y: 393, z: 377}
-  - {x: 394, y: 379, z: 378}
-  - {x: 393, y: 394, z: 378}
-  - {x: 395, y: 380, z: 379}
-  - {x: 394, y: 395, z: 379}
-  - {x: 396, y: 381, z: 380}
-  - {x: 395, y: 396, z: 380}
-  - {x: 397, y: 382, z: 381}
-  - {x: 396, y: 397, z: 381}
-  - {x: 398, y: 383, z: 382}
-  - {x: 397, y: 398, z: 382}
-  - {x: 399, y: 384, z: 383}
-  - {x: 398, y: 399, z: 383}
-  - {x: 400, y: 385, z: 384}
-  - {x: 399, y: 400, z: 384}
-  - {x: 401, y: 386, z: 385}
-  - {x: 400, y: 401, z: 385}
-  - {x: 402, y: 387, z: 386}
-  - {x: 401, y: 402, z: 386}
-  - {x: 403, y: 388, z: 387}
-  - {x: 402, y: 403, z: 387}
-  - {x: 404, y: 389, z: 388}
-  - {x: 403, y: 404, z: 388}
-  - {x: 390, y: 375, z: 480}
-  - {x: 404, y: 389, z: 481}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 406, y: 391, z: 390}
-  - {x: 405, y: 406, z: 390}
-  - {x: 407, y: 392, z: 391}
-  - {x: 406, y: 407, z: 391}
-  - {x: 408, y: 393, z: 392}
-  - {x: 407, y: 408, z: 392}
-  - {x: 409, y: 394, z: 393}
-  - {x: 408, y: 409, z: 393}
-  - {x: 410, y: 395, z: 394}
-  - {x: 409, y: 410, z: 394}
-  - {x: 411, y: 396, z: 395}
-  - {x: 410, y: 411, z: 395}
-  - {x: 412, y: 397, z: 396}
-  - {x: 411, y: 412, z: 396}
-  - {x: 413, y: 398, z: 397}
-  - {x: 412, y: 413, z: 397}
-  - {x: 414, y: 399, z: 398}
-  - {x: 413, y: 414, z: 398}
-  - {x: 415, y: 400, z: 399}
-  - {x: 414, y: 415, z: 399}
-  - {x: 416, y: 401, z: 400}
-  - {x: 415, y: 416, z: 400}
-  - {x: 417, y: 402, z: 401}
-  - {x: 416, y: 417, z: 401}
-  - {x: 418, y: 403, z: 402}
-  - {x: 417, y: 418, z: 402}
-  - {x: 419, y: 404, z: 403}
-  - {x: 418, y: 419, z: 403}
-  - {x: 405, y: 390, z: 480}
-  - {x: 419, y: 404, z: 481}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 421, y: 406, z: 405}
-  - {x: 420, y: 421, z: 405}
-  - {x: 422, y: 407, z: 406}
-  - {x: 421, y: 422, z: 406}
-  - {x: 423, y: 408, z: 407}
-  - {x: 422, y: 423, z: 407}
-  - {x: 424, y: 409, z: 408}
-  - {x: 423, y: 424, z: 408}
-  - {x: 425, y: 410, z: 409}
-  - {x: 424, y: 425, z: 409}
-  - {x: 426, y: 411, z: 410}
-  - {x: 425, y: 426, z: 410}
-  - {x: 427, y: 412, z: 411}
-  - {x: 426, y: 427, z: 411}
-  - {x: 428, y: 413, z: 412}
-  - {x: 427, y: 428, z: 412}
-  - {x: 429, y: 414, z: 413}
-  - {x: 428, y: 429, z: 413}
-  - {x: 430, y: 415, z: 414}
-  - {x: 429, y: 430, z: 414}
-  - {x: 431, y: 416, z: 415}
-  - {x: 430, y: 431, z: 415}
-  - {x: 432, y: 417, z: 416}
-  - {x: 431, y: 432, z: 416}
-  - {x: 433, y: 418, z: 417}
-  - {x: 432, y: 433, z: 417}
-  - {x: 434, y: 419, z: 418}
-  - {x: 433, y: 434, z: 418}
-  - {x: 420, y: 405, z: 480}
-  - {x: 434, y: 419, z: 481}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 436, y: 421, z: 420}
-  - {x: 435, y: 436, z: 420}
-  - {x: 437, y: 422, z: 421}
-  - {x: 436, y: 437, z: 421}
-  - {x: 438, y: 423, z: 422}
-  - {x: 437, y: 438, z: 422}
-  - {x: 439, y: 424, z: 423}
-  - {x: 438, y: 439, z: 423}
-  - {x: 440, y: 425, z: 424}
-  - {x: 439, y: 440, z: 424}
-  - {x: 441, y: 426, z: 425}
-  - {x: 440, y: 441, z: 425}
-  - {x: 442, y: 427, z: 426}
-  - {x: 441, y: 442, z: 426}
-  - {x: 443, y: 428, z: 427}
-  - {x: 442, y: 443, z: 427}
-  - {x: 444, y: 429, z: 428}
-  - {x: 443, y: 444, z: 428}
-  - {x: 445, y: 430, z: 429}
-  - {x: 444, y: 445, z: 429}
-  - {x: 446, y: 431, z: 430}
-  - {x: 445, y: 446, z: 430}
-  - {x: 447, y: 432, z: 431}
-  - {x: 446, y: 447, z: 431}
-  - {x: 448, y: 433, z: 432}
-  - {x: 447, y: 448, z: 432}
-  - {x: 449, y: 434, z: 433}
-  - {x: 448, y: 449, z: 433}
-  - {x: 435, y: 420, z: 480}
-  - {x: 449, y: 434, z: 481}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 451, y: 436, z: 435}
-  - {x: 450, y: 451, z: 435}
-  - {x: 452, y: 437, z: 436}
-  - {x: 451, y: 452, z: 436}
-  - {x: 453, y: 438, z: 437}
-  - {x: 452, y: 453, z: 437}
-  - {x: 454, y: 439, z: 438}
-  - {x: 453, y: 454, z: 438}
-  - {x: 455, y: 440, z: 439}
-  - {x: 454, y: 455, z: 439}
-  - {x: 456, y: 441, z: 440}
-  - {x: 455, y: 456, z: 440}
-  - {x: 457, y: 442, z: 441}
-  - {x: 456, y: 457, z: 441}
-  - {x: 458, y: 443, z: 442}
-  - {x: 457, y: 458, z: 442}
-  - {x: 459, y: 444, z: 443}
-  - {x: 458, y: 459, z: 443}
-  - {x: 460, y: 445, z: 444}
-  - {x: 459, y: 460, z: 444}
-  - {x: 461, y: 446, z: 445}
-  - {x: 460, y: 461, z: 445}
-  - {x: 462, y: 447, z: 446}
-  - {x: 461, y: 462, z: 446}
-  - {x: 463, y: 448, z: 447}
-  - {x: 462, y: 463, z: 447}
-  - {x: 464, y: 449, z: 448}
-  - {x: 463, y: 464, z: 448}
-  - {x: 450, y: 435, z: 480}
-  - {x: 464, y: 449, z: 481}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 466, y: 451, z: 450}
-  - {x: 465, y: 466, z: 450}
-  - {x: 467, y: 452, z: 451}
-  - {x: 466, y: 467, z: 451}
-  - {x: 468, y: 453, z: 452}
-  - {x: 467, y: 468, z: 452}
-  - {x: 469, y: 454, z: 453}
-  - {x: 468, y: 469, z: 453}
-  - {x: 470, y: 455, z: 454}
-  - {x: 469, y: 470, z: 454}
-  - {x: 471, y: 456, z: 455}
-  - {x: 470, y: 471, z: 455}
-  - {x: 472, y: 457, z: 456}
-  - {x: 471, y: 472, z: 456}
-  - {x: 473, y: 458, z: 457}
-  - {x: 472, y: 473, z: 457}
-  - {x: 474, y: 459, z: 458}
-  - {x: 473, y: 474, z: 458}
-  - {x: 475, y: 460, z: 459}
-  - {x: 474, y: 475, z: 459}
-  - {x: 476, y: 461, z: 460}
-  - {x: 475, y: 476, z: 460}
-  - {x: 477, y: 462, z: 461}
-  - {x: 476, y: 477, z: 461}
-  - {x: 478, y: 463, z: 462}
-  - {x: 477, y: 478, z: 462}
-  - {x: 479, y: 464, z: 463}
-  - {x: 478, y: 479, z: 463}
-  - {x: 465, y: 450, z: 480}
-  - {x: 479, y: 464, z: 481}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 1, y: 466, z: 465}
-  - {x: 0, y: 1, z: 465}
-  - {x: 2, y: 467, z: 466}
-  - {x: 1, y: 2, z: 466}
-  - {x: 3, y: 468, z: 467}
-  - {x: 2, y: 3, z: 467}
-  - {x: 4, y: 469, z: 468}
-  - {x: 3, y: 4, z: 468}
-  - {x: 5, y: 470, z: 469}
-  - {x: 4, y: 5, z: 469}
-  - {x: 6, y: 471, z: 470}
-  - {x: 5, y: 6, z: 470}
-  - {x: 7, y: 472, z: 471}
-  - {x: 6, y: 7, z: 471}
-  - {x: 8, y: 473, z: 472}
-  - {x: 7, y: 8, z: 472}
-  - {x: 9, y: 474, z: 473}
-  - {x: 8, y: 9, z: 473}
-  - {x: 10, y: 475, z: 474}
-  - {x: 9, y: 10, z: 474}
-  - {x: 11, y: 476, z: 475}
-  - {x: 10, y: 11, z: 475}
-  - {x: 12, y: 477, z: 476}
-  - {x: 11, y: 12, z: 476}
-  - {x: 13, y: 478, z: 477}
-  - {x: 12, y: 13, z: 477}
-  - {x: 14, y: 479, z: 478}
-  - {x: 13, y: 14, z: 478}
-  - {x: 0, y: 465, z: 480}
-  - {x: 14, y: 479, z: 481}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 2, z: 1}
+  - {x: 1, y: 2, z: 10}
+  - {x: 0, y: 3, z: 2}
+  - {x: 2, y: 3, z: 11}
+  - {x: 0, y: 4, z: 3}
+  - {x: 3, y: 4, z: 7}
+  - {x: 0, y: 5, z: 4}
+  - {x: 4, y: 5, z: 8}
+  - {x: 0, y: 1, z: 5}
+  - {x: 5, y: 1, z: 9}
+  - {x: 6, y: 7, z: 8}
+  - {x: 7, y: 4, z: 8}
+  - {x: 6, y: 8, z: 9}
+  - {x: 8, y: 5, z: 9}
+  - {x: 6, y: 9, z: 10}
+  - {x: 9, y: 1, z: 10}
+  - {x: 6, y: 10, z: 11}
+  - {x: 10, y: 2, z: 11}
+  - {x: 6, y: 11, z: 7}
+  - {x: 11, y: 3, z: 7}
   makeNew: 0
-  makeNewName: CircleZWY
-  mesh: {fileID: 4300000, guid: 9c7ffff541a940941b3b89f8317e8bd8, type: 2}
+  makeNewName: D20
+  mesh: {fileID: 4300000, guid: b92bb0fdb11fc5047a30bbf146c44cfa, type: 2}
   saveMesh: 0
   saveTri: 0
   readTri: 0
   doubleTri: 0
-  doVertex4: 1
+  doVertex4: 0
   vertices4:
   - {x: 0.19509023, y: 0, z: 0, w: -0.9807853}
   - {x: 0.38268343, y: 0, z: 0, w: -0.9238795}
@@ -7148,6 +5241,19 @@ MonoBehaviour:
   - {x: 0.19134164, y: 0, z: -0.0380602, w: 0.9807853}
   - {x: -0, y: -0, z: -0, w: -1}
   - {x: 0, y: 0, z: 0, w: 1}
+  outVertex3D:
+  - {x: 0, y: 0, z: 1}
+  - {x: 0.89442724, y: 0, z: 0.44721356}
+  - {x: 0.2763932, y: 0.85065085, z: 0.44721356}
+  - {x: -0.7236069, y: 0.5257311, z: 0.44721356}
+  - {x: -0.72360677, y: -0.52573127, z: 0.44721356}
+  - {x: 0.27639332, y: -0.85065085, z: 0.44721356}
+  - {x: 0, y: 0, z: -1}
+  - {x: -0.89442724, y: 0, z: -0.44721356}
+  - {x: -0.2763932, y: -0.85065085, z: -0.44721356}
+  - {x: 0.7236069, y: -0.5257311, z: -0.44721356}
+  - {x: 0.72360677, y: 0.52573127, z: -0.44721356}
+  - {x: -0.27639332, y: 0.85065085, z: -0.44721356}
   outUV:
   - {x: 0, y: 0}
   - {x: 0, y: 0.5}
@@ -7632,2056 +5738,29 @@ MonoBehaviour:
   - {x: 0.5, y: 0.5}
   - {x: 0.5, y: 0.5}
   outTri:
-  - {x: 0, y: 1, z: 16}
-  - {x: 0, y: 16, z: 15}
-  - {x: 1, y: 2, z: 17}
-  - {x: 1, y: 17, z: 16}
-  - {x: 2, y: 3, z: 18}
-  - {x: 2, y: 18, z: 17}
-  - {x: 3, y: 4, z: 19}
-  - {x: 3, y: 19, z: 18}
-  - {x: 4, y: 5, z: 20}
-  - {x: 4, y: 20, z: 19}
-  - {x: 5, y: 6, z: 21}
-  - {x: 5, y: 21, z: 20}
-  - {x: 6, y: 7, z: 22}
-  - {x: 6, y: 22, z: 21}
-  - {x: 7, y: 8, z: 23}
-  - {x: 7, y: 23, z: 22}
-  - {x: 8, y: 9, z: 24}
-  - {x: 8, y: 24, z: 23}
-  - {x: 9, y: 10, z: 25}
-  - {x: 9, y: 25, z: 24}
-  - {x: 10, y: 11, z: 26}
-  - {x: 10, y: 26, z: 25}
-  - {x: 11, y: 12, z: 27}
-  - {x: 11, y: 27, z: 26}
-  - {x: 12, y: 13, z: 28}
-  - {x: 12, y: 28, z: 27}
-  - {x: 13, y: 14, z: 29}
-  - {x: 13, y: 29, z: 28}
-  - {x: 480, y: 0, z: 15}
-  - {x: 481, y: 14, z: 29}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 15, y: 16, z: 31}
-  - {x: 15, y: 31, z: 30}
-  - {x: 16, y: 17, z: 32}
-  - {x: 16, y: 32, z: 31}
-  - {x: 17, y: 18, z: 33}
-  - {x: 17, y: 33, z: 32}
-  - {x: 18, y: 19, z: 34}
-  - {x: 18, y: 34, z: 33}
-  - {x: 19, y: 20, z: 35}
-  - {x: 19, y: 35, z: 34}
-  - {x: 20, y: 21, z: 36}
-  - {x: 20, y: 36, z: 35}
-  - {x: 21, y: 22, z: 37}
-  - {x: 21, y: 37, z: 36}
-  - {x: 22, y: 23, z: 38}
-  - {x: 22, y: 38, z: 37}
-  - {x: 23, y: 24, z: 39}
-  - {x: 23, y: 39, z: 38}
-  - {x: 24, y: 25, z: 40}
-  - {x: 24, y: 40, z: 39}
-  - {x: 25, y: 26, z: 41}
-  - {x: 25, y: 41, z: 40}
-  - {x: 26, y: 27, z: 42}
-  - {x: 26, y: 42, z: 41}
-  - {x: 27, y: 28, z: 43}
-  - {x: 27, y: 43, z: 42}
-  - {x: 28, y: 29, z: 44}
-  - {x: 28, y: 44, z: 43}
-  - {x: 480, y: 15, z: 30}
-  - {x: 481, y: 29, z: 44}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 30, y: 31, z: 46}
-  - {x: 30, y: 46, z: 45}
-  - {x: 31, y: 32, z: 47}
-  - {x: 31, y: 47, z: 46}
-  - {x: 32, y: 33, z: 48}
-  - {x: 32, y: 48, z: 47}
-  - {x: 33, y: 34, z: 49}
-  - {x: 33, y: 49, z: 48}
-  - {x: 34, y: 35, z: 50}
-  - {x: 34, y: 50, z: 49}
-  - {x: 35, y: 36, z: 51}
-  - {x: 35, y: 51, z: 50}
-  - {x: 36, y: 37, z: 52}
-  - {x: 36, y: 52, z: 51}
-  - {x: 37, y: 38, z: 53}
-  - {x: 37, y: 53, z: 52}
-  - {x: 38, y: 39, z: 54}
-  - {x: 38, y: 54, z: 53}
-  - {x: 39, y: 40, z: 55}
-  - {x: 39, y: 55, z: 54}
-  - {x: 40, y: 41, z: 56}
-  - {x: 40, y: 56, z: 55}
-  - {x: 41, y: 42, z: 57}
-  - {x: 41, y: 57, z: 56}
-  - {x: 42, y: 43, z: 58}
-  - {x: 42, y: 58, z: 57}
-  - {x: 43, y: 44, z: 59}
-  - {x: 43, y: 59, z: 58}
-  - {x: 480, y: 30, z: 45}
-  - {x: 481, y: 44, z: 59}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 45, y: 46, z: 61}
-  - {x: 45, y: 61, z: 60}
-  - {x: 46, y: 47, z: 62}
-  - {x: 46, y: 62, z: 61}
-  - {x: 47, y: 48, z: 63}
-  - {x: 47, y: 63, z: 62}
-  - {x: 48, y: 49, z: 64}
-  - {x: 48, y: 64, z: 63}
-  - {x: 49, y: 50, z: 65}
-  - {x: 49, y: 65, z: 64}
-  - {x: 50, y: 51, z: 66}
-  - {x: 50, y: 66, z: 65}
-  - {x: 51, y: 52, z: 67}
-  - {x: 51, y: 67, z: 66}
-  - {x: 52, y: 53, z: 68}
-  - {x: 52, y: 68, z: 67}
-  - {x: 53, y: 54, z: 69}
-  - {x: 53, y: 69, z: 68}
-  - {x: 54, y: 55, z: 70}
-  - {x: 54, y: 70, z: 69}
-  - {x: 55, y: 56, z: 71}
-  - {x: 55, y: 71, z: 70}
-  - {x: 56, y: 57, z: 72}
-  - {x: 56, y: 72, z: 71}
-  - {x: 57, y: 58, z: 73}
-  - {x: 57, y: 73, z: 72}
-  - {x: 58, y: 59, z: 74}
-  - {x: 58, y: 74, z: 73}
-  - {x: 480, y: 45, z: 60}
-  - {x: 481, y: 59, z: 74}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 60, y: 61, z: 76}
-  - {x: 60, y: 76, z: 75}
-  - {x: 61, y: 62, z: 77}
-  - {x: 61, y: 77, z: 76}
-  - {x: 62, y: 63, z: 78}
-  - {x: 62, y: 78, z: 77}
-  - {x: 63, y: 64, z: 79}
-  - {x: 63, y: 79, z: 78}
-  - {x: 64, y: 65, z: 80}
-  - {x: 64, y: 80, z: 79}
-  - {x: 65, y: 66, z: 81}
-  - {x: 65, y: 81, z: 80}
-  - {x: 66, y: 67, z: 82}
-  - {x: 66, y: 82, z: 81}
-  - {x: 67, y: 68, z: 83}
-  - {x: 67, y: 83, z: 82}
-  - {x: 68, y: 69, z: 84}
-  - {x: 68, y: 84, z: 83}
-  - {x: 69, y: 70, z: 85}
-  - {x: 69, y: 85, z: 84}
-  - {x: 70, y: 71, z: 86}
-  - {x: 70, y: 86, z: 85}
-  - {x: 71, y: 72, z: 87}
-  - {x: 71, y: 87, z: 86}
-  - {x: 72, y: 73, z: 88}
-  - {x: 72, y: 88, z: 87}
-  - {x: 73, y: 74, z: 89}
-  - {x: 73, y: 89, z: 88}
-  - {x: 480, y: 60, z: 75}
-  - {x: 481, y: 74, z: 89}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 75, y: 76, z: 91}
-  - {x: 75, y: 91, z: 90}
-  - {x: 76, y: 77, z: 92}
-  - {x: 76, y: 92, z: 91}
-  - {x: 77, y: 78, z: 93}
-  - {x: 77, y: 93, z: 92}
-  - {x: 78, y: 79, z: 94}
-  - {x: 78, y: 94, z: 93}
-  - {x: 79, y: 80, z: 95}
-  - {x: 79, y: 95, z: 94}
-  - {x: 80, y: 81, z: 96}
-  - {x: 80, y: 96, z: 95}
-  - {x: 81, y: 82, z: 97}
-  - {x: 81, y: 97, z: 96}
-  - {x: 82, y: 83, z: 98}
-  - {x: 82, y: 98, z: 97}
-  - {x: 83, y: 84, z: 99}
-  - {x: 83, y: 99, z: 98}
-  - {x: 84, y: 85, z: 100}
-  - {x: 84, y: 100, z: 99}
-  - {x: 85, y: 86, z: 101}
-  - {x: 85, y: 101, z: 100}
-  - {x: 86, y: 87, z: 102}
-  - {x: 86, y: 102, z: 101}
-  - {x: 87, y: 88, z: 103}
-  - {x: 87, y: 103, z: 102}
-  - {x: 88, y: 89, z: 104}
-  - {x: 88, y: 104, z: 103}
-  - {x: 480, y: 75, z: 90}
-  - {x: 481, y: 89, z: 104}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 90, y: 91, z: 106}
-  - {x: 90, y: 106, z: 105}
-  - {x: 91, y: 92, z: 107}
-  - {x: 91, y: 107, z: 106}
-  - {x: 92, y: 93, z: 108}
-  - {x: 92, y: 108, z: 107}
-  - {x: 93, y: 94, z: 109}
-  - {x: 93, y: 109, z: 108}
-  - {x: 94, y: 95, z: 110}
-  - {x: 94, y: 110, z: 109}
-  - {x: 95, y: 96, z: 111}
-  - {x: 95, y: 111, z: 110}
-  - {x: 96, y: 97, z: 112}
-  - {x: 96, y: 112, z: 111}
-  - {x: 97, y: 98, z: 113}
-  - {x: 97, y: 113, z: 112}
-  - {x: 98, y: 99, z: 114}
-  - {x: 98, y: 114, z: 113}
-  - {x: 99, y: 100, z: 115}
-  - {x: 99, y: 115, z: 114}
-  - {x: 100, y: 101, z: 116}
-  - {x: 100, y: 116, z: 115}
-  - {x: 101, y: 102, z: 117}
-  - {x: 101, y: 117, z: 116}
-  - {x: 102, y: 103, z: 118}
-  - {x: 102, y: 118, z: 117}
-  - {x: 103, y: 104, z: 119}
-  - {x: 103, y: 119, z: 118}
-  - {x: 480, y: 90, z: 105}
-  - {x: 481, y: 104, z: 119}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 105, y: 106, z: 121}
-  - {x: 105, y: 121, z: 120}
-  - {x: 106, y: 107, z: 122}
-  - {x: 106, y: 122, z: 121}
-  - {x: 107, y: 108, z: 123}
-  - {x: 107, y: 123, z: 122}
-  - {x: 108, y: 109, z: 124}
-  - {x: 108, y: 124, z: 123}
-  - {x: 109, y: 110, z: 125}
-  - {x: 109, y: 125, z: 124}
-  - {x: 110, y: 111, z: 126}
-  - {x: 110, y: 126, z: 125}
-  - {x: 111, y: 112, z: 127}
-  - {x: 111, y: 127, z: 126}
-  - {x: 112, y: 113, z: 128}
-  - {x: 112, y: 128, z: 127}
-  - {x: 113, y: 114, z: 129}
-  - {x: 113, y: 129, z: 128}
-  - {x: 114, y: 115, z: 130}
-  - {x: 114, y: 130, z: 129}
-  - {x: 115, y: 116, z: 131}
-  - {x: 115, y: 131, z: 130}
-  - {x: 116, y: 117, z: 132}
-  - {x: 116, y: 132, z: 131}
-  - {x: 117, y: 118, z: 133}
-  - {x: 117, y: 133, z: 132}
-  - {x: 118, y: 119, z: 134}
-  - {x: 118, y: 134, z: 133}
-  - {x: 480, y: 105, z: 120}
-  - {x: 481, y: 119, z: 134}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 120, y: 121, z: 136}
-  - {x: 120, y: 136, z: 135}
-  - {x: 121, y: 122, z: 137}
-  - {x: 121, y: 137, z: 136}
-  - {x: 122, y: 123, z: 138}
-  - {x: 122, y: 138, z: 137}
-  - {x: 123, y: 124, z: 139}
-  - {x: 123, y: 139, z: 138}
-  - {x: 124, y: 125, z: 140}
-  - {x: 124, y: 140, z: 139}
-  - {x: 125, y: 126, z: 141}
-  - {x: 125, y: 141, z: 140}
-  - {x: 126, y: 127, z: 142}
-  - {x: 126, y: 142, z: 141}
-  - {x: 127, y: 128, z: 143}
-  - {x: 127, y: 143, z: 142}
-  - {x: 128, y: 129, z: 144}
-  - {x: 128, y: 144, z: 143}
-  - {x: 129, y: 130, z: 145}
-  - {x: 129, y: 145, z: 144}
-  - {x: 130, y: 131, z: 146}
-  - {x: 130, y: 146, z: 145}
-  - {x: 131, y: 132, z: 147}
-  - {x: 131, y: 147, z: 146}
-  - {x: 132, y: 133, z: 148}
-  - {x: 132, y: 148, z: 147}
-  - {x: 133, y: 134, z: 149}
-  - {x: 133, y: 149, z: 148}
-  - {x: 480, y: 120, z: 135}
-  - {x: 481, y: 134, z: 149}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 135, y: 136, z: 151}
-  - {x: 135, y: 151, z: 150}
-  - {x: 136, y: 137, z: 152}
-  - {x: 136, y: 152, z: 151}
-  - {x: 137, y: 138, z: 153}
-  - {x: 137, y: 153, z: 152}
-  - {x: 138, y: 139, z: 154}
-  - {x: 138, y: 154, z: 153}
-  - {x: 139, y: 140, z: 155}
-  - {x: 139, y: 155, z: 154}
-  - {x: 140, y: 141, z: 156}
-  - {x: 140, y: 156, z: 155}
-  - {x: 141, y: 142, z: 157}
-  - {x: 141, y: 157, z: 156}
-  - {x: 142, y: 143, z: 158}
-  - {x: 142, y: 158, z: 157}
-  - {x: 143, y: 144, z: 159}
-  - {x: 143, y: 159, z: 158}
-  - {x: 144, y: 145, z: 160}
-  - {x: 144, y: 160, z: 159}
-  - {x: 145, y: 146, z: 161}
-  - {x: 145, y: 161, z: 160}
-  - {x: 146, y: 147, z: 162}
-  - {x: 146, y: 162, z: 161}
-  - {x: 147, y: 148, z: 163}
-  - {x: 147, y: 163, z: 162}
-  - {x: 148, y: 149, z: 164}
-  - {x: 148, y: 164, z: 163}
-  - {x: 480, y: 135, z: 150}
-  - {x: 481, y: 149, z: 164}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 150, y: 151, z: 166}
-  - {x: 150, y: 166, z: 165}
-  - {x: 151, y: 152, z: 167}
-  - {x: 151, y: 167, z: 166}
-  - {x: 152, y: 153, z: 168}
-  - {x: 152, y: 168, z: 167}
-  - {x: 153, y: 154, z: 169}
-  - {x: 153, y: 169, z: 168}
-  - {x: 154, y: 155, z: 170}
-  - {x: 154, y: 170, z: 169}
-  - {x: 155, y: 156, z: 171}
-  - {x: 155, y: 171, z: 170}
-  - {x: 156, y: 157, z: 172}
-  - {x: 156, y: 172, z: 171}
-  - {x: 157, y: 158, z: 173}
-  - {x: 157, y: 173, z: 172}
-  - {x: 158, y: 159, z: 174}
-  - {x: 158, y: 174, z: 173}
-  - {x: 159, y: 160, z: 175}
-  - {x: 159, y: 175, z: 174}
-  - {x: 160, y: 161, z: 176}
-  - {x: 160, y: 176, z: 175}
-  - {x: 161, y: 162, z: 177}
-  - {x: 161, y: 177, z: 176}
-  - {x: 162, y: 163, z: 178}
-  - {x: 162, y: 178, z: 177}
-  - {x: 163, y: 164, z: 179}
-  - {x: 163, y: 179, z: 178}
-  - {x: 480, y: 150, z: 165}
-  - {x: 481, y: 164, z: 179}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 165, y: 166, z: 181}
-  - {x: 165, y: 181, z: 180}
-  - {x: 166, y: 167, z: 182}
-  - {x: 166, y: 182, z: 181}
-  - {x: 167, y: 168, z: 183}
-  - {x: 167, y: 183, z: 182}
-  - {x: 168, y: 169, z: 184}
-  - {x: 168, y: 184, z: 183}
-  - {x: 169, y: 170, z: 185}
-  - {x: 169, y: 185, z: 184}
-  - {x: 170, y: 171, z: 186}
-  - {x: 170, y: 186, z: 185}
-  - {x: 171, y: 172, z: 187}
-  - {x: 171, y: 187, z: 186}
-  - {x: 172, y: 173, z: 188}
-  - {x: 172, y: 188, z: 187}
-  - {x: 173, y: 174, z: 189}
-  - {x: 173, y: 189, z: 188}
-  - {x: 174, y: 175, z: 190}
-  - {x: 174, y: 190, z: 189}
-  - {x: 175, y: 176, z: 191}
-  - {x: 175, y: 191, z: 190}
-  - {x: 176, y: 177, z: 192}
-  - {x: 176, y: 192, z: 191}
-  - {x: 177, y: 178, z: 193}
-  - {x: 177, y: 193, z: 192}
-  - {x: 178, y: 179, z: 194}
-  - {x: 178, y: 194, z: 193}
-  - {x: 480, y: 165, z: 180}
-  - {x: 481, y: 179, z: 194}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 180, y: 181, z: 196}
-  - {x: 180, y: 196, z: 195}
-  - {x: 181, y: 182, z: 197}
-  - {x: 181, y: 197, z: 196}
-  - {x: 182, y: 183, z: 198}
-  - {x: 182, y: 198, z: 197}
-  - {x: 183, y: 184, z: 199}
-  - {x: 183, y: 199, z: 198}
-  - {x: 184, y: 185, z: 200}
-  - {x: 184, y: 200, z: 199}
-  - {x: 185, y: 186, z: 201}
-  - {x: 185, y: 201, z: 200}
-  - {x: 186, y: 187, z: 202}
-  - {x: 186, y: 202, z: 201}
-  - {x: 187, y: 188, z: 203}
-  - {x: 187, y: 203, z: 202}
-  - {x: 188, y: 189, z: 204}
-  - {x: 188, y: 204, z: 203}
-  - {x: 189, y: 190, z: 205}
-  - {x: 189, y: 205, z: 204}
-  - {x: 190, y: 191, z: 206}
-  - {x: 190, y: 206, z: 205}
-  - {x: 191, y: 192, z: 207}
-  - {x: 191, y: 207, z: 206}
-  - {x: 192, y: 193, z: 208}
-  - {x: 192, y: 208, z: 207}
-  - {x: 193, y: 194, z: 209}
-  - {x: 193, y: 209, z: 208}
-  - {x: 480, y: 180, z: 195}
-  - {x: 481, y: 194, z: 209}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 195, y: 196, z: 211}
-  - {x: 195, y: 211, z: 210}
-  - {x: 196, y: 197, z: 212}
-  - {x: 196, y: 212, z: 211}
-  - {x: 197, y: 198, z: 213}
-  - {x: 197, y: 213, z: 212}
-  - {x: 198, y: 199, z: 214}
-  - {x: 198, y: 214, z: 213}
-  - {x: 199, y: 200, z: 215}
-  - {x: 199, y: 215, z: 214}
-  - {x: 200, y: 201, z: 216}
-  - {x: 200, y: 216, z: 215}
-  - {x: 201, y: 202, z: 217}
-  - {x: 201, y: 217, z: 216}
-  - {x: 202, y: 203, z: 218}
-  - {x: 202, y: 218, z: 217}
-  - {x: 203, y: 204, z: 219}
-  - {x: 203, y: 219, z: 218}
-  - {x: 204, y: 205, z: 220}
-  - {x: 204, y: 220, z: 219}
-  - {x: 205, y: 206, z: 221}
-  - {x: 205, y: 221, z: 220}
-  - {x: 206, y: 207, z: 222}
-  - {x: 206, y: 222, z: 221}
-  - {x: 207, y: 208, z: 223}
-  - {x: 207, y: 223, z: 222}
-  - {x: 208, y: 209, z: 224}
-  - {x: 208, y: 224, z: 223}
-  - {x: 480, y: 195, z: 210}
-  - {x: 481, y: 209, z: 224}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 210, y: 211, z: 226}
-  - {x: 210, y: 226, z: 225}
-  - {x: 211, y: 212, z: 227}
-  - {x: 211, y: 227, z: 226}
-  - {x: 212, y: 213, z: 228}
-  - {x: 212, y: 228, z: 227}
-  - {x: 213, y: 214, z: 229}
-  - {x: 213, y: 229, z: 228}
-  - {x: 214, y: 215, z: 230}
-  - {x: 214, y: 230, z: 229}
-  - {x: 215, y: 216, z: 231}
-  - {x: 215, y: 231, z: 230}
-  - {x: 216, y: 217, z: 232}
-  - {x: 216, y: 232, z: 231}
-  - {x: 217, y: 218, z: 233}
-  - {x: 217, y: 233, z: 232}
-  - {x: 218, y: 219, z: 234}
-  - {x: 218, y: 234, z: 233}
-  - {x: 219, y: 220, z: 235}
-  - {x: 219, y: 235, z: 234}
-  - {x: 220, y: 221, z: 236}
-  - {x: 220, y: 236, z: 235}
-  - {x: 221, y: 222, z: 237}
-  - {x: 221, y: 237, z: 236}
-  - {x: 222, y: 223, z: 238}
-  - {x: 222, y: 238, z: 237}
-  - {x: 223, y: 224, z: 239}
-  - {x: 223, y: 239, z: 238}
-  - {x: 480, y: 210, z: 225}
-  - {x: 481, y: 224, z: 239}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 225, y: 226, z: 241}
-  - {x: 225, y: 241, z: 240}
-  - {x: 226, y: 227, z: 242}
-  - {x: 226, y: 242, z: 241}
-  - {x: 227, y: 228, z: 243}
-  - {x: 227, y: 243, z: 242}
-  - {x: 228, y: 229, z: 244}
-  - {x: 228, y: 244, z: 243}
-  - {x: 229, y: 230, z: 245}
-  - {x: 229, y: 245, z: 244}
-  - {x: 230, y: 231, z: 246}
-  - {x: 230, y: 246, z: 245}
-  - {x: 231, y: 232, z: 247}
-  - {x: 231, y: 247, z: 246}
-  - {x: 232, y: 233, z: 248}
-  - {x: 232, y: 248, z: 247}
-  - {x: 233, y: 234, z: 249}
-  - {x: 233, y: 249, z: 248}
-  - {x: 234, y: 235, z: 250}
-  - {x: 234, y: 250, z: 249}
-  - {x: 235, y: 236, z: 251}
-  - {x: 235, y: 251, z: 250}
-  - {x: 236, y: 237, z: 252}
-  - {x: 236, y: 252, z: 251}
-  - {x: 237, y: 238, z: 253}
-  - {x: 237, y: 253, z: 252}
-  - {x: 238, y: 239, z: 254}
-  - {x: 238, y: 254, z: 253}
-  - {x: 480, y: 225, z: 240}
-  - {x: 481, y: 239, z: 254}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 240, y: 241, z: 256}
-  - {x: 240, y: 256, z: 255}
-  - {x: 241, y: 242, z: 257}
-  - {x: 241, y: 257, z: 256}
-  - {x: 242, y: 243, z: 258}
-  - {x: 242, y: 258, z: 257}
-  - {x: 243, y: 244, z: 259}
-  - {x: 243, y: 259, z: 258}
-  - {x: 244, y: 245, z: 260}
-  - {x: 244, y: 260, z: 259}
-  - {x: 245, y: 246, z: 261}
-  - {x: 245, y: 261, z: 260}
-  - {x: 246, y: 247, z: 262}
-  - {x: 246, y: 262, z: 261}
-  - {x: 247, y: 248, z: 263}
-  - {x: 247, y: 263, z: 262}
-  - {x: 248, y: 249, z: 264}
-  - {x: 248, y: 264, z: 263}
-  - {x: 249, y: 250, z: 265}
-  - {x: 249, y: 265, z: 264}
-  - {x: 250, y: 251, z: 266}
-  - {x: 250, y: 266, z: 265}
-  - {x: 251, y: 252, z: 267}
-  - {x: 251, y: 267, z: 266}
-  - {x: 252, y: 253, z: 268}
-  - {x: 252, y: 268, z: 267}
-  - {x: 253, y: 254, z: 269}
-  - {x: 253, y: 269, z: 268}
-  - {x: 480, y: 240, z: 255}
-  - {x: 481, y: 254, z: 269}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 255, y: 256, z: 271}
-  - {x: 255, y: 271, z: 270}
-  - {x: 256, y: 257, z: 272}
-  - {x: 256, y: 272, z: 271}
-  - {x: 257, y: 258, z: 273}
-  - {x: 257, y: 273, z: 272}
-  - {x: 258, y: 259, z: 274}
-  - {x: 258, y: 274, z: 273}
-  - {x: 259, y: 260, z: 275}
-  - {x: 259, y: 275, z: 274}
-  - {x: 260, y: 261, z: 276}
-  - {x: 260, y: 276, z: 275}
-  - {x: 261, y: 262, z: 277}
-  - {x: 261, y: 277, z: 276}
-  - {x: 262, y: 263, z: 278}
-  - {x: 262, y: 278, z: 277}
-  - {x: 263, y: 264, z: 279}
-  - {x: 263, y: 279, z: 278}
-  - {x: 264, y: 265, z: 280}
-  - {x: 264, y: 280, z: 279}
-  - {x: 265, y: 266, z: 281}
-  - {x: 265, y: 281, z: 280}
-  - {x: 266, y: 267, z: 282}
-  - {x: 266, y: 282, z: 281}
-  - {x: 267, y: 268, z: 283}
-  - {x: 267, y: 283, z: 282}
-  - {x: 268, y: 269, z: 284}
-  - {x: 268, y: 284, z: 283}
-  - {x: 480, y: 255, z: 270}
-  - {x: 481, y: 269, z: 284}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 270, y: 271, z: 286}
-  - {x: 270, y: 286, z: 285}
-  - {x: 271, y: 272, z: 287}
-  - {x: 271, y: 287, z: 286}
-  - {x: 272, y: 273, z: 288}
-  - {x: 272, y: 288, z: 287}
-  - {x: 273, y: 274, z: 289}
-  - {x: 273, y: 289, z: 288}
-  - {x: 274, y: 275, z: 290}
-  - {x: 274, y: 290, z: 289}
-  - {x: 275, y: 276, z: 291}
-  - {x: 275, y: 291, z: 290}
-  - {x: 276, y: 277, z: 292}
-  - {x: 276, y: 292, z: 291}
-  - {x: 277, y: 278, z: 293}
-  - {x: 277, y: 293, z: 292}
-  - {x: 278, y: 279, z: 294}
-  - {x: 278, y: 294, z: 293}
-  - {x: 279, y: 280, z: 295}
-  - {x: 279, y: 295, z: 294}
-  - {x: 280, y: 281, z: 296}
-  - {x: 280, y: 296, z: 295}
-  - {x: 281, y: 282, z: 297}
-  - {x: 281, y: 297, z: 296}
-  - {x: 282, y: 283, z: 298}
-  - {x: 282, y: 298, z: 297}
-  - {x: 283, y: 284, z: 299}
-  - {x: 283, y: 299, z: 298}
-  - {x: 480, y: 270, z: 285}
-  - {x: 481, y: 284, z: 299}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 285, y: 286, z: 301}
-  - {x: 285, y: 301, z: 300}
-  - {x: 286, y: 287, z: 302}
-  - {x: 286, y: 302, z: 301}
-  - {x: 287, y: 288, z: 303}
-  - {x: 287, y: 303, z: 302}
-  - {x: 288, y: 289, z: 304}
-  - {x: 288, y: 304, z: 303}
-  - {x: 289, y: 290, z: 305}
-  - {x: 289, y: 305, z: 304}
-  - {x: 290, y: 291, z: 306}
-  - {x: 290, y: 306, z: 305}
-  - {x: 291, y: 292, z: 307}
-  - {x: 291, y: 307, z: 306}
-  - {x: 292, y: 293, z: 308}
-  - {x: 292, y: 308, z: 307}
-  - {x: 293, y: 294, z: 309}
-  - {x: 293, y: 309, z: 308}
-  - {x: 294, y: 295, z: 310}
-  - {x: 294, y: 310, z: 309}
-  - {x: 295, y: 296, z: 311}
-  - {x: 295, y: 311, z: 310}
-  - {x: 296, y: 297, z: 312}
-  - {x: 296, y: 312, z: 311}
-  - {x: 297, y: 298, z: 313}
-  - {x: 297, y: 313, z: 312}
-  - {x: 298, y: 299, z: 314}
-  - {x: 298, y: 314, z: 313}
-  - {x: 480, y: 285, z: 300}
-  - {x: 481, y: 299, z: 314}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 300, y: 301, z: 316}
-  - {x: 300, y: 316, z: 315}
-  - {x: 301, y: 302, z: 317}
-  - {x: 301, y: 317, z: 316}
-  - {x: 302, y: 303, z: 318}
-  - {x: 302, y: 318, z: 317}
-  - {x: 303, y: 304, z: 319}
-  - {x: 303, y: 319, z: 318}
-  - {x: 304, y: 305, z: 320}
-  - {x: 304, y: 320, z: 319}
-  - {x: 305, y: 306, z: 321}
-  - {x: 305, y: 321, z: 320}
-  - {x: 306, y: 307, z: 322}
-  - {x: 306, y: 322, z: 321}
-  - {x: 307, y: 308, z: 323}
-  - {x: 307, y: 323, z: 322}
-  - {x: 308, y: 309, z: 324}
-  - {x: 308, y: 324, z: 323}
-  - {x: 309, y: 310, z: 325}
-  - {x: 309, y: 325, z: 324}
-  - {x: 310, y: 311, z: 326}
-  - {x: 310, y: 326, z: 325}
-  - {x: 311, y: 312, z: 327}
-  - {x: 311, y: 327, z: 326}
-  - {x: 312, y: 313, z: 328}
-  - {x: 312, y: 328, z: 327}
-  - {x: 313, y: 314, z: 329}
-  - {x: 313, y: 329, z: 328}
-  - {x: 480, y: 300, z: 315}
-  - {x: 481, y: 314, z: 329}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 315, y: 316, z: 331}
-  - {x: 315, y: 331, z: 330}
-  - {x: 316, y: 317, z: 332}
-  - {x: 316, y: 332, z: 331}
-  - {x: 317, y: 318, z: 333}
-  - {x: 317, y: 333, z: 332}
-  - {x: 318, y: 319, z: 334}
-  - {x: 318, y: 334, z: 333}
-  - {x: 319, y: 320, z: 335}
-  - {x: 319, y: 335, z: 334}
-  - {x: 320, y: 321, z: 336}
-  - {x: 320, y: 336, z: 335}
-  - {x: 321, y: 322, z: 337}
-  - {x: 321, y: 337, z: 336}
-  - {x: 322, y: 323, z: 338}
-  - {x: 322, y: 338, z: 337}
-  - {x: 323, y: 324, z: 339}
-  - {x: 323, y: 339, z: 338}
-  - {x: 324, y: 325, z: 340}
-  - {x: 324, y: 340, z: 339}
-  - {x: 325, y: 326, z: 341}
-  - {x: 325, y: 341, z: 340}
-  - {x: 326, y: 327, z: 342}
-  - {x: 326, y: 342, z: 341}
-  - {x: 327, y: 328, z: 343}
-  - {x: 327, y: 343, z: 342}
-  - {x: 328, y: 329, z: 344}
-  - {x: 328, y: 344, z: 343}
-  - {x: 480, y: 315, z: 330}
-  - {x: 481, y: 329, z: 344}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 330, y: 331, z: 346}
-  - {x: 330, y: 346, z: 345}
-  - {x: 331, y: 332, z: 347}
-  - {x: 331, y: 347, z: 346}
-  - {x: 332, y: 333, z: 348}
-  - {x: 332, y: 348, z: 347}
-  - {x: 333, y: 334, z: 349}
-  - {x: 333, y: 349, z: 348}
-  - {x: 334, y: 335, z: 350}
-  - {x: 334, y: 350, z: 349}
-  - {x: 335, y: 336, z: 351}
-  - {x: 335, y: 351, z: 350}
-  - {x: 336, y: 337, z: 352}
-  - {x: 336, y: 352, z: 351}
-  - {x: 337, y: 338, z: 353}
-  - {x: 337, y: 353, z: 352}
-  - {x: 338, y: 339, z: 354}
-  - {x: 338, y: 354, z: 353}
-  - {x: 339, y: 340, z: 355}
-  - {x: 339, y: 355, z: 354}
-  - {x: 340, y: 341, z: 356}
-  - {x: 340, y: 356, z: 355}
-  - {x: 341, y: 342, z: 357}
-  - {x: 341, y: 357, z: 356}
-  - {x: 342, y: 343, z: 358}
-  - {x: 342, y: 358, z: 357}
-  - {x: 343, y: 344, z: 359}
-  - {x: 343, y: 359, z: 358}
-  - {x: 480, y: 330, z: 345}
-  - {x: 481, y: 344, z: 359}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 345, y: 346, z: 361}
-  - {x: 345, y: 361, z: 360}
-  - {x: 346, y: 347, z: 362}
-  - {x: 346, y: 362, z: 361}
-  - {x: 347, y: 348, z: 363}
-  - {x: 347, y: 363, z: 362}
-  - {x: 348, y: 349, z: 364}
-  - {x: 348, y: 364, z: 363}
-  - {x: 349, y: 350, z: 365}
-  - {x: 349, y: 365, z: 364}
-  - {x: 350, y: 351, z: 366}
-  - {x: 350, y: 366, z: 365}
-  - {x: 351, y: 352, z: 367}
-  - {x: 351, y: 367, z: 366}
-  - {x: 352, y: 353, z: 368}
-  - {x: 352, y: 368, z: 367}
-  - {x: 353, y: 354, z: 369}
-  - {x: 353, y: 369, z: 368}
-  - {x: 354, y: 355, z: 370}
-  - {x: 354, y: 370, z: 369}
-  - {x: 355, y: 356, z: 371}
-  - {x: 355, y: 371, z: 370}
-  - {x: 356, y: 357, z: 372}
-  - {x: 356, y: 372, z: 371}
-  - {x: 357, y: 358, z: 373}
-  - {x: 357, y: 373, z: 372}
-  - {x: 358, y: 359, z: 374}
-  - {x: 358, y: 374, z: 373}
-  - {x: 480, y: 345, z: 360}
-  - {x: 481, y: 359, z: 374}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 360, y: 361, z: 376}
-  - {x: 360, y: 376, z: 375}
-  - {x: 361, y: 362, z: 377}
-  - {x: 361, y: 377, z: 376}
-  - {x: 362, y: 363, z: 378}
-  - {x: 362, y: 378, z: 377}
-  - {x: 363, y: 364, z: 379}
-  - {x: 363, y: 379, z: 378}
-  - {x: 364, y: 365, z: 380}
-  - {x: 364, y: 380, z: 379}
-  - {x: 365, y: 366, z: 381}
-  - {x: 365, y: 381, z: 380}
-  - {x: 366, y: 367, z: 382}
-  - {x: 366, y: 382, z: 381}
-  - {x: 367, y: 368, z: 383}
-  - {x: 367, y: 383, z: 382}
-  - {x: 368, y: 369, z: 384}
-  - {x: 368, y: 384, z: 383}
-  - {x: 369, y: 370, z: 385}
-  - {x: 369, y: 385, z: 384}
-  - {x: 370, y: 371, z: 386}
-  - {x: 370, y: 386, z: 385}
-  - {x: 371, y: 372, z: 387}
-  - {x: 371, y: 387, z: 386}
-  - {x: 372, y: 373, z: 388}
-  - {x: 372, y: 388, z: 387}
-  - {x: 373, y: 374, z: 389}
-  - {x: 373, y: 389, z: 388}
-  - {x: 480, y: 360, z: 375}
-  - {x: 481, y: 374, z: 389}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 375, y: 376, z: 391}
-  - {x: 375, y: 391, z: 390}
-  - {x: 376, y: 377, z: 392}
-  - {x: 376, y: 392, z: 391}
-  - {x: 377, y: 378, z: 393}
-  - {x: 377, y: 393, z: 392}
-  - {x: 378, y: 379, z: 394}
-  - {x: 378, y: 394, z: 393}
-  - {x: 379, y: 380, z: 395}
-  - {x: 379, y: 395, z: 394}
-  - {x: 380, y: 381, z: 396}
-  - {x: 380, y: 396, z: 395}
-  - {x: 381, y: 382, z: 397}
-  - {x: 381, y: 397, z: 396}
-  - {x: 382, y: 383, z: 398}
-  - {x: 382, y: 398, z: 397}
-  - {x: 383, y: 384, z: 399}
-  - {x: 383, y: 399, z: 398}
-  - {x: 384, y: 385, z: 400}
-  - {x: 384, y: 400, z: 399}
-  - {x: 385, y: 386, z: 401}
-  - {x: 385, y: 401, z: 400}
-  - {x: 386, y: 387, z: 402}
-  - {x: 386, y: 402, z: 401}
-  - {x: 387, y: 388, z: 403}
-  - {x: 387, y: 403, z: 402}
-  - {x: 388, y: 389, z: 404}
-  - {x: 388, y: 404, z: 403}
-  - {x: 480, y: 375, z: 390}
-  - {x: 481, y: 389, z: 404}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 390, y: 391, z: 406}
-  - {x: 390, y: 406, z: 405}
-  - {x: 391, y: 392, z: 407}
-  - {x: 391, y: 407, z: 406}
-  - {x: 392, y: 393, z: 408}
-  - {x: 392, y: 408, z: 407}
-  - {x: 393, y: 394, z: 409}
-  - {x: 393, y: 409, z: 408}
-  - {x: 394, y: 395, z: 410}
-  - {x: 394, y: 410, z: 409}
-  - {x: 395, y: 396, z: 411}
-  - {x: 395, y: 411, z: 410}
-  - {x: 396, y: 397, z: 412}
-  - {x: 396, y: 412, z: 411}
-  - {x: 397, y: 398, z: 413}
-  - {x: 397, y: 413, z: 412}
-  - {x: 398, y: 399, z: 414}
-  - {x: 398, y: 414, z: 413}
-  - {x: 399, y: 400, z: 415}
-  - {x: 399, y: 415, z: 414}
-  - {x: 400, y: 401, z: 416}
-  - {x: 400, y: 416, z: 415}
-  - {x: 401, y: 402, z: 417}
-  - {x: 401, y: 417, z: 416}
-  - {x: 402, y: 403, z: 418}
-  - {x: 402, y: 418, z: 417}
-  - {x: 403, y: 404, z: 419}
-  - {x: 403, y: 419, z: 418}
-  - {x: 480, y: 390, z: 405}
-  - {x: 481, y: 404, z: 419}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 405, y: 406, z: 421}
-  - {x: 405, y: 421, z: 420}
-  - {x: 406, y: 407, z: 422}
-  - {x: 406, y: 422, z: 421}
-  - {x: 407, y: 408, z: 423}
-  - {x: 407, y: 423, z: 422}
-  - {x: 408, y: 409, z: 424}
-  - {x: 408, y: 424, z: 423}
-  - {x: 409, y: 410, z: 425}
-  - {x: 409, y: 425, z: 424}
-  - {x: 410, y: 411, z: 426}
-  - {x: 410, y: 426, z: 425}
-  - {x: 411, y: 412, z: 427}
-  - {x: 411, y: 427, z: 426}
-  - {x: 412, y: 413, z: 428}
-  - {x: 412, y: 428, z: 427}
-  - {x: 413, y: 414, z: 429}
-  - {x: 413, y: 429, z: 428}
-  - {x: 414, y: 415, z: 430}
-  - {x: 414, y: 430, z: 429}
-  - {x: 415, y: 416, z: 431}
-  - {x: 415, y: 431, z: 430}
-  - {x: 416, y: 417, z: 432}
-  - {x: 416, y: 432, z: 431}
-  - {x: 417, y: 418, z: 433}
-  - {x: 417, y: 433, z: 432}
-  - {x: 418, y: 419, z: 434}
-  - {x: 418, y: 434, z: 433}
-  - {x: 480, y: 405, z: 420}
-  - {x: 481, y: 419, z: 434}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 420, y: 421, z: 436}
-  - {x: 420, y: 436, z: 435}
-  - {x: 421, y: 422, z: 437}
-  - {x: 421, y: 437, z: 436}
-  - {x: 422, y: 423, z: 438}
-  - {x: 422, y: 438, z: 437}
-  - {x: 423, y: 424, z: 439}
-  - {x: 423, y: 439, z: 438}
-  - {x: 424, y: 425, z: 440}
-  - {x: 424, y: 440, z: 439}
-  - {x: 425, y: 426, z: 441}
-  - {x: 425, y: 441, z: 440}
-  - {x: 426, y: 427, z: 442}
-  - {x: 426, y: 442, z: 441}
-  - {x: 427, y: 428, z: 443}
-  - {x: 427, y: 443, z: 442}
-  - {x: 428, y: 429, z: 444}
-  - {x: 428, y: 444, z: 443}
-  - {x: 429, y: 430, z: 445}
-  - {x: 429, y: 445, z: 444}
-  - {x: 430, y: 431, z: 446}
-  - {x: 430, y: 446, z: 445}
-  - {x: 431, y: 432, z: 447}
-  - {x: 431, y: 447, z: 446}
-  - {x: 432, y: 433, z: 448}
-  - {x: 432, y: 448, z: 447}
-  - {x: 433, y: 434, z: 449}
-  - {x: 433, y: 449, z: 448}
-  - {x: 480, y: 420, z: 435}
-  - {x: 481, y: 434, z: 449}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 435, y: 436, z: 451}
-  - {x: 435, y: 451, z: 450}
-  - {x: 436, y: 437, z: 452}
-  - {x: 436, y: 452, z: 451}
-  - {x: 437, y: 438, z: 453}
-  - {x: 437, y: 453, z: 452}
-  - {x: 438, y: 439, z: 454}
-  - {x: 438, y: 454, z: 453}
-  - {x: 439, y: 440, z: 455}
-  - {x: 439, y: 455, z: 454}
-  - {x: 440, y: 441, z: 456}
-  - {x: 440, y: 456, z: 455}
-  - {x: 441, y: 442, z: 457}
-  - {x: 441, y: 457, z: 456}
-  - {x: 442, y: 443, z: 458}
-  - {x: 442, y: 458, z: 457}
-  - {x: 443, y: 444, z: 459}
-  - {x: 443, y: 459, z: 458}
-  - {x: 444, y: 445, z: 460}
-  - {x: 444, y: 460, z: 459}
-  - {x: 445, y: 446, z: 461}
-  - {x: 445, y: 461, z: 460}
-  - {x: 446, y: 447, z: 462}
-  - {x: 446, y: 462, z: 461}
-  - {x: 447, y: 448, z: 463}
-  - {x: 447, y: 463, z: 462}
-  - {x: 448, y: 449, z: 464}
-  - {x: 448, y: 464, z: 463}
-  - {x: 480, y: 435, z: 450}
-  - {x: 481, y: 449, z: 464}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 450, y: 451, z: 466}
-  - {x: 450, y: 466, z: 465}
-  - {x: 451, y: 452, z: 467}
-  - {x: 451, y: 467, z: 466}
-  - {x: 452, y: 453, z: 468}
-  - {x: 452, y: 468, z: 467}
-  - {x: 453, y: 454, z: 469}
-  - {x: 453, y: 469, z: 468}
-  - {x: 454, y: 455, z: 470}
-  - {x: 454, y: 470, z: 469}
-  - {x: 455, y: 456, z: 471}
-  - {x: 455, y: 471, z: 470}
-  - {x: 456, y: 457, z: 472}
-  - {x: 456, y: 472, z: 471}
-  - {x: 457, y: 458, z: 473}
-  - {x: 457, y: 473, z: 472}
-  - {x: 458, y: 459, z: 474}
-  - {x: 458, y: 474, z: 473}
-  - {x: 459, y: 460, z: 475}
-  - {x: 459, y: 475, z: 474}
-  - {x: 460, y: 461, z: 476}
-  - {x: 460, y: 476, z: 475}
-  - {x: 461, y: 462, z: 477}
-  - {x: 461, y: 477, z: 476}
-  - {x: 462, y: 463, z: 478}
-  - {x: 462, y: 478, z: 477}
-  - {x: 463, y: 464, z: 479}
-  - {x: 463, y: 479, z: 478}
-  - {x: 480, y: 450, z: 465}
-  - {x: 481, y: 464, z: 479}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 465, y: 466, z: 1}
-  - {x: 465, y: 1, z: 0}
-  - {x: 466, y: 467, z: 2}
-  - {x: 466, y: 2, z: 1}
-  - {x: 467, y: 468, z: 3}
-  - {x: 467, y: 3, z: 2}
-  - {x: 468, y: 469, z: 4}
-  - {x: 468, y: 4, z: 3}
-  - {x: 469, y: 470, z: 5}
-  - {x: 469, y: 5, z: 4}
-  - {x: 470, y: 471, z: 6}
-  - {x: 470, y: 6, z: 5}
-  - {x: 471, y: 472, z: 7}
-  - {x: 471, y: 7, z: 6}
-  - {x: 472, y: 473, z: 8}
-  - {x: 472, y: 8, z: 7}
-  - {x: 473, y: 474, z: 9}
-  - {x: 473, y: 9, z: 8}
-  - {x: 474, y: 475, z: 10}
-  - {x: 474, y: 10, z: 9}
-  - {x: 475, y: 476, z: 11}
-  - {x: 475, y: 11, z: 10}
-  - {x: 476, y: 477, z: 12}
-  - {x: 476, y: 12, z: 11}
-  - {x: 477, y: 478, z: 13}
-  - {x: 477, y: 13, z: 12}
-  - {x: 478, y: 479, z: 14}
-  - {x: 478, y: 14, z: 13}
-  - {x: 480, y: 465, z: 0}
-  - {x: 481, y: 479, z: 14}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 16, y: 1, z: 0}
-  - {x: 15, y: 16, z: 0}
-  - {x: 17, y: 2, z: 1}
-  - {x: 16, y: 17, z: 1}
-  - {x: 18, y: 3, z: 2}
-  - {x: 17, y: 18, z: 2}
-  - {x: 19, y: 4, z: 3}
-  - {x: 18, y: 19, z: 3}
-  - {x: 20, y: 5, z: 4}
-  - {x: 19, y: 20, z: 4}
-  - {x: 21, y: 6, z: 5}
-  - {x: 20, y: 21, z: 5}
-  - {x: 22, y: 7, z: 6}
-  - {x: 21, y: 22, z: 6}
-  - {x: 23, y: 8, z: 7}
-  - {x: 22, y: 23, z: 7}
-  - {x: 24, y: 9, z: 8}
-  - {x: 23, y: 24, z: 8}
-  - {x: 25, y: 10, z: 9}
-  - {x: 24, y: 25, z: 9}
-  - {x: 26, y: 11, z: 10}
-  - {x: 25, y: 26, z: 10}
-  - {x: 27, y: 12, z: 11}
-  - {x: 26, y: 27, z: 11}
-  - {x: 28, y: 13, z: 12}
-  - {x: 27, y: 28, z: 12}
-  - {x: 29, y: 14, z: 13}
-  - {x: 28, y: 29, z: 13}
-  - {x: 15, y: 0, z: 480}
-  - {x: 29, y: 14, z: 481}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 31, y: 16, z: 15}
-  - {x: 30, y: 31, z: 15}
-  - {x: 32, y: 17, z: 16}
-  - {x: 31, y: 32, z: 16}
-  - {x: 33, y: 18, z: 17}
-  - {x: 32, y: 33, z: 17}
-  - {x: 34, y: 19, z: 18}
-  - {x: 33, y: 34, z: 18}
-  - {x: 35, y: 20, z: 19}
-  - {x: 34, y: 35, z: 19}
-  - {x: 36, y: 21, z: 20}
-  - {x: 35, y: 36, z: 20}
-  - {x: 37, y: 22, z: 21}
-  - {x: 36, y: 37, z: 21}
-  - {x: 38, y: 23, z: 22}
-  - {x: 37, y: 38, z: 22}
-  - {x: 39, y: 24, z: 23}
-  - {x: 38, y: 39, z: 23}
-  - {x: 40, y: 25, z: 24}
-  - {x: 39, y: 40, z: 24}
-  - {x: 41, y: 26, z: 25}
-  - {x: 40, y: 41, z: 25}
-  - {x: 42, y: 27, z: 26}
-  - {x: 41, y: 42, z: 26}
-  - {x: 43, y: 28, z: 27}
-  - {x: 42, y: 43, z: 27}
-  - {x: 44, y: 29, z: 28}
-  - {x: 43, y: 44, z: 28}
-  - {x: 30, y: 15, z: 480}
-  - {x: 44, y: 29, z: 481}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 46, y: 31, z: 30}
-  - {x: 45, y: 46, z: 30}
-  - {x: 47, y: 32, z: 31}
-  - {x: 46, y: 47, z: 31}
-  - {x: 48, y: 33, z: 32}
-  - {x: 47, y: 48, z: 32}
-  - {x: 49, y: 34, z: 33}
-  - {x: 48, y: 49, z: 33}
-  - {x: 50, y: 35, z: 34}
-  - {x: 49, y: 50, z: 34}
-  - {x: 51, y: 36, z: 35}
-  - {x: 50, y: 51, z: 35}
-  - {x: 52, y: 37, z: 36}
-  - {x: 51, y: 52, z: 36}
-  - {x: 53, y: 38, z: 37}
-  - {x: 52, y: 53, z: 37}
-  - {x: 54, y: 39, z: 38}
-  - {x: 53, y: 54, z: 38}
-  - {x: 55, y: 40, z: 39}
-  - {x: 54, y: 55, z: 39}
-  - {x: 56, y: 41, z: 40}
-  - {x: 55, y: 56, z: 40}
-  - {x: 57, y: 42, z: 41}
-  - {x: 56, y: 57, z: 41}
-  - {x: 58, y: 43, z: 42}
-  - {x: 57, y: 58, z: 42}
-  - {x: 59, y: 44, z: 43}
-  - {x: 58, y: 59, z: 43}
-  - {x: 45, y: 30, z: 480}
-  - {x: 59, y: 44, z: 481}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 61, y: 46, z: 45}
-  - {x: 60, y: 61, z: 45}
-  - {x: 62, y: 47, z: 46}
-  - {x: 61, y: 62, z: 46}
-  - {x: 63, y: 48, z: 47}
-  - {x: 62, y: 63, z: 47}
-  - {x: 64, y: 49, z: 48}
-  - {x: 63, y: 64, z: 48}
-  - {x: 65, y: 50, z: 49}
-  - {x: 64, y: 65, z: 49}
-  - {x: 66, y: 51, z: 50}
-  - {x: 65, y: 66, z: 50}
-  - {x: 67, y: 52, z: 51}
-  - {x: 66, y: 67, z: 51}
-  - {x: 68, y: 53, z: 52}
-  - {x: 67, y: 68, z: 52}
-  - {x: 69, y: 54, z: 53}
-  - {x: 68, y: 69, z: 53}
-  - {x: 70, y: 55, z: 54}
-  - {x: 69, y: 70, z: 54}
-  - {x: 71, y: 56, z: 55}
-  - {x: 70, y: 71, z: 55}
-  - {x: 72, y: 57, z: 56}
-  - {x: 71, y: 72, z: 56}
-  - {x: 73, y: 58, z: 57}
-  - {x: 72, y: 73, z: 57}
-  - {x: 74, y: 59, z: 58}
-  - {x: 73, y: 74, z: 58}
-  - {x: 60, y: 45, z: 480}
-  - {x: 74, y: 59, z: 481}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 76, y: 61, z: 60}
-  - {x: 75, y: 76, z: 60}
-  - {x: 77, y: 62, z: 61}
-  - {x: 76, y: 77, z: 61}
-  - {x: 78, y: 63, z: 62}
-  - {x: 77, y: 78, z: 62}
-  - {x: 79, y: 64, z: 63}
-  - {x: 78, y: 79, z: 63}
-  - {x: 80, y: 65, z: 64}
-  - {x: 79, y: 80, z: 64}
-  - {x: 81, y: 66, z: 65}
-  - {x: 80, y: 81, z: 65}
-  - {x: 82, y: 67, z: 66}
-  - {x: 81, y: 82, z: 66}
-  - {x: 83, y: 68, z: 67}
-  - {x: 82, y: 83, z: 67}
-  - {x: 84, y: 69, z: 68}
-  - {x: 83, y: 84, z: 68}
-  - {x: 85, y: 70, z: 69}
-  - {x: 84, y: 85, z: 69}
-  - {x: 86, y: 71, z: 70}
-  - {x: 85, y: 86, z: 70}
-  - {x: 87, y: 72, z: 71}
-  - {x: 86, y: 87, z: 71}
-  - {x: 88, y: 73, z: 72}
-  - {x: 87, y: 88, z: 72}
-  - {x: 89, y: 74, z: 73}
-  - {x: 88, y: 89, z: 73}
-  - {x: 75, y: 60, z: 480}
-  - {x: 89, y: 74, z: 481}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 91, y: 76, z: 75}
-  - {x: 90, y: 91, z: 75}
-  - {x: 92, y: 77, z: 76}
-  - {x: 91, y: 92, z: 76}
-  - {x: 93, y: 78, z: 77}
-  - {x: 92, y: 93, z: 77}
-  - {x: 94, y: 79, z: 78}
-  - {x: 93, y: 94, z: 78}
-  - {x: 95, y: 80, z: 79}
-  - {x: 94, y: 95, z: 79}
-  - {x: 96, y: 81, z: 80}
-  - {x: 95, y: 96, z: 80}
-  - {x: 97, y: 82, z: 81}
-  - {x: 96, y: 97, z: 81}
-  - {x: 98, y: 83, z: 82}
-  - {x: 97, y: 98, z: 82}
-  - {x: 99, y: 84, z: 83}
-  - {x: 98, y: 99, z: 83}
-  - {x: 100, y: 85, z: 84}
-  - {x: 99, y: 100, z: 84}
-  - {x: 101, y: 86, z: 85}
-  - {x: 100, y: 101, z: 85}
-  - {x: 102, y: 87, z: 86}
-  - {x: 101, y: 102, z: 86}
-  - {x: 103, y: 88, z: 87}
-  - {x: 102, y: 103, z: 87}
-  - {x: 104, y: 89, z: 88}
-  - {x: 103, y: 104, z: 88}
-  - {x: 90, y: 75, z: 480}
-  - {x: 104, y: 89, z: 481}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 106, y: 91, z: 90}
-  - {x: 105, y: 106, z: 90}
-  - {x: 107, y: 92, z: 91}
-  - {x: 106, y: 107, z: 91}
-  - {x: 108, y: 93, z: 92}
-  - {x: 107, y: 108, z: 92}
-  - {x: 109, y: 94, z: 93}
-  - {x: 108, y: 109, z: 93}
-  - {x: 110, y: 95, z: 94}
-  - {x: 109, y: 110, z: 94}
-  - {x: 111, y: 96, z: 95}
-  - {x: 110, y: 111, z: 95}
-  - {x: 112, y: 97, z: 96}
-  - {x: 111, y: 112, z: 96}
-  - {x: 113, y: 98, z: 97}
-  - {x: 112, y: 113, z: 97}
-  - {x: 114, y: 99, z: 98}
-  - {x: 113, y: 114, z: 98}
-  - {x: 115, y: 100, z: 99}
-  - {x: 114, y: 115, z: 99}
-  - {x: 116, y: 101, z: 100}
-  - {x: 115, y: 116, z: 100}
-  - {x: 117, y: 102, z: 101}
-  - {x: 116, y: 117, z: 101}
-  - {x: 118, y: 103, z: 102}
-  - {x: 117, y: 118, z: 102}
-  - {x: 119, y: 104, z: 103}
-  - {x: 118, y: 119, z: 103}
-  - {x: 105, y: 90, z: 480}
-  - {x: 119, y: 104, z: 481}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 121, y: 106, z: 105}
-  - {x: 120, y: 121, z: 105}
-  - {x: 122, y: 107, z: 106}
-  - {x: 121, y: 122, z: 106}
-  - {x: 123, y: 108, z: 107}
-  - {x: 122, y: 123, z: 107}
-  - {x: 124, y: 109, z: 108}
-  - {x: 123, y: 124, z: 108}
-  - {x: 125, y: 110, z: 109}
-  - {x: 124, y: 125, z: 109}
-  - {x: 126, y: 111, z: 110}
-  - {x: 125, y: 126, z: 110}
-  - {x: 127, y: 112, z: 111}
-  - {x: 126, y: 127, z: 111}
-  - {x: 128, y: 113, z: 112}
-  - {x: 127, y: 128, z: 112}
-  - {x: 129, y: 114, z: 113}
-  - {x: 128, y: 129, z: 113}
-  - {x: 130, y: 115, z: 114}
-  - {x: 129, y: 130, z: 114}
-  - {x: 131, y: 116, z: 115}
-  - {x: 130, y: 131, z: 115}
-  - {x: 132, y: 117, z: 116}
-  - {x: 131, y: 132, z: 116}
-  - {x: 133, y: 118, z: 117}
-  - {x: 132, y: 133, z: 117}
-  - {x: 134, y: 119, z: 118}
-  - {x: 133, y: 134, z: 118}
-  - {x: 120, y: 105, z: 480}
-  - {x: 134, y: 119, z: 481}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 136, y: 121, z: 120}
-  - {x: 135, y: 136, z: 120}
-  - {x: 137, y: 122, z: 121}
-  - {x: 136, y: 137, z: 121}
-  - {x: 138, y: 123, z: 122}
-  - {x: 137, y: 138, z: 122}
-  - {x: 139, y: 124, z: 123}
-  - {x: 138, y: 139, z: 123}
-  - {x: 140, y: 125, z: 124}
-  - {x: 139, y: 140, z: 124}
-  - {x: 141, y: 126, z: 125}
-  - {x: 140, y: 141, z: 125}
-  - {x: 142, y: 127, z: 126}
-  - {x: 141, y: 142, z: 126}
-  - {x: 143, y: 128, z: 127}
-  - {x: 142, y: 143, z: 127}
-  - {x: 144, y: 129, z: 128}
-  - {x: 143, y: 144, z: 128}
-  - {x: 145, y: 130, z: 129}
-  - {x: 144, y: 145, z: 129}
-  - {x: 146, y: 131, z: 130}
-  - {x: 145, y: 146, z: 130}
-  - {x: 147, y: 132, z: 131}
-  - {x: 146, y: 147, z: 131}
-  - {x: 148, y: 133, z: 132}
-  - {x: 147, y: 148, z: 132}
-  - {x: 149, y: 134, z: 133}
-  - {x: 148, y: 149, z: 133}
-  - {x: 135, y: 120, z: 480}
-  - {x: 149, y: 134, z: 481}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 151, y: 136, z: 135}
-  - {x: 150, y: 151, z: 135}
-  - {x: 152, y: 137, z: 136}
-  - {x: 151, y: 152, z: 136}
-  - {x: 153, y: 138, z: 137}
-  - {x: 152, y: 153, z: 137}
-  - {x: 154, y: 139, z: 138}
-  - {x: 153, y: 154, z: 138}
-  - {x: 155, y: 140, z: 139}
-  - {x: 154, y: 155, z: 139}
-  - {x: 156, y: 141, z: 140}
-  - {x: 155, y: 156, z: 140}
-  - {x: 157, y: 142, z: 141}
-  - {x: 156, y: 157, z: 141}
-  - {x: 158, y: 143, z: 142}
-  - {x: 157, y: 158, z: 142}
-  - {x: 159, y: 144, z: 143}
-  - {x: 158, y: 159, z: 143}
-  - {x: 160, y: 145, z: 144}
-  - {x: 159, y: 160, z: 144}
-  - {x: 161, y: 146, z: 145}
-  - {x: 160, y: 161, z: 145}
-  - {x: 162, y: 147, z: 146}
-  - {x: 161, y: 162, z: 146}
-  - {x: 163, y: 148, z: 147}
-  - {x: 162, y: 163, z: 147}
-  - {x: 164, y: 149, z: 148}
-  - {x: 163, y: 164, z: 148}
-  - {x: 150, y: 135, z: 480}
-  - {x: 164, y: 149, z: 481}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 166, y: 151, z: 150}
-  - {x: 165, y: 166, z: 150}
-  - {x: 167, y: 152, z: 151}
-  - {x: 166, y: 167, z: 151}
-  - {x: 168, y: 153, z: 152}
-  - {x: 167, y: 168, z: 152}
-  - {x: 169, y: 154, z: 153}
-  - {x: 168, y: 169, z: 153}
-  - {x: 170, y: 155, z: 154}
-  - {x: 169, y: 170, z: 154}
-  - {x: 171, y: 156, z: 155}
-  - {x: 170, y: 171, z: 155}
-  - {x: 172, y: 157, z: 156}
-  - {x: 171, y: 172, z: 156}
-  - {x: 173, y: 158, z: 157}
-  - {x: 172, y: 173, z: 157}
-  - {x: 174, y: 159, z: 158}
-  - {x: 173, y: 174, z: 158}
-  - {x: 175, y: 160, z: 159}
-  - {x: 174, y: 175, z: 159}
-  - {x: 176, y: 161, z: 160}
-  - {x: 175, y: 176, z: 160}
-  - {x: 177, y: 162, z: 161}
-  - {x: 176, y: 177, z: 161}
-  - {x: 178, y: 163, z: 162}
-  - {x: 177, y: 178, z: 162}
-  - {x: 179, y: 164, z: 163}
-  - {x: 178, y: 179, z: 163}
-  - {x: 165, y: 150, z: 480}
-  - {x: 179, y: 164, z: 481}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 181, y: 166, z: 165}
-  - {x: 180, y: 181, z: 165}
-  - {x: 182, y: 167, z: 166}
-  - {x: 181, y: 182, z: 166}
-  - {x: 183, y: 168, z: 167}
-  - {x: 182, y: 183, z: 167}
-  - {x: 184, y: 169, z: 168}
-  - {x: 183, y: 184, z: 168}
-  - {x: 185, y: 170, z: 169}
-  - {x: 184, y: 185, z: 169}
-  - {x: 186, y: 171, z: 170}
-  - {x: 185, y: 186, z: 170}
-  - {x: 187, y: 172, z: 171}
-  - {x: 186, y: 187, z: 171}
-  - {x: 188, y: 173, z: 172}
-  - {x: 187, y: 188, z: 172}
-  - {x: 189, y: 174, z: 173}
-  - {x: 188, y: 189, z: 173}
-  - {x: 190, y: 175, z: 174}
-  - {x: 189, y: 190, z: 174}
-  - {x: 191, y: 176, z: 175}
-  - {x: 190, y: 191, z: 175}
-  - {x: 192, y: 177, z: 176}
-  - {x: 191, y: 192, z: 176}
-  - {x: 193, y: 178, z: 177}
-  - {x: 192, y: 193, z: 177}
-  - {x: 194, y: 179, z: 178}
-  - {x: 193, y: 194, z: 178}
-  - {x: 180, y: 165, z: 480}
-  - {x: 194, y: 179, z: 481}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 196, y: 181, z: 180}
-  - {x: 195, y: 196, z: 180}
-  - {x: 197, y: 182, z: 181}
-  - {x: 196, y: 197, z: 181}
-  - {x: 198, y: 183, z: 182}
-  - {x: 197, y: 198, z: 182}
-  - {x: 199, y: 184, z: 183}
-  - {x: 198, y: 199, z: 183}
-  - {x: 200, y: 185, z: 184}
-  - {x: 199, y: 200, z: 184}
-  - {x: 201, y: 186, z: 185}
-  - {x: 200, y: 201, z: 185}
-  - {x: 202, y: 187, z: 186}
-  - {x: 201, y: 202, z: 186}
-  - {x: 203, y: 188, z: 187}
-  - {x: 202, y: 203, z: 187}
-  - {x: 204, y: 189, z: 188}
-  - {x: 203, y: 204, z: 188}
-  - {x: 205, y: 190, z: 189}
-  - {x: 204, y: 205, z: 189}
-  - {x: 206, y: 191, z: 190}
-  - {x: 205, y: 206, z: 190}
-  - {x: 207, y: 192, z: 191}
-  - {x: 206, y: 207, z: 191}
-  - {x: 208, y: 193, z: 192}
-  - {x: 207, y: 208, z: 192}
-  - {x: 209, y: 194, z: 193}
-  - {x: 208, y: 209, z: 193}
-  - {x: 195, y: 180, z: 480}
-  - {x: 209, y: 194, z: 481}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 211, y: 196, z: 195}
-  - {x: 210, y: 211, z: 195}
-  - {x: 212, y: 197, z: 196}
-  - {x: 211, y: 212, z: 196}
-  - {x: 213, y: 198, z: 197}
-  - {x: 212, y: 213, z: 197}
-  - {x: 214, y: 199, z: 198}
-  - {x: 213, y: 214, z: 198}
-  - {x: 215, y: 200, z: 199}
-  - {x: 214, y: 215, z: 199}
-  - {x: 216, y: 201, z: 200}
-  - {x: 215, y: 216, z: 200}
-  - {x: 217, y: 202, z: 201}
-  - {x: 216, y: 217, z: 201}
-  - {x: 218, y: 203, z: 202}
-  - {x: 217, y: 218, z: 202}
-  - {x: 219, y: 204, z: 203}
-  - {x: 218, y: 219, z: 203}
-  - {x: 220, y: 205, z: 204}
-  - {x: 219, y: 220, z: 204}
-  - {x: 221, y: 206, z: 205}
-  - {x: 220, y: 221, z: 205}
-  - {x: 222, y: 207, z: 206}
-  - {x: 221, y: 222, z: 206}
-  - {x: 223, y: 208, z: 207}
-  - {x: 222, y: 223, z: 207}
-  - {x: 224, y: 209, z: 208}
-  - {x: 223, y: 224, z: 208}
-  - {x: 210, y: 195, z: 480}
-  - {x: 224, y: 209, z: 481}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 226, y: 211, z: 210}
-  - {x: 225, y: 226, z: 210}
-  - {x: 227, y: 212, z: 211}
-  - {x: 226, y: 227, z: 211}
-  - {x: 228, y: 213, z: 212}
-  - {x: 227, y: 228, z: 212}
-  - {x: 229, y: 214, z: 213}
-  - {x: 228, y: 229, z: 213}
-  - {x: 230, y: 215, z: 214}
-  - {x: 229, y: 230, z: 214}
-  - {x: 231, y: 216, z: 215}
-  - {x: 230, y: 231, z: 215}
-  - {x: 232, y: 217, z: 216}
-  - {x: 231, y: 232, z: 216}
-  - {x: 233, y: 218, z: 217}
-  - {x: 232, y: 233, z: 217}
-  - {x: 234, y: 219, z: 218}
-  - {x: 233, y: 234, z: 218}
-  - {x: 235, y: 220, z: 219}
-  - {x: 234, y: 235, z: 219}
-  - {x: 236, y: 221, z: 220}
-  - {x: 235, y: 236, z: 220}
-  - {x: 237, y: 222, z: 221}
-  - {x: 236, y: 237, z: 221}
-  - {x: 238, y: 223, z: 222}
-  - {x: 237, y: 238, z: 222}
-  - {x: 239, y: 224, z: 223}
-  - {x: 238, y: 239, z: 223}
-  - {x: 225, y: 210, z: 480}
-  - {x: 239, y: 224, z: 481}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 241, y: 226, z: 225}
-  - {x: 240, y: 241, z: 225}
-  - {x: 242, y: 227, z: 226}
-  - {x: 241, y: 242, z: 226}
-  - {x: 243, y: 228, z: 227}
-  - {x: 242, y: 243, z: 227}
-  - {x: 244, y: 229, z: 228}
-  - {x: 243, y: 244, z: 228}
-  - {x: 245, y: 230, z: 229}
-  - {x: 244, y: 245, z: 229}
-  - {x: 246, y: 231, z: 230}
-  - {x: 245, y: 246, z: 230}
-  - {x: 247, y: 232, z: 231}
-  - {x: 246, y: 247, z: 231}
-  - {x: 248, y: 233, z: 232}
-  - {x: 247, y: 248, z: 232}
-  - {x: 249, y: 234, z: 233}
-  - {x: 248, y: 249, z: 233}
-  - {x: 250, y: 235, z: 234}
-  - {x: 249, y: 250, z: 234}
-  - {x: 251, y: 236, z: 235}
-  - {x: 250, y: 251, z: 235}
-  - {x: 252, y: 237, z: 236}
-  - {x: 251, y: 252, z: 236}
-  - {x: 253, y: 238, z: 237}
-  - {x: 252, y: 253, z: 237}
-  - {x: 254, y: 239, z: 238}
-  - {x: 253, y: 254, z: 238}
-  - {x: 240, y: 225, z: 480}
-  - {x: 254, y: 239, z: 481}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 256, y: 241, z: 240}
-  - {x: 255, y: 256, z: 240}
-  - {x: 257, y: 242, z: 241}
-  - {x: 256, y: 257, z: 241}
-  - {x: 258, y: 243, z: 242}
-  - {x: 257, y: 258, z: 242}
-  - {x: 259, y: 244, z: 243}
-  - {x: 258, y: 259, z: 243}
-  - {x: 260, y: 245, z: 244}
-  - {x: 259, y: 260, z: 244}
-  - {x: 261, y: 246, z: 245}
-  - {x: 260, y: 261, z: 245}
-  - {x: 262, y: 247, z: 246}
-  - {x: 261, y: 262, z: 246}
-  - {x: 263, y: 248, z: 247}
-  - {x: 262, y: 263, z: 247}
-  - {x: 264, y: 249, z: 248}
-  - {x: 263, y: 264, z: 248}
-  - {x: 265, y: 250, z: 249}
-  - {x: 264, y: 265, z: 249}
-  - {x: 266, y: 251, z: 250}
-  - {x: 265, y: 266, z: 250}
-  - {x: 267, y: 252, z: 251}
-  - {x: 266, y: 267, z: 251}
-  - {x: 268, y: 253, z: 252}
-  - {x: 267, y: 268, z: 252}
-  - {x: 269, y: 254, z: 253}
-  - {x: 268, y: 269, z: 253}
-  - {x: 255, y: 240, z: 480}
-  - {x: 269, y: 254, z: 481}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 271, y: 256, z: 255}
-  - {x: 270, y: 271, z: 255}
-  - {x: 272, y: 257, z: 256}
-  - {x: 271, y: 272, z: 256}
-  - {x: 273, y: 258, z: 257}
-  - {x: 272, y: 273, z: 257}
-  - {x: 274, y: 259, z: 258}
-  - {x: 273, y: 274, z: 258}
-  - {x: 275, y: 260, z: 259}
-  - {x: 274, y: 275, z: 259}
-  - {x: 276, y: 261, z: 260}
-  - {x: 275, y: 276, z: 260}
-  - {x: 277, y: 262, z: 261}
-  - {x: 276, y: 277, z: 261}
-  - {x: 278, y: 263, z: 262}
-  - {x: 277, y: 278, z: 262}
-  - {x: 279, y: 264, z: 263}
-  - {x: 278, y: 279, z: 263}
-  - {x: 280, y: 265, z: 264}
-  - {x: 279, y: 280, z: 264}
-  - {x: 281, y: 266, z: 265}
-  - {x: 280, y: 281, z: 265}
-  - {x: 282, y: 267, z: 266}
-  - {x: 281, y: 282, z: 266}
-  - {x: 283, y: 268, z: 267}
-  - {x: 282, y: 283, z: 267}
-  - {x: 284, y: 269, z: 268}
-  - {x: 283, y: 284, z: 268}
-  - {x: 270, y: 255, z: 480}
-  - {x: 284, y: 269, z: 481}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 286, y: 271, z: 270}
-  - {x: 285, y: 286, z: 270}
-  - {x: 287, y: 272, z: 271}
-  - {x: 286, y: 287, z: 271}
-  - {x: 288, y: 273, z: 272}
-  - {x: 287, y: 288, z: 272}
-  - {x: 289, y: 274, z: 273}
-  - {x: 288, y: 289, z: 273}
-  - {x: 290, y: 275, z: 274}
-  - {x: 289, y: 290, z: 274}
-  - {x: 291, y: 276, z: 275}
-  - {x: 290, y: 291, z: 275}
-  - {x: 292, y: 277, z: 276}
-  - {x: 291, y: 292, z: 276}
-  - {x: 293, y: 278, z: 277}
-  - {x: 292, y: 293, z: 277}
-  - {x: 294, y: 279, z: 278}
-  - {x: 293, y: 294, z: 278}
-  - {x: 295, y: 280, z: 279}
-  - {x: 294, y: 295, z: 279}
-  - {x: 296, y: 281, z: 280}
-  - {x: 295, y: 296, z: 280}
-  - {x: 297, y: 282, z: 281}
-  - {x: 296, y: 297, z: 281}
-  - {x: 298, y: 283, z: 282}
-  - {x: 297, y: 298, z: 282}
-  - {x: 299, y: 284, z: 283}
-  - {x: 298, y: 299, z: 283}
-  - {x: 285, y: 270, z: 480}
-  - {x: 299, y: 284, z: 481}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 301, y: 286, z: 285}
-  - {x: 300, y: 301, z: 285}
-  - {x: 302, y: 287, z: 286}
-  - {x: 301, y: 302, z: 286}
-  - {x: 303, y: 288, z: 287}
-  - {x: 302, y: 303, z: 287}
-  - {x: 304, y: 289, z: 288}
-  - {x: 303, y: 304, z: 288}
-  - {x: 305, y: 290, z: 289}
-  - {x: 304, y: 305, z: 289}
-  - {x: 306, y: 291, z: 290}
-  - {x: 305, y: 306, z: 290}
-  - {x: 307, y: 292, z: 291}
-  - {x: 306, y: 307, z: 291}
-  - {x: 308, y: 293, z: 292}
-  - {x: 307, y: 308, z: 292}
-  - {x: 309, y: 294, z: 293}
-  - {x: 308, y: 309, z: 293}
-  - {x: 310, y: 295, z: 294}
-  - {x: 309, y: 310, z: 294}
-  - {x: 311, y: 296, z: 295}
-  - {x: 310, y: 311, z: 295}
-  - {x: 312, y: 297, z: 296}
-  - {x: 311, y: 312, z: 296}
-  - {x: 313, y: 298, z: 297}
-  - {x: 312, y: 313, z: 297}
-  - {x: 314, y: 299, z: 298}
-  - {x: 313, y: 314, z: 298}
-  - {x: 300, y: 285, z: 480}
-  - {x: 314, y: 299, z: 481}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 316, y: 301, z: 300}
-  - {x: 315, y: 316, z: 300}
-  - {x: 317, y: 302, z: 301}
-  - {x: 316, y: 317, z: 301}
-  - {x: 318, y: 303, z: 302}
-  - {x: 317, y: 318, z: 302}
-  - {x: 319, y: 304, z: 303}
-  - {x: 318, y: 319, z: 303}
-  - {x: 320, y: 305, z: 304}
-  - {x: 319, y: 320, z: 304}
-  - {x: 321, y: 306, z: 305}
-  - {x: 320, y: 321, z: 305}
-  - {x: 322, y: 307, z: 306}
-  - {x: 321, y: 322, z: 306}
-  - {x: 323, y: 308, z: 307}
-  - {x: 322, y: 323, z: 307}
-  - {x: 324, y: 309, z: 308}
-  - {x: 323, y: 324, z: 308}
-  - {x: 325, y: 310, z: 309}
-  - {x: 324, y: 325, z: 309}
-  - {x: 326, y: 311, z: 310}
-  - {x: 325, y: 326, z: 310}
-  - {x: 327, y: 312, z: 311}
-  - {x: 326, y: 327, z: 311}
-  - {x: 328, y: 313, z: 312}
-  - {x: 327, y: 328, z: 312}
-  - {x: 329, y: 314, z: 313}
-  - {x: 328, y: 329, z: 313}
-  - {x: 315, y: 300, z: 480}
-  - {x: 329, y: 314, z: 481}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 331, y: 316, z: 315}
-  - {x: 330, y: 331, z: 315}
-  - {x: 332, y: 317, z: 316}
-  - {x: 331, y: 332, z: 316}
-  - {x: 333, y: 318, z: 317}
-  - {x: 332, y: 333, z: 317}
-  - {x: 334, y: 319, z: 318}
-  - {x: 333, y: 334, z: 318}
-  - {x: 335, y: 320, z: 319}
-  - {x: 334, y: 335, z: 319}
-  - {x: 336, y: 321, z: 320}
-  - {x: 335, y: 336, z: 320}
-  - {x: 337, y: 322, z: 321}
-  - {x: 336, y: 337, z: 321}
-  - {x: 338, y: 323, z: 322}
-  - {x: 337, y: 338, z: 322}
-  - {x: 339, y: 324, z: 323}
-  - {x: 338, y: 339, z: 323}
-  - {x: 340, y: 325, z: 324}
-  - {x: 339, y: 340, z: 324}
-  - {x: 341, y: 326, z: 325}
-  - {x: 340, y: 341, z: 325}
-  - {x: 342, y: 327, z: 326}
-  - {x: 341, y: 342, z: 326}
-  - {x: 343, y: 328, z: 327}
-  - {x: 342, y: 343, z: 327}
-  - {x: 344, y: 329, z: 328}
-  - {x: 343, y: 344, z: 328}
-  - {x: 330, y: 315, z: 480}
-  - {x: 344, y: 329, z: 481}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 346, y: 331, z: 330}
-  - {x: 345, y: 346, z: 330}
-  - {x: 347, y: 332, z: 331}
-  - {x: 346, y: 347, z: 331}
-  - {x: 348, y: 333, z: 332}
-  - {x: 347, y: 348, z: 332}
-  - {x: 349, y: 334, z: 333}
-  - {x: 348, y: 349, z: 333}
-  - {x: 350, y: 335, z: 334}
-  - {x: 349, y: 350, z: 334}
-  - {x: 351, y: 336, z: 335}
-  - {x: 350, y: 351, z: 335}
-  - {x: 352, y: 337, z: 336}
-  - {x: 351, y: 352, z: 336}
-  - {x: 353, y: 338, z: 337}
-  - {x: 352, y: 353, z: 337}
-  - {x: 354, y: 339, z: 338}
-  - {x: 353, y: 354, z: 338}
-  - {x: 355, y: 340, z: 339}
-  - {x: 354, y: 355, z: 339}
-  - {x: 356, y: 341, z: 340}
-  - {x: 355, y: 356, z: 340}
-  - {x: 357, y: 342, z: 341}
-  - {x: 356, y: 357, z: 341}
-  - {x: 358, y: 343, z: 342}
-  - {x: 357, y: 358, z: 342}
-  - {x: 359, y: 344, z: 343}
-  - {x: 358, y: 359, z: 343}
-  - {x: 345, y: 330, z: 480}
-  - {x: 359, y: 344, z: 481}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 361, y: 346, z: 345}
-  - {x: 360, y: 361, z: 345}
-  - {x: 362, y: 347, z: 346}
-  - {x: 361, y: 362, z: 346}
-  - {x: 363, y: 348, z: 347}
-  - {x: 362, y: 363, z: 347}
-  - {x: 364, y: 349, z: 348}
-  - {x: 363, y: 364, z: 348}
-  - {x: 365, y: 350, z: 349}
-  - {x: 364, y: 365, z: 349}
-  - {x: 366, y: 351, z: 350}
-  - {x: 365, y: 366, z: 350}
-  - {x: 367, y: 352, z: 351}
-  - {x: 366, y: 367, z: 351}
-  - {x: 368, y: 353, z: 352}
-  - {x: 367, y: 368, z: 352}
-  - {x: 369, y: 354, z: 353}
-  - {x: 368, y: 369, z: 353}
-  - {x: 370, y: 355, z: 354}
-  - {x: 369, y: 370, z: 354}
-  - {x: 371, y: 356, z: 355}
-  - {x: 370, y: 371, z: 355}
-  - {x: 372, y: 357, z: 356}
-  - {x: 371, y: 372, z: 356}
-  - {x: 373, y: 358, z: 357}
-  - {x: 372, y: 373, z: 357}
-  - {x: 374, y: 359, z: 358}
-  - {x: 373, y: 374, z: 358}
-  - {x: 360, y: 345, z: 480}
-  - {x: 374, y: 359, z: 481}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 376, y: 361, z: 360}
-  - {x: 375, y: 376, z: 360}
-  - {x: 377, y: 362, z: 361}
-  - {x: 376, y: 377, z: 361}
-  - {x: 378, y: 363, z: 362}
-  - {x: 377, y: 378, z: 362}
-  - {x: 379, y: 364, z: 363}
-  - {x: 378, y: 379, z: 363}
-  - {x: 380, y: 365, z: 364}
-  - {x: 379, y: 380, z: 364}
-  - {x: 381, y: 366, z: 365}
-  - {x: 380, y: 381, z: 365}
-  - {x: 382, y: 367, z: 366}
-  - {x: 381, y: 382, z: 366}
-  - {x: 383, y: 368, z: 367}
-  - {x: 382, y: 383, z: 367}
-  - {x: 384, y: 369, z: 368}
-  - {x: 383, y: 384, z: 368}
-  - {x: 385, y: 370, z: 369}
-  - {x: 384, y: 385, z: 369}
-  - {x: 386, y: 371, z: 370}
-  - {x: 385, y: 386, z: 370}
-  - {x: 387, y: 372, z: 371}
-  - {x: 386, y: 387, z: 371}
-  - {x: 388, y: 373, z: 372}
-  - {x: 387, y: 388, z: 372}
-  - {x: 389, y: 374, z: 373}
-  - {x: 388, y: 389, z: 373}
-  - {x: 375, y: 360, z: 480}
-  - {x: 389, y: 374, z: 481}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 391, y: 376, z: 375}
-  - {x: 390, y: 391, z: 375}
-  - {x: 392, y: 377, z: 376}
-  - {x: 391, y: 392, z: 376}
-  - {x: 393, y: 378, z: 377}
-  - {x: 392, y: 393, z: 377}
-  - {x: 394, y: 379, z: 378}
-  - {x: 393, y: 394, z: 378}
-  - {x: 395, y: 380, z: 379}
-  - {x: 394, y: 395, z: 379}
-  - {x: 396, y: 381, z: 380}
-  - {x: 395, y: 396, z: 380}
-  - {x: 397, y: 382, z: 381}
-  - {x: 396, y: 397, z: 381}
-  - {x: 398, y: 383, z: 382}
-  - {x: 397, y: 398, z: 382}
-  - {x: 399, y: 384, z: 383}
-  - {x: 398, y: 399, z: 383}
-  - {x: 400, y: 385, z: 384}
-  - {x: 399, y: 400, z: 384}
-  - {x: 401, y: 386, z: 385}
-  - {x: 400, y: 401, z: 385}
-  - {x: 402, y: 387, z: 386}
-  - {x: 401, y: 402, z: 386}
-  - {x: 403, y: 388, z: 387}
-  - {x: 402, y: 403, z: 387}
-  - {x: 404, y: 389, z: 388}
-  - {x: 403, y: 404, z: 388}
-  - {x: 390, y: 375, z: 480}
-  - {x: 404, y: 389, z: 481}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 406, y: 391, z: 390}
-  - {x: 405, y: 406, z: 390}
-  - {x: 407, y: 392, z: 391}
-  - {x: 406, y: 407, z: 391}
-  - {x: 408, y: 393, z: 392}
-  - {x: 407, y: 408, z: 392}
-  - {x: 409, y: 394, z: 393}
-  - {x: 408, y: 409, z: 393}
-  - {x: 410, y: 395, z: 394}
-  - {x: 409, y: 410, z: 394}
-  - {x: 411, y: 396, z: 395}
-  - {x: 410, y: 411, z: 395}
-  - {x: 412, y: 397, z: 396}
-  - {x: 411, y: 412, z: 396}
-  - {x: 413, y: 398, z: 397}
-  - {x: 412, y: 413, z: 397}
-  - {x: 414, y: 399, z: 398}
-  - {x: 413, y: 414, z: 398}
-  - {x: 415, y: 400, z: 399}
-  - {x: 414, y: 415, z: 399}
-  - {x: 416, y: 401, z: 400}
-  - {x: 415, y: 416, z: 400}
-  - {x: 417, y: 402, z: 401}
-  - {x: 416, y: 417, z: 401}
-  - {x: 418, y: 403, z: 402}
-  - {x: 417, y: 418, z: 402}
-  - {x: 419, y: 404, z: 403}
-  - {x: 418, y: 419, z: 403}
-  - {x: 405, y: 390, z: 480}
-  - {x: 419, y: 404, z: 481}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 421, y: 406, z: 405}
-  - {x: 420, y: 421, z: 405}
-  - {x: 422, y: 407, z: 406}
-  - {x: 421, y: 422, z: 406}
-  - {x: 423, y: 408, z: 407}
-  - {x: 422, y: 423, z: 407}
-  - {x: 424, y: 409, z: 408}
-  - {x: 423, y: 424, z: 408}
-  - {x: 425, y: 410, z: 409}
-  - {x: 424, y: 425, z: 409}
-  - {x: 426, y: 411, z: 410}
-  - {x: 425, y: 426, z: 410}
-  - {x: 427, y: 412, z: 411}
-  - {x: 426, y: 427, z: 411}
-  - {x: 428, y: 413, z: 412}
-  - {x: 427, y: 428, z: 412}
-  - {x: 429, y: 414, z: 413}
-  - {x: 428, y: 429, z: 413}
-  - {x: 430, y: 415, z: 414}
-  - {x: 429, y: 430, z: 414}
-  - {x: 431, y: 416, z: 415}
-  - {x: 430, y: 431, z: 415}
-  - {x: 432, y: 417, z: 416}
-  - {x: 431, y: 432, z: 416}
-  - {x: 433, y: 418, z: 417}
-  - {x: 432, y: 433, z: 417}
-  - {x: 434, y: 419, z: 418}
-  - {x: 433, y: 434, z: 418}
-  - {x: 420, y: 405, z: 480}
-  - {x: 434, y: 419, z: 481}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 436, y: 421, z: 420}
-  - {x: 435, y: 436, z: 420}
-  - {x: 437, y: 422, z: 421}
-  - {x: 436, y: 437, z: 421}
-  - {x: 438, y: 423, z: 422}
-  - {x: 437, y: 438, z: 422}
-  - {x: 439, y: 424, z: 423}
-  - {x: 438, y: 439, z: 423}
-  - {x: 440, y: 425, z: 424}
-  - {x: 439, y: 440, z: 424}
-  - {x: 441, y: 426, z: 425}
-  - {x: 440, y: 441, z: 425}
-  - {x: 442, y: 427, z: 426}
-  - {x: 441, y: 442, z: 426}
-  - {x: 443, y: 428, z: 427}
-  - {x: 442, y: 443, z: 427}
-  - {x: 444, y: 429, z: 428}
-  - {x: 443, y: 444, z: 428}
-  - {x: 445, y: 430, z: 429}
-  - {x: 444, y: 445, z: 429}
-  - {x: 446, y: 431, z: 430}
-  - {x: 445, y: 446, z: 430}
-  - {x: 447, y: 432, z: 431}
-  - {x: 446, y: 447, z: 431}
-  - {x: 448, y: 433, z: 432}
-  - {x: 447, y: 448, z: 432}
-  - {x: 449, y: 434, z: 433}
-  - {x: 448, y: 449, z: 433}
-  - {x: 435, y: 420, z: 480}
-  - {x: 449, y: 434, z: 481}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 451, y: 436, z: 435}
-  - {x: 450, y: 451, z: 435}
-  - {x: 452, y: 437, z: 436}
-  - {x: 451, y: 452, z: 436}
-  - {x: 453, y: 438, z: 437}
-  - {x: 452, y: 453, z: 437}
-  - {x: 454, y: 439, z: 438}
-  - {x: 453, y: 454, z: 438}
-  - {x: 455, y: 440, z: 439}
-  - {x: 454, y: 455, z: 439}
-  - {x: 456, y: 441, z: 440}
-  - {x: 455, y: 456, z: 440}
-  - {x: 457, y: 442, z: 441}
-  - {x: 456, y: 457, z: 441}
-  - {x: 458, y: 443, z: 442}
-  - {x: 457, y: 458, z: 442}
-  - {x: 459, y: 444, z: 443}
-  - {x: 458, y: 459, z: 443}
-  - {x: 460, y: 445, z: 444}
-  - {x: 459, y: 460, z: 444}
-  - {x: 461, y: 446, z: 445}
-  - {x: 460, y: 461, z: 445}
-  - {x: 462, y: 447, z: 446}
-  - {x: 461, y: 462, z: 446}
-  - {x: 463, y: 448, z: 447}
-  - {x: 462, y: 463, z: 447}
-  - {x: 464, y: 449, z: 448}
-  - {x: 463, y: 464, z: 448}
-  - {x: 450, y: 435, z: 480}
-  - {x: 464, y: 449, z: 481}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 466, y: 451, z: 450}
-  - {x: 465, y: 466, z: 450}
-  - {x: 467, y: 452, z: 451}
-  - {x: 466, y: 467, z: 451}
-  - {x: 468, y: 453, z: 452}
-  - {x: 467, y: 468, z: 452}
-  - {x: 469, y: 454, z: 453}
-  - {x: 468, y: 469, z: 453}
-  - {x: 470, y: 455, z: 454}
-  - {x: 469, y: 470, z: 454}
-  - {x: 471, y: 456, z: 455}
-  - {x: 470, y: 471, z: 455}
-  - {x: 472, y: 457, z: 456}
-  - {x: 471, y: 472, z: 456}
-  - {x: 473, y: 458, z: 457}
-  - {x: 472, y: 473, z: 457}
-  - {x: 474, y: 459, z: 458}
-  - {x: 473, y: 474, z: 458}
-  - {x: 475, y: 460, z: 459}
-  - {x: 474, y: 475, z: 459}
-  - {x: 476, y: 461, z: 460}
-  - {x: 475, y: 476, z: 460}
-  - {x: 477, y: 462, z: 461}
-  - {x: 476, y: 477, z: 461}
-  - {x: 478, y: 463, z: 462}
-  - {x: 477, y: 478, z: 462}
-  - {x: 479, y: 464, z: 463}
-  - {x: 478, y: 479, z: 463}
-  - {x: 465, y: 450, z: 480}
-  - {x: 479, y: 464, z: 481}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 1, y: 466, z: 465}
-  - {x: 0, y: 1, z: 465}
-  - {x: 2, y: 467, z: 466}
-  - {x: 1, y: 2, z: 466}
-  - {x: 3, y: 468, z: 467}
-  - {x: 2, y: 3, z: 467}
-  - {x: 4, y: 469, z: 468}
-  - {x: 3, y: 4, z: 468}
-  - {x: 5, y: 470, z: 469}
-  - {x: 4, y: 5, z: 469}
-  - {x: 6, y: 471, z: 470}
-  - {x: 5, y: 6, z: 470}
-  - {x: 7, y: 472, z: 471}
-  - {x: 6, y: 7, z: 471}
-  - {x: 8, y: 473, z: 472}
-  - {x: 7, y: 8, z: 472}
-  - {x: 9, y: 474, z: 473}
-  - {x: 8, y: 9, z: 473}
-  - {x: 10, y: 475, z: 474}
-  - {x: 9, y: 10, z: 474}
-  - {x: 11, y: 476, z: 475}
-  - {x: 10, y: 11, z: 475}
-  - {x: 12, y: 477, z: 476}
-  - {x: 11, y: 12, z: 476}
-  - {x: 13, y: 478, z: 477}
-  - {x: 12, y: 13, z: 477}
-  - {x: 14, y: 479, z: 478}
-  - {x: 13, y: 14, z: 478}
-  - {x: 0, y: 465, z: 480}
-  - {x: 14, y: 479, z: 481}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 2, z: 1}
+  - {x: 1, y: 2, z: 10}
+  - {x: 0, y: 3, z: 2}
+  - {x: 2, y: 3, z: 11}
+  - {x: 0, y: 4, z: 3}
+  - {x: 3, y: 4, z: 7}
+  - {x: 0, y: 5, z: 4}
+  - {x: 4, y: 5, z: 8}
+  - {x: 0, y: 1, z: 5}
+  - {x: 5, y: 1, z: 9}
+  - {x: 6, y: 7, z: 8}
+  - {x: 7, y: 4, z: 8}
+  - {x: 6, y: 8, z: 9}
+  - {x: 8, y: 5, z: 9}
+  - {x: 6, y: 9, z: 10}
+  - {x: 9, y: 1, z: 10}
+  - {x: 6, y: 10, z: 11}
+  - {x: 10, y: 2, z: 11}
+  - {x: 6, y: 11, z: 7}
+  - {x: 11, y: 3, z: 7}
   makeCircleStrip: 0
   makeSphere: 0
+  makeD20: 0
   divisions: 32
   thickAngle: 0.19634955
   axis1: 0
@@ -10892,7 +6971,6 @@ GameObject:
   - component: {fileID: 1423516413}
   - component: {fileID: 1423516412}
   - component: {fileID: 1423516411}
-  - component: {fileID: 1423516410}
   - component: {fileID: 1423516409}
   - component: {fileID: 1423516408}
   - component: {fileID: 1423516407}
@@ -10902,7 +6980,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!23 &1423516407
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -11008,24 +7086,6 @@ MonoBehaviour:
   - {x: 0.5, y: 1}
   triangles: 000000000100000002000000000000000200000004000000000000000400000005000000000000000500000001000000030000000100000005000000030000000500000004000000030000000400000002000000030000000200000001000000
   doVertex4: 0
---- !u!114 &1423516410
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1423516406}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 569371a861ba7b046bfea074afc23fc9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  transform4: {fileID: 1423516412}
-  rigidbody4: {fileID: 1423516411}
-  isTrigger: 0
-  radius: 0.2
-  length: 0.15
-  axis: 1
 --- !u!114 &1423516411
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11033,7 +7093,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1423516406}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 24dff4cfeaa0b5843ac567635c9b493d, type: 3}
   m_Name: 
@@ -11047,7 +7107,7 @@ MonoBehaviour:
   mass: 1
   bounce: 0
   m_isStatic: 1
-  collider: {fileID: 1423516410}
+  collider: {fileID: 0}
   doYPlaneBound: 0
   doYPlaneBoundVal: 0
   doYUpLock: 0
@@ -11070,6 +7130,13 @@ MonoBehaviour:
   - {fileID: 1423516412}
   - {fileID: 1423516412}
   - {fileID: 1423516412}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 360525049}
+  - {fileID: 1849740068}
+  - {fileID: 1584197782}
+  - {fileID: 1827449242}
   m_matrix:
     e00: 0.70710677
     e01: -0.000000012802767
@@ -11125,7 +7192,11 @@ Transform:
   m_LocalPosition: {x: 0.47140446, y: 0.000000020605746, z: 0.3333333}
   m_LocalScale: {x: 0.14999999, y: 0.14999999, z: 0.14999999}
   m_ConstrainProportionsScale: 1
-  m_Children: []
+  m_Children:
+  - {fileID: 1827449245}
+  - {fileID: 1584197785}
+  - {fileID: 1849740071}
+  - {fileID: 360525052}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1439639867
@@ -12014,6 +8085,245 @@ MonoBehaviour:
   onRightMult:
     m_PersistentCalls:
       m_Calls: []
+--- !u!1 &1509006511
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1509006517}
+  - component: {fileID: 1509006516}
+  - component: {fileID: 1509006515}
+  - component: {fileID: 1509006514}
+  - component: {fileID: 1509006513}
+  - component: {fileID: 1509006512}
+  m_Layer: 0
+  m_Name: Dude (7)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!23 &1509006512
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1509006511}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 9d07286ce5387364697f779816d47c28, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!33 &1509006513
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1509006511}
+  m_Mesh: {fileID: 4300000, guid: af442388091514041be73133fd807282, type: 2}
+--- !u!114 &1509006514
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1509006511}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1228f34d9247c764299310d86c822306, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  transform4: {fileID: 1509006516}
+  renderer: {fileID: 1509006512}
+  filter: {fileID: 1509006513}
+  mesh: {fileID: 4300000, guid: af442388091514041be73133fd807282, type: 2}
+  meshColor: {r: 0.044544328, g: 0.08689674, b: 0.8584906, a: 1}
+  initialize: 0
+  transformMatrix:
+    e00: 1
+    e01: 0
+    e02: 0
+    e03: 0
+    e10: 0
+    e11: 1
+    e12: 0
+    e13: 0
+    e20: 0
+    e21: 0
+    e22: 1
+    e23: 0
+    e30: 0
+    e31: 0
+    e32: 0
+    e33: 1
+  transformScale: {x: 0.1, y: 0.1, z: 0.1}
+  vertices:
+  - {x: 1, y: 0, z: 0}
+  - {x: 0, y: 1, z: 0}
+  - {x: 0, y: 0, z: 1}
+  - {x: -1, y: 0, z: 0}
+  - {x: 0, y: -1, z: 0}
+  - {x: 0, y: 0, z: -1}
+  uvs:
+  - {x: 0, y: 0.5}
+  - {x: 0.5, y: 0.5}
+  - {x: 0.5, y: 0}
+  - {x: 1, y: 0.5}
+  - {x: 0.5, y: 0.5}
+  - {x: 0.5, y: 1}
+  triangles: 000000000100000002000000000000000200000004000000000000000400000005000000000000000500000001000000030000000100000005000000030000000500000004000000030000000400000002000000030000000200000001000000
+  doVertex4: 0
+--- !u!114 &1509006515
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1509006511}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24dff4cfeaa0b5843ac567635c9b493d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  transform4: {fileID: 1509006516}
+  velocity: {x: 0, y: 0, z: 0, w: 0}
+  angularVelocity: {x: 0, y: 0, z: 0}
+  velocityMagnitude: 0
+  gravityScale: 0
+  gravity: {x: 0, y: -1, z: 0, w: 0}
+  mass: 1
+  bounce: 0
+  m_isStatic: 1
+  collider: {fileID: 0}
+  doYPlaneBound: 0
+  doYPlaneBoundVal: 0
+  doYUpLock: 0
+--- !u!114 &1509006516
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1509006511}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3e9696e169808a4390b5d2c1be30c0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parent: {fileID: 0}
+  children:
+  - {fileID: 1509006516}
+  - {fileID: 1509006516}
+  - {fileID: 1509006516}
+  - {fileID: 1509006516}
+  - {fileID: 1509006516}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 2093962829}
+  - {fileID: 688829223}
+  - {fileID: 407027001}
+  - {fileID: 622870405}
+  m_matrix:
+    e00: 1
+    e01: 0
+    e02: 0
+    e03: 0
+    e10: 0
+    e11: 1
+    e12: 0
+    e13: 0
+    e20: 0
+    e21: 0
+    e22: 1
+    e23: 0
+    e30: 0
+    e31: 0
+    e32: 0
+    e33: 1
+  m_localMatrix:
+    e00: 1
+    e01: 0
+    e02: 0
+    e03: 0
+    e10: 0
+    e11: 1
+    e12: 0
+    e13: 0
+    e20: 0
+    e21: 0
+    e22: 1
+    e23: 0
+    e30: 0
+    e31: 0
+    e32: 0
+    e33: 1
+  scale: {x: 0.1, y: 0.1, z: 0.1}
+  sterographicPos: {x: 0, y: 0, z: 0}
+  lockSterographicPos: 1
+  onLeftMult:
+    m_PersistentCalls:
+      m_Calls: []
+  onRightMult:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!4 &1509006517
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1509006511}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.14999999, y: 0.14999999, z: 0.14999999}
+  m_ConstrainProportionsScale: 1
+  m_Children:
+  - {fileID: 2093962832}
+  - {fileID: 688829226}
+  - {fileID: 407027004}
+  - {fileID: 622870408}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1569770721
 GameObject:
   m_ObjectHideFlags: 0
@@ -12088,7 +8398,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1569770721}
-  m_Mesh: {fileID: 4300000, guid: af442388091514041be73133fd807282, type: 2}
+  m_Mesh: {fileID: 4300000, guid: b92bb0fdb11fc5047a30bbf146c44cfa, type: 2}
 --- !u!114 &1569770724
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12104,7 +8414,7 @@ MonoBehaviour:
   transform4: {fileID: 1569770727}
   renderer: {fileID: 1569770722}
   filter: {fileID: 1569770723}
-  mesh: {fileID: 4300000, guid: af442388091514041be73133fd807282, type: 2}
+  mesh: {fileID: 4300000, guid: b92bb0fdb11fc5047a30bbf146c44cfa, type: 2}
   meshColor: {r: 1, g: 0.34233472, b: 0.11764705, a: 1}
   initialize: 0
   transformMatrix:
@@ -12258,6 +8568,148 @@ Transform:
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1584197781
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1584197785}
+  - component: {fileID: 1584197782}
+  - component: {fileID: 1584197784}
+  - component: {fileID: 1584197783}
+  m_Layer: 0
+  m_Name: DudeCollider1 (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1584197782
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1584197781}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3e9696e169808a4390b5d2c1be30c0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parent: {fileID: 1423516412}
+  children: []
+  m_matrix:
+    e00: 0.70710677
+    e01: -0.000000012802767
+    e02: 0
+    e03: 0.7071067
+    e10: -0.00000001280277
+    e11: 1
+    e12: 0
+    e13: 0.00000003090862
+    e20: -0.5
+    e21: -0.000000021855694
+    e22: 0.70710677
+    e23: 0.49999997
+    e30: -0.5
+    e31: -0.000000021855694
+    e32: -0.70710677
+    e33: 0.49999997
+  m_localMatrix:
+    e00: 1
+    e01: 0
+    e02: 0
+    e03: 0
+    e10: 0
+    e11: 1
+    e12: 0
+    e13: 0
+    e20: 0
+    e21: 0
+    e22: 1
+    e23: 0
+    e30: 0
+    e31: 0
+    e32: 0
+    e33: 1
+  scale: {x: 1, y: 1, z: 1}
+  sterographicPos: {x: 0.47140446, y: 0.000000020605746, z: 0.3333333}
+  lockSterographicPos: 1
+  onLeftMult:
+    m_PersistentCalls:
+      m_Calls: []
+  onRightMult:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &1584197783
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1584197781}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 187a13cfed18ce14ea42e925377bbdf9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  transform4: {fileID: 1584197782}
+  rigidbody4: {fileID: 1584197784}
+  isTrigger: 0
+  vertex1: {x: -0.2, y: 0, z: 0}
+  vertex2: {x: 0, y: 0.2, z: 0}
+  vertex3: {x: 0, y: 0, z: 0.2}
+  gizmo: 0
+  localVertex1: {x: 0, y: 0, z: 0, w: 0}
+  localVertex2: {x: 0, y: 0, z: 0, w: 0}
+  localVertex3: {x: 0, y: 0, z: 0, w: 0}
+  worldVertex1: {x: 0, y: 0, z: 0, w: 0}
+  worldVertex2: {x: 0, y: 0, z: 0, w: 0}
+  worldVertex3: {x: 0, y: 0, z: 0, w: 0}
+  planeCenter: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &1584197784
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1584197781}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24dff4cfeaa0b5843ac567635c9b493d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  transform4: {fileID: 1584197782}
+  velocity: {x: 0, y: 0, z: 0, w: 0}
+  angularVelocity: {x: 0, y: 0, z: 0}
+  velocityMagnitude: 0
+  gravityScale: 0
+  gravity: {x: 0, y: -1, z: 0, w: 0}
+  mass: 1
+  bounce: 0
+  m_isStatic: 1
+  collider: {fileID: 1584197783}
+  doYPlaneBound: 0
+  doYPlaneBoundVal: 0
+  doYUpLock: 0
+--- !u!4 &1584197785
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1584197781}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1423516413}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1587023186
 GameObject:
@@ -12535,7 +8987,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1688195791}
-  m_Mesh: {fileID: 4300000, guid: af442388091514041be73133fd807282, type: 2}
+  m_Mesh: {fileID: 4300000, guid: b92bb0fdb11fc5047a30bbf146c44cfa, type: 2}
 --- !u!114 &1688195794
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12551,7 +9003,7 @@ MonoBehaviour:
   transform4: {fileID: 1688195797}
   renderer: {fileID: 1688195792}
   filter: {fileID: 1688195793}
-  mesh: {fileID: 4300000, guid: af442388091514041be73133fd807282, type: 2}
+  mesh: {fileID: 4300000, guid: b92bb0fdb11fc5047a30bbf146c44cfa, type: 2}
   meshColor: {r: 1, g: 0.11792451, b: 0.11792451, a: 1}
   initialize: 0
   transformMatrix:
@@ -13106,6 +9558,290 @@ MonoBehaviour:
   - {x: 0.5, y: 1}
   triangles: 000000000100000002000000000000000200000004000000000000000400000005000000000000000500000001000000030000000100000005000000030000000500000004000000030000000400000002000000030000000200000001000000
   doVertex4: 0
+--- !u!1 &1827449241
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1827449245}
+  - component: {fileID: 1827449242}
+  - component: {fileID: 1827449244}
+  - component: {fileID: 1827449243}
+  m_Layer: 0
+  m_Name: DudeCollider1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1827449242
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1827449241}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3e9696e169808a4390b5d2c1be30c0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parent: {fileID: 1423516412}
+  children: []
+  m_matrix:
+    e00: 0.70710677
+    e01: -0.000000012802767
+    e02: 0
+    e03: 0.7071067
+    e10: -0.00000001280277
+    e11: 1
+    e12: 0
+    e13: 0.00000003090862
+    e20: -0.5
+    e21: -0.000000021855694
+    e22: 0.70710677
+    e23: 0.49999997
+    e30: -0.5
+    e31: -0.000000021855694
+    e32: -0.70710677
+    e33: 0.49999997
+  m_localMatrix:
+    e00: 1
+    e01: 0
+    e02: 0
+    e03: 0
+    e10: 0
+    e11: 1
+    e12: 0
+    e13: 0
+    e20: 0
+    e21: 0
+    e22: 1
+    e23: 0
+    e30: 0
+    e31: 0
+    e32: 0
+    e33: 1
+  scale: {x: 1, y: 1, z: 1}
+  sterographicPos: {x: 0.47140446, y: 0.000000020605746, z: 0.3333333}
+  lockSterographicPos: 1
+  onLeftMult:
+    m_PersistentCalls:
+      m_Calls: []
+  onRightMult:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &1827449243
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1827449241}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 187a13cfed18ce14ea42e925377bbdf9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  transform4: {fileID: 1827449242}
+  rigidbody4: {fileID: 1827449244}
+  isTrigger: 0
+  vertex1: {x: 0.2, y: 0, z: 0}
+  vertex2: {x: 0, y: 0.2, z: 0}
+  vertex3: {x: 0, y: 0, z: 0.2}
+  gizmo: 0
+  localVertex1: {x: 0, y: 0, z: 0, w: 0}
+  localVertex2: {x: 0, y: 0, z: 0, w: 0}
+  localVertex3: {x: 0, y: 0, z: 0, w: 0}
+  worldVertex1: {x: 0, y: 0, z: 0, w: 0}
+  worldVertex2: {x: 0, y: 0, z: 0, w: 0}
+  worldVertex3: {x: 0, y: 0, z: 0, w: 0}
+  planeCenter: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &1827449244
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1827449241}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24dff4cfeaa0b5843ac567635c9b493d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  transform4: {fileID: 1827449242}
+  velocity: {x: 0, y: 0, z: 0, w: 0}
+  angularVelocity: {x: 0, y: 0, z: 0}
+  velocityMagnitude: 0
+  gravityScale: 0
+  gravity: {x: 0, y: -1, z: 0, w: 0}
+  mass: 1
+  bounce: 0
+  m_isStatic: 1
+  collider: {fileID: 1827449243}
+  doYPlaneBound: 0
+  doYPlaneBoundVal: 0
+  doYUpLock: 0
+--- !u!4 &1827449245
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1827449241}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1423516413}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1849740067
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1849740071}
+  - component: {fileID: 1849740068}
+  - component: {fileID: 1849740070}
+  - component: {fileID: 1849740069}
+  m_Layer: 0
+  m_Name: DudeCollider1 (2)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1849740068
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1849740067}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3e9696e169808a4390b5d2c1be30c0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parent: {fileID: 1423516412}
+  children: []
+  m_matrix:
+    e00: 0.70710677
+    e01: -0.000000012802767
+    e02: 0
+    e03: 0.7071067
+    e10: -0.00000001280277
+    e11: 1
+    e12: 0
+    e13: 0.00000003090862
+    e20: -0.5
+    e21: -0.000000021855694
+    e22: 0.70710677
+    e23: 0.49999997
+    e30: -0.5
+    e31: -0.000000021855694
+    e32: -0.70710677
+    e33: 0.49999997
+  m_localMatrix:
+    e00: 1
+    e01: 0
+    e02: 0
+    e03: 0
+    e10: 0
+    e11: 1
+    e12: 0
+    e13: 0
+    e20: 0
+    e21: 0
+    e22: 1
+    e23: 0
+    e30: 0
+    e31: 0
+    e32: 0
+    e33: 1
+  scale: {x: 1, y: 1, z: 1}
+  sterographicPos: {x: 0.47140446, y: 0.000000020605746, z: 0.3333333}
+  lockSterographicPos: 1
+  onLeftMult:
+    m_PersistentCalls:
+      m_Calls: []
+  onRightMult:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &1849740069
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1849740067}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 187a13cfed18ce14ea42e925377bbdf9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  transform4: {fileID: 1849740068}
+  rigidbody4: {fileID: 1849740070}
+  isTrigger: 0
+  vertex1: {x: -0.2, y: 0, z: 0}
+  vertex2: {x: 0, y: 0.2, z: 0}
+  vertex3: {x: 0, y: 0, z: -0.2}
+  gizmo: 0
+  localVertex1: {x: 0, y: 0, z: 0, w: 0}
+  localVertex2: {x: 0, y: 0, z: 0, w: 0}
+  localVertex3: {x: 0, y: 0, z: 0, w: 0}
+  worldVertex1: {x: 0, y: 0, z: 0, w: 0}
+  worldVertex2: {x: 0, y: 0, z: 0, w: 0}
+  worldVertex3: {x: 0, y: 0, z: 0, w: 0}
+  planeCenter: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &1849740070
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1849740067}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24dff4cfeaa0b5843ac567635c9b493d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  transform4: {fileID: 1849740068}
+  velocity: {x: 0, y: 0, z: 0, w: 0}
+  angularVelocity: {x: 0, y: 0, z: 0}
+  velocityMagnitude: 0
+  gravityScale: 0
+  gravity: {x: 0, y: -1, z: 0, w: 0}
+  mass: 1
+  bounce: 0
+  m_isStatic: 1
+  collider: {fileID: 1849740069}
+  doYPlaneBound: 0
+  doYPlaneBoundVal: 0
+  doYUpLock: 0
+--- !u!4 &1849740071
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1849740067}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1423516413}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1963907474
 GameObject:
   m_ObjectHideFlags: 0
@@ -13567,7 +10303,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2035789367}
-  m_Mesh: {fileID: 4300000, guid: af442388091514041be73133fd807282, type: 2}
+  m_Mesh: {fileID: 4300000, guid: b92bb0fdb11fc5047a30bbf146c44cfa, type: 2}
 --- !u!114 &2035789370
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13583,7 +10319,7 @@ MonoBehaviour:
   transform4: {fileID: 2035789373}
   renderer: {fileID: 2035789368}
   filter: {fileID: 2035789369}
-  mesh: {fileID: 4300000, guid: af442388091514041be73133fd807282, type: 2}
+  mesh: {fileID: 4300000, guid: b92bb0fdb11fc5047a30bbf146c44cfa, type: 2}
   meshColor: {r: 1, g: 0.11764705, b: 0.63259584, a: 1}
   initialize: 0
   transformMatrix:
@@ -14130,6 +10866,148 @@ Transform:
   m_Children: []
   m_Father: {fileID: 778555252}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2093962828
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2093962832}
+  - component: {fileID: 2093962829}
+  - component: {fileID: 2093962831}
+  - component: {fileID: 2093962830}
+  m_Layer: 0
+  m_Name: DudeCollider1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2093962829
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2093962828}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3e9696e169808a4390b5d2c1be30c0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parent: {fileID: 1509006516}
+  children: []
+  m_matrix:
+    e00: 1
+    e01: 0
+    e02: 0
+    e03: 0
+    e10: 0
+    e11: 1
+    e12: 0
+    e13: 0
+    e20: 0
+    e21: 0
+    e22: 1
+    e23: 0
+    e30: 0
+    e31: 0
+    e32: 0
+    e33: 1
+  m_localMatrix:
+    e00: 1
+    e01: 0
+    e02: 0
+    e03: 0
+    e10: 0
+    e11: 1
+    e12: 0
+    e13: 0
+    e20: 0
+    e21: 0
+    e22: 1
+    e23: 0
+    e30: 0
+    e31: 0
+    e32: 0
+    e33: 1
+  scale: {x: 1, y: 1, z: 1}
+  sterographicPos: {x: 0, y: 0, z: 0}
+  lockSterographicPos: 1
+  onLeftMult:
+    m_PersistentCalls:
+      m_Calls: []
+  onRightMult:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &2093962830
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2093962828}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 187a13cfed18ce14ea42e925377bbdf9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  transform4: {fileID: 2093962829}
+  rigidbody4: {fileID: 2093962831}
+  isTrigger: 0
+  vertex1: {x: 0.5, y: 0, z: 0}
+  vertex2: {x: 0, y: 0.5, z: 0}
+  vertex3: {x: 0, y: 0, z: 0.5}
+  gizmo: 0
+  localVertex1: {x: 0.4472136, y: 0, z: 0, w: 0.8944272}
+  localVertex2: {x: 0, y: 0.4472136, z: 0, w: 0.8944272}
+  localVertex3: {x: 0, y: 0, z: 0.4472136, w: 0.8944272}
+  worldVertex1: {x: 0.4472136, y: 0, z: 0, w: 0.8944272}
+  worldVertex2: {x: 0, y: 0.4472136, z: 0, w: 0.8944272}
+  worldVertex3: {x: 0, y: 0, z: 0.4472136, w: 0.8944272}
+  planeCenter: {x: 0.5547002, y: -0.5547002, z: 0.5547002, w: 0.2773501}
+--- !u!114 &2093962831
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2093962828}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24dff4cfeaa0b5843ac567635c9b493d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  transform4: {fileID: 2093962829}
+  velocity: {x: 0, y: 0, z: 0, w: 0}
+  angularVelocity: {x: 0, y: 0, z: 0}
+  velocityMagnitude: 0
+  gravityScale: 0
+  gravity: {x: 0, y: -1, z: 0, w: 0}
+  mass: 1
+  bounce: 0
+  m_isStatic: 1
+  collider: {fileID: 2093962830}
+  doYPlaneBound: 0
+  doYPlaneBoundVal: 0
+  doYUpLock: 0
+--- !u!4 &2093962832
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2093962828}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1509006517}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -14143,6 +11021,7 @@ SceneRoots:
   - {fileID: 69122365}
   - {fileID: 500118753}
   - {fileID: 1423516413}
+  - {fileID: 1509006517}
   - {fileID: 1688195798}
   - {fileID: 1569770728}
   - {fileID: 929819538}

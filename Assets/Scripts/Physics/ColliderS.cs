@@ -25,6 +25,7 @@ public abstract class ColliderS : MonoBehaviour
     public abstract int colliderType {get;}
     public virtual SphereColliderS sphere {get{return null;}}
     public virtual CapsuleColliderS capsule {get{return null;}}
+    public virtual TriColliderS triangle {get{return null;}}
 
     void Awake()
     {
@@ -96,13 +97,6 @@ public abstract class ColliderS : MonoBehaviour
             
             float over = Find();
 
-            //important noooooote ------------------
-            // when we flip the order that c1 and c2 are inputing into these functions, we haave to flip the normal too, this happens when ever type2>type1
-            /*if (type2 > type1) {
-                print(contact1+" "+contact2+" "+contactNormal);
-                //contactNormal *= -1;
-            }*/
-
             return over;
 
             float Find()
@@ -114,6 +108,8 @@ public abstract class ColliderS : MonoBehaviour
                                 return SphereOnSphere(c1.sphere, c2.sphere, ref contact1, ref contact2, ref contactNormal);
                             case 1: //sphere-capsule
                                 return SphereOnCapsule(c1.sphere, c2.capsule, ref contact1, ref contact2, ref contactNormal);
+                            case 2: //sphere-triangle
+                                return SphereOnTriangle(c1.sphere, c2.triangle, ref contact1, ref contact2, ref contactNormal);
                         }
                     case 1: //capsule
                         switch (type2) {
@@ -158,6 +154,13 @@ public abstract class ColliderS : MonoBehaviour
         Vector4 capPoint = UFunc.SlerpPointClose(c2.point1,c2.point2,c1.center);
 
         return PointRadiusContact(c1.center, c1.radius, capPoint, c2.radius, ref contact1, ref contact2, ref contactNorm);
+    }
+
+    public static float SphereOnTriangle(SphereColliderS c1, TriColliderS c2, ref Vector4 contact1, ref Vector4 contact2, ref Vector4 contactNorm)
+    {
+        Vector4 triPoint = c2.PointClose(c1.center);
+
+        return PointRadiusContact(c1.center, c1.radius, triPoint, 0, ref contact1, ref contact2, ref contactNorm);
     }
 
     public static float CapsuleOnCapsule(CapsuleColliderS c1, CapsuleColliderS c2, ref Vector4 contact1, ref Vector4 contact2, ref Vector4 contactNorm)

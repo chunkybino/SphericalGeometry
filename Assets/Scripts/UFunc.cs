@@ -31,6 +31,27 @@ public static class UFunc
         return v1.x*v2.x + v1.y*v2.y + v1.z*v2.z + v1.w*v2.w;
     }
 
+    public static Vector4 HyperCross(Vector4 a, Vector4 b, Vector4 c)
+    {
+        float xy = GetBiProduct(0,1);
+        float xz = GetBiProduct(0,2);
+        float xw = GetBiProduct(0,3);
+        float yz = GetBiProduct(1,2);
+        float yw = GetBiProduct(1,3);
+        float zw = GetBiProduct(2,3);
+
+        float GetBiProduct(int axis1, int axis2) {
+            return a[axis1]*b[axis2]-a[axis2]*b[axis1];
+        }
+
+        return new Vector4(
+            c.w*yz - c.z*yw + c.y*zw, //zyw
+            c.w*xz - c.z*xw + c.x*zw, //xzw
+            c.w*xy + c.x*yw - c.y*xw, //xwy
+            c.z*xy + c.x*yz - c.y*xz //xyz
+        );
+    }
+
     public static Vector3 LerpVec3(Vector3 v1, Vector3 v2, float t)
     {
         return new Vector3(Mathf.Lerp(v1.x,v2.x,t), Mathf.Lerp(v1.y,v2.y,t), Mathf.Lerp(v1.z,v2.z,t));
@@ -403,7 +424,6 @@ public static class UFunc
         float factor = 1 - tan/arc;
 
         if (unclamped) return factor;
-        //return SlerpClamp(factor,arc);
 
         //check edges
         if (factor < 0 || factor > 1)
