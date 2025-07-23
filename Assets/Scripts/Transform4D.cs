@@ -86,10 +86,19 @@ public class Transform4D : MonoBehaviour
 
     void MatrixUpdate()
     {
-        foreach (Transform4D c in children) {
+        for (int i = children.Count-1; i >= 0; i--)
+        {
+            if (children[i] == null) {
+                children.RemoveAt(i);
+                continue;
+            }
+            if (children[i] == this) continue;
+            children[i].RecompMatrix();
+        }
+        /*foreach (Transform4D c in children) {
             if (c == this) continue;
             c.RecompMatrix();
-        }
+        }*/
     }
     public void RecompMatrix()
     {

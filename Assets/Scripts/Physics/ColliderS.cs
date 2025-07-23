@@ -160,6 +160,9 @@ public abstract class ColliderS : MonoBehaviour
     {
         Vector4 triPoint = c2.PointClose(c1.center);
 
+        //print(c1.center.ToString()+triPoint.ToString());
+        //print(UFunc.DistanceS(c1.center, triPoint));
+
         return PointRadiusContact(c1.center, c1.radius, triPoint, 0, ref contact1, ref contact2, ref contactNorm);
     }
 

@@ -45,9 +45,9 @@ public static class UFunc
         }
 
         return new Vector4(
-            c.w*yz - c.z*yw + c.y*zw, //zyw
+            -c.w*yz + c.z*yw - c.y*zw, //zyw
             c.w*xz - c.z*xw + c.x*zw, //xzw
-            c.w*xy + c.x*yw - c.y*xw, //xwy
+            -c.w*xy - c.x*yw + c.y*xw, //xwy
             c.z*xy + c.x*yz - c.y*xz //xyz
         );
     }
@@ -365,6 +365,20 @@ public static class UFunc
         );
     }
 
+    public static float DistanceS(Vector4 v1, Vector4 v2)
+    {
+        return Mathf.Acos(Dot(v1,v2));
+    }
+
+    public static bool BetweenS(Vector4 v1, Vector4 v2, Vector4 v3) //is v3 (along the line of v1-v2), between the 2 vectors in spherical space
+    {
+        float dot1 = Dot(v1,v2);
+        float dot2 = Dot(v1,v3);
+        float dot3 = Dot(v2,v3);
+
+        return dot2 > dot1 && dot3 > dot1;
+    }
+
     public static Vector4 Slerp4(Vector4 v1, Vector4 v2, float t)
     {
         float arc = Mathf.Acos(Clamp1(Dot(v1,v2)));
@@ -381,7 +395,22 @@ public static class UFunc
 
         return outV;
     }
-    public static float SlerpClamp(float t, float arc) //clamps a slerp value to 0-1, direciton depends on arc length since thats how circles work
+    public static Vector4 Slerp4Angle(Vector4 v1, Vector4 v2, float angle) //slerp in direction by and angle, not a t val
+    {
+        float arc = Mathf.Acos(Clamp1(Dot(v1,v2)));
+
+        if (arc == 0) return v1;
+
+        Vector4 outV = new Vector4();
+
+        for (int i = 0; i < 4; i++)
+        {
+            outV[i] = (v1[i]*Mathf.Sin(arc-angle) + v2[i]*Mathf.Sin(angle)) / Mathf.Sin(arc);
+        }
+
+        return outV;
+    }
+    /*public static float SlerpClamp(float t, float arc) //clamps a slerp value to 0-1, direciton depends on arc length since thats how circles work
     {
         float period = 2*Mathf.PI/arc;
         float mod = t - period*Mathf.Floor(t/period);
@@ -394,7 +423,7 @@ public static class UFunc
         } else {
             return 1;
         }
-    }
+    }*/
 
     //slerp between v1 and v2 till we find the point closest to the target point
     public static Vector4 SlerpPointClose(Vector4 v1, Vector4 v2, Vector4 target)
@@ -405,7 +434,7 @@ public static class UFunc
     {
         return Slerp4(v1,v2,SlerpPointCloseFactor(v1,v2,target,true));
     }
-    public static float SlerpPointCloseFactor(Vector4 v1, Vector4 v2, Vector4 target, bool unclamped = false)
+    public static float SlerpPointCloseFactor(Vector4 v1, Vector4 v2, Vector4 target, bool unclamped = false, bool doPrint = false)
     {
         float dot1 = Clamp1(Dot(v1,v2));
         float dot2 = Clamp1(Dot(v1,target));
@@ -415,13 +444,25 @@ public static class UFunc
 
         if (arc == 0) return 0;
 
-        float sign = Mathf.Sign(dot2 - dot1*Mathf.Cos(arc));
+        //float sign = Mathf.Sign(dot2 - dot1*Mathf.Cos(arc));
+        float sign = Mathf.Sign(dot3);
 
         float tan = Mathf.Atan(((dot2/dot3) - dot1) / Mathf.Sin(arc));
         if (dot2 == 0 || dot1 == 0) tan = Mathf.PI/2;
 
         //float factor = ( (sign*Mathf.PI/2) + tan ) / arc;
-        float factor = 1 - tan/arc;
+        if (sign == -1) {
+            tan =  Mathf.PI + tan;
+            if (tan > Mathf.PI) tan -= 2*Mathf.PI;
+        }
+
+        float factor =  1 - tan/arc;
+        if (doPrint) {
+            Debug.Log(sign);
+            //Debug.Log(arc); //((sign+1)*Mathf.PI/2)
+            Debug.Log(tan);
+            Debug.Log(factor);
+        }
 
         if (unclamped) return factor;
 
@@ -430,7 +471,7 @@ public static class UFunc
         {
             float dis1 = Dot(v1,target);
             float dis2 = Dot(v2,target);
-            factor = dis1 > dis2 ? 0 : 1; //take greatest, since we actual comparing dot product, not distance
+            factor = dis1 < dis2 ? 0 : 1; //take greatest, since we actual comparing dot product, not distance
         }
 
         return factor;

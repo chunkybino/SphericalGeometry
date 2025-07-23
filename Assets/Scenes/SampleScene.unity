@@ -1379,22 +1379,22 @@ MonoBehaviour:
   parent: {fileID: 1509006516}
   children: []
   m_matrix:
-    e00: 1
+    e00: 0.70710677
     e01: 0
     e02: 0
-    e03: 0
+    e03: 0.70710677
     e10: 0
     e11: 1
     e12: 0
     e13: 0
-    e20: 0
+    e20: -0.49999997
     e21: 0
-    e22: 1
-    e23: 0
-    e30: 0
+    e22: 0.70710677
+    e23: 0.49999997
+    e30: -0.49999997
     e31: 0
-    e32: 0
-    e33: 1
+    e32: -0.70710677
+    e33: 0.49999997
   m_localMatrix:
     e00: 1
     e01: 0
@@ -1413,7 +1413,7 @@ MonoBehaviour:
     e32: 0
     e33: 1
   scale: {x: 1, y: 1, z: 1}
-  sterographicPos: {x: 0, y: 0, z: 0}
+  sterographicPos: {x: 0.47140452, y: 0, z: 0.3333333}
   lockSterographicPos: 1
   onLeftMult:
     m_PersistentCalls:
@@ -1436,9 +1436,9 @@ MonoBehaviour:
   transform4: {fileID: 407027001}
   rigidbody4: {fileID: 407027003}
   isTrigger: 0
-  vertex1: {x: -0.5, y: 0, z: 0}
-  vertex2: {x: 0, y: 0.5, z: 0}
-  vertex3: {x: 0, y: 0, z: -0.5}
+  vertex1: {x: -0.35, y: 0, z: 0}
+  vertex2: {x: 0, y: 0.35, z: 0}
+  vertex3: {x: 0, y: 0, z: -0.35}
   gizmo: 0
   localVertex1: {x: -0.4472136, y: 0, z: 0, w: 0.8944272}
   localVertex2: {x: 0, y: 0.4472136, z: 0, w: 0.8944272}
@@ -1864,22 +1864,22 @@ MonoBehaviour:
   parent: {fileID: 1509006516}
   children: []
   m_matrix:
-    e00: 1
+    e00: 0.70710677
     e01: 0
     e02: 0
-    e03: 0
+    e03: 0.70710677
     e10: 0
     e11: 1
     e12: 0
     e13: 0
-    e20: 0
+    e20: -0.49999997
     e21: 0
-    e22: 1
-    e23: 0
-    e30: 0
+    e22: 0.70710677
+    e23: 0.49999997
+    e30: -0.49999997
     e31: 0
-    e32: 0
-    e33: 1
+    e32: -0.70710677
+    e33: 0.49999997
   m_localMatrix:
     e00: 1
     e01: 0
@@ -1898,7 +1898,7 @@ MonoBehaviour:
     e32: 0
     e33: 1
   scale: {x: 1, y: 1, z: 1}
-  sterographicPos: {x: 0, y: 0, z: 0}
+  sterographicPos: {x: 0.47140452, y: 0, z: 0.3333333}
   lockSterographicPos: 1
   onLeftMult:
     m_PersistentCalls:
@@ -1921,9 +1921,9 @@ MonoBehaviour:
   transform4: {fileID: 622870405}
   rigidbody4: {fileID: 622870407}
   isTrigger: 0
-  vertex1: {x: 0.5, y: 0, z: 0}
-  vertex2: {x: 0, y: 0.5, z: 0}
-  vertex3: {x: 0, y: 0, z: -0.5}
+  vertex1: {x: 0.35, y: 0, z: 0}
+  vertex2: {x: 0, y: 0.35, z: 0}
+  vertex3: {x: 0, y: 0, z: -0.35}
   gizmo: 0
   localVertex1: {x: 0.4472136, y: 0, z: 0, w: 0.8944272}
   localVertex2: {x: 0, y: 0.4472136, z: 0, w: 0.8944272}
@@ -2590,22 +2590,22 @@ MonoBehaviour:
   parent: {fileID: 1509006516}
   children: []
   m_matrix:
-    e00: 1
+    e00: 0.70710677
     e01: 0
     e02: 0
-    e03: 0
+    e03: 0.70710677
     e10: 0
     e11: 1
     e12: 0
     e13: 0
-    e20: 0
+    e20: -0.49999997
     e21: 0
-    e22: 1
-    e23: 0
-    e30: 0
+    e22: 0.70710677
+    e23: 0.49999997
+    e30: -0.49999997
     e31: 0
-    e32: 0
-    e33: 1
+    e32: -0.70710677
+    e33: 0.49999997
   m_localMatrix:
     e00: 1
     e01: 0
@@ -2624,7 +2624,7 @@ MonoBehaviour:
     e32: 0
     e33: 1
   scale: {x: 1, y: 1, z: 1}
-  sterographicPos: {x: 0, y: 0, z: 0}
+  sterographicPos: {x: 0.47140452, y: 0, z: 0.3333333}
   lockSterographicPos: 1
   onLeftMult:
     m_PersistentCalls:
@@ -2647,9 +2647,9 @@ MonoBehaviour:
   transform4: {fileID: 688829223}
   rigidbody4: {fileID: 688829225}
   isTrigger: 0
-  vertex1: {x: -0.5, y: 0, z: 0}
-  vertex2: {x: 0, y: 0.5, z: 0}
-  vertex3: {x: 0, y: 0, z: 0.5}
+  vertex1: {x: -0.35, y: 0, z: 0}
+  vertex2: {x: 0, y: 0.35, z: 0}
+  vertex3: {x: 0, y: 0, z: 0.35}
   gizmo: 0
   localVertex1: {x: -0.4472136, y: 0, z: 0, w: 0.8944272}
   localVertex2: {x: 0, y: 0.4472136, z: 0, w: 0.8944272}
@@ -8178,23 +8178,23 @@ MonoBehaviour:
   meshColor: {r: 0.044544328, g: 0.08689674, b: 0.8584906, a: 1}
   initialize: 0
   transformMatrix:
-    e00: 1
+    e00: 0.70710677
     e01: 0
-    e02: 0
-    e03: 0
+    e02: -0.5
+    e03: -0.5
     e10: 0
     e11: 1
     e12: 0
     e13: 0
     e20: 0
     e21: 0
-    e22: 1
-    e23: 0
-    e30: 0
+    e22: 0.70710677
+    e23: -0.70710677
+    e30: 0.7071068
     e31: 0
-    e32: 0
-    e33: 1
-  transformScale: {x: 0.1, y: 0.1, z: 0.1}
+    e32: 0.50000006
+    e33: 0.50000006
+  transformScale: {x: 0.18, y: 0.18, z: 0.18}
   vertices:
   - {x: 1, y: 0, z: 0}
   - {x: 0, y: 1, z: 0}
@@ -8255,49 +8255,46 @@ MonoBehaviour:
   - {fileID: 1509006516}
   - {fileID: 1509006516}
   - {fileID: 1509006516}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 2093962829}
-  - {fileID: 688829223}
   - {fileID: 407027001}
   - {fileID: 622870405}
+  - {fileID: 688829223}
+  - {fileID: 2093962829}
   m_matrix:
-    e00: 1
+    e00: 0.70710677
     e01: 0
     e02: 0
-    e03: 0
+    e03: 0.70710677
     e10: 0
     e11: 1
     e12: 0
     e13: 0
-    e20: 0
+    e20: -0.49999997
     e21: 0
-    e22: 1
-    e23: 0
-    e30: 0
+    e22: 0.70710677
+    e23: 0.49999997
+    e30: -0.49999997
     e31: 0
-    e32: 0
-    e33: 1
+    e32: -0.70710677
+    e33: 0.49999997
   m_localMatrix:
-    e00: 1
+    e00: 0.70710677
     e01: 0
     e02: 0
-    e03: 0
+    e03: 0.70710677
     e10: 0
     e11: 1
     e12: 0
     e13: 0
-    e20: 0
+    e20: -0.49999997
     e21: 0
-    e22: 1
-    e23: 0
-    e30: 0
+    e22: 0.70710677
+    e23: 0.49999997
+    e30: -0.49999997
     e31: 0
-    e32: 0
-    e33: 1
-  scale: {x: 0.1, y: 0.1, z: 0.1}
-  sterographicPos: {x: 0, y: 0, z: 0}
+    e32: -0.70710677
+    e33: 0.49999997
+  scale: {x: 0.18, y: 0.18, z: 0.18}
+  sterographicPos: {x: 0.47140452, y: 0, z: 0.3333333}
   lockSterographicPos: 1
   onLeftMult:
     m_PersistentCalls:
@@ -8314,7 +8311,7 @@ Transform:
   m_GameObject: {fileID: 1509006511}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.47140452, y: 0, z: 0.3333333}
   m_LocalScale: {x: 0.14999999, y: 0.14999999, z: 0.14999999}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -10900,22 +10897,22 @@ MonoBehaviour:
   parent: {fileID: 1509006516}
   children: []
   m_matrix:
-    e00: 1
+    e00: 0.70710677
     e01: 0
     e02: 0
-    e03: 0
+    e03: 0.70710677
     e10: 0
     e11: 1
     e12: 0
     e13: 0
-    e20: 0
+    e20: -0.49999997
     e21: 0
-    e22: 1
-    e23: 0
-    e30: 0
+    e22: 0.70710677
+    e23: 0.49999997
+    e30: -0.49999997
     e31: 0
-    e32: 0
-    e33: 1
+    e32: -0.70710677
+    e33: 0.49999997
   m_localMatrix:
     e00: 1
     e01: 0
@@ -10934,7 +10931,7 @@ MonoBehaviour:
     e32: 0
     e33: 1
   scale: {x: 1, y: 1, z: 1}
-  sterographicPos: {x: 0, y: 0, z: 0}
+  sterographicPos: {x: 0.47140452, y: 0, z: 0.3333333}
   lockSterographicPos: 1
   onLeftMult:
     m_PersistentCalls:
@@ -10957,9 +10954,9 @@ MonoBehaviour:
   transform4: {fileID: 2093962829}
   rigidbody4: {fileID: 2093962831}
   isTrigger: 0
-  vertex1: {x: 0.5, y: 0, z: 0}
-  vertex2: {x: 0, y: 0.5, z: 0}
-  vertex3: {x: 0, y: 0, z: 0.5}
+  vertex1: {x: 0.35, y: 0, z: 0}
+  vertex2: {x: 0, y: 0.35, z: 0}
+  vertex3: {x: 0, y: 0, z: 0.35}
   gizmo: 0
   localVertex1: {x: 0.4472136, y: 0, z: 0, w: 0.8944272}
   localVertex2: {x: 0, y: 0.4472136, z: 0, w: 0.8944272}
