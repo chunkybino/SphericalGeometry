@@ -26,6 +26,7 @@ public abstract class ColliderS : MonoBehaviour
     public virtual SphereColliderS sphere {get{return null;}}
     public virtual CapsuleColliderS capsule {get{return null;}}
     public virtual TriColliderS triangle {get{return null;}}
+    public virtual MeshColliderS mesh {get{return null;}}
 
     void Awake()
     {
@@ -110,11 +111,15 @@ public abstract class ColliderS : MonoBehaviour
                                 return SphereOnCapsule(c1.sphere, c2.capsule, ref contact1, ref contact2, ref contactNormal);
                             case 2: //sphere-triangle
                                 return SphereOnTriangle(c1.sphere, c2.triangle, ref contact1, ref contact2, ref contactNormal);
+                            case 3: //sphere-triangle
+                                return SphereOnMesh(c1.sphere, c2.mesh, ref contact1, ref contact2, ref contactNormal);
                         }
                     case 1: //capsule
                         switch (type2) {
                             default: //capsule-capsule
                                 return CapsuleOnCapsule(c1.capsule, c2.capsule, ref contact1, ref contact2, ref contactNormal);
+                            case 2:
+                                return CapsuleOnTriangle(c1.capsule, c2.triangle, ref contact1, ref contact2, ref contactNormal);
                         }
                 }
 
@@ -160,8 +165,12 @@ public abstract class ColliderS : MonoBehaviour
     {
         Vector4 triPoint = c2.PointClose(c1.center);
 
-        //print(c1.center.ToString()+triPoint.ToString());
-        //print(UFunc.DistanceS(c1.center, triPoint));
+        return PointRadiusContact(c1.center, c1.radius, triPoint, 0, ref contact1, ref contact2, ref contactNorm);
+    }
+
+    public static float SphereOnMesh(SphereColliderS c1, MeshColliderS c2, ref Vector4 contact1, ref Vector4 contact2, ref Vector4 contactNorm)
+    {
+        Vector4 triPoint = c2.PointClose(c1.center);
 
         return PointRadiusContact(c1.center, c1.radius, triPoint, 0, ref contact1, ref contact2, ref contactNorm);
     }
@@ -187,7 +196,7 @@ public abstract class ColliderS : MonoBehaviour
 
         void FindMin(float t1, float t2, ref Vector4 point1, ref Vector4 point2)
         {
-            int iterations = 8;
+            int iterations = 6;
 
             point1 = UFunc.Slerp4(c1.point1,c1.point2, t1);
             point2 = UFunc.Slerp4(c2.point1,c2.point2, t2);
@@ -208,5 +217,14 @@ public abstract class ColliderS : MonoBehaviour
                 if (point1 == point2) break;
             }
         }
+    }
+
+    public static float CapsuleOnTriangle(CapsuleColliderS c1, TriColliderS c2, ref Vector4 contact1, ref Vector4 contact2, ref Vector4 contactNorm)
+    {
+        Vector4 linePoint = new Vector4();
+        Vector4 triPoint = new Vector4();
+        c2.LineClose(c1.point1, c1.point2, ref linePoint, ref triPoint);
+
+        return PointRadiusContact(linePoint, c1.radius, triPoint, 0, ref contact1, ref contact2, ref contactNorm);
     }
 }

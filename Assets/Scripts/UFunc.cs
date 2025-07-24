@@ -33,14 +33,14 @@ public static class UFunc
 
     public static Vector4 HyperCross(Vector4 a, Vector4 b, Vector4 c)
     {
-        float xy = GetBiProduct(0,1);
-        float xz = GetBiProduct(0,2);
-        float xw = GetBiProduct(0,3);
-        float yz = GetBiProduct(1,2);
-        float yw = GetBiProduct(1,3);
-        float zw = GetBiProduct(2,3);
+        float xy = BiProd(0,1);
+        float xz = BiProd(0,2);
+        float xw = BiProd(0,3);
+        float yz = BiProd(1,2);
+        float yw = BiProd(1,3);
+        float zw = BiProd(2,3);
 
-        float GetBiProduct(int axis1, int axis2) {
+        float BiProd(int axis1, int axis2) {
             return a[axis1]*b[axis2]-a[axis2]*b[axis1];
         }
 
@@ -379,6 +379,11 @@ public static class UFunc
         return dot2 > dot1 && dot3 > dot1;
     }
 
+    public static Vector4 ProjectLocal3QuickS(Vector3 v) //takes a 3d vector that represents some local position, and returns its projection onto 4d sphere from w=1
+    {
+        return new Vector4(v.x,v.y,v.z,1).normalized;
+    }
+
     public static Vector4 Slerp4(Vector4 v1, Vector4 v2, float t)
     {
         float arc = Mathf.Acos(Clamp1(Dot(v1,v2)));
@@ -410,20 +415,6 @@ public static class UFunc
 
         return outV;
     }
-    /*public static float SlerpClamp(float t, float arc) //clamps a slerp value to 0-1, direciton depends on arc length since thats how circles work
-    {
-        float period = 2*Mathf.PI/arc;
-        float mod = t - period*Mathf.Floor(t/period);
-        //PrintList(t, mod, period, (period+1)/2);
-
-        if (mod <= 1) {
-            return mod;
-        } else if (mod > (period+1)/2) {
-            return 0;
-        } else {
-            return 1;
-        }
-    }*/
 
     //slerp between v1 and v2 till we find the point closest to the target point
     public static Vector4 SlerpPointClose(Vector4 v1, Vector4 v2, Vector4 target)
@@ -456,12 +447,13 @@ public static class UFunc
             if (tan > Mathf.PI) tan -= 2*Mathf.PI;
         }
 
-        float factor =  1 - tan/arc;
+        float factor = 1 - tan/arc;
         if (doPrint) {
             Debug.Log(sign);
-            //Debug.Log(arc); //((sign+1)*Mathf.PI/2)
+            Debug.Log(dot2+" "+dot3);
             Debug.Log(tan);
             Debug.Log(factor);
+            Debug.Log(-factor+1);
         }
 
         if (unclamped) return factor;
@@ -469,10 +461,10 @@ public static class UFunc
         //check edges
         if (factor < 0 || factor > 1)
         {
-            float dis1 = Dot(v1,target);
-            float dis2 = Dot(v2,target);
-            factor = dis1 < dis2 ? 0 : 1; //take greatest, since we actual comparing dot product, not distance
+            factor = dot2 > dot3 ? 0 : 1; //take greatest, since we actual comparing dot product, not distance
         }
+
+        if (doPrint) Debug.Log(factor);
 
         return factor;
     }
@@ -492,5 +484,14 @@ public static class UFunc
             s = s + par[i].ToString() + " ";
         }
         Debug.Log(s);
+    }
+
+    public static T[] List2Array<T>(List<T> list)
+    {
+        T[] ar = new T[list.Count];
+        for (int i = 0; i < ar.Length; i++) {
+            ar[i] = list[i];
+        }
+        return ar;
     }
 }

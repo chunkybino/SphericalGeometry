@@ -195,6 +195,9 @@ MonoBehaviour:
   onRightMult:
     m_PersistentCalls:
       m_Calls: []
+  onMatrixMult:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &14870708
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -330,6 +333,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   onRightMult:
+    m_PersistentCalls:
+      m_Calls: []
+  onMatrixMult:
     m_PersistentCalls:
       m_Calls: []
 --- !u!4 &69122365
@@ -551,6 +557,9 @@ MonoBehaviour:
   onRightMult:
     m_PersistentCalls:
       m_Calls: []
+  onMatrixMult:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &119699955
 GameObject:
   m_ObjectHideFlags: 0
@@ -731,6 +740,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   onRightMult:
+    m_PersistentCalls:
+      m_Calls: []
+  onMatrixMult:
     m_PersistentCalls:
       m_Calls: []
 --- !u!4 &119699960
@@ -1018,6 +1030,9 @@ MonoBehaviour:
   onRightMult:
     m_PersistentCalls:
       m_Calls: []
+  onMatrixMult:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &360525048
 GameObject:
   m_ObjectHideFlags: 0
@@ -1094,6 +1109,9 @@ MonoBehaviour:
   onRightMult:
     m_PersistentCalls:
       m_Calls: []
+  onMatrixMult:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &360525050
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1119,6 +1137,9 @@ MonoBehaviour:
   worldVertex1: {x: 0, y: 0, z: 0, w: 0}
   worldVertex2: {x: 0, y: 0, z: 0, w: 0}
   worldVertex3: {x: 0, y: 0, z: 0, w: 0}
+  edgeNormal1: {x: 0, y: 0, z: 0, w: 0}
+  edgeNormal2: {x: 0, y: 0, z: 0, w: 0}
+  edgeNormal3: {x: 0, y: 0, z: 0, w: 0}
   planeCenter: {x: 0, y: 0, z: 0, w: 0}
 --- !u!114 &360525051
 MonoBehaviour:
@@ -1330,6 +1351,9 @@ MonoBehaviour:
   onRightMult:
     m_PersistentCalls:
       m_Calls: []
+  onMatrixMult:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!4 &363402356
 Transform:
   m_ObjectHideFlags: 0
@@ -1363,7 +1387,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &407027001
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1421,6 +1445,9 @@ MonoBehaviour:
   onRightMult:
     m_PersistentCalls:
       m_Calls: []
+  onMatrixMult:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &407027002
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1446,6 +1473,9 @@ MonoBehaviour:
   worldVertex1: {x: -0.4472136, y: 0, z: 0, w: 0.8944272}
   worldVertex2: {x: 0, y: 0.4472136, z: 0, w: 0.8944272}
   worldVertex3: {x: 0, y: 0, z: -0.4472136, w: 0.8944272}
+  edgeNormal1: {x: 0, y: 0, z: 0, w: 0}
+  edgeNormal2: {x: 0, y: 0, z: 0, w: 0}
+  edgeNormal3: {x: 0, y: 0, z: 0, w: 0}
   planeCenter: {x: -0.5547002, y: -0.5547002, z: -0.5547002, w: 0.2773501}
 --- !u!114 &407027003
 MonoBehaviour:
@@ -1779,6 +1809,9 @@ MonoBehaviour:
   onRightMult:
     m_PersistentCalls:
       m_Calls: []
+  onMatrixMult:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!4 &500118753
 Transform:
   m_ObjectHideFlags: 0
@@ -1848,7 +1881,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &622870405
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1906,6 +1939,9 @@ MonoBehaviour:
   onRightMult:
     m_PersistentCalls:
       m_Calls: []
+  onMatrixMult:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &622870406
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1931,6 +1967,9 @@ MonoBehaviour:
   worldVertex1: {x: 0.4472136, y: 0, z: 0, w: 0.8944272}
   worldVertex2: {x: 0, y: 0.4472136, z: 0, w: 0.8944272}
   worldVertex3: {x: 0, y: 0, z: -0.4472136, w: 0.8944272}
+  edgeNormal1: {x: 0, y: 0, z: 0, w: 0}
+  edgeNormal2: {x: 0, y: 0, z: 0, w: 0}
+  edgeNormal3: {x: 0, y: 0, z: 0, w: 0}
   planeCenter: {x: -0.5547002, y: 0.5547002, z: 0.5547002, w: -0.2773501}
 --- !u!114 &622870407
 MonoBehaviour:
@@ -2260,6 +2299,9 @@ MonoBehaviour:
   onRightMult:
     m_PersistentCalls:
       m_Calls: []
+  onMatrixMult:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &665110781
 GameObject:
   m_ObjectHideFlags: 0
@@ -2506,6 +2548,9 @@ MonoBehaviour:
   onRightMult:
     m_PersistentCalls:
       m_Calls: []
+  onMatrixMult:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!4 &665110786
 Transform:
   m_ObjectHideFlags: 0
@@ -2574,7 +2619,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &688829223
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2632,6 +2677,9 @@ MonoBehaviour:
   onRightMult:
     m_PersistentCalls:
       m_Calls: []
+  onMatrixMult:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &688829224
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2657,6 +2705,9 @@ MonoBehaviour:
   worldVertex1: {x: -0.4472136, y: 0, z: 0, w: 0.8944272}
   worldVertex2: {x: 0, y: 0.4472136, z: 0, w: 0.8944272}
   worldVertex3: {x: 0, y: 0, z: 0.4472136, w: 0.8944272}
+  edgeNormal1: {x: 0, y: 0, z: 0, w: 0}
+  edgeNormal2: {x: 0, y: 0, z: 0, w: 0}
+  edgeNormal3: {x: 0, y: 0, z: 0, w: 0}
   planeCenter: {x: 0.5547002, y: 0.5547002, z: -0.5547002, w: -0.2773501}
 --- !u!114 &688829225
 MonoBehaviour:
@@ -2886,6 +2937,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   onRightMult:
+    m_PersistentCalls:
+      m_Calls: []
+  onMatrixMult:
     m_PersistentCalls:
       m_Calls: []
 --- !u!1 &778555251
@@ -3162,6 +3216,9 @@ MonoBehaviour:
   onRightMult:
     m_PersistentCalls:
       m_Calls: []
+  onMatrixMult:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!4 &905167641
 Transform:
   m_ObjectHideFlags: 0
@@ -3252,6 +3309,9 @@ MonoBehaviour:
   onRightMult:
     m_PersistentCalls:
       m_Calls: []
+  onMatrixMult:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!4 &927178210
 Transform:
   m_ObjectHideFlags: 0
@@ -3289,7 +3349,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!23 &929819532
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -3498,6 +3558,9 @@ MonoBehaviour:
   onRightMult:
     m_PersistentCalls:
       m_Calls: []
+  onMatrixMult:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!4 &929819538
 Transform:
   m_ObjectHideFlags: 0
@@ -3698,6 +3761,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   onRightMult:
+    m_PersistentCalls:
+      m_Calls: []
+  onMatrixMult:
     m_PersistentCalls:
       m_Calls: []
 --- !u!4 &932915827
@@ -3902,6 +3968,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   onRightMult:
+    m_PersistentCalls:
+      m_Calls: []
+  onMatrixMult:
     m_PersistentCalls:
       m_Calls: []
 --- !u!4 &938559782
@@ -4160,6 +4229,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   onRightMult:
+    m_PersistentCalls:
+      m_Calls: []
+  onMatrixMult:
     m_PersistentCalls:
       m_Calls: []
 --- !u!1 &959043051
@@ -5936,6 +6008,9 @@ MonoBehaviour:
   onRightMult:
     m_PersistentCalls:
       m_Calls: []
+  onMatrixMult:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!4 &964396796
 Transform:
   m_ObjectHideFlags: 0
@@ -6153,6 +6228,9 @@ MonoBehaviour:
   onRightMult:
     m_PersistentCalls:
       m_Calls: []
+  onMatrixMult:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1078582791
 GameObject:
   m_ObjectHideFlags: 0
@@ -6338,6 +6416,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   onRightMult:
+    m_PersistentCalls:
+      m_Calls: []
+  onMatrixMult:
     m_PersistentCalls:
       m_Calls: []
 --- !u!4 &1078582796
@@ -6604,6 +6685,9 @@ MonoBehaviour:
   onRightMult:
     m_PersistentCalls:
       m_Calls: []
+  onMatrixMult:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1133496465
 GameObject:
   m_ObjectHideFlags: 0
@@ -6700,6 +6784,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   onRightMult:
+    m_PersistentCalls:
+      m_Calls: []
+  onMatrixMult:
     m_PersistentCalls:
       m_Calls: []
 --- !u!1 &1181574186
@@ -7180,6 +7267,9 @@ MonoBehaviour:
   onRightMult:
     m_PersistentCalls:
       m_Calls: []
+  onMatrixMult:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!4 &1423516413
 Transform:
   m_ObjectHideFlags: 0
@@ -7401,6 +7491,9 @@ MonoBehaviour:
   onRightMult:
     m_PersistentCalls:
       m_Calls: []
+  onMatrixMult:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1447499144
 GameObject:
   m_ObjectHideFlags: 0
@@ -7584,6 +7677,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   onRightMult:
+    m_PersistentCalls:
+      m_Calls: []
+  onMatrixMult:
     m_PersistentCalls:
       m_Calls: []
 --- !u!1 &1449974946
@@ -7771,6 +7867,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   onRightMult:
+    m_PersistentCalls:
+      m_Calls: []
+  onMatrixMult:
     m_PersistentCalls:
       m_Calls: []
 --- !u!4 &1449974951
@@ -7978,6 +8077,9 @@ MonoBehaviour:
   onRightMult:
     m_PersistentCalls:
       m_Calls: []
+  onMatrixMult:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1498909439
 GameObject:
   m_ObjectHideFlags: 0
@@ -8085,6 +8187,9 @@ MonoBehaviour:
   onRightMult:
     m_PersistentCalls:
       m_Calls: []
+  onMatrixMult:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1509006511
 GameObject:
   m_ObjectHideFlags: 0
@@ -8096,6 +8201,7 @@ GameObject:
   - component: {fileID: 1509006517}
   - component: {fileID: 1509006516}
   - component: {fileID: 1509006515}
+  - component: {fileID: 1509006518}
   - component: {fileID: 1509006514}
   - component: {fileID: 1509006513}
   - component: {fileID: 1509006512}
@@ -8218,7 +8324,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1509006511}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 24dff4cfeaa0b5843ac567635c9b493d, type: 3}
   m_Name: 
@@ -8232,7 +8338,7 @@ MonoBehaviour:
   mass: 1
   bounce: 0
   m_isStatic: 1
-  collider: {fileID: 0}
+  collider: {fileID: 1509006518}
   doYPlaneBound: 0
   doYPlaneBoundVal: 0
   doYUpLock: 0
@@ -8256,8 +8362,8 @@ MonoBehaviour:
   - {fileID: 1509006516}
   - {fileID: 1509006516}
   - {fileID: 407027001}
-  - {fileID: 622870405}
   - {fileID: 688829223}
+  - {fileID: 622870405}
   - {fileID: 2093962829}
   m_matrix:
     e00: 0.70710677
@@ -8302,6 +8408,9 @@ MonoBehaviour:
   onRightMult:
     m_PersistentCalls:
       m_Calls: []
+  onMatrixMult:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!4 &1509006517
 Transform:
   m_ObjectHideFlags: 0
@@ -8321,6 +8430,88 @@ Transform:
   - {fileID: 622870408}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1509006518
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1509006511}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fef0be48b2ee4dc47a4f2d2975eefebf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  transform4: {fileID: 1509006516}
+  rigidbody4: {fileID: 1509006515}
+  isTrigger: 0
+  verticies:
+  - {x: 0, y: 0.35, z: 0}
+  - {x: 0.35, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0.35}
+  - {x: -0.35, y: 0, z: 0}
+  - {x: 0, y: 0, z: -0.35}
+  triangles:
+  - {x: 0, y: 1, z: 2}
+  - {x: 0, y: 2, z: 3}
+  - {x: 0, y: 3, z: 4}
+  - {x: 0, y: 4, z: 1}
+  verticies4:
+  - {x: 0, y: 0.3303504, z: 0, w: 0.9438583}
+  - {x: 0.3303504, y: 0, z: 0, w: 0.9438583}
+  - {x: 0, y: 0, z: 0.3303504, w: 0.9438583}
+  - {x: -0.3303504, y: 0, z: 0, w: 0.9438583}
+  - {x: 0, y: 0, z: -0.3303504, w: 0.9438583}
+  verticiesWorld:
+  - {x: 0.6674086, y: 0.3303504, z: 0.47192913, w: 0.47192913}
+  - {x: 0.90100163, y: 0, z: 0.30675393, w: 0.30675393}
+  - {x: 0.6674086, y: 0, z: 0.7055221, w: 0.23833613}
+  - {x: 0.4338156, y: 0, z: 0.63710433, w: 0.63710433}
+  - {x: 0.6674086, y: 0, z: 0.23833613, w: 0.7055221}
+  edges:
+  - {x: 0, y: 1}
+  - {x: 1, y: 2}
+  - {x: 2, y: 0}
+  - {x: 2, y: 3}
+  - {x: 3, y: 0}
+  - {x: 3, y: 4}
+  - {x: 4, y: 0}
+  - {x: 4, y: 1}
+  triDatas:
+  - mesh: {fileID: 1509006518}
+    vertexIndicies: {x: 0, y: 1, z: 2}
+    edgeIndicies: {x: 0, y: 1, z: 2}
+    center: {x: 0, y: 0, z: 0, w: -0.042875}
+    edgeNormals:
+    - {x: 0, y: 0, z: -0.005252187, w: 0}
+    - {x: 0, y: -0.005252187, z: 0, w: 0}
+    - {x: -0.005252187, y: 0, z: 0, w: 0}
+  - mesh: {fileID: 1509006518}
+    vertexIndicies: {x: 0, y: 2, z: 3}
+    edgeIndicies: {x: 2, y: 3, z: 4}
+    center: {x: 0, y: 0, z: 0, w: -0.042875}
+    edgeNormals:
+    - {x: 0.005252187, y: -0, z: -0, w: -0}
+    - {x: -0, y: 0.005252187, z: -0, w: -0}
+    - {x: -0, y: -0, z: 0.005252187, w: -0}
+  - mesh: {fileID: 1509006518}
+    vertexIndicies: {x: 0, y: 3, z: 4}
+    edgeIndicies: {x: 4, y: 5, z: 6}
+    center: {x: -0, y: 0, z: 0, w: -0.042875}
+    edgeNormals:
+    - {x: -0, y: -0, z: 0.005252187, w: -0}
+    - {x: -0, y: 0.005252187, z: -0, w: -0}
+    - {x: -0.005252187, y: -0, z: -0, w: -0}
+  - mesh: {fileID: 1509006518}
+    vertexIndicies: {x: 0, y: 4, z: 1}
+    edgeIndicies: {x: 6, y: 7, z: 0}
+    center: {x: 0, y: 0, z: 0, w: -0.042875}
+    edgeNormals:
+    - {x: -0.005252187, y: 0, z: -0, w: -0}
+    - {x: -0, y: 0.005252187, z: -0, w: -0}
+    - {x: -0, y: -0, z: 0.005252187, w: -0}
+  calcVertex: 0
+  calcTri: 0
 --- !u!1 &1569770721
 GameObject:
   m_ObjectHideFlags: 0
@@ -8342,7 +8533,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!23 &1569770722
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -8551,6 +8742,9 @@ MonoBehaviour:
   onRightMult:
     m_PersistentCalls:
       m_Calls: []
+  onMatrixMult:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!4 &1569770728
 Transform:
   m_ObjectHideFlags: 0
@@ -8642,6 +8836,9 @@ MonoBehaviour:
   onRightMult:
     m_PersistentCalls:
       m_Calls: []
+  onMatrixMult:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &1584197783
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8667,6 +8864,9 @@ MonoBehaviour:
   worldVertex1: {x: 0, y: 0, z: 0, w: 0}
   worldVertex2: {x: 0, y: 0, z: 0, w: 0}
   worldVertex3: {x: 0, y: 0, z: 0, w: 0}
+  edgeNormal1: {x: 0, y: 0, z: 0, w: 0}
+  edgeNormal2: {x: 0, y: 0, z: 0, w: 0}
+  edgeNormal3: {x: 0, y: 0, z: 0, w: 0}
   planeCenter: {x: 0, y: 0, z: 0, w: 0}
 --- !u!114 &1584197784
 MonoBehaviour:
@@ -8910,6 +9110,9 @@ MonoBehaviour:
   onRightMult:
     m_PersistentCalls:
       m_Calls: []
+  onMatrixMult:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1688195791
 GameObject:
   m_ObjectHideFlags: 0
@@ -8931,7 +9134,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!23 &1688195792
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -9138,6 +9341,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   onRightMult:
+    m_PersistentCalls:
+      m_Calls: []
+  onMatrixMult:
     m_PersistentCalls:
       m_Calls: []
 --- !u!4 &1688195798
@@ -9357,6 +9563,9 @@ MonoBehaviour:
   onRightMult:
     m_PersistentCalls:
       m_Calls: []
+  onMatrixMult:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1799437638
 GameObject:
   m_ObjectHideFlags: 0
@@ -9486,6 +9695,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   onRightMult:
+    m_PersistentCalls:
+      m_Calls: []
+  onMatrixMult:
     m_PersistentCalls:
       m_Calls: []
 --- !u!4 &1799437642
@@ -9631,6 +9843,9 @@ MonoBehaviour:
   onRightMult:
     m_PersistentCalls:
       m_Calls: []
+  onMatrixMult:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &1827449243
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9656,6 +9871,9 @@ MonoBehaviour:
   worldVertex1: {x: 0, y: 0, z: 0, w: 0}
   worldVertex2: {x: 0, y: 0, z: 0, w: 0}
   worldVertex3: {x: 0, y: 0, z: 0, w: 0}
+  edgeNormal1: {x: 0, y: 0, z: 0, w: 0}
+  edgeNormal2: {x: 0, y: 0, z: 0, w: 0}
+  edgeNormal3: {x: 0, y: 0, z: 0, w: 0}
   planeCenter: {x: 0, y: 0, z: 0, w: 0}
 --- !u!114 &1827449244
 MonoBehaviour:
@@ -9773,6 +9991,9 @@ MonoBehaviour:
   onRightMult:
     m_PersistentCalls:
       m_Calls: []
+  onMatrixMult:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &1849740069
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9798,6 +10019,9 @@ MonoBehaviour:
   worldVertex1: {x: 0, y: 0, z: 0, w: 0}
   worldVertex2: {x: 0, y: 0, z: 0, w: 0}
   worldVertex3: {x: 0, y: 0, z: 0, w: 0}
+  edgeNormal1: {x: 0, y: 0, z: 0, w: 0}
+  edgeNormal2: {x: 0, y: 0, z: 0, w: 0}
+  edgeNormal3: {x: 0, y: 0, z: 0, w: 0}
   planeCenter: {x: 0, y: 0, z: 0, w: 0}
 --- !u!114 &1849740070
 MonoBehaviour:
@@ -10024,6 +10248,9 @@ MonoBehaviour:
   onRightMult:
     m_PersistentCalls:
       m_Calls: []
+  onMatrixMult:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1983602825
 GameObject:
   m_ObjectHideFlags: 0
@@ -10226,6 +10453,9 @@ MonoBehaviour:
   onRightMult:
     m_PersistentCalls:
       m_Calls: []
+  onMatrixMult:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &2035789367
 GameObject:
   m_ObjectHideFlags: 0
@@ -10247,7 +10477,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!23 &2035789368
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -10454,6 +10684,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   onRightMult:
+    m_PersistentCalls:
+      m_Calls: []
+  onMatrixMult:
     m_PersistentCalls:
       m_Calls: []
 --- !u!4 &2035789374
@@ -10673,6 +10906,9 @@ MonoBehaviour:
   onRightMult:
     m_PersistentCalls:
       m_Calls: []
+  onMatrixMult:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &2078316002
 GameObject:
   m_ObjectHideFlags: 0
@@ -10848,6 +11084,9 @@ MonoBehaviour:
   onRightMult:
     m_PersistentCalls:
       m_Calls: []
+  onMatrixMult:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!4 &2078316007
 Transform:
   m_ObjectHideFlags: 0
@@ -10881,7 +11120,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &2093962829
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10939,6 +11178,9 @@ MonoBehaviour:
   onRightMult:
     m_PersistentCalls:
       m_Calls: []
+  onMatrixMult:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &2093962830
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10964,6 +11206,9 @@ MonoBehaviour:
   worldVertex1: {x: 0.4472136, y: 0, z: 0, w: 0.8944272}
   worldVertex2: {x: 0, y: 0.4472136, z: 0, w: 0.8944272}
   worldVertex3: {x: 0, y: 0, z: 0.4472136, w: 0.8944272}
+  edgeNormal1: {x: 0, y: 0, z: 0, w: 0}
+  edgeNormal2: {x: 0, y: 0, z: 0, w: 0}
+  edgeNormal3: {x: 0, y: 0, z: 0, w: 0}
   planeCenter: {x: 0.5547002, y: -0.5547002, z: 0.5547002, w: 0.2773501}
 --- !u!114 &2093962831
 MonoBehaviour:
