@@ -51,7 +51,7 @@ public class TriColliderS : ColliderS
     public override int colliderType {get{return 2;}}
     public override TriColliderS triangle {get{return this;}}
 
-    public Vector4 PointClose(Vector4 point)
+    public override Vector4 PointClose(Vector4 point)
     {
         return PointCloseTri(point, worldVertex1, worldVertex2, worldVertex3, planeCenter, edgeNormal1, edgeNormal2, edgeNormal3);
     }

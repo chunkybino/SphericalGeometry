@@ -137,7 +137,7 @@ public class MeshColliderS : ColliderS
         }
     }
 
-    public Vector4 PointClose(Vector4 point)
+    public override Vector4 PointClose(Vector4 point)
     {
         Vector4 outV = new Vector4();
         float outDot = 0;

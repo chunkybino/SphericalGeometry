@@ -22,11 +22,15 @@ public abstract class ColliderS : MonoBehaviour
 
     public bool isTrigger;
 
+    public virtual float m_radius {get{return 0;}}
+
     public abstract int colliderType {get;}
     public virtual SphereColliderS sphere {get{return null;}}
     public virtual CapsuleColliderS capsule {get{return null;}}
     public virtual TriColliderS triangle {get{return null;}}
     public virtual MeshColliderS mesh {get{return null;}}
+
+    public abstract Vector4 PointClose(Vector4 point);
 
     void Awake()
     {
@@ -104,7 +108,8 @@ public abstract class ColliderS : MonoBehaviour
             {
                 switch (type1) {
                     default: //sphere
-                        switch (type2) {
+                        return SphereOn(c1.sphere, c2, ref contact1, ref contact2, ref contactNormal);
+                        /*switch (type2) {
                             default: //sphere-sphere
                                 return SphereOnSphere(c1.sphere, c2.sphere, ref contact1, ref contact2, ref contactNormal);
                             case 1: //sphere-capsule
@@ -113,7 +118,7 @@ public abstract class ColliderS : MonoBehaviour
                                 return SphereOnTriangle(c1.sphere, c2.triangle, ref contact1, ref contact2, ref contactNormal);
                             case 3: //sphere-triangle
                                 return SphereOnMesh(c1.sphere, c2.mesh, ref contact1, ref contact2, ref contactNormal);
-                        }
+                        }*/
                     case 1: //capsule
                         switch (type2) {
                             default: //capsule-capsule
@@ -125,7 +130,7 @@ public abstract class ColliderS : MonoBehaviour
                         }
                 }
 
-                return 1;
+                return 0;
             }
         }
     }
@@ -146,6 +151,12 @@ public abstract class ColliderS : MonoBehaviour
         contactNorm = (p2 - p1).normalized;
 
         return overlap;
+    }
+
+    public static float SphereOn(SphereColliderS c1, ColliderS c2, ref Vector4 contact1, ref Vector4 contact2, ref Vector4 contactNorm)
+    {
+        Vector4 point2 = c2.PointClose(c1.sphere.center);
+        return PointRadiusContact(c1.center, c1.m_radius, point2, c2.m_radius, ref contact1, ref contact2, ref contactNorm);
     }
 
     public static float SphereOnSphere(SphereColliderS c1, SphereColliderS c2, ref Vector4 contact1, ref Vector4 contact2, ref Vector4 contactNorm)

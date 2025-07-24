@@ -5,6 +5,8 @@ public class CapsuleColliderS : ColliderS
     public float radius = 1;
     public float length = 1;
 
+    public override float m_radius {get{return radius;}}
+
     public Axis axis;
     public enum Axis {X,Y,Z};
 
@@ -34,7 +36,7 @@ public class CapsuleColliderS : ColliderS
     public override int colliderType {get{return 1;}}
     public override CapsuleColliderS capsule {get{return this;}}
 
-    public Vector4 PointClose(Vector4 point)
+    public override Vector4 PointClose(Vector4 point)
     {
         return UFunc.SlerpPointClose(point1,point2,point);
     }
