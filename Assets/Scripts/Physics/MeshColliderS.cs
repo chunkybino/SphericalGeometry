@@ -40,10 +40,10 @@ public class MeshColliderS : ColliderS
 
         public void Calc()
         {
-            center = UFunc.HyperCross(GetVertex(0),GetVertex(1),GetVertex(2));
+            center = UFunc.HyperCross(GetVertex(0),GetVertex(1),GetVertex(2)).normalized;
             edgeNormals = new Vector4[3];
             for (int i = 0; i < 3; i++) {
-                edgeNormals[i] = UFunc.HyperCross(GetEdgeVertex(i,0),GetEdgeVertex(i,1),center);
+                edgeNormals[i] = UFunc.HyperCross(GetEdgeVertex(i,0),GetEdgeVertex(i,1),center).normalized;
             }
 
             if (UFunc.Dot(edgeNormals[0], GetVertex(2)) > 0) {
@@ -82,6 +82,10 @@ public class MeshColliderS : ColliderS
         for (int i = 0; i < verticies.Length; i++) {
             verticies4[i] = UFunc.ProjectLocal3QuickS(verticies[i]);
             verticiesWorld[i] = transform4.matrix * verticies4[i];
+        }
+
+        for (int i = 0; i < triDatas.Length; i++) {
+            triDatas[i].Calc();
         }
     }
     void CalcWorldVertex()
@@ -144,27 +148,20 @@ public class MeshColliderS : ColliderS
         for (int i = 0; i < triangles.Length; i++)
         {
             TriData tri = triDatas[i];
-            Vector4 v1 = verticies[triangles[i].x];
-            Vector4 v2 = verticies[triangles[i].y];
-            Vector4 v3 = verticies[triangles[i].z];
+            Vector4 v1 = tri.GetVertex(0);
+            Vector4 v2 = tri.GetVertex(1);
+            Vector4 v3 = tri.GetVertex(2);
 
-            Vector4 proj = (point - tri.center*UFunc.Dot(point, tri.center)).normalized;
+            //Vector4 proj = (point - tri.center*UFunc.Dot(point, tri.center)).normalized;
+            Vector4 close = TriColliderS.PointCloseTri(point, v1, v2, v3);
 
-            float[] edgeDot = {
-                UFunc.Dot(tri.edgeNormals[0], proj),
-                UFunc.Dot(tri.edgeNormals[1], proj),
-                UFunc.Dot(tri.edgeNormals[2], proj)
-            };
-            UFunc.PrintList(edgeDot[0],edgeDot[1],edgeDot[2]);
-
-            if (edgeDot[0] < 0 && edgeDot[1] < 0 && edgeDot[2] < 0) {
-                float dot = UFunc.Dot(proj,point);
-                if (!found || dot > outDot) {
-                    print("real "+dot);
-                    outDot = dot;
-                    outV = proj;
-                    found = true;
-                }
+            float dot = UFunc.Dot(close,point);
+            print(i+" "+dot+" "+close);
+            if (!found || dot > outDot) {
+                //print("real "+i+" "+dot+" "+close);
+                outDot = dot;
+                outV = close;
+                found = true;
             }
         }
 
@@ -172,3 +169,4 @@ public class MeshColliderS : ColliderS
         return outV;
     }
 }
+ 

@@ -53,12 +53,15 @@ public class TriColliderS : ColliderS
 
     public Vector4 PointClose(Vector4 point)
     {
-        //point projected onto the plane of our tri
-        Vector4 projPoint = (point - planeCenter*UFunc.Dot(point, planeCenter)).normalized;
+        return PointCloseTri(point, worldVertex1, worldVertex2, worldVertex3, planeCenter, edgeNormal1, edgeNormal2, edgeNormal3);
 
+        /*
         Vector4 p1 = worldVertex1;
         Vector4 p2 = worldVertex2;
         Vector4 p3 = worldVertex3;
+
+        //point projected onto the plane of our tri
+        Vector4 projPoint = (point - planeCenter*UFunc.Dot(point, planeCenter)).normalized;
 
         float edgeDot1 = UFunc.Dot(edgeNormal1, projPoint);
         float edgeDot2 = UFunc.Dot(edgeNormal2, projPoint);
@@ -111,6 +114,7 @@ public class TriColliderS : ColliderS
         }
 
         return projPoint; //ya dont messed up your math if it gets here
+        */
     }
 
     public void LineClose(Vector4 v1, Vector4 v2, ref Vector4 outLine, ref Vector4 outTri)
@@ -143,12 +147,70 @@ public class TriColliderS : ColliderS
         }
     }
 
-    void OnDrawGizmos()
+    //static funcition, where we define the triagnle too
+    public static Vector4 PointCloseTri(Vector4 point, Vector4 p1, Vector4 p2, Vector4 p3)
     {
-        Gizmos.DrawLineStrip(new Vector3[] {
-            UFunc.SterographicProjection(worldVertex1,1),
-            UFunc.SterographicProjection(worldVertex2,1),
-            UFunc.SterographicProjection(worldVertex3,1)}, 
-            true);
+        Vector4 pCenter = UFunc.HyperCross(p1,p2,p3).normalized;
+        Vector4 edgeNorm1 = UFunc.HyperCross(p1,p2,pCenter).normalized;
+        Vector4 edgeNorm2 = UFunc.HyperCross(p2,p3,pCenter).normalized;
+        Vector4 edgeNorm3 = UFunc.HyperCross(p3,p1,pCenter).normalized;
+        return PointCloseTri(point,p1,p2,p3,pCenter,edgeNorm1,edgeNorm2,edgeNorm3);
+    }
+    public static Vector4 PointCloseTri(Vector4 point, Vector4 p1, Vector4 p2, Vector4 p3, Vector4 pCenter, Vector4 edgeNorm1, Vector4 edgeNorm2, Vector4 edgeNorm3)
+    {
+        //point projected onto the plane of our tri
+        Vector4 projPoint = (point - pCenter*UFunc.Dot(point, pCenter)).normalized;
+
+        float edgeDot1 = UFunc.Dot(edgeNorm1, projPoint);
+        float edgeDot2 = UFunc.Dot(edgeNorm2, projPoint);
+        float edgeDot3 = UFunc.Dot(edgeNorm3, projPoint);
+
+        //if all dots negative, the point is inside the triangle
+        if (edgeDot1 < 0 && edgeDot2 < 0 && edgeDot3 < 0) {
+            return projPoint;
+        }
+
+        //check edges
+
+        Vector4[] edgePoints = new Vector4[] {
+            (projPoint - edgeNorm1*edgeDot1).normalized,
+            (projPoint - edgeNorm2*edgeDot2).normalized,
+            (projPoint - edgeNorm3*edgeDot3).normalized
+        };
+
+        List<Vector4> validEdge = new List<Vector4>();
+
+        if (edgeDot1 > 0)
+        {
+            Vector4 edgePoint = (projPoint - edgeNorm1*edgeDot1).normalized;
+            if (UFunc.BetweenS(p1,p2, edgePoint)) validEdge.Add(edgePoint);
+        }
+        if (edgeDot2 > 0)
+        {
+            Vector4 edgePoint = (projPoint - edgeNorm2*edgeDot2).normalized;
+            if (UFunc.BetweenS(p2,p3, edgePoint)) validEdge.Add(edgePoint);
+        }
+        if (edgeDot3 > 0)
+        {
+            Vector4 edgePoint = (projPoint - edgeNorm3*edgeDot3).normalized;
+            if (UFunc.BetweenS(p3,p1, edgePoint)) validEdge.Add(edgePoint);
+        }
+
+        if (edgeDot2 < 0) validEdge.Add(p1);
+        if (edgeDot3 < 0) validEdge.Add(p2);
+        if (edgeDot1 < 0) validEdge.Add(p3);
+
+        Vector4 close = new Vector4();
+        if (validEdge.Count > 0) {
+            close = validEdge[0];
+            foreach (Vector4 v in validEdge) {
+                if (UFunc.Dot(point,v) > UFunc.Dot(point,close)) {
+                    close = v;
+                }
+            }
+            return close;
+        }
+
+        return projPoint; //ya dont messed up your math if it gets here
     }
 }
