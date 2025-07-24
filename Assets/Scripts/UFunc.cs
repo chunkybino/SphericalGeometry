@@ -451,7 +451,7 @@ public static class UFunc
         if (doPrint) {
             Debug.Log(sign);
             Debug.Log(dot2+" "+dot3);
-            Debug.Log(tan);
+            Debug.Log(tan+" "+arc);
             Debug.Log(factor);
             Debug.Log(-factor+1);
         }

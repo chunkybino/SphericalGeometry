@@ -54,67 +54,6 @@ public class TriColliderS : ColliderS
     public Vector4 PointClose(Vector4 point)
     {
         return PointCloseTri(point, worldVertex1, worldVertex2, worldVertex3, planeCenter, edgeNormal1, edgeNormal2, edgeNormal3);
-
-        /*
-        Vector4 p1 = worldVertex1;
-        Vector4 p2 = worldVertex2;
-        Vector4 p3 = worldVertex3;
-
-        //point projected onto the plane of our tri
-        Vector4 projPoint = (point - planeCenter*UFunc.Dot(point, planeCenter)).normalized;
-
-        float edgeDot1 = UFunc.Dot(edgeNormal1, projPoint);
-        float edgeDot2 = UFunc.Dot(edgeNormal2, projPoint);
-        float edgeDot3 = UFunc.Dot(edgeNormal3, projPoint);
-
-        //if all dots negative, the point is inside the triangle
-        if (edgeDot1 < 0 && edgeDot2 < 0 && edgeDot3 < 0) {
-            return projPoint;
-        }
-
-        //check edges
-
-        Vector4[] edgePoints = new Vector4[] {
-            (projPoint - edgeNormal1*edgeDot1).normalized,
-            (projPoint - edgeNormal2*edgeDot2).normalized,
-            (projPoint - edgeNormal3*edgeDot3).normalized
-        };
-
-        List<Vector4> validEdge = new List<Vector4>();
-
-        if (edgeDot1 > 0)
-        {
-            Vector4 edgePoint = (projPoint - edgeNormal1*edgeDot1).normalized;
-            if (UFunc.BetweenS(p1,p2, edgePoint)) validEdge.Add(edgePoint);
-        }
-        if (edgeDot2 > 0)
-        {
-            Vector4 edgePoint = (projPoint - edgeNormal2*edgeDot2).normalized;
-            if (UFunc.BetweenS(p2,p3, edgePoint)) validEdge.Add(edgePoint);
-        }
-        if (edgeDot3 > 0)
-        {
-            Vector4 edgePoint = (projPoint - edgeNormal3*edgeDot3).normalized;
-            if (UFunc.BetweenS(p3,p1, edgePoint)) validEdge.Add(edgePoint);
-        }
-
-        if (edgeDot2 < 0) validEdge.Add(p1);
-        if (edgeDot3 < 0) validEdge.Add(p2);
-        if (edgeDot1 < 0) validEdge.Add(p3);
-
-        Vector4 close = new Vector4();
-        if (validEdge.Count > 0) {
-            close = validEdge[0];
-            foreach (Vector4 v in validEdge) {
-                if (UFunc.Dot(point,v) > UFunc.Dot(point,close)) {
-                    close = v;
-                }
-            }
-            return close;
-        }
-
-        return projPoint; //ya dont messed up your math if it gets here
-        */
     }
 
     public void LineClose(Vector4 v1, Vector4 v2, ref Vector4 outLine, ref Vector4 outTri)

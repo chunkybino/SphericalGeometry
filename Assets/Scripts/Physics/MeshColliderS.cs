@@ -46,11 +46,9 @@ public class MeshColliderS : ColliderS
                 edgeNormals[i] = UFunc.HyperCross(GetEdgeVertex(i,0),GetEdgeVertex(i,1),center).normalized;
             }
 
-            if (UFunc.Dot(edgeNormals[0], GetVertex(2)) > 0) {
-                edgeNormals[0] *= -1;
-                edgeNormals[1] *= -1;
-                edgeNormals[2] *= -1;
-            }
+            if (UFunc.Dot(edgeNormals[0], GetVertex(2)) > 0) edgeNormals[0] *= -1;
+            if (UFunc.Dot(edgeNormals[1], GetVertex(0)) > 0) edgeNormals[1] *= -1;
+            if (UFunc.Dot(edgeNormals[2], GetVertex(1)) > 0) edgeNormals[2] *= -1;
         }
     }
 
@@ -141,9 +139,17 @@ public class MeshColliderS : ColliderS
 
     public Vector4 PointClose(Vector4 point)
     {
-        bool found = false;
         Vector4 outV = new Vector4();
         float outDot = 0;
+
+        //true = vertex/edge at corosponding index will not be checked
+        //while looping through triangles, if ourporjected point has a negative dot product with the edge normal
+        //that edge becomes invalid, only check edges that have only positive dot products
+        bool[] invalidEdges = new bool[edges.Length];
+        //if a a projected point hase a positive dot with an opposite edge to a vertex, that vertex becoms invalid
+        bool[] invalidVerticies = new bool[verticiesWorld.Length];
+
+        bool foundFace = false;
 
         for (int i = 0; i < triangles.Length; i++)
         {
@@ -152,20 +158,74 @@ public class MeshColliderS : ColliderS
             Vector4 v2 = tri.GetVertex(1);
             Vector4 v3 = tri.GetVertex(2);
 
-            //Vector4 proj = (point - tri.center*UFunc.Dot(point, tri.center)).normalized;
-            Vector4 close = TriColliderS.PointCloseTri(point, v1, v2, v3);
+            Vector4 proj = (point - tri.center*UFunc.Dot(point, tri.center)).normalized;
 
+            float[] dots = {
+                UFunc.Dot(tri.edgeNormals[0], proj),
+                UFunc.Dot(tri.edgeNormals[1], proj),
+                UFunc.Dot(tri.edgeNormals[2], proj)
+            };
+
+            if (dots[0] < 0 && dots[1] < 0 && dots[2] < 0)
+            {
+                float dot = UFunc.Dot(point, proj);
+                if (!foundFace || dot > outDot) {
+                    outV = proj;
+                    outDot = dot;
+                    foundFace = true;
+                }
+            }
+            else if (!foundFace) //if we've already found a face, dont bother checking edges
+            {
+                //invalidate any edge where the other 2 edges have negative dots
+                if (dots[1] > 0 || dots[2] > 0) invalidEdges[tri.edgeIndicies.x] = true;
+                if (dots[2] > 0 || dots[0] > 0) invalidEdges[tri.edgeIndicies.y] = true;
+                if (dots[0] > 0 || dots[1] > 0) invalidEdges[tri.edgeIndicies.z] = true;
+
+                if (dots[0] < 0 || dots[2] < 0) invalidVerticies[tri.vertexIndicies.x] = true;
+                if (dots[1] < 0 || dots[0] < 0) invalidVerticies[tri.vertexIndicies.y] = true;
+                if (dots[2] < 0 || dots[1] < 0) invalidVerticies[tri.vertexIndicies.y] = true;
+            }
+        }
+
+        //if our point projects onto one of the faces, return that point
+        if (foundFace) return outV;
+
+        //print("notFind");
+
+        //if not, check edges next
+        bool found = false;
+
+        for (int i = 0; i < edges.Length; i++) 
+        {
+            //if (invalidEdges[i]) print("invalid "+i);
+            if (invalidEdges[i]) continue;
+            
+            Vector4 close = UFunc.SlerpPointClose(verticiesWorld[edges[i].x], verticiesWorld[edges[i].y], point);
+            //print(UFunc.SlerpPointCloseFactor(verticiesWorld[edges[i].x], verticiesWorld[edges[i].y], point, true,true));
             float dot = UFunc.Dot(close,point);
-            print(i+" "+dot+" "+close);
             if (!found || dot > outDot) {
-                //print("real "+i+" "+dot+" "+close);
-                outDot = dot;
                 outV = close;
+                outDot = dot;
                 found = true;
             }
         }
 
-        if (!found) return transform4.positionNorm;
+        for (int i = 0; i < verticiesWorld.Length; i++) 
+        {
+            if (invalidVerticies[i]) continue;
+
+            float dot = UFunc.Dot(verticiesWorld[i],point);
+            if (!found || dot > outDot) {
+                outV = verticiesWorld[i];
+                outDot = dot;
+                found = true;
+            }
+        }
+
+        //if (!foundEdge) print("stillNoFind");
+        //print(outV);
+
         return outV;
     }
 }
