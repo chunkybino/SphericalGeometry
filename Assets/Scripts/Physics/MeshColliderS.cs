@@ -191,18 +191,14 @@ public class MeshColliderS : ColliderS
         //if our point projects onto one of the faces, return that point
         if (foundFace) return outV;
 
-        //print("notFind");
-
         //if not, check edges next
         bool found = false;
 
         for (int i = 0; i < edges.Length; i++) 
         {
-            //if (invalidEdges[i]) print("invalid "+i);
             if (invalidEdges[i]) continue;
             
             Vector4 close = UFunc.SlerpPointClose(verticiesWorld[edges[i].x], verticiesWorld[edges[i].y], point);
-            //print(UFunc.SlerpPointCloseFactor(verticiesWorld[edges[i].x], verticiesWorld[edges[i].y], point, true,true));
             float dot = UFunc.Dot(close,point);
             if (!found || dot > outDot) {
                 outV = close;
@@ -223,10 +219,40 @@ public class MeshColliderS : ColliderS
             }
         }
 
-        //if (!foundEdge) print("stillNoFind");
-        //print(outV);
-
         return outV;
+    }
+
+    public void LineClose(Vector4 v1, Vector4 v2, ref Vector4 outLine, ref Vector4 outTri)
+    {
+        Vector4[] points = new Vector4[4];
+
+        FindMin(0, ref points[0], ref points[1]);
+        FindMin(1, ref points[2], ref points[3]);
+
+        //take the closest
+        if (UFunc.Dot(points[0],points[1]) > UFunc.Dot(points[2],points[3])) {
+            outLine = points[0];
+            outTri = points[1];
+        } else {
+            outLine = points[2];
+            outTri = points[3];
+        }
+
+        void FindMin(float startT, ref Vector4 point1, ref Vector4 point2)
+        {
+            int iterations = 6;
+
+            point1 = UFunc.Slerp4(v1,v2,startT);
+            Vector4 prev1 = point1;
+
+            for (int i = 0; i < iterations; i++)
+            {
+                point2 = PointClose(point1);
+                point1 = UFunc.SlerpPointClose(v1,v2,point2);
+                if (prev1 == point1) return; //if we get back the same point, stop here
+                prev1 = point1;
+            }
+        }
     }
 }
  

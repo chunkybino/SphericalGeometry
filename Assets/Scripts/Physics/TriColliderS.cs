@@ -77,11 +77,14 @@ public class TriColliderS : ColliderS
             int iterations = 6;
 
             point1 = UFunc.Slerp4(v1,v2,startT);
+            Vector4 prev1 = point1;
 
             for (int i = 0; i < iterations; i++)
             {
                 point2 = PointClose(point1);
                 point1 = UFunc.SlerpPointClose(v1,v2,point2);
+                if (prev1 == point1) return; //if we get back the same point, stop here
+                prev1 = point1;
             }
         }
     }

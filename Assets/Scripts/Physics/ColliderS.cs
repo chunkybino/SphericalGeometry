@@ -120,6 +120,8 @@ public abstract class ColliderS : MonoBehaviour
                                 return CapsuleOnCapsule(c1.capsule, c2.capsule, ref contact1, ref contact2, ref contactNormal);
                             case 2:
                                 return CapsuleOnTriangle(c1.capsule, c2.triangle, ref contact1, ref contact2, ref contactNormal);
+                            case 3: //sphere-triangle
+                                return CapsuleOnMesh(c1.capsule, c2.mesh, ref contact1, ref contact2, ref contactNormal);
                         }
                 }
 
@@ -226,5 +228,14 @@ public abstract class ColliderS : MonoBehaviour
         c2.LineClose(c1.point1, c1.point2, ref linePoint, ref triPoint);
 
         return PointRadiusContact(linePoint, c1.radius, triPoint, 0, ref contact1, ref contact2, ref contactNorm);
+    }
+
+    public static float CapsuleOnMesh(CapsuleColliderS c1, MeshColliderS c2, ref Vector4 contact1, ref Vector4 contact2, ref Vector4 contactNorm)
+    {
+        Vector4 linePoint = new Vector4();
+        Vector4 meshPoint = new Vector4();
+        c2.LineClose(c1.point1, c1.point2, ref linePoint, ref meshPoint);
+
+        return PointRadiusContact(linePoint, c1.radius, meshPoint, 0, ref contact1, ref contact2, ref contactNorm);
     }
 }

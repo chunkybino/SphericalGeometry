@@ -2190,7 +2190,7 @@ MonoBehaviour:
   mass: 4
   bounce: 0
   m_isStatic: 0
-  collider: {fileID: 665110789}
+  collider: {fileID: 665110788}
   doYPlaneBound: 0
   doYPlaneBoundVal: 0.15
   doYUpLock: 1
@@ -2278,7 +2278,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 665110781}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 569371a861ba7b046bfea074afc23fc9, type: 3}
   m_Name: 
@@ -2296,7 +2296,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 665110781}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 703f70a78aa355b47870a272af901da4, type: 3}
   m_Name: 
@@ -2905,7 +2905,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!23 &929819532
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -8085,7 +8085,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!23 &1569770722
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -10029,7 +10029,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!23 &2035789368
 MeshRenderer:
   m_ObjectHideFlags: 0
