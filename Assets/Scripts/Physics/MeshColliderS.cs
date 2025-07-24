@@ -75,23 +75,23 @@ public class MeshColliderS : ColliderS
     void CalcVertex()
     {
         verticies4 = new Vector4[verticies.Length];
-        verticiesWorld = new Vector4[verticies.Length];
 
         for (int i = 0; i < verticies.Length; i++) {
-            verticies4[i] = UFunc.ProjectLocal3QuickS(verticies[i]);
-            verticiesWorld[i] = transform4.matrix * verticies4[i];
+            verticies4[i] = UFunc.ProjectLocal3QuickS(Vector3.Scale(verticies[i],transform4.scale));
         }
 
-        for (int i = 0; i < triDatas.Length; i++) {
-            triDatas[i].Calc();
-        }
+        CalcWorldVertex();
     }
     void CalcWorldVertex()
     {
         verticiesWorld = new Vector4[verticies4.Length];
         for (int i = 0; i < verticies4.Length; i++) {
             verticiesWorld[i] = transform4.matrix * verticies4[i];
-        }  
+        } 
+
+        for (int i = 0; i < triDatas.Length; i++) {
+            triDatas[i].Calc();
+        } 
     }
     void CalcTriangles()
     {
@@ -175,12 +175,12 @@ public class MeshColliderS : ColliderS
                     foundFace = true;
                 }
             }
-            else if (!foundFace) //if we've already found a face, dont bother checking edges
+            else if (!foundFace && false) //if we've already found a face, dont bother checking edges
             {
                 //invalidate any edge where the other 2 edges have negative dots
-                if (dots[1] > 0 || dots[2] > 0) invalidEdges[tri.edgeIndicies.x] = true;
-                if (dots[2] > 0 || dots[0] > 0) invalidEdges[tri.edgeIndicies.y] = true;
-                if (dots[0] > 0 || dots[1] > 0) invalidEdges[tri.edgeIndicies.z] = true;
+                if (dots[0] < 0) invalidEdges[tri.edgeIndicies.x] = true;
+                if (dots[1] < 0) invalidEdges[tri.edgeIndicies.y] = true;
+                if (dots[2] < 0) invalidEdges[tri.edgeIndicies.z] = true;
 
                 if (dots[0] < 0 || dots[2] < 0) invalidVerticies[tri.vertexIndicies.x] = true;
                 if (dots[1] < 0 || dots[0] < 0) invalidVerticies[tri.vertexIndicies.y] = true;

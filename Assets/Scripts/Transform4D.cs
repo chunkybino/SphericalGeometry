@@ -53,7 +53,7 @@ public class Transform4D : MonoBehaviour
         }
     }
 
-    [HideInInspector] [SerializeField] Matrix4x4 m_matrix;
+    [SerializeField] Matrix4x4 m_matrix;
     [HideInInspector] [SerializeField] Matrix4x4 m_localMatrix;
 
     Matrix4x4 parentMatrix {get{

@@ -59,7 +59,9 @@ public class Rigidbody4D : MonoBehaviour
         if (!collider) collider = GetComponent<ColliderS>();
 
         transform4.onLeftMult.AddListener(OnTransformLeftMult);
-
+    }
+    void Start()
+    {
         PhysicsHandlerS.singleton?.AddRigidbody(this);
     }
 
