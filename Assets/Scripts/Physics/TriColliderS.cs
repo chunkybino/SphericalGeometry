@@ -25,12 +25,29 @@ public class TriColliderS : ColliderS
 
     [SerializeField] Vector4 planeCenter;
 
-    void Update()
+    public override float boundingRadius {get{return furthestVertexDistance;}}
+    [SerializeField] float furthestVertexDistance;
+
+    void OnValidate()
+    {
+        UpdateVertex();
+        UpdateWorldVertex();
+    }
+
+    void UpdateVertex()
     {
         localVertex1 = UFunc.ProjectLocal3QuickS(vertex1);
         localVertex2 = UFunc.ProjectLocal3QuickS(vertex2);
         localVertex3 = UFunc.ProjectLocal3QuickS(vertex3);
 
+        furthestVertexDistance = Mathf.Max(
+            Mathf.Acos(localVertex1.w),
+            Mathf.Acos(localVertex2.w),
+            Mathf.Acos(localVertex3.w)
+        );
+    }
+    void UpdateWorldVertex()
+    {
         worldVertex1 = transform4.matrix * localVertex1;
         worldVertex2 = transform4.matrix * localVertex2;
         worldVertex3 = transform4.matrix * localVertex3;

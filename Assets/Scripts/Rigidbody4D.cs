@@ -48,10 +48,19 @@ public class Rigidbody4D : MonoBehaviour
 
     public ColliderS collider;
 
-    [SerializeField] bool doYPlaneBound;
-    [SerializeField] float doYPlaneBoundVal;
-
     [SerializeField] bool doYUpLock; //lock the cameras orientation to up is always toawrds the y axis
+
+    public int sectorIndex = -1;
+    public List<int> allSectors = new List<int>(); //if we overlap into multiple sectors cause radius
+    public bool globalSector;
+
+    //used for sectoring in physics, object gets added to sectors in this radius of it
+    public float boundingRadius {get{
+        if (collider) return collider.boundingRadius;
+        return 0;
+    }}
+
+    PhysicsHandlerS physicsS;
 
     void Awake()
     {
@@ -59,10 +68,13 @@ public class Rigidbody4D : MonoBehaviour
         if (!collider) collider = GetComponent<ColliderS>();
 
         transform4.onLeftMult.AddListener(OnTransformLeftMult);
+        transform4.onMatrixUpdate.AddListener(OnMatrixUpdate);
+
+        physicsS = PhysicsHandlerS.singleton;
     }
     void Start()
     {
-        PhysicsHandlerS.singleton?.AddRigidbody(this);
+        physicsS?.AddRigidbody(this);
     }
 
     public void PhysicsUpdate()
@@ -72,7 +84,6 @@ public class Rigidbody4D : MonoBehaviour
             return;
         }
 
-        if (doYPlaneBound) CheckYBound();
         if (doYUpLock) YUpLock();
 
         DoGravity();
@@ -123,7 +134,6 @@ public class Rigidbody4D : MonoBehaviour
     {
         transform4.MoveRelative(moveAmount);
 
-        if (doYPlaneBound) CheckYBound();
         if (doYUpLock) YUpLock();
     }
 
@@ -157,6 +167,12 @@ public class Rigidbody4D : MonoBehaviour
     {
         velocity = mat * velocity;
     }
+    void OnMatrixUpdate(Matrix4x4 mat)
+    {
+        if (!globalSector) {
+            physicsS?.UpdateRigidbodySector(this);
+        }
+    }
 
     void Rotate(Vector3 rotateAmount)
     {
@@ -165,30 +181,13 @@ public class Rigidbody4D : MonoBehaviour
         transform4.RotateRelativeXY(rotateAmount.z);
     }
 
-    void CheckYBound()
-    {
-        if (position4.y < doYPlaneBoundVal)
-        {
-            Vector4 targetPos = position4;
-            targetPos.y = doYPlaneBoundVal;
-
-            targetPos *= Mathf.Sqrt((1 - doYPlaneBoundVal*doYPlaneBoundVal) / new Vector3(targetPos.x, targetPos.z, targetPos.w).magnitude);
-
-            float moveAmount = UFunc.AngleBetweenVectors(position4, targetPos);
-
-            transform4.matrix = UFunc.RotateTowardsMatrix(position4, targetPos, -moveAmount) * transform4.matrix;
-
-            velocity.y = Mathf.Max(0, velocity.y);
-        }
-    }
-
     void YUpLock()
     {
         if (transform4.xBasis.y != 0)
         {
             //zero the y component of xBasis
             Vector4 XIntersectY = UFunc.LineYIntersect(transform4.xBasis, transform4.yBasis, 0);
-            float angle = -UFunc.AngleBetweenVectors(transform4.xBasis, XIntersectY);
+            float angle = -UFunc.VectorAngle(transform4.xBasis, XIntersectY);
             if (Mathf.Sign(transform4.xBasis.y) == Mathf.Sign(transform4.yBasis.y)) angle *= -1;
             transform4.matrix = transform4.matrix * UFunc.MatXYRot(angle);
         }
@@ -197,7 +196,7 @@ public class Rigidbody4D : MonoBehaviour
         {
             //zero the y component of xBasis
             Vector4 ZIntersectY = UFunc.LineYIntersect(transform4.zBasis, transform4.yBasis, 0);
-            float angle = -UFunc.AngleBetweenVectors(transform4.zBasis, ZIntersectY);
+            float angle = -UFunc.VectorAngle(transform4.zBasis, ZIntersectY);
             if (Mathf.Sign(transform4.zBasis.y) == Mathf.Sign(transform4.yBasis.y)) angle *= -1;
             transform4.matrix = transform4.matrix * UFunc.MatZYRot(angle);
         }

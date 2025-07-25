@@ -52,6 +52,16 @@ public static class UFunc
         );
     }
 
+    //returns index of most significant component of vector
+    public static int VectorSignificant(Vector4 v)
+    {
+        int max = 0;
+        if (Mathf.Abs(v[max]) < Mathf.Abs(v[1])) max = 1;
+        if (Mathf.Abs(v[max]) < Mathf.Abs(v[2])) max = 2;
+        if (Mathf.Abs(v[max]) < Mathf.Abs(v[3])) max = 3;
+        return max;
+    }
+
     public static Vector3 LerpVec3(Vector3 v1, Vector3 v2, float t)
     {
         return new Vector3(Mathf.Lerp(v1.x,v2.x,t), Mathf.Lerp(v1.y,v2.y,t), Mathf.Lerp(v1.z,v2.z,t));
@@ -65,11 +75,6 @@ public static class UFunc
     public static Vector4 ProjectToVectorNormal(Vector4 v1, Vector4 normal)
     {
         return v1 - normal*UFunc.Dot(normal.normalized, v1);
-    }
-
-    public static float AngleBetweenVectors(Vector4 v1, Vector4 v2)
-    {
-        return Mathf.Acos(Mathf.Clamp(Dot(v1.normalized, v2.normalized), -1, 1));
     }
 
     public static Vector3 SterographicProjection(Vector4 pos, float radius)
@@ -210,7 +215,7 @@ public static class UFunc
 
     public static Matrix4x4 RotateTowardsMatrix(Vector4 pos, Vector4 target)
     {
-        return RotateTowardsMatrix(pos, target, AngleBetweenVectors(pos, target));
+        return RotateTowardsMatrix(pos, target, VectorAngle(pos, target));
     }
     public static Matrix4x4 RotateTowardsMatrix(Vector4 pos, Vector4 target, float angle)
     {
@@ -365,9 +370,14 @@ public static class UFunc
         );
     }
 
+    public static float VectorAngle(Vector4 v1, Vector4 v2)
+    {
+        return Mathf.Acos(Clamp1(Dot(v1.normalized,v2.normalized)));
+    }
+
     public static float DistanceS(Vector4 v1, Vector4 v2)
     {
-        return Mathf.Acos(Dot(v1,v2));
+        return Mathf.Acos(Clamp1(Dot(v1,v2)));
     }
 
     public static bool BetweenS(Vector4 v1, Vector4 v2, Vector4 v3) //is v3 (along the line of v1-v2), between the 2 vectors in spherical space

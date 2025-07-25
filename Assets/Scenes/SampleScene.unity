@@ -186,6 +186,9 @@ MonoBehaviour:
     e31: 0.9999999
     e32: 0
     e33: 0
+  onMatrixUpdate:
+    m_PersistentCalls:
+      m_Calls: []
   scale: {x: 1, y: 1, z: 1}
   sterographicPos: {x: 0, y: -0.9999999, z: 0}
   lockSterographicPos: 1
@@ -193,9 +196,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   onRightMult:
-    m_PersistentCalls:
-      m_Calls: []
-  onMatrixMult:
     m_PersistentCalls:
       m_Calls: []
 --- !u!114 &14870708
@@ -236,9 +236,10 @@ MonoBehaviour:
   bounce: 0
   m_isStatic: 1
   collider: {fileID: 14870708}
-  doYPlaneBound: 0
-  doYPlaneBoundVal: 0
   doYUpLock: 0
+  sectorIndex: 3
+  allSectors: 
+  globalSector: 1
 --- !u!4 &14870710
 Transform:
   m_ObjectHideFlags: 0
@@ -285,6 +286,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   parent: {fileID: 0}
   children:
+  - {fileID: 1620956664}
+  - {fileID: 1466526957}
+  - {fileID: 724789085}
+  - {fileID: 607435943}
   - {fileID: 696461020}
   - {fileID: 905167640}
   - {fileID: 1078582795}
@@ -326,6 +331,9 @@ MonoBehaviour:
     e31: 0
     e32: 0
     e33: 1
+  onMatrixUpdate:
+    m_PersistentCalls:
+      m_Calls: []
   scale: {x: 1, y: 1, z: 1}
   sterographicPos: {x: 0, y: 0, z: 0}
   lockSterographicPos: 1
@@ -333,9 +341,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   onRightMult:
-    m_PersistentCalls:
-      m_Calls: []
-  onMatrixMult:
     m_PersistentCalls:
       m_Calls: []
 --- !u!4 &69122365
@@ -548,6 +553,9 @@ MonoBehaviour:
     e31: 0
     e32: -0.7071067
     e33: 0.70710677
+  onMatrixUpdate:
+    m_PersistentCalls:
+      m_Calls: []
   scale: {x: 0.025, y: 0.025, z: 0.3}
   sterographicPos: {x: -0.41421354, y: 0, z: 0}
   lockSterographicPos: 1
@@ -555,9 +563,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   onRightMult:
-    m_PersistentCalls:
-      m_Calls: []
-  onMatrixMult:
     m_PersistentCalls:
       m_Calls: []
 --- !u!1 &119699955
@@ -733,6 +738,9 @@ MonoBehaviour:
     e31: 0
     e32: 0
     e33: 1
+  onMatrixUpdate:
+    m_PersistentCalls:
+      m_Calls: []
   scale: {x: 0.1, y: 0.1, z: 0.1}
   sterographicPos: {x: 0, y: 0, z: 0}
   lockSterographicPos: 1
@@ -740,9 +748,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   onRightMult:
-    m_PersistentCalls:
-      m_Calls: []
-  onMatrixMult:
     m_PersistentCalls:
       m_Calls: []
 --- !u!4 &119699960
@@ -789,6 +794,10 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 607435937}
+  - {fileID: 724789091}
+  - {fileID: 1466526951}
+  - {fileID: 1620956658}
   - {fileID: 1799437642}
   - {fileID: 119699960}
   - {fileID: 1133496466}
@@ -1021,6 +1030,9 @@ MonoBehaviour:
     e31: 0
     e32: 0
     e33: 1
+  onMatrixUpdate:
+    m_PersistentCalls:
+      m_Calls: []
   scale: {x: 1, y: 1, z: 1}
   sterographicPos: {x: 0, y: 0.22503687, z: 0}
   lockSterographicPos: 0
@@ -1028,9 +1040,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   onRightMult:
-    m_PersistentCalls:
-      m_Calls: []
-  onMatrixMult:
     m_PersistentCalls:
       m_Calls: []
 --- !u!1 &363402351
@@ -1194,6 +1203,9 @@ MonoBehaviour:
     e31: 0
     e32: 0
     e33: 1
+  onMatrixUpdate:
+    m_PersistentCalls:
+      m_Calls: []
   scale: {x: 1, y: 1, z: 1}
   sterographicPos: {x: 0, y: 0, z: 0}
   lockSterographicPos: 1
@@ -1201,9 +1213,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   onRightMult:
-    m_PersistentCalls:
-      m_Calls: []
-  onMatrixMult:
     m_PersistentCalls:
       m_Calls: []
 --- !u!4 &363402356
@@ -1504,6 +1513,9 @@ MonoBehaviour:
     e31: 0
     e32: 0
     e33: 1
+  onMatrixUpdate:
+    m_PersistentCalls:
+      m_Calls: []
   scale: {x: 1, y: 1, z: 1}
   sterographicPos: {x: 0, y: 0, z: 0}
   lockSterographicPos: 1
@@ -1511,9 +1523,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   onRightMult:
-    m_PersistentCalls:
-      m_Calls: []
-  onMatrixMult:
     m_PersistentCalls:
       m_Calls: []
 --- !u!4 &500118753
@@ -1583,7 +1592,7 @@ GameObject:
   - component: {fileID: 607435939}
   - component: {fileID: 607435938}
   m_Layer: 0
-  m_Name: OctoRed
+  m_Name: OctoXRed
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1602,7 +1611,7 @@ Transform:
   m_LocalScale: {x: 0.14999999, y: 0.14999999, z: 0.14999999}
   m_ConstrainProportionsScale: 1
   m_Children: []
-  m_Father: {fileID: 1133496466}
+  m_Father: {fileID: 161632703}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &607435938
 MeshRenderer:
@@ -1789,6 +1798,7 @@ MonoBehaviour:
     - {x: -0.08031158, y: 0.40155786, z: -0.40155786, w: 0.819178}
     - {x: -0.080311574, y: -0.81917804, z: -0.4015578, w: -0.40155783}
     - {x: -0.080311574, y: 0.4015578, z: 0.81917804, w: -0.40155783}
+  furthestVertexDistance: 0
   calcVertex: 0
   calcTri: 0
 --- !u!114 &607435942
@@ -1813,9 +1823,10 @@ MonoBehaviour:
   bounce: 0
   m_isStatic: 1
   collider: {fileID: 607435941}
-  doYPlaneBound: 0
-  doYPlaneBoundVal: 0
   doYUpLock: 0
+  sectorIndex: 0
+  allSectors: 00000000
+  globalSector: 0
 --- !u!114 &607435943
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1828,7 +1839,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3e9696e169808a4390b5d2c1be30c0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 1133496467}
+  parent: {fileID: 69122364}
   children:
   - {fileID: 607435943}
   - {fileID: 607435943}
@@ -1869,6 +1880,9 @@ MonoBehaviour:
     e31: 0
     e32: 0
     e33: 0
+  onMatrixUpdate:
+    m_PersistentCalls:
+      m_Calls: []
   scale: {x: 0.15, y: 0.15, z: 0.15}
   sterographicPos: {x: 0.99999994, y: 0, z: 0}
   lockSterographicPos: 1
@@ -1876,9 +1890,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   onRightMult:
-    m_PersistentCalls:
-      m_Calls: []
-  onMatrixMult:
     m_PersistentCalls:
       m_Calls: []
 --- !u!1 &627372888
@@ -2160,6 +2171,9 @@ MonoBehaviour:
     e31: 0
     e32: 0.99999994
     e33: 0
+  onMatrixUpdate:
+    m_PersistentCalls:
+      m_Calls: []
   scale: {x: 0.1, y: 0.1, z: 0.1}
   sterographicPos: {x: 0, y: 0, z: -0.99999994}
   lockSterographicPos: 1
@@ -2167,9 +2181,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   onRightMult:
-    m_PersistentCalls:
-      m_Calls: []
-  onMatrixMult:
     m_PersistentCalls:
       m_Calls: []
 --- !u!1 &665110781
@@ -2356,10 +2367,11 @@ MonoBehaviour:
   mass: 4
   bounce: 0
   m_isStatic: 0
-  collider: {fileID: 665110788}
-  doYPlaneBound: 0
-  doYPlaneBoundVal: 0.15
+  collider: {fileID: 665110789}
   doYUpLock: 1
+  sectorIndex: 6
+  allSectors: 06000000
+  globalSector: 0
 --- !u!114 &665110785
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2409,6 +2421,9 @@ MonoBehaviour:
     e31: -0.38268346
     e32: 0
     e33: 0.9238795
+  onMatrixUpdate:
+    m_PersistentCalls:
+      m_Calls: []
   scale: {x: 1, y: 1, z: 1}
   sterographicPos: {x: 0, y: 0.19891238, z: 0}
   lockSterographicPos: 0
@@ -2416,9 +2431,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   onRightMult:
-    m_PersistentCalls:
-      m_Calls: []
-  onMatrixMult:
     m_PersistentCalls:
       m_Calls: []
 --- !u!4 &665110786
@@ -2444,7 +2456,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 665110781}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 569371a861ba7b046bfea074afc23fc9, type: 3}
   m_Name: 
@@ -2462,7 +2474,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 665110781}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 703f70a78aa355b47870a272af901da4, type: 3}
   m_Name: 
@@ -2652,6 +2664,9 @@ MonoBehaviour:
     e31: 0
     e32: 0
     e33: 1
+  onMatrixUpdate:
+    m_PersistentCalls:
+      m_Calls: []
   scale: {x: 1, y: 1, z: 1}
   sterographicPos: {x: 0, y: 0, z: 0}
   lockSterographicPos: 1
@@ -2659,9 +2674,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   onRightMult:
-    m_PersistentCalls:
-      m_Calls: []
-  onMatrixMult:
     m_PersistentCalls:
       m_Calls: []
 --- !u!1 &724789084
@@ -2680,7 +2692,7 @@ GameObject:
   - component: {fileID: 724789087}
   - component: {fileID: 724789086}
   m_Layer: 0
-  m_Name: OctoRedOrange
+  m_Name: OctoXOrange
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2698,7 +2710,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3e9696e169808a4390b5d2c1be30c0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 1133496467}
+  parent: {fileID: 69122364}
   children:
   - {fileID: 724789085}
   - {fileID: 724789085}
@@ -2739,6 +2751,9 @@ MonoBehaviour:
     e31: 0
     e32: 0
     e33: 0
+  onMatrixUpdate:
+    m_PersistentCalls:
+      m_Calls: []
   scale: {x: 0.15, y: 0.15, z: 0.15}
   sterographicPos: {x: -0.99999994, y: 0, z: 0}
   lockSterographicPos: 1
@@ -2746,9 +2761,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   onRightMult:
-    m_PersistentCalls:
-      m_Calls: []
-  onMatrixMult:
     m_PersistentCalls:
       m_Calls: []
 --- !u!23 &724789086
@@ -2936,6 +2948,7 @@ MonoBehaviour:
     - {x: 0.08031158, y: 0.40155786, z: -0.40155786, w: -0.819178}
     - {x: 0.080311574, y: -0.81917804, z: -0.4015578, w: 0.40155783}
     - {x: 0.080311574, y: 0.4015578, z: 0.81917804, w: 0.40155783}
+  furthestVertexDistance: 0
   calcVertex: 0
   calcTri: 0
 --- !u!114 &724789090
@@ -2960,9 +2973,10 @@ MonoBehaviour:
   bounce: 0
   m_isStatic: 1
   collider: {fileID: 724789089}
-  doYPlaneBound: 0
-  doYPlaneBoundVal: 0
   doYUpLock: 0
+  sectorIndex: 1
+  allSectors: 01000000
+  globalSector: 0
 --- !u!4 &724789091
 Transform:
   m_ObjectHideFlags: 0
@@ -2976,7 +2990,7 @@ Transform:
   m_LocalScale: {x: 0.14999999, y: 0.14999999, z: 0.14999999}
   m_ConstrainProportionsScale: 1
   m_Children: []
-  m_Father: {fileID: 1133496466}
+  m_Father: {fileID: 161632703}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &778555251
 GameObject:
@@ -3243,6 +3257,9 @@ MonoBehaviour:
     e31: -0.99999994
     e32: 0
     e33: 0
+  onMatrixUpdate:
+    m_PersistentCalls:
+      m_Calls: []
   scale: {x: 0.1, y: 0.1, z: 0.1}
   sterographicPos: {x: 0, y: 0.99999994, z: 0}
   lockSterographicPos: 1
@@ -3250,9 +3267,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   onRightMult:
-    m_PersistentCalls:
-      m_Calls: []
-  onMatrixMult:
     m_PersistentCalls:
       m_Calls: []
 --- !u!4 &905167641
@@ -3336,6 +3350,9 @@ MonoBehaviour:
     e31: -0.049979147
     e32: 0
     e33: 0.99875027
+  onMatrixUpdate:
+    m_PersistentCalls:
+      m_Calls: []
   scale: {x: 1, y: 1, z: 1}
   sterographicPos: {x: 0, y: 0.22503687, z: 0}
   lockSterographicPos: 1
@@ -3343,9 +3360,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   onRightMult:
-    m_PersistentCalls:
-      m_Calls: []
-  onMatrixMult:
     m_PersistentCalls:
       m_Calls: []
 --- !u!4 &927178210
@@ -3385,7 +3399,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!23 &929819532
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -3474,7 +3488,7 @@ MonoBehaviour:
     e31: 0.50060445
     e32: 0.32664078
     e33: 0.7044533
-  transformScale: {x: 0.05, y: 0.05, z: 0.05}
+  transformScale: {x: 0.06, y: 0.06, z: 0.06}
   vertices:
   - {x: 1, y: 0, z: 0}
   - {x: 0, y: 1, z: 0}
@@ -3506,7 +3520,7 @@ MonoBehaviour:
   transform4: {fileID: 929819537}
   rigidbody4: {fileID: 929819536}
   isTrigger: 0
-  radius: 0.08
+  radius: 0.1
 --- !u!114 &929819536
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3523,15 +3537,16 @@ MonoBehaviour:
   velocity: {x: 0, y: 0, z: 0, w: 0}
   angularVelocity: {x: 0, y: 0, z: 0}
   velocityMagnitude: 0
-  gravityScale: 0
+  gravityScale: 0.5
   gravity: {x: 0, y: -1, z: 0, w: 0}
-  mass: 0.2
+  mass: 0.6
   bounce: 0.5
   m_isStatic: 0
   collider: {fileID: 929819535}
-  doYPlaneBound: 0
-  doYPlaneBoundVal: 0.08
   doYUpLock: 0
+  sectorIndex: 6
+  allSectors: 06000000
+  globalSector: 0
 --- !u!114 &929819537
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3585,16 +3600,16 @@ MonoBehaviour:
     e31: -0.52699995
     e32: -0.3753303
     e33: 0.70445323
-  scale: {x: 0.05, y: 0.05, z: 0.05}
+  onMatrixUpdate:
+    m_PersistentCalls:
+      m_Calls: []
+  scale: {x: 0.06, y: 0.06, z: 0.06}
   sterographicPos: {x: 0.22451977, y: 0.2937038, z: 0.19163962}
   lockSterographicPos: 1
   onLeftMult:
     m_PersistentCalls:
       m_Calls: []
   onRightMult:
-    m_PersistentCalls:
-      m_Calls: []
-  onMatrixMult:
     m_PersistentCalls:
       m_Calls: []
 --- !u!4 &929819538
@@ -3790,6 +3805,9 @@ MonoBehaviour:
     e31: 0
     e32: 0
     e33: 0
+  onMatrixUpdate:
+    m_PersistentCalls:
+      m_Calls: []
   scale: {x: 0.1, y: 0.1, z: 0.1}
   sterographicPos: {x: -0.99999994, y: 0, z: 0}
   lockSterographicPos: 1
@@ -3797,9 +3815,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   onRightMult:
-    m_PersistentCalls:
-      m_Calls: []
-  onMatrixMult:
     m_PersistentCalls:
       m_Calls: []
 --- !u!4 &932915827
@@ -3997,6 +4012,9 @@ MonoBehaviour:
     e31: 0
     e32: 0
     e33: 0
+  onMatrixUpdate:
+    m_PersistentCalls:
+      m_Calls: []
   scale: {x: 0.1, y: 0.1, z: 0.1}
   sterographicPos: {x: 0.99999994, y: 0, z: 0}
   lockSterographicPos: 1
@@ -4004,9 +4022,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   onRightMult:
-    m_PersistentCalls:
-      m_Calls: []
-  onMatrixMult:
     m_PersistentCalls:
       m_Calls: []
 --- !u!4 &938559782
@@ -4062,9 +4077,10 @@ MonoBehaviour:
   bounce: 0
   m_isStatic: 1
   collider: {fileID: 938559783}
-  doYPlaneBound: 0
-  doYPlaneBoundVal: 0
   doYUpLock: 0
+  sectorIndex: 0
+  allSectors: 
+  globalSector: 0
 --- !u!1 &943707539
 GameObject:
   m_ObjectHideFlags: 0
@@ -4258,6 +4274,9 @@ MonoBehaviour:
     e31: 0
     e32: -0.7071067
     e33: -0.7071067
+  onMatrixUpdate:
+    m_PersistentCalls:
+      m_Calls: []
   scale: {x: 0.025, y: 0.025, z: 0.15}
   sterographicPos: {x: 0, y: 0, z: 2.4142127}
   lockSterographicPos: 1
@@ -4265,9 +4284,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   onRightMult:
-    m_PersistentCalls:
-      m_Calls: []
-  onMatrixMult:
     m_PersistentCalls:
       m_Calls: []
 --- !u!1 &959043051
@@ -6035,6 +6051,9 @@ MonoBehaviour:
     e31: 0
     e32: 0
     e33: 1
+  onMatrixUpdate:
+    m_PersistentCalls:
+      m_Calls: []
   scale: {x: 1, y: 1, z: 1}
   sterographicPos: {x: 0, y: 0, z: 0}
   lockSterographicPos: 1
@@ -6042,9 +6061,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   onRightMult:
-    m_PersistentCalls:
-      m_Calls: []
-  onMatrixMult:
     m_PersistentCalls:
       m_Calls: []
 --- !u!4 &964396796
@@ -6255,6 +6271,9 @@ MonoBehaviour:
     e31: 0
     e32: 0.70710677
     e33: 0.70710677
+  onMatrixUpdate:
+    m_PersistentCalls:
+      m_Calls: []
   scale: {x: 0.05, y: 0.05, z: 0.05}
   sterographicPos: {x: 0, y: 0, z: -0.41421354}
   lockSterographicPos: 1
@@ -6262,9 +6281,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   onRightMult:
-    m_PersistentCalls:
-      m_Calls: []
-  onMatrixMult:
     m_PersistentCalls:
       m_Calls: []
 --- !u!1 &1078582791
@@ -6445,6 +6461,9 @@ MonoBehaviour:
     e31: 0.99999994
     e32: 0
     e33: 0
+  onMatrixUpdate:
+    m_PersistentCalls:
+      m_Calls: []
   scale: {x: 0.1, y: 0.1, z: 0.1}
   sterographicPos: {x: 0, y: -0.99999994, z: 0}
   lockSterographicPos: 1
@@ -6452,9 +6471,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   onRightMult:
-    m_PersistentCalls:
-      m_Calls: []
-  onMatrixMult:
     m_PersistentCalls:
       m_Calls: []
 --- !u!4 &1078582796
@@ -6504,6 +6520,25 @@ MonoBehaviour:
   rigidbodyList: []
   staticBodies: []
   dynamicBodies: []
+  globalBodies: []
+  sectors:
+  - staticBodies: []
+    dynamicBodies: []
+  - staticBodies: []
+    dynamicBodies: []
+  - staticBodies: []
+    dynamicBodies: []
+  - staticBodies: []
+    dynamicBodies: []
+  - staticBodies: []
+    dynamicBodies: []
+  - staticBodies: []
+    dynamicBodies: []
+  - staticBodies: []
+    dynamicBodies: []
+  - staticBodies: []
+    dynamicBodies: []
+  totalCollisionChecks: 0
 --- !u!4 &1091455079
 Transform:
   m_ObjectHideFlags: 0
@@ -6712,6 +6747,9 @@ MonoBehaviour:
     e31: 0
     e32: 0
     e33: 1
+  onMatrixUpdate:
+    m_PersistentCalls:
+      m_Calls: []
   scale: {x: 0.1, y: 0.05, z: 0.1}
   sterographicPos: {x: 0, y: 0, z: 0}
   lockSterographicPos: 1
@@ -6719,9 +6757,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   onRightMult:
-    m_PersistentCalls:
-      m_Calls: []
-  onMatrixMult:
     m_PersistentCalls:
       m_Calls: []
 --- !u!1 &1133496465
@@ -6755,11 +6790,9 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 938559782}
-  - {fileID: 607435937}
   - {fileID: 1439639868}
   - {fileID: 98180671}
   - {fileID: 932915827}
-  - {fileID: 724789091}
   m_Father: {fileID: 161632703}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1133496467
@@ -6779,8 +6812,6 @@ MonoBehaviour:
   - {fileID: 1133496467}
   - {fileID: 938559781}
   - {fileID: 932915826}
-  - {fileID: 724789085}
-  - {fileID: 607435943}
   - {fileID: 98180675}
   - {fileID: 1439639872}
   m_matrix:
@@ -6817,6 +6848,9 @@ MonoBehaviour:
     e31: 0
     e32: 0
     e33: 1
+  onMatrixUpdate:
+    m_PersistentCalls:
+      m_Calls: []
   scale: {x: 1, y: 1, z: 1}
   sterographicPos: {x: 0, y: 0, z: 0}
   lockSterographicPos: 1
@@ -6824,9 +6858,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   onRightMult:
-    m_PersistentCalls:
-      m_Calls: []
-  onMatrixMult:
     m_PersistentCalls:
       m_Calls: []
 --- !u!1 &1181574186
@@ -7280,6 +7311,9 @@ MonoBehaviour:
     e31: 0
     e32: -0.7071067
     e33: 0.70710677
+  onMatrixUpdate:
+    m_PersistentCalls:
+      m_Calls: []
   scale: {x: 0.025, y: 0.025, z: 0.3}
   sterographicPos: {x: 0.41421354, y: 0, z: 0}
   lockSterographicPos: 1
@@ -7287,9 +7321,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   onRightMult:
-    m_PersistentCalls:
-      m_Calls: []
-  onMatrixMult:
     m_PersistentCalls:
       m_Calls: []
 --- !u!1 &1447499144
@@ -7468,6 +7499,9 @@ MonoBehaviour:
     e31: 0
     e32: 0
     e33: 1
+  onMatrixUpdate:
+    m_PersistentCalls:
+      m_Calls: []
   scale: {x: 1, y: 1, z: 1}
   sterographicPos: {x: 0, y: 0, z: 0}
   lockSterographicPos: 1
@@ -7475,9 +7509,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   onRightMult:
-    m_PersistentCalls:
-      m_Calls: []
-  onMatrixMult:
     m_PersistentCalls:
       m_Calls: []
 --- !u!1 &1449974946
@@ -7658,6 +7689,9 @@ MonoBehaviour:
     e31: 0
     e32: -0.99999994
     e33: 0
+  onMatrixUpdate:
+    m_PersistentCalls:
+      m_Calls: []
   scale: {x: 0.1, y: 0.1, z: 0.1}
   sterographicPos: {x: 0, y: 0, z: 0.99999994}
   lockSterographicPos: 1
@@ -7665,9 +7699,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   onRightMult:
-    m_PersistentCalls:
-      m_Calls: []
-  onMatrixMult:
     m_PersistentCalls:
       m_Calls: []
 --- !u!4 &1449974951
@@ -7866,6 +7897,9 @@ MonoBehaviour:
     e31: 0
     e32: 0
     e33: 1
+  onMatrixUpdate:
+    m_PersistentCalls:
+      m_Calls: []
   scale: {x: 1, y: 1, z: 1}
   sterographicPos: {x: 0, y: 0, z: 0}
   lockSterographicPos: 1
@@ -7873,9 +7907,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   onRightMult:
-    m_PersistentCalls:
-      m_Calls: []
-  onMatrixMult:
     m_PersistentCalls:
       m_Calls: []
 --- !u!1 &1466526950
@@ -7894,7 +7925,7 @@ GameObject:
   - component: {fileID: 1466526953}
   - component: {fileID: 1466526952}
   m_Layer: 0
-  m_Name: OctoBlue
+  m_Name: OctoZBlue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7913,7 +7944,7 @@ Transform:
   m_LocalScale: {x: 0.14999999, y: 0.14999999, z: 0.14999999}
   m_ConstrainProportionsScale: 1
   m_Children: []
-  m_Father: {fileID: 1498909440}
+  m_Father: {fileID: 161632703}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &1466526952
 MeshRenderer:
@@ -8100,6 +8131,7 @@ MonoBehaviour:
     - {x: -0.08031158, y: 0.40155786, z: -0.40155786, w: 0.819178}
     - {x: -0.080311574, y: -0.81917804, z: -0.4015578, w: -0.40155783}
     - {x: -0.080311574, y: 0.4015578, z: 0.81917804, w: -0.40155783}
+  furthestVertexDistance: 0
   calcVertex: 0
   calcTri: 0
 --- !u!114 &1466526956
@@ -8124,9 +8156,10 @@ MonoBehaviour:
   bounce: 0
   m_isStatic: 1
   collider: {fileID: 1466526955}
-  doYPlaneBound: 0
-  doYPlaneBoundVal: 0
   doYUpLock: 0
+  sectorIndex: 4
+  allSectors: 04000000
+  globalSector: 0
 --- !u!114 &1466526957
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8139,7 +8172,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3e9696e169808a4390b5d2c1be30c0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 1498909441}
+  parent: {fileID: 69122364}
   children:
   - {fileID: 1466526957}
   - {fileID: 1466526957}
@@ -8180,6 +8213,9 @@ MonoBehaviour:
     e31: 0
     e32: -0.99999994
     e33: 0
+  onMatrixUpdate:
+    m_PersistentCalls:
+      m_Calls: []
   scale: {x: 0.15, y: 0.15, z: 0.15}
   sterographicPos: {x: 0, y: 0, z: 0.99999994}
   lockSterographicPos: 1
@@ -8187,9 +8223,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   onRightMult:
-    m_PersistentCalls:
-      m_Calls: []
-  onMatrixMult:
     m_PersistentCalls:
       m_Calls: []
 --- !u!1 &1498909439
@@ -8223,7 +8256,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1449974951}
-  - {fileID: 1466526951}
   - {fileID: 1983602826}
   - {fileID: 1758921309}
   - {fileID: 943707540}
@@ -8232,7 +8264,6 @@ Transform:
   - {fileID: 1006463137}
   - {fileID: 2075146606}
   - {fileID: 652696499}
-  - {fileID: 1620956658}
   m_Father: {fileID: 161632703}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1498909441
@@ -8251,8 +8282,6 @@ MonoBehaviour:
   children:
   - {fileID: 1449974950}
   - {fileID: 652696503}
-  - {fileID: 1620956664}
-  - {fileID: 1466526957}
   - {fileID: 943707544}
   - {fileID: 1006463141}
   - {fileID: 1119807485}
@@ -8294,6 +8323,9 @@ MonoBehaviour:
     e31: 0
     e32: 0
     e33: 1
+  onMatrixUpdate:
+    m_PersistentCalls:
+      m_Calls: []
   scale: {x: 1, y: 1, z: 1}
   sterographicPos: {x: 0, y: 0, z: 0}
   lockSterographicPos: 1
@@ -8301,9 +8333,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   onRightMult:
-    m_PersistentCalls:
-      m_Calls: []
-  onMatrixMult:
     m_PersistentCalls:
       m_Calls: []
 --- !u!1 &1509006511
@@ -8455,9 +8484,10 @@ MonoBehaviour:
   bounce: 0
   m_isStatic: 1
   collider: {fileID: 1509006518}
-  doYPlaneBound: 0
-  doYPlaneBoundVal: 0
   doYUpLock: 0
+  sectorIndex: 0
+  allSectors: 
+  globalSector: 0
 --- !u!114 &1509006516
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8515,6 +8545,9 @@ MonoBehaviour:
     e31: 0
     e32: -0.70710677
     e33: 0.49999997
+  onMatrixUpdate:
+    m_PersistentCalls:
+      m_Calls: []
   scale: {x: 0.18, y: 0.18, z: 0.18}
   sterographicPos: {x: 0.47140452, y: 0, z: 0.3333333}
   lockSterographicPos: 1
@@ -8522,9 +8555,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   onRightMult:
-    m_PersistentCalls:
-      m_Calls: []
-  onMatrixMult:
     m_PersistentCalls:
       m_Calls: []
 --- !u!4 &1509006517
@@ -8622,6 +8652,7 @@ MonoBehaviour:
     - {x: -0.005252187, y: 0, z: -0, w: -0}
     - {x: -0, y: 0.005252187, z: -0, w: -0}
     - {x: -0, y: -0, z: 0.005252187, w: -0}
+  furthestVertexDistance: 0
   calcVertex: 0
   calcTri: 0
 --- !u!1 &1569770721
@@ -8645,7 +8676,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!23 &1569770722
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -8720,21 +8751,21 @@ MonoBehaviour:
   transformMatrix:
     e00: 0.8775571
     e01: -0.32387266
-    e02: -0.13529904
-    e03: -0.32664073
-    e10: 0.18023996
-    e11: 0.9061275
-    e12: -0.14644662
-    e13: -0.3535534
-    e20: 0
-    e21: 0.000000024193351
-    e22: 0.92387956
-    e23: -0.38268343
-    e30: 0.44430512
-    e31: 0.27210212
-    e32: 0.32664073
-    e33: 0.7885804
-  transformScale: {x: 0.05, y: 0.05, z: 0.05}
+    e02: -0.29396898
+    e03: -0.19642374
+    e10: 0.18023995
+    e11: 0.90612745
+    e12: -0.31818974
+    e13: -0.21260755
+    e20: -0
+    e21: -0
+    e22: 0.5555703
+    e23: -0.8314697
+    e30: 0.44430515
+    e31: 0.27210218
+    e32: 0.7097038
+    e33: 0.47420883
+  transformScale: {x: 0.1, y: 0.1, z: 0.1}
   vertices:
   - {x: 1, y: 0, z: 0}
   - {x: 0, y: 1, z: 0}
@@ -8766,7 +8797,7 @@ MonoBehaviour:
   transform4: {fileID: 1569770727}
   rigidbody4: {fileID: 1569770726}
   isTrigger: 0
-  radius: 0.08
+  radius: 0.16
 --- !u!114 &1569770726
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8783,15 +8814,16 @@ MonoBehaviour:
   velocity: {x: 0, y: 0, z: 0, w: 0}
   angularVelocity: {x: 0, y: 0, z: 0}
   velocityMagnitude: 0
-  gravityScale: 0
+  gravityScale: 1
   gravity: {x: 0, y: -1, z: 0, w: 0}
-  mass: 0.2
-  bounce: 0.5
+  mass: 6
+  bounce: 0.35
   m_isStatic: 0
   collider: {fileID: 1569770725}
-  doYPlaneBound: 0
-  doYPlaneBoundVal: 0.08
   doYUpLock: 0
+  sectorIndex: 4
+  allSectors: 04000000
+  globalSector: 0
 --- !u!114 &1569770727
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8820,14 +8852,14 @@ MonoBehaviour:
     e11: 0.9061274
     e12: 0
     e13: 0.27210215
-    e20: -0.13529904
-    e21: -0.14644663
-    e22: 0.9238795
-    e23: 0.32664075
-    e30: -0.32664075
-    e31: -0.3535534
-    e32: -0.38268346
-    e33: 0.7885805
+    e20: -0.2939689
+    e21: -0.31818968
+    e22: 0.55557007
+    e23: 0.7097036
+    e30: -0.19642371
+    e31: -0.21260752
+    e32: -0.83146954
+    e33: 0.47420874
   m_localMatrix:
     e00: 0.8775571
     e01: 0.18023995
@@ -8837,24 +8869,24 @@ MonoBehaviour:
     e11: 0.9061274
     e12: 0
     e13: 0.27210215
-    e20: -0.13529904
-    e21: -0.14644663
-    e22: 0.9238795
-    e23: 0.32664075
-    e30: -0.32664075
-    e31: -0.3535534
-    e32: -0.38268346
-    e33: 0.7885805
-  scale: {x: 0.05, y: 0.05, z: 0.05}
-  sterographicPos: {x: 0.24841218, y: 0.15213302, z: 0.1826257}
+    e20: -0.2939689
+    e21: -0.31818968
+    e22: 0.55557007
+    e23: 0.7097036
+    e30: -0.19642371
+    e31: -0.21260752
+    e32: -0.83146954
+    e33: 0.47420874
+  onMatrixUpdate:
+    m_PersistentCalls:
+      m_Calls: []
+  scale: {x: 0.1, y: 0.1, z: 0.1}
+  sterographicPos: {x: 0.30138552, y: 0.18457505, z: 0.48141328}
   lockSterographicPos: 1
   onLeftMult:
     m_PersistentCalls:
       m_Calls: []
   onRightMult:
-    m_PersistentCalls:
-      m_Calls: []
-  onMatrixMult:
     m_PersistentCalls:
       m_Calls: []
 --- !u!4 &1569770728
@@ -8866,7 +8898,7 @@ Transform:
   m_GameObject: {fileID: 1569770721}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.24841218, y: 0.15213302, z: 0.1826257}
+  m_LocalPosition: {x: 0.30138552, y: 0.18457505, z: 0.48141328}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -9065,6 +9097,9 @@ MonoBehaviour:
     e31: 0
     e32: 0.7071067
     e33: 0.7071067
+  onMatrixUpdate:
+    m_PersistentCalls:
+      m_Calls: []
   scale: {x: 0.025, y: 0.025, z: 0.15}
   sterographicPos: {x: 0, y: 0, z: -0.41421354}
   lockSterographicPos: 1
@@ -9072,9 +9107,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   onRightMult:
-    m_PersistentCalls:
-      m_Calls: []
-  onMatrixMult:
     m_PersistentCalls:
       m_Calls: []
 --- !u!1 &1620956657
@@ -9093,7 +9125,7 @@ GameObject:
   - component: {fileID: 1620956660}
   - component: {fileID: 1620956659}
   m_Layer: 0
-  m_Name: OctoLightBlue
+  m_Name: OctoZLightBlue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9112,7 +9144,7 @@ Transform:
   m_LocalScale: {x: 0.14999999, y: 0.14999999, z: 0.14999999}
   m_ConstrainProportionsScale: 1
   m_Children: []
-  m_Father: {fileID: 1498909440}
+  m_Father: {fileID: 161632703}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &1620956659
 MeshRenderer:
@@ -9299,6 +9331,7 @@ MonoBehaviour:
     - {x: -0.08031158, y: 0.40155786, z: -0.40155786, w: 0.819178}
     - {x: -0.080311574, y: -0.81917804, z: -0.4015578, w: -0.40155783}
     - {x: -0.080311574, y: 0.4015578, z: 0.81917804, w: -0.40155783}
+  furthestVertexDistance: 0
   calcVertex: 0
   calcTri: 0
 --- !u!114 &1620956663
@@ -9323,9 +9356,10 @@ MonoBehaviour:
   bounce: 0
   m_isStatic: 1
   collider: {fileID: 1620956662}
-  doYPlaneBound: 0
-  doYPlaneBoundVal: 0
   doYUpLock: 0
+  sectorIndex: 5
+  allSectors: 05000000
+  globalSector: 0
 --- !u!114 &1620956664
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9338,7 +9372,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3e9696e169808a4390b5d2c1be30c0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 1498909441}
+  parent: {fileID: 69122364}
   children:
   - {fileID: 1620956664}
   - {fileID: 1620956664}
@@ -9379,6 +9413,9 @@ MonoBehaviour:
     e31: 0
     e32: 0.99999994
     e33: 0
+  onMatrixUpdate:
+    m_PersistentCalls:
+      m_Calls: []
   scale: {x: 0.15, y: 0.15, z: 0.15}
   sterographicPos: {x: 0, y: 0, z: -0.99999994}
   lockSterographicPos: 1
@@ -9386,9 +9423,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   onRightMult:
-    m_PersistentCalls:
-      m_Calls: []
-  onMatrixMult:
     m_PersistentCalls:
       m_Calls: []
 --- !u!1 &1688195791
@@ -9412,7 +9446,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!23 &1688195792
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -9550,15 +9584,16 @@ MonoBehaviour:
   velocity: {x: 0, y: 0, z: 0, w: 0}
   angularVelocity: {x: 0, y: 0, z: 0}
   velocityMagnitude: 0
-  gravityScale: 0
+  gravityScale: 1
   gravity: {x: 0, y: -1, z: 0, w: 0}
-  mass: 0.2
-  bounce: 0.5
+  mass: 0.5
+  bounce: 0.8
   m_isStatic: 0
   collider: {fileID: 1688195795}
-  doYPlaneBound: 0
-  doYPlaneBoundVal: 0.08
   doYUpLock: 0
+  sectorIndex: 6
+  allSectors: 06000000
+  globalSector: 0
 --- !u!114 &1688195797
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9612,6 +9647,9 @@ MonoBehaviour:
     e31: -0.3535534
     e32: -0.38268346
     e33: 0.7885805
+  onMatrixUpdate:
+    m_PersistentCalls:
+      m_Calls: []
   scale: {x: 0.05, y: 0.05, z: 0.05}
   sterographicPos: {x: 0.21395932, y: 0.19767264, z: 0.1826257}
   lockSterographicPos: 1
@@ -9619,9 +9657,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   onRightMult:
-    m_PersistentCalls:
-      m_Calls: []
-  onMatrixMult:
     m_PersistentCalls:
       m_Calls: []
 --- !u!4 &1688195798
@@ -9832,6 +9867,9 @@ MonoBehaviour:
     e31: 0
     e32: -0.70710677
     e33: 0.70710677
+  onMatrixUpdate:
+    m_PersistentCalls:
+      m_Calls: []
   scale: {x: 0.05, y: 0.05, z: 0.05}
   sterographicPos: {x: 0, y: 0, z: 0.41421354}
   lockSterographicPos: 1
@@ -9839,9 +9877,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   onRightMult:
-    m_PersistentCalls:
-      m_Calls: []
-  onMatrixMult:
     m_PersistentCalls:
       m_Calls: []
 --- !u!1 &1799437638
@@ -9966,6 +10001,9 @@ MonoBehaviour:
     e31: 0
     e32: 0
     e33: 1
+  onMatrixUpdate:
+    m_PersistentCalls:
+      m_Calls: []
   scale: {x: 0.1, y: 0.1, z: 0.1}
   sterographicPos: {x: 0, y: 0, z: 0}
   lockSterographicPos: 1
@@ -9973,9 +10011,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   onRightMult:
-    m_PersistentCalls:
-      m_Calls: []
-  onMatrixMult:
     m_PersistentCalls:
       m_Calls: []
 --- !u!4 &1799437642
@@ -10221,6 +10256,9 @@ MonoBehaviour:
     e31: 0
     e32: 0
     e33: 1
+  onMatrixUpdate:
+    m_PersistentCalls:
+      m_Calls: []
   scale: {x: 1, y: 1, z: 1}
   sterographicPos: {x: 0, y: 0, z: 0}
   lockSterographicPos: 1
@@ -10228,9 +10266,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   onRightMult:
-    m_PersistentCalls:
-      m_Calls: []
-  onMatrixMult:
     m_PersistentCalls:
       m_Calls: []
 --- !u!1 &1983602825
@@ -10426,6 +10461,9 @@ MonoBehaviour:
     e31: 0
     e32: -0.70710677
     e33: 0.70710677
+  onMatrixUpdate:
+    m_PersistentCalls:
+      m_Calls: []
   scale: {x: 0.025, y: 0.025, z: 0.15}
   sterographicPos: {x: 0, y: 0, z: 0.41421354}
   lockSterographicPos: 1
@@ -10433,9 +10471,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   onRightMult:
-    m_PersistentCalls:
-      m_Calls: []
-  onMatrixMult:
     m_PersistentCalls:
       m_Calls: []
 --- !u!1 &2035789367
@@ -10459,7 +10494,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!23 &2035789368
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -10529,7 +10564,7 @@ MonoBehaviour:
   renderer: {fileID: 2035789368}
   filter: {fileID: 2035789369}
   mesh: {fileID: 4300000, guid: b92bb0fdb11fc5047a30bbf146c44cfa, type: 2}
-  meshColor: {r: 1, g: 0.11764705, b: 0.63259584, a: 1}
+  meshColor: {r: 0.3160377, g: 0.6240049, b: 1, a: 1}
   initialize: 0
   transformMatrix:
     e00: 0.8656741
@@ -10548,7 +10583,7 @@ MonoBehaviour:
     e31: 0.41632766
     e32: 0.32664078
     e33: 0.7044533
-  transformScale: {x: 0.05, y: 0.05, z: 0.05}
+  transformScale: {x: 0.04, y: 0.04, z: 0.04}
   vertices:
   - {x: 1, y: 0, z: 0}
   - {x: 0, y: 1, z: 0}
@@ -10580,7 +10615,7 @@ MonoBehaviour:
   transform4: {fileID: 2035789373}
   rigidbody4: {fileID: 2035789372}
   isTrigger: 0
-  radius: 0.08
+  radius: 0.06
 --- !u!114 &2035789372
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10603,9 +10638,10 @@ MonoBehaviour:
   bounce: 0.5
   m_isStatic: 0
   collider: {fileID: 2035789371}
-  doYPlaneBound: 0
-  doYPlaneBoundVal: 0.08
   doYUpLock: 0
+  sectorIndex: 6
+  allSectors: 06000000
+  globalSector: 0
 --- !u!114 &2035789373
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10659,16 +10695,16 @@ MonoBehaviour:
     e31: -0.52699995
     e32: -0.3753303
     e33: 0.70445323
-  scale: {x: 0.05, y: 0.05, z: 0.05}
+  onMatrixUpdate:
+    m_PersistentCalls:
+      m_Calls: []
+  scale: {x: 0.04, y: 0.04, z: 0.04}
   sterographicPos: {x: 0.27750447, y: 0.24425872, z: 0.19163962}
   lockSterographicPos: 1
   onLeftMult:
     m_PersistentCalls:
       m_Calls: []
   onRightMult:
-    m_PersistentCalls:
-      m_Calls: []
-  onMatrixMult:
     m_PersistentCalls:
       m_Calls: []
 --- !u!4 &2035789374
@@ -10879,6 +10915,9 @@ MonoBehaviour:
     e31: 0
     e32: 0.7071067
     e33: -0.7071067
+  onMatrixUpdate:
+    m_PersistentCalls:
+      m_Calls: []
   scale: {x: 0.025, y: 0.025, z: 0.15}
   sterographicPos: {x: 0, y: 0, z: -2.4142127}
   lockSterographicPos: 1
@@ -10886,9 +10925,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   onRightMult:
-    m_PersistentCalls:
-      m_Calls: []
-  onMatrixMult:
     m_PersistentCalls:
       m_Calls: []
 --- !u!1 &2078316002
@@ -11057,6 +11093,9 @@ MonoBehaviour:
     e31: 0
     e32: 0
     e33: 1
+  onMatrixUpdate:
+    m_PersistentCalls:
+      m_Calls: []
   scale: {x: 1, y: 1, z: 1}
   sterographicPos: {x: 0, y: 0, z: 0}
   lockSterographicPos: 1
@@ -11064,9 +11103,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   onRightMult:
-    m_PersistentCalls:
-      m_Calls: []
-  onMatrixMult:
     m_PersistentCalls:
       m_Calls: []
 --- !u!4 &2078316007

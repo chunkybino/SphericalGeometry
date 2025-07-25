@@ -24,6 +24,8 @@ public abstract class ColliderS : MonoBehaviour
 
     public virtual float m_radius {get{return 0;}}
 
+    public virtual float boundingRadius {get{return 0;}}
+
     public abstract int colliderType {get;}
     public virtual SphereColliderS sphere {get{return null;}}
     public virtual CapsuleColliderS capsule {get{return null;}}

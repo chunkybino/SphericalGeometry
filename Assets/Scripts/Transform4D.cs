@@ -84,6 +84,7 @@ public class Transform4D : MonoBehaviour
         }
     }
 
+    [HideInInspector] public UnityEvent<Matrix4x4> onMatrixUpdate;
     void MatrixUpdate()
     {
         for (int i = children.Count-1; i >= 0; i--)
@@ -95,10 +96,8 @@ public class Transform4D : MonoBehaviour
             if (children[i] == this) continue;
             children[i].RecompMatrix();
         }
-        /*foreach (Transform4D c in children) {
-            if (c == this) continue;
-            c.RecompMatrix();
-        }*/
+
+        onMatrixUpdate?.Invoke(matrix);
     }
     public void RecompMatrix()
     {
@@ -149,7 +148,6 @@ public class Transform4D : MonoBehaviour
 
     [HideInInspector] public UnityEvent<Matrix4x4> onLeftMult;
     [HideInInspector] public UnityEvent<Matrix4x4> onRightMult;
-    [HideInInspector] public UnityEvent<Matrix4x4> onMatrixMult;
 
     void OnValidate()
     {
@@ -195,13 +193,11 @@ public class Transform4D : MonoBehaviour
     {
         matrix = mat * matrix;
         onLeftMult?.Invoke(mat);
-        onMatrixMult?.Invoke(mat);
     }
     public void RightMult(Matrix4x4 mat)
     {
         matrix = matrix * mat;
         onRightMult?.Invoke(mat);
-        onMatrixMult?.Invoke(mat);
     }
 
     void OnDrawGizmosSelected()

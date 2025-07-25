@@ -18,6 +18,9 @@ public class MeshColliderS : ColliderS
 
     [SerializeField] TriData[] triDatas = new TriData[0];
 
+    public override float boundingRadius {get{return furthestVertexDistance;}}
+    [SerializeField] float furthestVertexDistance;
+
     [System.Serializable]
     struct TriData
     {
@@ -58,7 +61,7 @@ public class MeshColliderS : ColliderS
     void Awake() {
         CalcVertex();
         CalcTriangles();
-        transform4.onMatrixMult.AddListener((Matrix4x4 mat) => CalcWorldVertex());
+        transform4.onMatrixUpdate.AddListener((Matrix4x4 mat) => CalcWorldVertex());
     }
 
     void OnValidate() {
@@ -76,9 +79,20 @@ public class MeshColliderS : ColliderS
     {
         verticies4 = new Vector4[verticies.Length];
 
+        int furthestDisIndex = 0;
+        float furthestDot = 0;
+
         for (int i = 0; i < verticies.Length; i++) {
             verticies4[i] = UFunc.ProjectLocal3QuickS(Vector3.Scale(verticies[i],transform4.scale));
+
+            float dot = verticies4[0].w;
+            if (i == 0 || dot > furthestDot) {
+                furthestDisIndex = i;
+                furthestDot = dot;
+            }
         }
+
+        furthestVertexDistance = Mathf.Acos(furthestDot);
 
         CalcWorldVertex();
     }
@@ -165,6 +179,11 @@ public class MeshColliderS : ColliderS
                 UFunc.Dot(tri.edgeNormals[1], proj),
                 UFunc.Dot(tri.edgeNormals[2], proj)
             };
+
+            if  (dots[0] > 0 && dots[1] > 0 && dots[2] > 0)
+            {
+                print("how " + gameObject.name);
+            }
 
             if (dots[0] < 0 && dots[1] < 0 && dots[2] < 0)
             {
