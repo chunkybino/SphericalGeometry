@@ -31,6 +31,8 @@ public class Rigidbody4D : MonoBehaviour
     public float mass = 1;
     public float bounce = 0;
 
+    public bool dontReciveAngularVelocity;
+
     [HideInInspector] [SerializeField] bool m_isStatic;
     public bool isStatic {
         get {
@@ -145,6 +147,23 @@ public class Rigidbody4D : MonoBehaviour
     {
         Matrix4x4 mat = UFunc.RotateTowardsMatrix(anchor, positionNorm);
         velocity += mat * vel;
+
+        if (dontReciveAngularVelocity) return;
+
+        //position norm projected onto greate circle (circle from achor point to direction of vel)
+        Vector4 perpendicularPoint = UFunc.SlerpPointCloseUnclamped(anchor, (anchor+vel).normalized, positionNorm);
+
+        float perpendicualarDistance = UFunc.DistanceS(positionNorm,perpendicularPoint);
+
+        Vector4 relPerp = transform4.matrix.transpose * perpendicularPoint;
+        Vector4 relVel = transform4.matrix.transpose * vel;
+
+        Vector3 perp3 = new Vector3(relPerp.x,relPerp.y,relPerp.z);
+        Vector3 vel3 = new Vector3(relVel.x,relVel.y,relVel.z);
+
+        Vector3 rotAxis = Vector3.Cross(perp3, vel3).normalized;
+
+        angularVelocity += -rotAxis * perpendicualarDistance;
     }
 
     public void SetRelativeVelocityAxis(float vel, int axisIndex)
@@ -193,8 +212,7 @@ public class Rigidbody4D : MonoBehaviour
         }
 
         if (transform4.zBasis.y != 0)
-        {
-            //zero the y component of xBasis
+        { 
             Vector4 ZIntersectY = UFunc.LineYIntersect(transform4.zBasis, transform4.yBasis, 0);
             float angle = -UFunc.VectorAngle(transform4.zBasis, ZIntersectY);
             if (Mathf.Sign(transform4.zBasis.y) == Mathf.Sign(transform4.yBasis.y)) angle *= -1;
