@@ -200,6 +200,13 @@ public class Transform4D : MonoBehaviour
         onRightMult?.Invoke(mat);
     }
 
+    public Vector3 RelativeDirectionTo(Vector4 point)
+    {
+        Vector4 pointRel = matrix.transpose * point;
+        return new Vector3(pointRel.x,pointRel.y,pointRel.z);
+
+    }
+
     void OnDrawGizmosSelected()
     {
         Color[] colors = {

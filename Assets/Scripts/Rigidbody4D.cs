@@ -23,6 +23,7 @@ public class Rigidbody4D : MonoBehaviour
     public Vector4 velocity;
     public Vector3 angularVelocity;
     public float velocityMagnitude;
+    public float angularVelocityMagnitude;
 
     public float gravityScale;
     public Vector4 gravity = new Vector4(0,-1,0,0);
@@ -69,14 +70,14 @@ public class Rigidbody4D : MonoBehaviour
         if (!transform4) transform4 = GetComponent<Transform4D>();
         if (!collider) collider = GetComponent<ColliderS>();
 
-        transform4.onLeftMult.AddListener(OnTransformLeftMult);
-        transform4.onMatrixUpdate.AddListener(OnMatrixUpdate);
-
         physicsS = PhysicsHandlerS.singleton;
     }
-    void Start()
+    void OnEnable()
     {
         physicsS?.AddRigidbody(this);
+
+        transform4.onLeftMult.AddListener(OnTransformLeftMult);
+        transform4.onMatrixUpdate.AddListener(OnMatrixUpdate);
     }
 
     public void PhysicsUpdate()
@@ -94,6 +95,7 @@ public class Rigidbody4D : MonoBehaviour
         if (angularVelocity != Vector3.zero) Rotate(angularVelocity * Time.fixedDeltaTime);
 
         velocityMagnitude = velocity.magnitude;
+        angularVelocityMagnitude = angularVelocity.magnitude;
     }
 
     void DoGravity()
@@ -139,31 +141,108 @@ public class Rigidbody4D : MonoBehaviour
         if (doYUpLock) YUpLock();
     }
 
-    public Vector4 GetVelocityAtAnchor(Vector4 anchor)
+    public Vector4 GetLinearVelocityAtAnchor(Vector4 anchor)
     {
         return UFunc.RotateTowardsMatrix(positionNorm, anchor) * velocity;
     }
+    public Vector4 GetAngularVelocityAtAnchor(Vector4 anchor)
+    {
+        Vector4 anchorRel = transform4.matrix.transpose * anchor;
+        Vector3 anchor3 = new Vector3(anchorRel.x,anchorRel.y,anchorRel.z).normalized;
+
+        Vector3 angularDir3 = Vector3.Cross(angularVelocity.normalized, anchor3);
+        Vector4 angularDir = transform4.matrix * new Vector4(angularDir3.x,angularDir3.y,angularDir3.z,0);
+
+        return angularDir * angularVelocity.magnitude * UFunc.DistanceS(positionNorm,anchor);
+    }
+    public Vector4 GetVelocityAtAnchor(Vector4 anchor)
+    {
+        Matrix4x4 mat = UFunc.RotateTowardsMatrix(positionNorm, anchor);
+
+        Vector4 linear = mat * velocity;
+
+        Vector4 anchorRel = transform4.matrix.transpose * anchor;
+        Vector3 anchor3 = new Vector3(anchorRel.x,anchorRel.y,anchorRel.z);
+
+        if (angularVelocityMagnitude == 0) return linear;
+
+        Vector3 angularDir3 = Vector3.Cross(angularVelocity, anchor3);
+        Vector4 angularDir = new Vector4(angularDir3.x,angularDir3.y,angularDir3.z,0).normalized;
+
+        Vector4 angular = angularDir * angularVelocity.magnitude * UFunc.DistanceS(positionNorm,anchor);
+
+        //print(gameObject.name+" "+angularDir3+" "+angularDir+" "+angular);
+        //print(angularVelocity.magnitude+" "+anchor3.magnitude);
+
+        return linear + angular;
+    }
+
+    public void AddLinearVelocityAtAnchor(Vector4 vel, Vector4 anchor)
+    {
+        velocity += UFunc.RotateTowardsMatrix(anchor, positionNorm) * vel;
+    }
     public void AddVelocityAtAnchor(Vector4 vel, Vector4 anchor)
     {
-        Matrix4x4 mat = UFunc.RotateTowardsMatrix(anchor, positionNorm);
-        velocity += mat * vel;
+        AddLinearVelocityAtAnchor(vel, anchor);
+        return;
 
-        if (dontReciveAngularVelocity) return;
+        if (dontReciveAngularVelocity)
+        {
+            AddLinearVelocityAtAnchor(vel, anchor);
+            return;
+        }
+    }
+    public void SetLinearVelocityAtAnchor(Vector4 vel, Vector4 anchor)
+    {
+        velocity = UFunc.RotateTowardsMatrix(anchor, positionNorm) * vel;
+    }
+    public void SetAngularVelocityAtAnchor(Vector4 vel, Vector4 anchor)
+    {
+        float distance = UFunc.DistanceS(transform4.positionNorm, anchor);
+        Vector3 vel3 = transform4.RelativeDirectionTo(vel);
+        Vector3 anchor3 = transform4.RelativeDirectionTo(anchor);
+        Vector3 axis = Vector3.Cross(vel3,anchor3).normalized;
 
-        //position norm projected onto greate circle (circle from achor point to direction of vel)
-        Vector4 perpendicularPoint = UFunc.SlerpPointCloseUnclamped(anchor, (anchor+vel).normalized, positionNorm);
+        angularVelocity = axis * vel.magnitude / distance;
+    }
 
-        float perpendicualarDistance = UFunc.DistanceS(positionNorm,perpendicularPoint);
+    public void SetVelocityAtAnchorNormal(Vector4 anchor, Vector4 normal, float elasticity = 0)
+    {   
+        Vector4 currentLinear = GetLinearVelocityAtAnchor(anchor);
+        float linearDot = Vector3.Dot(currentLinear, normal);
+        Vector4 currentAngular = -GetAngularVelocityAtAnchor(anchor);
+        float angularDot = Vector3.Dot(currentAngular, normal);
 
-        Vector4 relPerp = transform4.matrix.transpose * perpendicularPoint;
-        Vector4 relVel = transform4.matrix.transpose * vel;
+        if (dontReciveAngularVelocity)
+        {
+            SetLinearVelocityAtAnchor(currentLinear - linearDot*normal*(1+elasticity), anchor);
+            return;
+        }
 
-        Vector3 perp3 = new Vector3(relPerp.x,relPerp.y,relPerp.z);
-        Vector3 vel3 = new Vector3(relVel.x,relVel.y,relVel.z);
+        float distance = UFunc.DistanceS(anchor, positionNorm);
 
-        Vector3 rotAxis = Vector3.Cross(perp3, vel3).normalized;
+        Vector4 normalVel = -(linearDot+angularDot)*normal * (1+elasticity);
 
-        angularVelocity += -rotAxis * perpendicualarDistance;
+        Vector4 centerDir = UFunc.ProjectToVectorNormal(positionNorm-anchor, anchor).normalized;
+        Vector4 centerVel = centerDir*Vector4.Dot(normalVel, centerDir);
+        Vector4 perpVel = normalVel - centerVel;
+
+        Vector4 newLinear = currentLinear + centerVel;
+        Vector4 newAngular = currentAngular + perpVel;
+
+        SetLinearVelocityAtAnchor(newLinear, anchor);
+        SetAngularVelocityAtAnchor(newAngular, anchor);
+
+        print(gameObject.name+" "+linearDot+" "+angularDot);
+        print(normal+" "+normalVel);
+        print(centerVel+" "+perpVel);
+        print(currentLinear+" "+newLinear+" "+currentLinear.magnitude+" "+newLinear.magnitude);
+        print(currentAngular+" "+newAngular+" "+currentAngular.magnitude+" "+newAngular.magnitude);
+        print((currentAngular+currentLinear)+" "+(newLinear+newAngular)+" "+(currentAngular+currentLinear).magnitude+" "+(newLinear+newAngular).magnitude);
+        print(Vector4.Dot((newLinear+newAngular), normal));
+
+        //(-0.10, 0.04, 0, 0) -0.04
+        //
     }
 
     public void SetRelativeVelocityAxis(float vel, int axisIndex)
@@ -195,7 +274,7 @@ public class Rigidbody4D : MonoBehaviour
 
     void Rotate(Vector3 rotateAmount)
     {
-        transform4.RotateRelativeXZ(rotateAmount.y);
+        transform4.RotateRelativeXZ(-rotateAmount.y);
         transform4.RotateRelativeYZ(rotateAmount.x);
         transform4.RotateRelativeXY(rotateAmount.z);
     }

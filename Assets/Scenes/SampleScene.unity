@@ -230,6 +230,7 @@ MonoBehaviour:
   velocity: {x: 0, y: 0, z: 0, w: 0}
   angularVelocity: {x: 0, y: 0, z: 0}
   velocityMagnitude: 0
+  angularVelocityMagnitude: 0
   gravityScale: 0
   gravity: {x: 0, y: -1, z: 0, w: 0}
   mass: 1
@@ -1818,6 +1819,7 @@ MonoBehaviour:
   velocity: {x: 0, y: 0, z: 0, w: 0}
   angularVelocity: {x: 0, y: 0, z: 0}
   velocityMagnitude: 0
+  angularVelocityMagnitude: 0
   gravityScale: 0
   gravity: {x: 0, y: -1, z: 0, w: 0}
   mass: 1
@@ -2364,6 +2366,7 @@ MonoBehaviour:
   velocity: {x: 0, y: 0, z: 0, w: 0}
   angularVelocity: {x: 0, y: 0, z: 0}
   velocityMagnitude: 0
+  angularVelocityMagnitude: 0
   gravityScale: 1
   gravity: {x: 0, y: -1, z: 0, w: 0}
   mass: 4
@@ -2970,6 +2973,7 @@ MonoBehaviour:
   velocity: {x: 0, y: 0, z: 0, w: 0}
   angularVelocity: {x: 0, y: 0, z: 0}
   velocityMagnitude: 0
+  angularVelocityMagnitude: 0
   gravityScale: 0
   gravity: {x: 0, y: -1, z: 0, w: 0}
   mass: 1
@@ -3917,6 +3921,7 @@ MonoBehaviour:
   velocity: {x: 0, y: 0, z: 0, w: 0}
   angularVelocity: {x: 0, y: 0, z: 0}
   velocityMagnitude: 0
+  angularVelocityMagnitude: 0
   gravityScale: 0.5
   gravity: {x: 0, y: -1, z: 0, w: 0}
   mass: 0.6
@@ -4452,6 +4457,7 @@ MonoBehaviour:
   velocity: {x: 0, y: 0, z: 0, w: 0}
   angularVelocity: {x: 0, y: 0, z: 0}
   velocityMagnitude: 0
+  angularVelocityMagnitude: 0
   gravityScale: 0
   gravity: {x: 0, y: -1, z: 0, w: 0}
   mass: 1
@@ -6899,25 +6905,56 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ca7a21ce187a5c4298e3409862774c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rigidbodyList: []
-  staticBodies: []
-  dynamicBodies: []
-  globalBodies: []
+  rigidbodyList:
+  - {fileID: 1466526956}
+  - {fileID: 607435942}
+  - {fileID: 724789090}
+  - {fileID: 1620956663}
+  - {fileID: 14870709}
+  - {fileID: 665110784}
+  - {fileID: 1662217430}
+  staticBodies:
+  - {fileID: 1466526956}
+  - {fileID: 607435942}
+  - {fileID: 724789090}
+  - {fileID: 1620956663}
+  - {fileID: 14870709}
+  dynamicBodies:
+  - {fileID: 665110784}
+  - {fileID: 1662217430}
+  globalBodies:
+  - {fileID: 14870709}
+  - {fileID: 14870709}
+  - {fileID: 14870709}
+  - {fileID: 14870709}
+  - {fileID: 14870709}
+  - {fileID: 14870709}
+  - {fileID: 14870709}
+  - {fileID: 14870709}
+  - {fileID: 14870709}
+  - {fileID: 14870709}
   sectors:
-  - staticBodies: []
+  - staticBodies:
+    - {fileID: 607435942}
+    dynamicBodies:
+    - {fileID: 1662217430}
+  - staticBodies:
+    - {fileID: 724789090}
     dynamicBodies: []
   - staticBodies: []
     dynamicBodies: []
   - staticBodies: []
     dynamicBodies: []
-  - staticBodies: []
+  - staticBodies:
+    - {fileID: 1466526956}
+    dynamicBodies: []
+  - staticBodies:
+    - {fileID: 1620956663}
     dynamicBodies: []
   - staticBodies: []
-    dynamicBodies: []
-  - staticBodies: []
-    dynamicBodies: []
-  - staticBodies: []
-    dynamicBodies: []
+    dynamicBodies:
+    - {fileID: 665110784}
+    - {fileID: 1662217430}
   - staticBodies: []
     dynamicBodies: []
   totalCollisionChecks: 0
@@ -8532,6 +8569,7 @@ MonoBehaviour:
   velocity: {x: 0, y: 0, z: 0, w: 0}
   angularVelocity: {x: 0, y: 0, z: 0}
   velocityMagnitude: 0
+  angularVelocityMagnitude: 0
   gravityScale: 0
   gravity: {x: 0, y: -1, z: 0, w: 0}
   mass: 1
@@ -8861,6 +8899,7 @@ MonoBehaviour:
   velocity: {x: 0, y: 0, z: 0, w: 0}
   angularVelocity: {x: 0, y: 0, z: 0}
   velocityMagnitude: 0
+  angularVelocityMagnitude: 0
   gravityScale: 0
   gravity: {x: 0, y: -1, z: 0, w: 0}
   mass: 1
@@ -9198,6 +9237,7 @@ MonoBehaviour:
   velocity: {x: 0, y: 0, z: 0, w: 0}
   angularVelocity: {x: 0, y: 0, z: 0}
   velocityMagnitude: 0
+  angularVelocityMagnitude: 0
   gravityScale: 1
   gravity: {x: 0, y: -1, z: 0, w: 0}
   mass: 6
@@ -9735,6 +9775,7 @@ MonoBehaviour:
   velocity: {x: 0, y: 0, z: 0, w: 0}
   angularVelocity: {x: 0, y: 0, z: 0}
   velocityMagnitude: 0
+  angularVelocityMagnitude: 0
   gravityScale: 0
   gravity: {x: 0, y: -1, z: 0, w: 0}
   mass: 1
@@ -9829,7 +9870,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1662217429
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9864,11 +9905,12 @@ MonoBehaviour:
   velocity: {x: 0, y: 0, z: 0, w: 0}
   angularVelocity: {x: 0, y: 0, z: 0}
   velocityMagnitude: 0
-  gravityScale: 0.5
+  angularVelocityMagnitude: 0
+  gravityScale: 0
   gravity: {x: 0, y: -1, z: 0, w: 0}
   mass: 1
   bounce: 0.4
-  dontReciveAngularVelocity: 1
+  dontReciveAngularVelocity: 0
   m_isStatic: 0
   collider: {fileID: 1662217429}
   doYUpLock: 0
@@ -10113,6 +10155,7 @@ MonoBehaviour:
   velocity: {x: 0, y: 0, z: 0, w: 0}
   angularVelocity: {x: 0, y: 0, z: 0}
   velocityMagnitude: 0
+  angularVelocityMagnitude: 0
   gravityScale: 1
   gravity: {x: 0, y: -1, z: 0, w: 0}
   mass: 0.5
@@ -11162,6 +11205,7 @@ MonoBehaviour:
   velocity: {x: 0, y: 0, z: 0, w: 0}
   angularVelocity: {x: 0, y: 0, z: 0}
   velocityMagnitude: 0
+  angularVelocityMagnitude: 0
   gravityScale: 0
   gravity: {x: 0, y: -1, z: 0, w: 0}
   mass: 0.2

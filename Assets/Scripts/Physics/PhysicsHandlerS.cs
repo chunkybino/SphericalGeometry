@@ -162,12 +162,10 @@ public class PhysicsHandlerS : MonoBehaviour
             //do all dynamic against static collisions first
             foreach (Rigidbody4D rb in sec.dynamicBodies)
             {
-                if (rb.collider == null) continue;
-                if (!rb.enabled) continue;
+                if (!RBValid(rb)) continue;
                 foreach (Rigidbody4D staticRb in sec.staticBodies)
                 {
-                    if (staticRb.collider == null) continue;
-                    if (!staticRb.enabled) continue;
+                    if (!RBValid(staticRb)) continue;
                     if (!ObjectBoundOverlap(rb,staticRb)) continue;
 
                     Vector4 prev1 = rb.transform4.positionNorm;
@@ -181,13 +179,11 @@ public class PhysicsHandlerS : MonoBehaviour
             for (int i = 0; i < sec.dynamicBodies.Count; i++)
             {
                 Rigidbody4D rb = sec.dynamicBodies[i];
-                if (rb.collider == null) continue;
-                if (!rb.enabled) continue;
+                if (!RBValid(rb)) continue;
                 for (int j = i+1; j < sec.dynamicBodies.Count; j++)
                 {
                     Rigidbody4D rb2 = sec.dynamicBodies[j];
-                    if (rb2.collider == null) continue;
-                    if (!rb2.enabled) continue;
+                    if (!RBValid(rb2)) continue;
                     if (!ObjectBoundOverlap(rb,rb2)) continue;
 
                     CheckCollision(rb,rb2);
@@ -197,15 +193,13 @@ public class PhysicsHandlerS : MonoBehaviour
 
         foreach (Rigidbody4D rb in globalBodies)
         {
-            if (rb.collider == null) continue;
-            if (!rb.enabled) continue;
+            if (!RBValid(rb)) continue;
 
             if (!rb.isStatic)
             {
                 foreach (Rigidbody4D rbStatic in staticBodies)
                 {
-                    if (rbStatic.collider == null) continue;
-                    if (!rbStatic.enabled) continue;
+                    if (!RBValid(rbStatic)) continue;
                     if (!ObjectBoundOverlap(rb,rbStatic)) continue;
 
                     CheckCollision(rb,rbStatic);
@@ -221,6 +215,11 @@ public class PhysicsHandlerS : MonoBehaviour
 
                 CheckCollision(rb,rbDynamic);
             }
+        }
+
+        bool RBValid(Rigidbody4D rb)
+        {
+            return rb.collider != null && rb.enabled && rb.gameObject.activeInHierarchy;
         }
     }
 

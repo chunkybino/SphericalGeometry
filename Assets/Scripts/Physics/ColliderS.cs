@@ -82,12 +82,22 @@ public abstract class ColliderS : MonoBehaviour
         Vector4 vel2 = c2.rigidbody4 != null ? c2.rigidbody4.GetVelocityAtAnchor(contact) : Vector4.zero;
 
         float velDot1 = UFunc.Dot(vel1, contactNormal);
-        float velDot2 = UFunc.Dot(vel2, contactNormal);
+        float velDot2 = UFunc.Dot(vel2, contactNormal); 
+
+        if (c2.isStatic) {
+            c1.rigidbody4?.SetVelocityAtAnchorNormal(contact,contactNormal, bounce);
+            return true;
+        }
+        if (c1.isStatic) {
+            c2.rigidbody4?.SetVelocityAtAnchorNormal(contact,contactNormal, bounce);
+            return true;
+        }
 
         if (velDot1-velDot2 > 0) //if the velDifference is negative, then the objects arnt moving towards eachotjher, so doint do velocity calucations
         {
-            c1.rigidbody4?.AddVelocityAtAnchor(contactNormal * (velDot2-velDot1)*push1*(1+bounce), contact);
-            c2.rigidbody4?.AddVelocityAtAnchor(contactNormal * (velDot1-velDot2)*push2*(1+bounce), contact);
+
+            if (!c1.isStatic) c1.rigidbody4?.AddVelocityAtAnchor(contactNormal * (velDot2-velDot1)*push1*(1+bounce), contact);
+            if (!c2.isStatic) c2.rigidbody4?.AddVelocityAtAnchor(contactNormal * (velDot1-velDot2)*push2*(1+bounce), contact);
         }
 
         return true;

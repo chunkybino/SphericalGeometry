@@ -45,13 +45,14 @@ public class GuyController4D : MonoBehaviour
         }
 
         //look
-        Vector3 angleVector = input.mouseDelta * lookSpeed;
+        Vector2 angleVector = input.mouseDelta * lookSpeed;
 
         if (camera && doCameraPitch) 
         {
             camera.pitchAngle = Mathf.Clamp(camera.pitchAngle + (angleVector.y * Time.deltaTime), -Mathf.PI/2, Mathf.PI/2);
         }
 
-        rb.angularVelocity = new Vector3(0, -angleVector.x, 0);
+        transform4.RotateRelativeXZ(-angleVector.x  * Time.deltaTime);
+        //rb.angularVelocity = new Vector3(0, -angleVector.x, 0);
     }
 }
