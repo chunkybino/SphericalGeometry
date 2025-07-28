@@ -78,12 +78,59 @@ public abstract class ColliderS : MonoBehaviour
         c1.transform4.LeftMult(UFunc.RotateTowardsMatrix(contact1, contact2, -overlap*push1/Transform4D.radius));
         c2.transform4.LeftMult(UFunc.RotateTowardsMatrix(contact2, contact1, -overlap*push2/Transform4D.radius));
 
-        Vector4 vel1 = c1.rigidbody4 != null ? c1.rigidbody4.GetVelocityAtAnchor(contact) : Vector4.zero;
-        Vector4 vel2 = c2.rigidbody4 != null ? c2.rigidbody4.GetVelocityAtAnchor(contact) : Vector4.zero;
+        Vector4 linVel1 = c1.rigidbody4 != null ? c1.rigidbody4.GetLinearVelocityAtAnchor(contact) : Vector4.zero;
+        Vector4 angVel1 = c1.rigidbody4 != null ? c1.rigidbody4.GetAngularVelocityAtAnchor(contact) : Vector4.zero;
+        Vector4 linVel2 = c2.rigidbody4 != null ? c2.rigidbody4.GetLinearVelocityAtAnchor(contact) : Vector4.zero;
+        Vector4 angVel2 = c2.rigidbody4 != null ? c2.rigidbody4.GetAngularVelocityAtAnchor(contact) : Vector4.zero;
 
-        float velDot1 = UFunc.Dot(vel1, contactNormal);
-        float velDot2 = UFunc.Dot(vel2, contactNormal); 
+        float linDot1 = UFunc.Dot(linVel1, contactNormal);
+        float angDot1 = UFunc.Dot(angVel1, contactNormal);
+        float linDot2 = UFunc.Dot(linVel2, contactNormal);
+        float angDot2 = UFunc.Dot(angVel2, contactNormal);
 
+        //LMoment1 = linDot1 * 
+
+
+
+        float vel1 = linDot1 + angDot1;
+        float vel2 = linDot2 + angDot2;
+
+        float mass1 = c2.isStatic ? 0 : c1.mass;
+        float mass2 = c1.isStatic ? 0 : c2.mass;
+
+        if (mass1+mass2 == 0) {
+            mass1 = 1;
+            mass2 = 1;
+        }
+
+        float velFinal = (vel1*mass1 + vel2*mass2) / (mass1+mass2);
+
+        if (!c1.isStatic && !c2.isStatic)
+        {
+            if (Mathf.Abs(velFinal) > Mathf.Abs(vel1)+Mathf.Abs(vel2) || vel1 < vel2 || true)
+            {
+                //UFunc.PrintList(vel1,vel2,velFinal);
+            }
+        }
+
+        if (vel2 < vel1) //if the velDifference is negative, then the objects arnt moving towards eachotjher, so doint do velocity calucations
+        {
+            //if (!c1.isStatic) c1.rigidbody4?.SetVelocityAtAnchorNormal(contact, contactNormal, vel1 + (vel2-vel1)*push1*(1+bounce));
+            //if (!c2.isStatic) c2.rigidbody4?.SetVelocityAtAnchorNormal(contact, contactNormal, vel2 + (vel1-vel2)*push2*(1+bounce));
+            if (!c1.isStatic) c1.rigidbody4?.SetVelocityAtAnchor(contactNormal, velFinal, contact);
+            if (!c2.isStatic) c2.rigidbody4?.SetVelocityAtAnchor(contactNormal, velFinal, contact);
+        }
+
+        if (!c1.isStatic && !c2.isStatic && false)
+        {
+            print(
+                velFinal+" "+
+                UFunc.Dot(contactNormal, c1.rigidbody4.GetLinearVelocityAtAnchor(contact))+" "+
+                UFunc.Dot(contactNormal, c2.rigidbody4.GetLinearVelocityAtAnchor(contact))
+            );
+        }
+
+        /*
         if (c2.isStatic) {
             c1.rigidbody4?.SetVelocityAtAnchorNormal(contact,contactNormal, bounce);
             return true;
@@ -99,6 +146,7 @@ public abstract class ColliderS : MonoBehaviour
             if (!c1.isStatic) c1.rigidbody4?.AddVelocityAtAnchor(contactNormal * (velDot2-velDot1)*push1*(1+bounce), contact);
             if (!c2.isStatic) c2.rigidbody4?.AddVelocityAtAnchor(contactNormal * (velDot1-velDot2)*push2*(1+bounce), contact);
         }
+        */
 
         return true;
 

@@ -15,6 +15,8 @@ public class PhysicsHandlerS : MonoBehaviour
 
     [SerializeField] int totalCollisionChecks;
 
+    [SerializeField] bool clearNow;
+
     [System.Serializable]
     class Sector
     {
@@ -40,6 +42,12 @@ public class PhysicsHandlerS : MonoBehaviour
                 }
             }
         }
+
+        public void Clear()
+        {
+            staticBodies.Clear();
+            dynamicBodies.Clear();
+        }
     }
 
     void Awake()
@@ -48,6 +56,29 @@ public class PhysicsHandlerS : MonoBehaviour
             singleton = this;
         } else if (singleton != this) {
             Destroy(this);
+        }
+
+        rigidbodyList.Clear();
+        staticBodies.Clear();
+        dynamicBodies.Clear();
+        globalBodies.Clear();
+        foreach (Sector s in sectors) {
+            s.Clear();
+        }
+    }
+
+    void OnValidate()
+    {
+        if (clearNow) {
+            clearNow = false;
+            
+            rigidbodyList.Clear();
+            staticBodies.Clear();
+            dynamicBodies.Clear();
+            globalBodies.Clear();
+            foreach (Sector s in sectors) {
+                s.Clear();
+            }
         }
     }
 

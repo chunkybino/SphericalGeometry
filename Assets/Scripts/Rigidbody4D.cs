@@ -181,20 +181,18 @@ public class Rigidbody4D : MonoBehaviour
     {
         velocity += UFunc.RotateTowardsMatrix(anchor, positionNorm) * vel;
     }
-    public void AddVelocityAtAnchor(Vector4 vel, Vector4 anchor)
-    {
-        AddLinearVelocityAtAnchor(vel, anchor);
-        return;
-
-        if (dontReciveAngularVelocity)
-        {
-            AddLinearVelocityAtAnchor(vel, anchor);
-            return;
-        }
-    }
     public void SetLinearVelocityAtAnchor(Vector4 vel, Vector4 anchor)
     {
         velocity = UFunc.RotateTowardsMatrix(anchor, positionNorm) * vel;
+    }
+    public void AddAngularVelocityAtAnchor(Vector4 vel, Vector4 anchor)
+    {
+        float distance = UFunc.DistanceS(transform4.positionNorm, anchor);
+        Vector3 vel3 = transform4.RelativeDirectionTo(vel);
+        Vector3 anchor3 = transform4.RelativeDirectionTo(anchor);
+        Vector3 axis = Vector3.Cross(vel3,anchor3).normalized;
+
+        angularVelocity += axis * vel.magnitude / distance;
     }
     public void SetAngularVelocityAtAnchor(Vector4 vel, Vector4 anchor)
     {
@@ -206,43 +204,37 @@ public class Rigidbody4D : MonoBehaviour
         angularVelocity = axis * vel.magnitude / distance;
     }
 
-    public void SetVelocityAtAnchorNormal(Vector4 anchor, Vector4 normal, float elasticity = 0)
+    public void SetVelocityAtAnchor(Vector4 direction, float value, Vector4 anchor)
     {   
-        Vector4 currentLinear = GetLinearVelocityAtAnchor(anchor);
-        float linearDot = Vector3.Dot(currentLinear, normal);
-        Vector4 currentAngular = -GetAngularVelocityAtAnchor(anchor);
-        float angularDot = Vector3.Dot(currentAngular, normal);
+        Matrix4x4 mat = UFunc.RotateTowardsMatrix(positionNorm, anchor);
 
-        if (dontReciveAngularVelocity)
-        {
-            SetLinearVelocityAtAnchor(currentLinear - linearDot*normal*(1+elasticity), anchor);
+        Vector4 currentLinear = mat * velocity;
+        float linearDot = Vector4.Dot(currentLinear, direction);
+
+        if (dontReciveAngularVelocity) {
+            SetLinearVelocityAtAnchor(currentLinear + (value-linearDot)*direction, anchor);
             return;
         }
 
-        float distance = UFunc.DistanceS(anchor, positionNorm);
+        Vector4 currentAngular = -GetAngularVelocityAtAnchor(anchor);
+        float angularDot = Vector4.Dot(currentAngular, direction);
 
-        Vector4 normalVel = -(linearDot+angularDot)*normal * (1+elasticity);
+        Vector4 currentVel = currentLinear+currentAngular;
 
-        Vector4 centerDir = UFunc.ProjectToVectorNormal(positionNorm-anchor, anchor).normalized;
-        Vector4 centerVel = centerDir*Vector4.Dot(normalVel, centerDir);
-        Vector4 perpVel = normalVel - centerVel;
+        print("HI "+currentLinear+" "+currentAngular+" "+currentVel);
+        print(linearDot+" "+angularDot);
 
-        Vector4 newLinear = currentLinear + centerVel;
-        Vector4 newAngular = currentAngular + perpVel;
+        Vector4 velAdd = (value-(linearDot+angularDot))*direction;
 
-        SetLinearVelocityAtAnchor(newLinear, anchor);
-        SetAngularVelocityAtAnchor(newAngular, anchor);
+        Vector4 centerDir = UFunc.ProjectToVectorNormal(transform4.positionNorm-anchor, anchor).normalized;
+        Vector4 centerVel = Vector4.Project(velAdd, centerDir);
+        Vector4 perpVel = velAdd-centerVel;
 
-        print(gameObject.name+" "+linearDot+" "+angularDot);
-        print(normal+" "+normalVel);
-        print(centerVel+" "+perpVel);
-        print(currentLinear+" "+newLinear+" "+currentLinear.magnitude+" "+newLinear.magnitude);
-        print(currentAngular+" "+newAngular+" "+currentAngular.magnitude+" "+newAngular.magnitude);
-        print((currentAngular+currentLinear)+" "+(newLinear+newAngular)+" "+(currentAngular+currentLinear).magnitude+" "+(newLinear+newAngular).magnitude);
-        print(Vector4.Dot((newLinear+newAngular), normal));
+        print(velAdd+" "+centerDir+" "+centerVel+" "+perpVel);
 
-        //(-0.10, 0.04, 0, 0) -0.04
-        //
+        AddLinearVelocityAtAnchor(centerVel, anchor);
+        AddAngularVelocityAtAnchor(perpVel, anchor);
+        print("PERP "+perpVel+" "+(-GetAngularVelocityAtAnchor(anchor)));
     }
 
     public void SetRelativeVelocityAxis(float vel, int axisIndex)

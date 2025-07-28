@@ -288,16 +288,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   parent: {fileID: 0}
   children:
-  - {fileID: 1620956664}
-  - {fileID: 1466526957}
-  - {fileID: 724789085}
   - {fileID: 607435943}
   - {fileID: 696461020}
+  - {fileID: 724789085}
   - {fileID: 905167640}
   - {fileID: 1078582795}
   - {fileID: 1133496467}
   - {fileID: 1457274184}
+  - {fileID: 1466526957}
   - {fileID: 1498909441}
+  - {fileID: 1620956664}
   - {fileID: 2078316006}
   m_matrix:
     e00: 1
@@ -6906,29 +6906,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rigidbodyList:
+  - {fileID: 724789090}
   - {fileID: 1466526956}
   - {fileID: 607435942}
-  - {fileID: 724789090}
-  - {fileID: 1620956663}
-  - {fileID: 14870709}
   - {fileID: 665110784}
-  - {fileID: 1662217430}
+  - {fileID: 14870709}
+  - {fileID: 1620956663}
   staticBodies:
+  - {fileID: 724789090}
   - {fileID: 1466526956}
   - {fileID: 607435942}
-  - {fileID: 724789090}
-  - {fileID: 1620956663}
   - {fileID: 14870709}
+  - {fileID: 1620956663}
   dynamicBodies:
   - {fileID: 665110784}
-  - {fileID: 1662217430}
   globalBodies:
-  - {fileID: 14870709}
-  - {fileID: 14870709}
-  - {fileID: 14870709}
-  - {fileID: 14870709}
-  - {fileID: 14870709}
-  - {fileID: 14870709}
   - {fileID: 14870709}
   - {fileID: 14870709}
   - {fileID: 14870709}
@@ -6936,8 +6928,7 @@ MonoBehaviour:
   sectors:
   - staticBodies:
     - {fileID: 607435942}
-    dynamicBodies:
-    - {fileID: 1662217430}
+    dynamicBodies: []
   - staticBodies:
     - {fileID: 724789090}
     dynamicBodies: []
@@ -6954,10 +6945,10 @@ MonoBehaviour:
   - staticBodies: []
     dynamicBodies:
     - {fileID: 665110784}
-    - {fileID: 1662217430}
   - staticBodies: []
     dynamicBodies: []
   totalCollisionChecks: 0
+  clearNow: 0
 --- !u!4 &1091455079
 Transform:
   m_ObjectHideFlags: 0
