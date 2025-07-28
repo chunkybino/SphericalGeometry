@@ -30,6 +30,9 @@ public class Rigidbody4D : MonoBehaviour
     Vector4 tangentGravity;
 
     public float mass = 1;
+    public float angularMassMult = 1;
+    public float angularMass {get{return mass*angularMassMult;}}
+
     public float bounce = 0;
 
     public bool dontReciveAngularVelocity;
@@ -221,20 +224,11 @@ public class Rigidbody4D : MonoBehaviour
 
         Vector4 currentVel = currentLinear+currentAngular;
 
-        print("HI "+currentLinear+" "+currentAngular+" "+currentVel);
-        print(linearDot+" "+angularDot);
-
         Vector4 velAdd = (value-(linearDot+angularDot))*direction;
 
         Vector4 centerDir = UFunc.ProjectToVectorNormal(transform4.positionNorm-anchor, anchor).normalized;
         Vector4 centerVel = Vector4.Project(velAdd, centerDir);
         Vector4 perpVel = velAdd-centerVel;
-
-        print(velAdd+" "+centerDir+" "+centerVel+" "+perpVel);
-
-        AddLinearVelocityAtAnchor(centerVel, anchor);
-        AddAngularVelocityAtAnchor(perpVel, anchor);
-        print("PERP "+perpVel+" "+(-GetAngularVelocityAtAnchor(anchor)));
     }
 
     public void SetRelativeVelocityAxis(float vel, int axisIndex)

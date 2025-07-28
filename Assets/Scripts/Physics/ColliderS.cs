@@ -9,6 +9,10 @@ public abstract class ColliderS : MonoBehaviour
         if (rigidbody4 == null) return 1;
         return rigidbody4.mass;
     }}
+    public float angularMass {get{
+        if (rigidbody4 == null) return 1;
+        return rigidbody4.angularMass;
+    }}
 
     public bool isStatic {get{
         if (rigidbody4 == null) return true;
@@ -79,74 +83,47 @@ public abstract class ColliderS : MonoBehaviour
         c2.transform4.LeftMult(UFunc.RotateTowardsMatrix(contact2, contact1, -overlap*push2/Transform4D.radius));
 
         Vector4 linVel1 = c1.rigidbody4 != null ? c1.rigidbody4.GetLinearVelocityAtAnchor(contact) : Vector4.zero;
-        Vector4 angVel1 = c1.rigidbody4 != null ? c1.rigidbody4.GetAngularVelocityAtAnchor(contact) : Vector4.zero;
+        Vector4 angVel1 = c1.rigidbody4 != null ? -c1.rigidbody4.GetAngularVelocityAtAnchor(contact) : Vector4.zero;
         Vector4 linVel2 = c2.rigidbody4 != null ? c2.rigidbody4.GetLinearVelocityAtAnchor(contact) : Vector4.zero;
-        Vector4 angVel2 = c2.rigidbody4 != null ? c2.rigidbody4.GetAngularVelocityAtAnchor(contact) : Vector4.zero;
+        Vector4 angVel2 = c2.rigidbody4 != null ? -c2.rigidbody4.GetAngularVelocityAtAnchor(contact) : Vector4.zero;
 
         float linDot1 = UFunc.Dot(linVel1, contactNormal);
         float angDot1 = UFunc.Dot(angVel1, contactNormal);
         float linDot2 = UFunc.Dot(linVel2, contactNormal);
         float angDot2 = UFunc.Dot(angVel2, contactNormal);
 
-        //LMoment1 = linDot1 * 
-
-
-
         float vel1 = linDot1 + angDot1;
         float vel2 = linDot2 + angDot2;
 
-        float mass1 = c2.isStatic ? 0 : c1.mass;
-        float mass2 = c1.isStatic ? 0 : c2.mass;
+        float mass1 = c1.mass;
+        float angularMass1 = c1.angularMass / UFunc.DistanceS(contact, c1.transform4.positionNorm);
+        float mass2 = c2.mass;
+        float angularMass2 = c2.angularMass / UFunc.DistanceS(contact, c2.transform4.positionNorm);
 
-        if (mass1+mass2 == 0) {
-            mass1 = 1;
-            mass2 = 1;
+        if (c1.isStatic) {
+            mass2 = 0;
+            angularMass2 = 0;
+        }
+        if (c2.isStatic) {
+            mass1 = 0;
+            angularMass1 = 0;
         }
 
-        float velFinal = (vel1*mass1 + vel2*mass2) / (mass1+mass2);
+        float moment1 = linDot1*mass1 + angDot1*angularMass1;
+        float inertia1 = mass1 + angularMass1;
+        float moment2 = linDot2*mass2 + angDot2*angularMass2;
+        float inertia2 = mass2 + angularMass2;
 
-        if (!c1.isStatic && !c2.isStatic)
-        {
-            if (Mathf.Abs(velFinal) > Mathf.Abs(vel1)+Mathf.Abs(vel2) || vel1 < vel2 || true)
-            {
-                //UFunc.PrintList(vel1,vel2,velFinal);
-            }
-        }
+        float velFinal = (moment1 + moment2) / (inertia1 + inertia2);
+
+        push1 = inertia2/(inertia1+inertia2);
+        push2 = inertia1/(inertia1+inertia2);
 
         if (vel2 < vel1) //if the velDifference is negative, then the objects arnt moving towards eachotjher, so doint do velocity calucations
         {
-            //if (!c1.isStatic) c1.rigidbody4?.SetVelocityAtAnchorNormal(contact, contactNormal, vel1 + (vel2-vel1)*push1*(1+bounce));
-            //if (!c2.isStatic) c2.rigidbody4?.SetVelocityAtAnchorNormal(contact, contactNormal, vel2 + (vel1-vel2)*push2*(1+bounce));
-            if (!c1.isStatic) c1.rigidbody4?.SetVelocityAtAnchor(contactNormal, velFinal, contact);
-            if (!c2.isStatic) c2.rigidbody4?.SetVelocityAtAnchor(contactNormal, velFinal, contact);
+            if (!c1.isStatic) c1.rigidbody4?.SetVelocityAtAnchor(contactNormal, vel1 + (vel2-vel1)*push1*(1+bounce), contact);
+            if (!c2.isStatic) c2.rigidbody4?.SetVelocityAtAnchor(contactNormal, vel2 + (vel1-vel2)*push2*(1+bounce), contact);
         }
-
-        if (!c1.isStatic && !c2.isStatic && false)
-        {
-            print(
-                velFinal+" "+
-                UFunc.Dot(contactNormal, c1.rigidbody4.GetLinearVelocityAtAnchor(contact))+" "+
-                UFunc.Dot(contactNormal, c2.rigidbody4.GetLinearVelocityAtAnchor(contact))
-            );
-        }
-
-        /*
-        if (c2.isStatic) {
-            c1.rigidbody4?.SetVelocityAtAnchorNormal(contact,contactNormal, bounce);
-            return true;
-        }
-        if (c1.isStatic) {
-            c2.rigidbody4?.SetVelocityAtAnchorNormal(contact,contactNormal, bounce);
-            return true;
-        }
-
-        if (velDot1-velDot2 > 0) //if the velDifference is negative, then the objects arnt moving towards eachotjher, so doint do velocity calucations
-        {
-
-            if (!c1.isStatic) c1.rigidbody4?.AddVelocityAtAnchor(contactNormal * (velDot2-velDot1)*push1*(1+bounce), contact);
-            if (!c2.isStatic) c2.rigidbody4?.AddVelocityAtAnchor(contactNormal * (velDot1-velDot2)*push2*(1+bounce), contact);
-        }
-        */
 
         return true;
 
