@@ -13,6 +13,10 @@ public abstract class ColliderS : MonoBehaviour
         if (rigidbody4 == null) return 1;
         return rigidbody4.angularMass;
     }}
+    public float angularMassMult {get{
+        if (rigidbody4 == null) return 1;
+        return rigidbody4.angularMassMult;
+    }}
 
     public bool isStatic {get{
         if (rigidbody4 == null) return true;
@@ -44,6 +48,44 @@ public abstract class ColliderS : MonoBehaviour
         if (!rigidbody4) rigidbody4 = GetComponent<Rigidbody4D>();
     }
 
+    struct CollisionObject
+    {
+        public static CollisionObject GetConfig(ColliderS collider, Vector4 contact, Vector4 contactNormal)
+        {
+            CollisionObject outObj = new CollisionObject();
+
+            outObj.centerDis = UFunc.DistanceS(collider.transform4.positionNorm, contact);
+
+            outObj.linVel = collider.rigidbody4.GetLinearVelocityAtAnchor(contact);
+            outObj.angVel = -collider.rigidbody4.GetAngularVelocityAtAnchor(contact)/outObj.centerDis;
+
+            outObj.linDot = UFunc.Dot(outObj.linVel, contactNormal);
+            outObj.angDot = UFunc.Dot(outObj.angVel, contactNormal);
+
+            outObj.vel = outObj.linDot + outObj.angDot*outObj.centerDis;
+            outObj.linearMoment = outObj.linDot*collider.mass;
+            outObj.angularMoment = outObj.angDot*collider.angularMass/outObj.centerDis;
+            outObj.moment = outObj.linearMoment + outObj.angularMoment;
+
+            return outObj;
+        }
+
+        public float centerDis;
+
+        public Vector4 linVel;
+        public Vector4 angVel;
+
+        public float linDot;
+        public float angDot;
+
+        public float vel;
+        public float linearMoment;
+        public float angularMoment;
+        public float moment;
+
+        //public float inertia;
+    }
+
     public static bool CollisionPhysic(ColliderS c1, ColliderS c2)
     {
         Vector4 contact1 = new Vector4(); //the point on c1 that will get pushed
@@ -55,75 +97,73 @@ public abstract class ColliderS : MonoBehaviour
 
         if (overlap < 0) return false; //return false cause no collision 
 
-        float totalMass = c1.mass + c2.mass;
+        if (c1.isStatic && c2.isStatic) return true;
 
-        float push1 = 0; 
-        float push2 = 0; //the percent of push for c1 and c2
+        float mass1 = c1.mass;
+        float mass2 = c2.mass;
 
-        if (c1.isStatic && c2.isStatic) return true; //both static, so no push
+        if (c1.isStatic) mass2 = 0;
+        if (c2.isStatic) mass1 = 0;
 
-        if (c1.isStatic) {
-            push2 = 1;
-        } 
-        else if (c2.isStatic) {
-            push1 = 1;
-        }
-        else {
-            push1 = c2.mass/totalMass;
-            push2 = c1.mass/totalMass;
-        }
+        float totalMass = mass1+mass2;
+
+        float push1 = mass2/totalMass; 
+        float push2 = mass1/totalMass;  //the percent of push for c1 and c2
 
         float bounce = 1 - (1 - c1.bounce)*(1 - c2.bounce);
 
-        Vector4 contact = UFunc.Slerp4(contact1, contact2, push1); 
+        Vector4 contact = UFunc.Slerp4(contact1, contact2, push1);
 
         contactNormal = UFunc.ProjectToVectorNormal(contactNormal, contact).normalized;
 
         c1.transform4.LeftMult(UFunc.RotateTowardsMatrix(contact1, contact2, -overlap*push1/Transform4D.radius));
         c2.transform4.LeftMult(UFunc.RotateTowardsMatrix(contact2, contact1, -overlap*push2/Transform4D.radius));
 
-        Vector4 linVel1 = c1.rigidbody4 != null ? c1.rigidbody4.GetLinearVelocityAtAnchor(contact) : Vector4.zero;
-        Vector4 angVel1 = c1.rigidbody4 != null ? -c1.rigidbody4.GetAngularVelocityAtAnchor(contact) : Vector4.zero;
-        Vector4 linVel2 = c2.rigidbody4 != null ? c2.rigidbody4.GetLinearVelocityAtAnchor(contact) : Vector4.zero;
-        Vector4 angVel2 = c2.rigidbody4 != null ? -c2.rigidbody4.GetAngularVelocityAtAnchor(contact) : Vector4.zero;
+        //velocity stuff
 
-        float linDot1 = UFunc.Dot(linVel1, contactNormal);
-        float angDot1 = UFunc.Dot(angVel1, contactNormal);
-        float linDot2 = UFunc.Dot(linVel2, contactNormal);
-        float angDot2 = UFunc.Dot(angVel2, contactNormal);
+        CollisionObject obj1 = CollisionObject.GetConfig(c1, contact, contactNormal);
+        CollisionObject obj2 = CollisionObject.GetConfig(c2, contact, contactNormal);
 
-        float vel1 = linDot1 + angDot1;
-        float vel2 = linDot2 + angDot2;
+        if (obj1.vel < obj2.vel) return true; //if the velDifference is negative, then the objects arnt moving towards eachotjher, so doint do velocity calucations
 
-        float mass1 = c1.mass;
-        float angularMass1 = c1.angularMass / UFunc.DistanceS(contact, c1.transform4.positionNorm);
-        float mass2 = c2.mass;
-        float angularMass2 = c2.angularMass / UFunc.DistanceS(contact, c2.transform4.positionNorm);
-
-        if (c1.isStatic) {
-            mass2 = 0;
-            angularMass2 = 0;
+        if (c1.isStatic) 
+        {
+            c2.rigidbody4.ApplyMomentumAtPoint(contactNormal, -obj2.vel, 1, contact);
+            //c2.rigidbody4.SetLinearVelocityInDirection(contactNormal, UFunc.Dot(contactNormal, c1.rigidbody4.GetLinearVelocityAtAnchor(contact)), contact);
+            return true;
+        } 
+        else if (c2.isStatic) 
+        {
+            c1.rigidbody4.ApplyMomentumAtPoint(contactNormal, -obj1.vel, 1, contact);
+            //c1.rigidbody4.SetLinearVelocityInDirection(contactNormal, UFunc.Dot(contactNormal, c2.rigidbody4.GetLinearVelocityAtAnchor(contact)), contact);
+            return true;
         }
-        if (c2.isStatic) {
-            mass1 = 0;
-            angularMass1 = 0;
+        else
+        {
+            float momentMass1 =  obj1.vel == 0 ? mass1 : obj1.moment / obj1.vel;
+            float momentMass2 =  obj2.vel == 0 ? mass2 : obj2.moment / obj2.vel;
+
+            c1.rigidbody4.ApplyMomentumAtPoint(contactNormal, obj2.vel, momentMass1/momentMass2, contact);
+            c2.rigidbody4.ApplyMomentumAtPoint(contactNormal, obj1.vel, momentMass2/momentMass1, contact);
         }
 
-        float moment1 = linDot1*mass1 + angDot1*angularMass1;
-        float inertia1 = mass1 + angularMass1;
-        float moment2 = linDot2*mass2 + angDot2*angularMass2;
-        float inertia2 = mass2 + angularMass2;
+        //if (!c1.isStatic) c1.rigidbody4.SetLinearVelocityInDirection(contactNormal, centroidVel, contact);
+        //if (!c2.isStatic) c2.rigidbody4.SetLinearVelocityInDirection(contactNormal, centroidVel, contact);
 
-        float velFinal = (moment1 + moment2) / (inertia1 + inertia2);
-
-        push1 = inertia2/(inertia1+inertia2);
-        push2 = inertia1/(inertia1+inertia2);
-
+        /*
+        if (obj1.vel > obj2.vel) //if the velDifference is negative, then the objects arnt moving towards eachotjher, so doint do velocity calucations
+        {
+            if (!c1.isStatic) c1.rigidbody4.ApplyMomentumAtAnchor(contactNormal, applyVel1, applyMass1, contact);
+            if (!c2.isStatic) c2.rigidbody4.ApplyMomentumAtAnchor(contactNormal, applyVel2, applyMass2, contact);
+        }
+        */
+        /*
         if (vel2 < vel1) //if the velDifference is negative, then the objects arnt moving towards eachotjher, so doint do velocity calucations
         {
             if (!c1.isStatic) c1.rigidbody4?.SetVelocityAtAnchor(contactNormal, vel1 + (vel2-vel1)*push1*(1+bounce), contact);
             if (!c2.isStatic) c2.rigidbody4?.SetVelocityAtAnchor(contactNormal, vel2 + (vel1-vel2)*push2*(1+bounce), contact);
         }
+        */
 
         return true;
 

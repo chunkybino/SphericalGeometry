@@ -234,6 +234,7 @@ MonoBehaviour:
   gravityScale: 0
   gravity: {x: 0, y: -1, z: 0, w: 0}
   mass: 1
+  angularMassMult: 1
   bounce: 0
   dontReciveAngularVelocity: 0
   m_isStatic: 1
@@ -1823,6 +1824,7 @@ MonoBehaviour:
   gravityScale: 0
   gravity: {x: 0, y: -1, z: 0, w: 0}
   mass: 1
+  angularMassMult: 1
   bounce: 0
   dontReciveAngularVelocity: 0
   m_isStatic: 1
@@ -2366,10 +2368,11 @@ MonoBehaviour:
   velocity: {x: 0, y: 0, z: 0, w: 0}
   angularVelocity: {x: 0, y: 0, z: 0}
   velocityMagnitude: 0
-  angularVelocityMagnitude: 0
+  angularVelocityMagnitude: 1
   gravityScale: 1
   gravity: {x: 0, y: -1, z: 0, w: 0}
   mass: 4
+  angularMassMult: 0
   bounce: 0
   dontReciveAngularVelocity: 1
   m_isStatic: 0
@@ -2977,6 +2980,7 @@ MonoBehaviour:
   gravityScale: 0
   gravity: {x: 0, y: -1, z: 0, w: 0}
   mass: 1
+  angularMassMult: 1
   bounce: 0
   dontReciveAngularVelocity: 0
   m_isStatic: 1
@@ -3925,6 +3929,7 @@ MonoBehaviour:
   gravityScale: 0.5
   gravity: {x: 0, y: -1, z: 0, w: 0}
   mass: 0.6
+  angularMassMult: 1
   bounce: 0.5
   dontReciveAngularVelocity: 0
   m_isStatic: 0
@@ -4461,6 +4466,7 @@ MonoBehaviour:
   gravityScale: 0
   gravity: {x: 0, y: -1, z: 0, w: 0}
   mass: 1
+  angularMassMult: 1
   bounce: 0
   dontReciveAngularVelocity: 0
   m_isStatic: 1
@@ -6912,6 +6918,7 @@ MonoBehaviour:
   - {fileID: 665110784}
   - {fileID: 14870709}
   - {fileID: 1620956663}
+  - {fileID: 1662217430}
   staticBodies:
   - {fileID: 724789090}
   - {fileID: 1466526956}
@@ -6920,7 +6927,23 @@ MonoBehaviour:
   - {fileID: 1620956663}
   dynamicBodies:
   - {fileID: 665110784}
+  - {fileID: 1662217430}
   globalBodies:
+  - {fileID: 14870709}
+  - {fileID: 14870709}
+  - {fileID: 14870709}
+  - {fileID: 14870709}
+  - {fileID: 14870709}
+  - {fileID: 14870709}
+  - {fileID: 14870709}
+  - {fileID: 14870709}
+  - {fileID: 14870709}
+  - {fileID: 14870709}
+  - {fileID: 14870709}
+  - {fileID: 14870709}
+  - {fileID: 14870709}
+  - {fileID: 14870709}
+  - {fileID: 14870709}
   - {fileID: 14870709}
   - {fileID: 14870709}
   - {fileID: 14870709}
@@ -6928,7 +6951,8 @@ MonoBehaviour:
   sectors:
   - staticBodies:
     - {fileID: 607435942}
-    dynamicBodies: []
+    dynamicBodies:
+    - {fileID: 1662217430}
   - staticBodies:
     - {fileID: 724789090}
     dynamicBodies: []
@@ -6945,6 +6969,7 @@ MonoBehaviour:
   - staticBodies: []
     dynamicBodies:
     - {fileID: 665110784}
+    - {fileID: 1662217430}
   - staticBodies: []
     dynamicBodies: []
   totalCollisionChecks: 0
@@ -8564,6 +8589,7 @@ MonoBehaviour:
   gravityScale: 0
   gravity: {x: 0, y: -1, z: 0, w: 0}
   mass: 1
+  angularMassMult: 1
   bounce: 0
   dontReciveAngularVelocity: 0
   m_isStatic: 1
@@ -8894,6 +8920,7 @@ MonoBehaviour:
   gravityScale: 0
   gravity: {x: 0, y: -1, z: 0, w: 0}
   mass: 1
+  angularMassMult: 1
   bounce: 0
   dontReciveAngularVelocity: 0
   m_isStatic: 1
@@ -9232,6 +9259,7 @@ MonoBehaviour:
   gravityScale: 1
   gravity: {x: 0, y: -1, z: 0, w: 0}
   mass: 6
+  angularMassMult: 1
   bounce: 0.35
   dontReciveAngularVelocity: 0
   m_isStatic: 0
@@ -9770,6 +9798,7 @@ MonoBehaviour:
   gravityScale: 0
   gravity: {x: 0, y: -1, z: 0, w: 0}
   mass: 1
+  angularMassMult: 1
   bounce: 0
   dontReciveAngularVelocity: 0
   m_isStatic: 1
@@ -9896,10 +9925,11 @@ MonoBehaviour:
   velocity: {x: 0, y: 0, z: 0, w: 0}
   angularVelocity: {x: 0, y: 0, z: 0}
   velocityMagnitude: 0
-  angularVelocityMagnitude: 0
-  gravityScale: 0
+  angularVelocityMagnitude: 1
+  gravityScale: 1
   gravity: {x: 0, y: -1, z: 0, w: 0}
   mass: 1
+  angularMassMult: 0
   bounce: 0.4
   dontReciveAngularVelocity: 0
   m_isStatic: 0
@@ -9922,8 +9952,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   parent: {fileID: 0}
   children:
-  - {fileID: 913436713}
   - {fileID: 876432509}
+  - {fileID: 913436713}
   m_matrix:
     e00: 0.8253357
     e01: -0.21988213
@@ -10150,6 +10180,7 @@ MonoBehaviour:
   gravityScale: 1
   gravity: {x: 0, y: -1, z: 0, w: 0}
   mass: 0.5
+  angularMassMult: 1
   bounce: 0.8
   dontReciveAngularVelocity: 0
   m_isStatic: 0
@@ -11200,6 +11231,7 @@ MonoBehaviour:
   gravityScale: 0
   gravity: {x: 0, y: -1, z: 0, w: 0}
   mass: 0.2
+  angularMassMult: 1
   bounce: 0.5
   dontReciveAngularVelocity: 0
   m_isStatic: 0

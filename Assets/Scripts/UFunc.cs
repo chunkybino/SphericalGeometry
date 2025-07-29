@@ -479,6 +479,11 @@ public static class UFunc
         return factor;
     }
 
+    public static Vector4 SetVectorDirectionValue(Vector4 vec, Vector4 direction, float value)
+    {
+        return vec + (value - Vector4.Dot(vec,direction)) * direction;
+    }
+
     public static void PrintList(params string[] par)
     {
         string s = "";
