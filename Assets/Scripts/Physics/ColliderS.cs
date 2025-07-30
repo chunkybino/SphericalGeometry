@@ -62,7 +62,7 @@ public abstract class ColliderS : MonoBehaviour
             outObj.linDot = UFunc.Dot(outObj.linVel, contactNormal);
             outObj.angDot = UFunc.Dot(outObj.angVel, contactNormal);
 
-            outObj.vel = outObj.linDot + outObj.angDot*outObj.centerDis;
+            outObj.vel = outObj.linDot + outObj.outObj*obj2.centerDis;
             outObj.linearMoment = outObj.linDot*collider.mass;
             outObj.angularMoment = outObj.angDot*collider.angularMass/outObj.centerDis;
             outObj.moment = outObj.linearMoment + outObj.angularMoment;
@@ -122,6 +122,11 @@ public abstract class ColliderS : MonoBehaviour
 
         CollisionObject obj1 = CollisionObject.GetConfig(c1, contact, contactNormal);
         CollisionObject obj2 = CollisionObject.GetConfig(c2, contact, contactNormal);
+
+        if (c2.gameObject.name == "Cap")
+        {
+            print(obj2.vel+" "+obj2.linDot+" "+obj2.angDot+" "+obj2.angDot*obj2.centerDis);
+        }
 
         if (obj1.vel < obj2.vel) return true; //if the velDifference is negative, then the objects arnt moving towards eachotjher, so doint do velocity calucations
 

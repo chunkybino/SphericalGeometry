@@ -263,21 +263,8 @@ public class Rigidbody4D : MonoBehaviour
         Vector4 currentLinearVel = GetVelocityAtAnchor(attackPoint);
         float linearVelDot = Vector4.Dot(currentLinearVel, direction);
 
-        /*
-        if (dontReciveAngularVelocity) {
-            float newVel = push1*linearVelDot + push2*attackVel;
-            SetLinearVelocityInDirection(direction, newVel, attackPoint);
-            return;
-        }
-        */
-
         float attackDistance = UFunc.DistanceS(attackPoint,positionNorm);
         Vector4 centerDir = UFunc.ProjectToVectorNormal(positionNorm-attackPoint, attackPoint).normalized;
-
-        Vector4 centroid = UFunc.Slerp4(attackPoint,positionNorm,push1);
-
-        float thisCentroidDistance = attackDistance * push2;
-        float attackCentroidDistance = attackDistance * push1;
 
         Vector4 attackPerpDir = UFunc.ProjectToVectorNormal(direction, centerDir).normalized; //vector in direction of attack direciton, but perpendicual to center
 
@@ -285,32 +272,39 @@ public class Rigidbody4D : MonoBehaviour
         float angularVelDot = Vector4.Dot(currentAngularVel, attackPerpDir);
         float angularVelAttackDirDot = Vector4.Dot(currentAngularVel, direction);
 
-        float relativeVelocity = attackVel - linearVelDot - angularVelAttackDirDot;
+        float relativeVelocity = attackVel - linearVelDot;// - angularVelAttackDirDot;
 
         float sinA = Vector4.Dot(direction,attackPerpDir); //sin of angle of attack
-        float attackAngularMoment = push2*(relativeVelocity*sinA)*attackCentroidDistance;
+        //float attackAngularMoment = push2*(relativeVelocity*sinA)*attackDistance;
 
-        float attackAngularMass = push2*attackCentroidDistance*attackCentroidDistance; //mass * distance^2
-        float thisAngularMass = push1*(angularMassMult + thisCentroidDistance*thisCentroidDistance); //parallell axis, angularMass + mass*distance^2
+        float attackAngularMass = push2*attackDistance*attackDistance; //mass * distance^2
+        float thisAngularMass = push1*angularMassMult;
 
-        float centroidAngularVel = attackAngularMoment / (attackAngularMass + thisAngularMass); //will be 0/0 if push1 = 0, so we gotta take the limit below
-        if (push1 == 0) {
-             
-        }
-
-        float centroidLinearVel = relativeVelocity*push2;
-        float newAttackLinearVel = centroidAngularVel*attackCentroidDistance*sinA + (1-sinA)*relativeVelocity;
+        float angularPush1 = thisAngularMass / (attackAngularMass + thisAngularMass); //percentage of angualr mass held by this object
 
         if (dontReciveAngularVelocity) {
-            centroidAngularVel = 0;
-            newAttackLinearVel = relativeVelocity;
+            angularPush1 = 1;
         }
 
-        float newLinearDot = linearVelDot + (centroidLinearVel - newAttackLinearVel*push2);
-        float newAngularDot = angularVelDot + centroidAngularVel; 
+        float newAngularDot = angularVelDot*angularPush1 + (relativeVelocity*sinA)*(1-angularPush1);
+
+        float linearAttackRemain = relativeVelocity * ( (sinA*sinA)*angularPush1 + (1 - sinA*sinA) );
+
+        float newLinearDot = linearVelDot + (linearAttackRemain*push2);
 
         Vector4 newLinear = UFunc.SetVectorDirectionValue(currentLinearVel, direction, newLinearDot);
-        Vector4 newAngular = UFunc.SetVectorDirectionValue(currentAngularVel, direction, newAngularDot);
+        Vector4 newAngular = UFunc.SetVectorDirectionValue(currentAngularVel, attackPerpDir, newAngularDot);
+
+        if (!dontReciveAngularVelocity) {
+            print("HERE");
+            UFunc.PrintList(newLinearDot, newAngularDot);
+            UFunc.PrintList(linearAttackRemain, sinA, relativeVelocity);
+
+            print(currentLinearVel+" "+newLinear+" "+currentAngularVel+" "+newAngular);
+            print((relativeVelocity*sinA)+" "+attackDistance+" "+(1-angularPush1));
+
+            print(newAngular/attackDistance+" "+newAngularDot/attackDistance);
+        }
 
         SetLinearVelocityAtAnchor(newLinear, attackPoint);
         SetAngularVelocityAtAnchor(newAngular, attackPoint);
