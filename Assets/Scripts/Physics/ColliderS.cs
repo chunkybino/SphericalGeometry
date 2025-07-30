@@ -101,7 +101,6 @@ public abstract class ColliderS : MonoBehaviour
 
         float mass1 = c1.mass;
         float mass2 = c2.mass;
-
         if (c1.isStatic) mass2 = 0;
         if (c2.isStatic) mass1 = 0;
 
@@ -128,13 +127,15 @@ public abstract class ColliderS : MonoBehaviour
 
         if (c1.isStatic) 
         {
-            c2.rigidbody4.ApplyMomentumAtPoint(contactNormal, -obj2.vel, 1, contact);
+            float normalMass = obj2.moment / obj2.vel;
+            c2.rigidbody4.ApplyMomentumAtPoint(contactNormal, 0, 0, contact);
             //c2.rigidbody4.SetLinearVelocityInDirection(contactNormal, UFunc.Dot(contactNormal, c1.rigidbody4.GetLinearVelocityAtAnchor(contact)), contact);
             return true;
         } 
         else if (c2.isStatic) 
         {
-            c1.rigidbody4.ApplyMomentumAtPoint(contactNormal, -obj1.vel, 1, contact);
+            float normalMass = obj1.moment / obj1.vel;
+            c1.rigidbody4.ApplyMomentumAtPoint(contactNormal, -0, 0, contact);
             //c1.rigidbody4.SetLinearVelocityInDirection(contactNormal, UFunc.Dot(contactNormal, c2.rigidbody4.GetLinearVelocityAtAnchor(contact)), contact);
             return true;
         }
