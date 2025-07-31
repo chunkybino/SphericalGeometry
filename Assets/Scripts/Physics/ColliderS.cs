@@ -123,37 +123,25 @@ public abstract class ColliderS : MonoBehaviour
         CollisionObject obj1 = CollisionObject.GetConfig(c1, contact, contactNormal);
         CollisionObject obj2 = CollisionObject.GetConfig(c2, contact, contactNormal);
 
-        if (c2.gameObject.name == "Cap")
-        {
-            //print(obj2.vel+" "+obj2.linDot+" "+obj2.angDot+" "+obj2.angDot*obj2.centerDis);
-        }
-
         if (obj1.vel < obj2.vel) return true; //if the velDifference is negative, then the objects arnt moving towards eachotjher, so doint do velocity calucations
 
         if (c1.isStatic) 
         {
-            Vector4 newVel = UFunc.SetVectorDirectionValue(obj2.linVel, contactNormal,-obj2.linDot*bounce);
-            //c2.rigidbody4.SetLinearVelocityAtAnchor(newVel, contact);
-            print(obj2.linVel);
-            print(obj2.linDot);
-
-            c2.rigidbody4.ApplyMomentumAtPoint(contactNormal, -obj2.linDot*(1+bounce), 1, contact);
-
-            print(UFunc.Dot(contactNormal, c2.rigidbody4.GetVelocityAtAnchor(contact)));
+            c2.rigidbody4.ApplyStaticForce(contactNormal, 0, contact, bounce);
+            //c2.rigidbody4.ApplyMomentumAtPoint(contactNormal, -obj2.linDot*(1+bounce), 1, contact);
             return true;
         } 
         else if (c2.isStatic) 
         {
-            Vector4 newVel = UFunc.SetVectorDirectionValue(obj1.linVel, contactNormal,-obj1.linDot*bounce);
-            //c1.rigidbody4.SetLinearVelocityAtAnchor(newVel, contact);
-            c1.rigidbody4.ApplyMomentumAtPoint(contactNormal, -obj1.linDot*(1+bounce), 1, contact);
+            c1.rigidbody4.ApplyStaticForce(-contactNormal, 0, contact, bounce);
+            //c1.rigidbody4.ApplyMomentumAtPoint(contactNormal, -obj1.linDot*(1+bounce), 1, contact);
             return true;
         }
         else
         {
-
-            c1.rigidbody4.ApplyMomentumAtPoint(contactNormal, obj2.linDot, push1, contact);
-            c2.rigidbody4.ApplyMomentumAtPoint(contactNormal, obj1.linDot, push2, contact);
+            float vel = obj1.linDot*push1 + obj2.linDot*push2;
+            c1.rigidbody4.SetLinearVelocityInDirection(contactNormal, vel, contact);
+            c2.rigidbody4.SetLinearVelocityInDirection(contactNormal, vel, contact);
         }
 
         //if (!c1.isStatic) c1.rigidbody4.SetLinearVelocityInDirection(contactNormal, centroidVel, contact);

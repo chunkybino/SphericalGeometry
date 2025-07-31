@@ -292,16 +292,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   parent: {fileID: 0}
   children:
-  - {fileID: 696461020}
-  - {fileID: 1078582795}
-  - {fileID: 1466526957}
   - {fileID: 607435943}
-  - {fileID: 1457274184}
+  - {fileID: 696461020}
   - {fileID: 724789085}
+  - {fileID: 905167640}
+  - {fileID: 1078582795}
+  - {fileID: 1133496467}
+  - {fileID: 1457274184}
+  - {fileID: 1466526957}
   - {fileID: 1498909441}
   - {fileID: 1620956664}
-  - {fileID: 905167640}
-  - {fileID: 1133496467}
   - {fileID: 2078316006}
   m_matrix:
     e00: 1
@@ -6976,6 +6976,11 @@ MonoBehaviour:
   - {fileID: 14870709}
   - {fileID: 14870709}
   - {fileID: 14870709}
+  - {fileID: 14870709}
+  - {fileID: 14870709}
+  - {fileID: 14870709}
+  - {fileID: 14870709}
+  - {fileID: 14870709}
   sectors:
   - staticBodies:
     - {fileID: 607435942}
@@ -8751,13 +8756,13 @@ MonoBehaviour:
   children:
   - {fileID: 1449974950}
   - {fileID: 652696503}
-  - {fileID: 2075146610}
+  - {fileID: 943707544}
   - {fileID: 1006463141}
   - {fileID: 1119807485}
-  - {fileID: 1758921313}
   - {fileID: 1587023191}
-  - {fileID: 943707544}
+  - {fileID: 1758921313}
   - {fileID: 1983602830}
+  - {fileID: 2075146610}
   m_matrix:
     e00: 1
     e01: 0
@@ -9965,7 +9970,7 @@ MonoBehaviour:
   velocity: {x: 0, y: 0, z: 0, w: 0}
   angularVelocity: {x: 0, y: 0, z: 0}
   velocityMagnitude: 0
-  angularVelocityMagnitude: 1
+  angularVelocityMagnitude: 0
   linearMomentum: 0
   angularMomentum: 0
   totalMomentum: 0
