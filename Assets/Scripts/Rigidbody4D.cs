@@ -98,9 +98,6 @@ public class Rigidbody4D : MonoBehaviour
         if (doYUpLock) YUpLock();
 
         DoGravity();
-        MoveTangent(velocity * Time.fixedDeltaTime);
-
-        if (angularVelocity != Vector3.zero) Rotate(angularVelocity * Time.fixedDeltaTime);
 
         velocityMagnitude = velocity.magnitude;
         angularVelocityMagnitude = angularVelocity.magnitude;
@@ -108,6 +105,9 @@ public class Rigidbody4D : MonoBehaviour
         linearMomentum = velocityMagnitude*mass;
         angularMomentum = angularVelocityMagnitude*angularMass;
         totalMomentum = linearMomentum+angularMomentum;
+
+        MoveTangent(velocity * Time.fixedDeltaTime);
+        if (angularVelocity != Vector3.zero) Rotate(angularVelocity * Time.fixedDeltaTime);
     }
 
     void DoGravity()
@@ -155,7 +155,9 @@ public class Rigidbody4D : MonoBehaviour
 
     public Vector4 GetLinearVelocityAtAnchor(Vector4 anchor)
     {
-        return UFunc.RotateTowardsMatrix(positionNorm, anchor) * velocity;
+        Vector4 vel = UFunc.RotateTowardsMatrix(positionNorm, anchor) * velocity;
+        if (vel.magnitude > 0) vel *= velocity.magnitude/vel.magnitude;
+        return vel;
     }
     public Vector4 GetAngularVelocityAtAnchor(Vector4 anchor)
     {
@@ -193,6 +195,7 @@ public class Rigidbody4D : MonoBehaviour
     public void SetLinearVelocityAtAnchor(Vector4 vel, Vector4 anchor)
     {
         velocity = UFunc.RotateTowardsMatrix(anchor, positionNorm) * vel;
+        if (velocity.magnitude > 0) velocity *= vel.magnitude/velocity.magnitude;
     }
     public void SetLinearVelocityInDirection(Vector4 direction, float vel, Vector4 anchor)
     {
@@ -263,6 +266,12 @@ public class Rigidbody4D : MonoBehaviour
         Vector4 currentLinearVel = GetVelocityAtAnchor(attackPoint);
         float linearVelDot = Vector4.Dot(currentLinearVel, direction);
 
+        if (dontReciveAngularVelocity) {
+            UFunc.PrintList(linearVelDot, attackVel, linearVelDot*push1 + attackVel*push2);
+            SetLinearVelocityAtAnchor(UFunc.SetVectorDirectionValue(currentLinearVel, direction, linearVelDot*push1 + attackVel*push2), attackPoint);
+            return;
+        }
+
         float attackDistance = UFunc.DistanceS(attackPoint,positionNorm);
         Vector4 centerDir = UFunc.ProjectToVectorNormal(positionNorm-attackPoint, attackPoint).normalized;
 
@@ -281,10 +290,6 @@ public class Rigidbody4D : MonoBehaviour
         float thisAngularMass = push1*angularMassMult;
 
         float angularPush1 = thisAngularMass / (attackAngularMass + thisAngularMass); //percentage of angualr mass held by this object
-
-        if (dontReciveAngularVelocity) {
-            angularPush1 = 1;
-        }
 
         float newAngularDot = angularVelDot*angularPush1 + (relativeVelocity*sinA)*(1-angularPush1);
 
@@ -329,6 +334,7 @@ public class Rigidbody4D : MonoBehaviour
     void OnTransformLeftMult(Matrix4x4 mat)
     {
         velocity = mat * velocity;
+        if (velocity.magnitude > 0) velocity *= velocityMagnitude/velocity.magnitude;
     }
     void OnMatrixUpdate(Matrix4x4 mat)
     {

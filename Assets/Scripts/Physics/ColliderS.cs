@@ -62,7 +62,7 @@ public abstract class ColliderS : MonoBehaviour
             outObj.linDot = UFunc.Dot(outObj.linVel, contactNormal);
             outObj.angDot = UFunc.Dot(outObj.angVel, contactNormal);
 
-            outObj.vel = outObj.linDot + outObj.outObj*obj2.centerDis;
+            outObj.vel = outObj.linDot + outObj.angDot*outObj.centerDis;
             outObj.linearMoment = outObj.linDot*collider.mass;
             outObj.angularMoment = outObj.angDot*collider.angularMass/outObj.centerDis;
             outObj.moment = outObj.linearMoment + outObj.angularMoment;
@@ -125,32 +125,35 @@ public abstract class ColliderS : MonoBehaviour
 
         if (c2.gameObject.name == "Cap")
         {
-            print(obj2.vel+" "+obj2.linDot+" "+obj2.angDot+" "+obj2.angDot*obj2.centerDis);
+            //print(obj2.vel+" "+obj2.linDot+" "+obj2.angDot+" "+obj2.angDot*obj2.centerDis);
         }
 
         if (obj1.vel < obj2.vel) return true; //if the velDifference is negative, then the objects arnt moving towards eachotjher, so doint do velocity calucations
 
         if (c1.isStatic) 
         {
-            float normalMass = obj2.moment / obj2.vel;
-            c2.rigidbody4.ApplyMomentumAtPoint(contactNormal, 0, 0, contact);
-            //c2.rigidbody4.SetLinearVelocityInDirection(contactNormal, UFunc.Dot(contactNormal, c1.rigidbody4.GetLinearVelocityAtAnchor(contact)), contact);
+            Vector4 newVel = UFunc.SetVectorDirectionValue(obj2.linVel, contactNormal,-obj2.linDot*bounce);
+            //c2.rigidbody4.SetLinearVelocityAtAnchor(newVel, contact);
+            print(obj2.linVel);
+            print(obj2.linDot);
+
+            c2.rigidbody4.ApplyMomentumAtPoint(contactNormal, -obj2.linDot*(1+bounce), 1, contact);
+
+            print(UFunc.Dot(contactNormal, c2.rigidbody4.GetVelocityAtAnchor(contact)));
             return true;
         } 
         else if (c2.isStatic) 
         {
-            float normalMass = obj1.moment / obj1.vel;
-            c1.rigidbody4.ApplyMomentumAtPoint(contactNormal, -0, 0, contact);
-            //c1.rigidbody4.SetLinearVelocityInDirection(contactNormal, UFunc.Dot(contactNormal, c2.rigidbody4.GetLinearVelocityAtAnchor(contact)), contact);
+            Vector4 newVel = UFunc.SetVectorDirectionValue(obj1.linVel, contactNormal,-obj1.linDot*bounce);
+            //c1.rigidbody4.SetLinearVelocityAtAnchor(newVel, contact);
+            c1.rigidbody4.ApplyMomentumAtPoint(contactNormal, -obj1.linDot*(1+bounce), 1, contact);
             return true;
         }
         else
         {
-            float momentMass1 =  obj1.vel == 0 ? mass1 : obj1.moment / obj1.vel;
-            float momentMass2 =  obj2.vel == 0 ? mass2 : obj2.moment / obj2.vel;
 
-            c1.rigidbody4.ApplyMomentumAtPoint(contactNormal, obj2.vel, momentMass1/momentMass2, contact);
-            c2.rigidbody4.ApplyMomentumAtPoint(contactNormal, obj1.vel, momentMass2/momentMass1, contact);
+            c1.rigidbody4.ApplyMomentumAtPoint(contactNormal, obj2.linDot, push1, contact);
+            c2.rigidbody4.ApplyMomentumAtPoint(contactNormal, obj1.linDot, push2, contact);
         }
 
         //if (!c1.isStatic) c1.rigidbody4.SetLinearVelocityInDirection(contactNormal, centroidVel, contact);

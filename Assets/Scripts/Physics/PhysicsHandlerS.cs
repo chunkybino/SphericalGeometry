@@ -71,7 +71,7 @@ public class PhysicsHandlerS : MonoBehaviour
     {
         if (clearNow) {
             clearNow = false;
-            
+
             rigidbodyList.Clear();
             staticBodies.Clear();
             dynamicBodies.Clear();
@@ -198,9 +198,6 @@ public class PhysicsHandlerS : MonoBehaviour
                 {
                     if (!RBValid(staticRb)) continue;
                     if (!ObjectBoundOverlap(rb,staticRb)) continue;
-
-                    Vector4 prev1 = rb.transform4.positionNorm;
-                    Vector4 prev2 = staticRb.transform4.positionNorm;
 
                     CheckCollision(rb,staticRb);
                 }

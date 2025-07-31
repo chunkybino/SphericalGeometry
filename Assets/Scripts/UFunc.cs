@@ -481,7 +481,7 @@ public static class UFunc
 
     public static Vector4 SetVectorDirectionValue(Vector4 vec, Vector4 direction, float value)
     {
-        return vec + (value - Vector4.Dot(vec,direction)) * direction;
+        return vec - Vector4.Project(vec,direction) + value*direction;
     }
 
     public static void PrintList(params string[] par)
