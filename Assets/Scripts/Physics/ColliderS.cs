@@ -139,9 +139,19 @@ public abstract class ColliderS : MonoBehaviour
         }
         else
         {
-            float vel = obj1.linDot*push1 + obj2.linDot*push2;
-            c1.rigidbody4.SetLinearVelocityInDirection(contactNormal, vel, contact);
-            c2.rigidbody4.SetLinearVelocityInDirection(contactNormal, vel, contact);
+            float angularPush1 = c1.angularMass / (c1.angularMass + c2.angularMass);
+            float angularPush2 = c2.angularMass / (c1.angularMass + c2.angularMass);
+
+            float linearVel = obj1.linDot*(push2) + obj2.linDot*(push1);
+            float angularVel = obj1.angDot*angularPush1 + obj2.angDot*angularPush2;
+            float vel = linearVel + angularVel;
+
+
+            c1.rigidbody4.ApplyStaticForce(-contactNormal, -vel, contact, bounce);
+            c2.rigidbody4.ApplyStaticForce(contactNormal, vel, contact, bounce);
+
+            //c1.rigidbody4.SetLinearVelocityInDirection(contactNormal, vel, contact);
+            //c2.rigidbody4.SetLinearVelocityInDirection(contactNormal, vel, contact);
         }
 
         //if (!c1.isStatic) c1.rigidbody4.SetLinearVelocityInDirection(contactNormal, centroidVel, contact);

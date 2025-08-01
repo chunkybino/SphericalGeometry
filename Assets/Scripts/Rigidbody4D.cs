@@ -341,9 +341,6 @@ public class Rigidbody4D : MonoBehaviour
         //if (relativeLinear < 0) newLinearDot = linearDot;
         Vector4 newLinear = UFunc.SetVectorDirectionValue(currentLinear, direction, newLinearDot);
         SetLinearVelocityAtAnchor(newLinear, attackPoint);
-
-        print(direction+" "+attackPerpDir+" "+relativeLinear+" "+attackLinearVel+" "+attackAngularVel+" "+angularPerpDot+" "+newAngularDot);
-        print(linearMassPush+" "+angularMassPush);
     }
 
     public void SetRelativeVelocityAxis(float vel, int axisIndex)
@@ -365,7 +362,7 @@ public class Rigidbody4D : MonoBehaviour
     void OnTransformLeftMult(Matrix4x4 mat)
     {
         velocity = mat * velocity;
-        if (velocity.magnitude > 0) velocity *= velocityMagnitude/velocity.magnitude;
+        //if (velocity.magnitude > 0) velocity *= velocityMagnitude/velocity.magnitude;
     }
     void OnMatrixUpdate(Matrix4x4 mat)
     {
