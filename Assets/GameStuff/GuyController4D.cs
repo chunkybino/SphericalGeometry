@@ -18,6 +18,8 @@ public class GuyController4D : MonoBehaviour
 
     [SerializeField] float jumpForce;
 
+    [SerializeField] GroundCheck groundCheck;
+
     void Awake()
     {
         Cursor.lockState = CursorLockMode.Locked;
@@ -40,7 +42,7 @@ public class GuyController4D : MonoBehaviour
         rb.SetRelativeVelocityZ(moveVector.z * speed);
 
         //jump
-        if (input.spacePress) {
+        if (input.spacePress && groundCheck.grounded) {
             rb.SetVelocityTowards(new Vector4(0,1,0,0), jumpForce);
         }
 

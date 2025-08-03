@@ -213,6 +213,17 @@ MonoBehaviour:
   transform4: {fileID: 14870707}
   rigidbody4: {fileID: 14870709}
   isTrigger: 0
+  onTriggerEnter:
+    m_PersistentCalls:
+      m_Calls: []
+  onTriggerStay:
+    m_PersistentCalls:
+      m_Calls: []
+  onTriggerExit:
+    m_PersistentCalls:
+      m_Calls: []
+  overlapColliders: []
+  thisFrameOverlapColliders: []
   radius: 1.5707964
 --- !u!114 &14870709
 MonoBehaviour:
@@ -1236,6 +1247,39 @@ Transform:
   m_Children: []
   m_Father: {fileID: 778555252}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &401018546
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 401018547}
+  m_Layer: 0
+  m_Name: Render
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &401018547
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 401018546}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1612277664}
+  - {fileID: 1774161680}
+  m_Father: {fileID: 665110786}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0
@@ -1739,6 +1783,17 @@ MonoBehaviour:
   transform4: {fileID: 607435943}
   rigidbody4: {fileID: 607435942}
   isTrigger: 0
+  onTriggerEnter:
+    m_PersistentCalls:
+      m_Calls: []
+  onTriggerStay:
+    m_PersistentCalls:
+      m_Calls: []
+  onTriggerExit:
+    m_PersistentCalls:
+      m_Calls: []
+  overlapColliders: []
+  thisFrameOverlapColliders: []
   verticies:
   - {x: 0, y: 2, z: 0}
   - {x: 2, y: 0, z: 0}
@@ -2209,7 +2264,6 @@ GameObject:
   - component: {fileID: 665110783}
   - component: {fileID: 665110782}
   - component: {fileID: 665110788}
-  - component: {fileID: 665110789}
   m_Layer: 0
   m_Name: Guy
   m_TagString: MainCamera
@@ -2358,6 +2412,7 @@ MonoBehaviour:
   lookSpeed: 0.3
   doCameraPitch: 1
   jumpForce: 0.8
+  groundCheck: {fileID: 871264119}
 --- !u!114 &665110784
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2404,6 +2459,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   parent: {fileID: 0}
   children:
+  - {fileID: 871264117}
+  - {fileID: 1774161676}
+  - {fileID: 1612277668}
   - {fileID: 927178209}
   m_matrix:
     e00: 1
@@ -2464,7 +2522,9 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 401018547}
   - {fileID: 927178210}
+  - {fileID: 871264118}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &665110788
@@ -2482,25 +2542,20 @@ MonoBehaviour:
   transform4: {fileID: 665110785}
   rigidbody4: {fileID: 665110784}
   isTrigger: 0
+  onTriggerEnter:
+    m_PersistentCalls:
+      m_Calls: []
+  onTriggerStay:
+    m_PersistentCalls:
+      m_Calls: []
+  onTriggerExit:
+    m_PersistentCalls:
+      m_Calls: []
+  overlapColliders: []
+  thisFrameOverlapColliders: []
   radius: 0.1
   length: 0.1
   axis: 1
---- !u!114 &665110789
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 665110781}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 703f70a78aa355b47870a272af901da4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  transform4: {fileID: 665110785}
-  rigidbody4: {fileID: 665110784}
-  isTrigger: 0
-  radius: 0.15
 --- !u!1 &696461015
 GameObject:
   m_ObjectHideFlags: 0
@@ -2728,6 +2783,17 @@ MonoBehaviour:
   transform4: {fileID: 708456874}
   rigidbody4: {fileID: 708456873}
   isTrigger: 0
+  onTriggerEnter:
+    m_PersistentCalls:
+      m_Calls: []
+  onTriggerStay:
+    m_PersistentCalls:
+      m_Calls: []
+  onTriggerExit:
+    m_PersistentCalls:
+      m_Calls: []
+  overlapColliders: []
+  thisFrameOverlapColliders: []
   radius: 0.16
   length: 0.1
   axis: 1
@@ -3049,6 +3115,17 @@ MonoBehaviour:
   transform4: {fileID: 724789085}
   rigidbody4: {fileID: 724789090}
   isTrigger: 0
+  onTriggerEnter:
+    m_PersistentCalls:
+      m_Calls: []
+  onTriggerStay:
+    m_PersistentCalls:
+      m_Calls: []
+  onTriggerExit:
+    m_PersistentCalls:
+      m_Calls: []
+  overlapColliders: []
+  thisFrameOverlapColliders: []
   verticies:
   - {x: 0, y: 2, z: 0}
   - {x: 2, y: 0, z: 0}
@@ -3251,6 +3328,176 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &871264114
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 871264118}
+  - component: {fileID: 871264117}
+  - component: {fileID: 871264115}
+  - component: {fileID: 871264116}
+  - component: {fileID: 871264119}
+  m_Layer: 0
+  m_Name: GroundCheck
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &871264115
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 871264114}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24dff4cfeaa0b5843ac567635c9b493d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  transform4: {fileID: 871264117}
+  velocity: {x: 0, y: 0, z: 0, w: 0}
+  angularVelocity: {x: 0, y: 0, z: 0}
+  velocityMagnitude: 0
+  angularVelocityMagnitude: 0
+  linearMomentum: 0
+  angularMomentum: 0
+  totalMomentum: 0
+  gravityScale: 0
+  gravity: {x: 0, y: -1, z: 0, w: 0}
+  mass: 1
+  angularMassMult: 1
+  bounce: 0
+  dontReciveAngularVelocity: 0
+  m_isStatic: 0
+  collider: {fileID: 871264116}
+  doYUpLock: 0
+  sectorIndex: 6
+  allSectors: 06000000
+  globalSector: 0
+--- !u!114 &871264116
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 871264114}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 703f70a78aa355b47870a272af901da4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  transform4: {fileID: 871264117}
+  rigidbody4: {fileID: 871264115}
+  isTrigger: 1
+  onTriggerEnter:
+    m_PersistentCalls:
+      m_Calls: []
+  onTriggerStay:
+    m_PersistentCalls:
+      m_Calls: []
+  onTriggerExit:
+    m_PersistentCalls:
+      m_Calls: []
+  overlapColliders: []
+  thisFrameOverlapColliders: []
+  radius: 0.08
+--- !u!114 &871264117
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 871264114}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3e9696e169808a4390b5d2c1be30c0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parent: {fileID: 665110785}
+  children: []
+  m_matrix:
+    e00: 1
+    e01: -0.0000000014121162
+    e02: -1.3809243e-16
+    e03: -2.356366e-10
+    e10: 0.0000000014181671
+    e11: 0.9545352
+    e12: 0.000000006411223
+    e13: 0.2980977
+    e20: 1.3049896e-16
+    e21: -0.0000000038415804
+    e22: 1
+    e23: -0.000000009206001
+    e30: -1.960274e-10
+    e31: -0.2980977
+    e32: 0.000000007642289
+    e33: 0.9545352
+  m_localMatrix:
+    e00: 1
+    e01: -0.0000000014121162
+    e02: -1.3809243e-16
+    e03: -2.356366e-10
+    e10: 0.000000001385232
+    e11: 0.9959526
+    e12: 0.0000000029986202
+    e13: -0.08987849
+    e20: 1.3049896e-16
+    e21: -0.0000000038415804
+    e22: 1
+    e23: -0.000000009206001
+    e30: 3.6160341e-10
+    e31: 0.08987849
+    e32: 0.000000009514023
+    e33: 0.9959526
+  onMatrixUpdate:
+    m_PersistentCalls:
+      m_Calls: []
+  scale: {x: 1, y: 1, z: 1}
+  sterographicPos: {x: -1.2055888e-10, y: 0.1525159, z: -0.000000004710072}
+  lockSterographicPos: 1
+  onLeftMult:
+    m_PersistentCalls:
+      m_Calls: []
+  onRightMult:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!4 &871264118
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 871264114}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.30277714, y: 0.48694313, z: 0.21666437}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 665110786}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &871264119
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 871264114}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ebb0be07be06734b978a8451d723b12, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  grounded: 0
+  collider: {fileID: 871264116}
+  ignoreColliders:
+  - {fileID: 665110788}
 --- !u!1 &876432508
 GameObject:
   m_ObjectHideFlags: 0
@@ -4068,6 +4315,17 @@ MonoBehaviour:
   transform4: {fileID: 929819537}
   rigidbody4: {fileID: 929819536}
   isTrigger: 0
+  onTriggerEnter:
+    m_PersistentCalls:
+      m_Calls: []
+  onTriggerStay:
+    m_PersistentCalls:
+      m_Calls: []
+  onTriggerExit:
+    m_PersistentCalls:
+      m_Calls: []
+  overlapColliders: []
+  thisFrameOverlapColliders: []
   radius: 0.1
 --- !u!114 &929819536
 MonoBehaviour:
@@ -4608,6 +4866,17 @@ MonoBehaviour:
   transform4: {fileID: 938559781}
   rigidbody4: {fileID: 938559784}
   isTrigger: 0
+  onTriggerEnter:
+    m_PersistentCalls:
+      m_Calls: []
+  onTriggerStay:
+    m_PersistentCalls:
+      m_Calls: []
+  onTriggerExit:
+    m_PersistentCalls:
+      m_Calls: []
+  overlapColliders: []
+  thisFrameOverlapColliders: []
   radius: 0.2
 --- !u!114 &938559784
 MonoBehaviour:
@@ -7087,6 +7356,7 @@ MonoBehaviour:
   - {fileID: 1662217430}
   - {fileID: 1688195796}
   - {fileID: 1569770726}
+  - {fileID: 871264115}
   staticBodies:
   - {fileID: 724789090}
   - {fileID: 1466526956}
@@ -7098,7 +7368,11 @@ MonoBehaviour:
   - {fileID: 1662217430}
   - {fileID: 1688195796}
   - {fileID: 1569770726}
+  - {fileID: 871264115}
   globalBodies:
+  - {fileID: 14870709}
+  - {fileID: 14870709}
+  - {fileID: 14870709}
   - {fileID: 14870709}
   - {fileID: 14870709}
   - {fileID: 14870709}
@@ -7159,6 +7433,7 @@ MonoBehaviour:
     - {fileID: 665110784}
     - {fileID: 1662217430}
     - {fileID: 1688195796}
+    - {fileID: 871264115}
   - staticBodies: []
     dynamicBodies: []
   totalCollisionChecks: 0
@@ -8878,6 +9153,17 @@ MonoBehaviour:
   transform4: {fileID: 1466526957}
   rigidbody4: {fileID: 1466526956}
   isTrigger: 0
+  onTriggerEnter:
+    m_PersistentCalls:
+      m_Calls: []
+  onTriggerStay:
+    m_PersistentCalls:
+      m_Calls: []
+  onTriggerExit:
+    m_PersistentCalls:
+      m_Calls: []
+  overlapColliders: []
+  thisFrameOverlapColliders: []
   verticies:
   - {x: 0, y: 2, z: 0}
   - {x: 2, y: 0, z: 0}
@@ -9310,7 +9596,7 @@ MonoBehaviour:
   collider: {fileID: 1509006518}
   doYUpLock: 0
   sectorIndex: 0
-  allSectors: 
+  allSectors: 00000000
   globalSector: 0
 --- !u!114 &1509006516
 MonoBehaviour:
@@ -9410,7 +9696,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   transform4: {fileID: 1509006516}
   rigidbody4: {fileID: 1509006515}
-  isTrigger: 0
+  isTrigger: 1
+  onTriggerEnter:
+    m_PersistentCalls:
+      m_Calls: []
+  onTriggerStay:
+    m_PersistentCalls:
+      m_Calls: []
+  onTriggerExit:
+    m_PersistentCalls:
+      m_Calls: []
+  overlapColliders: []
+  thisFrameOverlapColliders: []
   verticies:
   - {x: 0, y: 0.35, z: 0}
   - {x: 0.35, y: 0, z: 0}
@@ -9621,6 +9918,17 @@ MonoBehaviour:
   transform4: {fileID: 1569770727}
   rigidbody4: {fileID: 1569770726}
   isTrigger: 0
+  onTriggerEnter:
+    m_PersistentCalls:
+      m_Calls: []
+  onTriggerStay:
+    m_PersistentCalls:
+      m_Calls: []
+  onTriggerExit:
+    m_PersistentCalls:
+      m_Calls: []
+  overlapColliders: []
+  thisFrameOverlapColliders: []
   radius: 0.16
 --- !u!114 &1569770726
 MonoBehaviour:
@@ -9939,6 +10247,194 @@ MonoBehaviour:
   onRightMult:
     m_PersistentCalls:
       m_Calls: []
+--- !u!1 &1612277663
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1612277664}
+  - component: {fileID: 1612277668}
+  - component: {fileID: 1612277667}
+  - component: {fileID: 1612277666}
+  - component: {fileID: 1612277665}
+  m_Layer: 0
+  m_Name: ball
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1612277664
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1612277663}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.30277714, y: 0.5594641, z: 0.21666434}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 401018547}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!23 &1612277665
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1612277663}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 9d07286ce5387364697f779816d47c28, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!33 &1612277666
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1612277663}
+  m_Mesh: {fileID: 4300000, guid: b92bb0fdb11fc5047a30bbf146c44cfa, type: 2}
+--- !u!114 &1612277667
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1612277663}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1228f34d9247c764299310d86c822306, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  transform4: {fileID: 1612277668}
+  renderer: {fileID: 1612277665}
+  filter: {fileID: 1612277666}
+  mesh: {fileID: 4300000, guid: b92bb0fdb11fc5047a30bbf146c44cfa, type: 2}
+  meshColor: {r: 0.23584908, g: 0.11543404, b: 0.043387335, a: 1}
+  initialize: 0
+  transformMatrix:
+    e00: 1
+    e01: -0.000000041937458
+    e02: -7.209234e-16
+    e03: -0.000000009378591
+    e10: 0.00000003387704
+    e11: 0.9035988
+    e12: -0.0000000066251387
+    e13: -0.42837998
+    e20: 2.2756595e-15
+    e21: 0.000000027540164
+    e22: 1
+    e23: 0.00000004262597
+    e30: 0.000000026439645
+    e31: 0.42837995
+    e32: -0.000000050314434
+    e33: 0.9035988
+  transformScale: {x: 0.05, y: 0.05, z: 0.05}
+  vertices: []
+  uvs: []
+  triangles: 
+  doVertex4: 0
+--- !u!114 &1612277668
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1612277663}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3e9696e169808a4390b5d2c1be30c0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parent: {fileID: 665110785}
+  children: []
+  m_matrix:
+    e00: 1
+    e01: 0.00000003387703
+    e02: 2.2756593e-15
+    e03: 0.000000026439647
+    e10: -0.000000041937458
+    e11: 0.90359867
+    e12: 0.00000002754016
+    e13: 0.42837992
+    e20: -7.209238e-16
+    e21: -0.000000006625147
+    e22: 1
+    e23: -0.000000050314423
+    e30: -0.000000009378586
+    e31: -0.42837992
+    e32: 0.000000042625977
+    e33: 0.90359867
+  m_localMatrix:
+    e00: 1
+    e01: 0.00000003387703
+    e02: 2.2756593e-15
+    e03: 0.000000026439647
+    e10: -0.00000003515613
+    e11: 0.9987502
+    e12: 0.000000009131534
+    e13: 0.04997917
+    e20: -7.209238e-16
+    e21: -0.000000006625147
+    e22: 1
+    e23: -0.000000050314423
+    e30: -0.000000024713456
+    e31: -0.04997917
+    e32: 0.00000004992043
+    e33: 0.9987502
+  onMatrixUpdate:
+    m_PersistentCalls:
+      m_Calls: []
+  scale: {x: 0.05, y: 0.05, z: 0.05}
+  sterographicPos: {x: 0.000000013889297, y: 0.22503689, z: -0.000000026431213}
+  lockSterographicPos: 1
+  onLeftMult:
+    m_PersistentCalls:
+      m_Calls: []
+  onRightMult:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1620956657
 GameObject:
   m_ObjectHideFlags: 0
@@ -10096,6 +10592,17 @@ MonoBehaviour:
   transform4: {fileID: 1620956664}
   rigidbody4: {fileID: 1620956663}
   isTrigger: 0
+  onTriggerEnter:
+    m_PersistentCalls:
+      m_Calls: []
+  onTriggerStay:
+    m_PersistentCalls:
+      m_Calls: []
+  onTriggerExit:
+    m_PersistentCalls:
+      m_Calls: []
+  overlapColliders: []
+  thisFrameOverlapColliders: []
   verticies:
   - {x: 0, y: 2, z: 0}
   - {x: 2, y: 0, z: 0}
@@ -10295,6 +10802,17 @@ MonoBehaviour:
   transform4: {fileID: 1662217431}
   rigidbody4: {fileID: 1662217430}
   isTrigger: 0
+  onTriggerEnter:
+    m_PersistentCalls:
+      m_Calls: []
+  onTriggerStay:
+    m_PersistentCalls:
+      m_Calls: []
+  onTriggerExit:
+    m_PersistentCalls:
+      m_Calls: []
+  overlapColliders: []
+  thisFrameOverlapColliders: []
   radius: 0.1
   length: 0.1
   axis: 1
@@ -10551,6 +11069,17 @@ MonoBehaviour:
   transform4: {fileID: 1688195797}
   rigidbody4: {fileID: 1688195796}
   isTrigger: 0
+  onTriggerEnter:
+    m_PersistentCalls:
+      m_Calls: []
+  onTriggerStay:
+    m_PersistentCalls:
+      m_Calls: []
+  onTriggerExit:
+    m_PersistentCalls:
+      m_Calls: []
+  overlapColliders: []
+  thisFrameOverlapColliders: []
   radius: 0.08
 --- !u!114 &1688195796
 MonoBehaviour:
@@ -11057,6 +11586,194 @@ MonoBehaviour:
   onRightMult:
     m_PersistentCalls:
       m_Calls: []
+--- !u!1 &1774161675
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1774161680}
+  - component: {fileID: 1774161676}
+  - component: {fileID: 1774161679}
+  - component: {fileID: 1774161678}
+  - component: {fileID: 1774161677}
+  m_Layer: 0
+  m_Name: ball (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1774161676
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1774161675}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3e9696e169808a4390b5d2c1be30c0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parent: {fileID: 665110785}
+  children: []
+  m_matrix:
+    e00: 1
+    e01: -8.4018803e-10
+    e02: -8.163462e-17
+    e03: -1.4539206e-10
+    e10: 8.401939e-10
+    e11: 0.94185096
+    e12: 0.000000003755786
+    e13: 0.33603045
+    e20: 7.90801e-17
+    e21: -0.000000002148524
+    e22: 1
+    e23: -0.0000000051548743
+    e30: -1.4539199e-10
+    e31: -0.33603045
+    e32: 0.000000004133166
+    e33: 0.94185096
+  m_localMatrix:
+    e00: 1
+    e01: -8.4018803e-10
+    e02: -8.163462e-17
+    e03: -1.4539206e-10
+    e10: 8.3187707e-10
+    e11: 0.99875015
+    e12: 0.0000000018881994
+    e13: -0.049979128
+    e20: 7.90801e-17
+    e21: -0.000000002148524
+    e22: 1
+    e23: -0.0000000051548743
+    e30: 1.8720364e-10
+    e31: 0.049979128
+    e32: 0.0000000052558247
+    e33: 0.99875015
+  onMatrixUpdate:
+    m_PersistentCalls:
+      m_Calls: []
+  scale: {x: 0.05, y: 0.05, z: 0.05}
+  sterographicPos: {x: -7.487293e-11, y: 0.17304647, z: -0.000000002654619}
+  lockSterographicPos: 1
+  onLeftMult:
+    m_PersistentCalls:
+      m_Calls: []
+  onRightMult:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!23 &1774161677
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1774161675}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 9d07286ce5387364697f779816d47c28, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!33 &1774161678
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1774161675}
+  m_Mesh: {fileID: 4300000, guid: b92bb0fdb11fc5047a30bbf146c44cfa, type: 2}
+--- !u!114 &1774161679
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1774161675}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1228f34d9247c764299310d86c822306, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  transform4: {fileID: 1774161676}
+  renderer: {fileID: 1774161677}
+  filter: {fileID: 1774161678}
+  mesh: {fileID: 4300000, guid: b92bb0fdb11fc5047a30bbf146c44cfa, type: 2}
+  meshColor: {r: 0.23584908, g: 0.11543404, b: 0.043387335, a: 1}
+  initialize: 0
+  transformMatrix:
+    e00: 1
+    e01: 8.401883e-10
+    e02: 7.907998e-17
+    e03: -1.4539119e-10
+    e10: -8.4019386e-10
+    e11: 0.9418512
+    e12: -0.0000000021485216
+    e13: -0.3360306
+    e20: -8.163476e-17
+    e21: 0.0000000037557855
+    e22: 1
+    e23: 0.000000004133155
+    e30: -1.4539323e-10
+    e31: 0.3360306
+    e32: -0.0000000051548867
+    e33: 0.9418513
+  transformScale: {x: 0.05, y: 0.05, z: 0.05}
+  vertices: []
+  uvs: []
+  triangles: 
+  doVertex4: 0
+--- !u!4 &1774161680
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1774161675}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.30277714, y: 0.5074737, z: 0.21666437}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 401018547}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1799437638
 GameObject:
   m_ObjectHideFlags: 0
@@ -11793,6 +12510,17 @@ MonoBehaviour:
   transform4: {fileID: 2035789373}
   rigidbody4: {fileID: 2035789372}
   isTrigger: 0
+  onTriggerEnter:
+    m_PersistentCalls:
+      m_Calls: []
+  onTriggerStay:
+    m_PersistentCalls:
+      m_Calls: []
+  onTriggerExit:
+    m_PersistentCalls:
+      m_Calls: []
+  overlapColliders: []
+  thisFrameOverlapColliders: []
   radius: 0.06
 --- !u!114 &2035789372
 MonoBehaviour:

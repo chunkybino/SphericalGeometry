@@ -1,4 +1,6 @@
 using UnityEngine;
+using System.Collections.Generic;
+using UnityEngine.Events;
 
 public abstract class ColliderS : MonoBehaviour
 {
@@ -42,10 +44,53 @@ public abstract class ColliderS : MonoBehaviour
 
     public abstract Vector4 PointClose(Vector4 point);
 
+    public UnityEvent<ColliderS> onTriggerEnter;
+    public UnityEvent<ColliderS> onTriggerStay;
+    public UnityEvent<ColliderS> onTriggerExit;
+
+    public List<ColliderS> overlapColliders = new List<ColliderS>();
+    public List<ColliderS> thisFrameOverlapColliders = new List<ColliderS>();
+
     void Awake()
     {
         if (!transform4) transform4 = GetComponent<Transform4D>();
         if (!rigidbody4) rigidbody4 = GetComponent<Rigidbody4D>();
+    }
+
+    public void PhysicsUpdate()
+    {
+        thisFrameOverlapColliders.Clear();
+    }
+    public void PhysicsUpdate2()
+    {
+        if (!isTrigger) return;
+
+        for (int i = overlapColliders.Count-1; i >= 0; i--)
+        {
+            ColliderS c = overlapColliders[i];
+            if (!thisFrameOverlapColliders.Contains(c))
+            {
+                overlapColliders.Remove(c);
+                onTriggerExit.Invoke(c);
+            }
+            else
+            {
+                onTriggerStay.Invoke(c);
+            }
+        }
+    }
+
+    public void CollisionHappen(ColliderS col)
+    {
+        if (!isTrigger) return;
+
+        if (!overlapColliders.Contains(col))
+        {
+            overlapColliders.Add(col);
+            onTriggerEnter.Invoke(col);
+        }
+
+        thisFrameOverlapColliders.Add(col);
     }
 
     struct CollisionObject
@@ -82,18 +127,24 @@ public abstract class ColliderS : MonoBehaviour
         public float linearMoment;
         public float angularMoment;
         public float moment;
+    }
 
-        //public float inertia;
+    public static bool IsOverlap(ColliderS c1, ColliderS c2)
+    {
+        float overlap = FindCollisionType(c1, c2).overlap;
+
+        return overlap > 0;
     }
 
     public static bool CollisionPhysic(ColliderS c1, ColliderS c2)
     {
-        Vector4 contact1 = new Vector4(); //the point on c1 that will get pushed
-        Vector4 contact2 = new Vector4(); //the point on c2 that will get pushed
-        Vector4 contactNormal = new Vector4(); //the point on c2 that will get pushed
-        //both of these points shall meet when collision is resolved
+        CollisionData colData = FindCollisionType(c1, c2);
 
-        float overlap = FindCollisionType();
+        float overlap = colData.overlap;
+        Vector4 contact1 = colData.contact1; //the point on c1 that will get pushed
+        Vector4 contact2 = colData.contact2; //the point on c2 that will get pushed
+        Vector4 contactNormal = colData.contactNormal; //the point on c2 that will get pushed
+        //both of these points shall meet when collision is resolved
 
         if (overlap < 0) return false; //return false cause no collision 
 
@@ -123,18 +174,46 @@ public abstract class ColliderS : MonoBehaviour
         CollisionObject obj1 = CollisionObject.GetConfig(c1, contact, contactNormal);
         CollisionObject obj2 = CollisionObject.GetConfig(c2, contact, contactNormal);
 
-        if (obj1.vel < obj2.vel) return true; //if the velDifference is negative, then the objects arnt moving towards eachotjher, so doint do velocity calucations
+        float centerDis1 = obj1.centerDis;
+        Vector4 linVel1 = obj1.linVel;
+        Vector4 angVel1 = obj1.angVel;
+        float linDot1 = obj1.linDot;
+        float angDot1 = obj1.angDot;
+        float vel1 = obj1.vel;
+
+        float centerDis2 = obj2.centerDis;
+        Vector4 linVel2 = obj2.linVel;
+        Vector4 angVel2 = obj2.angVel;
+        float linDot2 = obj2.linDot;
+        float angDot2 = obj2.angDot;
+        float vel2 = obj2.vel;
+
+        /*
+        float centerDis1 = UFunc.DistanceS(c1.transform4.positionNorm, contact);
+        Vector4 linVel1 = c1.rigidbody4.GetLinearVelocityAtAnchor(contact);
+        Vector4 angVel1 = -c1.rigidbody4.GetAngularVelocityAtAnchor(contact)/centerDis1;
+        float linDot1 = UFunc.Dot(linVel1, contactNormal);
+        float angDot1 = UFunc.Dot(angVel1, contactNormal);
+        float vel1 = angDot1 + angDot1*centerDis1;
+
+        float centerDis2 = UFunc.DistanceS(c2.transform4.positionNorm, contact);
+        Vector4 linVel2 = c2.rigidbody4.GetLinearVelocityAtAnchor(contact);
+        Vector4 angVel2 = -c2.rigidbody4.GetAngularVelocityAtAnchor(contact)/centerDis2;
+        float linDot2 = UFunc.Dot(linVel2, contactNormal);
+        float angDot2 = UFunc.Dot(angVel2, contactNormal);
+        float vel2 = angDot2 + angDot2*centerDis2;
+        */
+
+        if (vel1 < vel2) return true; //if the velDifference is negative, then the objects arnt moving towards eachotjher, so doint do velocity calucations
 
         if (c1.isStatic) 
         {
             c2.rigidbody4.ApplyStaticForce(contactNormal, 0, contact, bounce);
-            //c2.rigidbody4.ApplyMomentumAtPoint(contactNormal, -obj2.linDot*(1+bounce), 1, contact);
             return true;
         } 
         else if (c2.isStatic) 
         {
             c1.rigidbody4.ApplyStaticForce(-contactNormal, 0, contact, bounce);
-            //c1.rigidbody4.ApplyMomentumAtPoint(contactNormal, -obj1.linDot*(1+bounce), 1, contact);
             return true;
         }
         else
@@ -142,80 +221,68 @@ public abstract class ColliderS : MonoBehaviour
             float angularPush1 = c1.angularMass / (c1.angularMass + c2.angularMass);
             float angularPush2 = c2.angularMass / (c1.angularMass + c2.angularMass);
 
-            float linearVel = obj1.linDot*(push2) + obj2.linDot*(push1);
-            float angularVel = obj1.angDot*angularPush1 + obj2.angDot*angularPush2;
+            float linearVel = linDot1*(push2) + linDot2*(push1);
+            float angularVel = angDot1*angularPush1 + angDot2*angularPush2;
             float vel = linearVel + angularVel;
 
 
             c1.rigidbody4.ApplyStaticForce(-contactNormal, -vel, contact, bounce);
             c2.rigidbody4.ApplyStaticForce(contactNormal, vel, contact, bounce);
-
-            //c1.rigidbody4.SetLinearVelocityInDirection(contactNormal, vel, contact);
-            //c2.rigidbody4.SetLinearVelocityInDirection(contactNormal, vel, contact);
         }
-
-        //if (!c1.isStatic) c1.rigidbody4.SetLinearVelocityInDirection(contactNormal, centroidVel, contact);
-        //if (!c2.isStatic) c2.rigidbody4.SetLinearVelocityInDirection(contactNormal, centroidVel, contact);
-
-        /*
-        if (obj1.vel > obj2.vel) //if the velDifference is negative, then the objects arnt moving towards eachotjher, so doint do velocity calucations
-        {
-            if (!c1.isStatic) c1.rigidbody4.ApplyMomentumAtAnchor(contactNormal, applyVel1, applyMass1, contact);
-            if (!c2.isStatic) c2.rigidbody4.ApplyMomentumAtAnchor(contactNormal, applyVel2, applyMass2, contact);
-        }
-        */
-        /*
-        if (vel2 < vel1) //if the velDifference is negative, then the objects arnt moving towards eachotjher, so doint do velocity calucations
-        {
-            if (!c1.isStatic) c1.rigidbody4?.SetVelocityAtAnchor(contactNormal, vel1 + (vel2-vel1)*push1*(1+bounce), contact);
-            if (!c2.isStatic) c2.rigidbody4?.SetVelocityAtAnchor(contactNormal, vel2 + (vel1-vel2)*push2*(1+bounce), contact);
-        }
-        */
 
         return true;
+    }
 
-        float FindCollisionType()
+    struct CollisionData
+    {
+        public float overlap;
+        public Vector4 contact1;
+        public Vector4 contact2;
+        public Vector4 contactNormal;
+    }
+
+    static CollisionData FindCollisionType(ColliderS c1, ColliderS c2)
+    {
+        int type1 = c1.colliderType;
+        int type2 = c2.colliderType;
+
+        if (type1 > type2) {
+            (c1,c2) = (c2,c1);
+            (type1,type2) = (type2,type1);
+        }
+        
+        Vector4 contact1 = new Vector4();
+        Vector4 contact2 = new Vector4();
+        Vector4 contactNormal = new Vector4();
+        float over = Find();
+
+        CollisionData outC = new CollisionData()
         {
-            int type1 = c1.colliderType;
-            int type2 = c2.colliderType;
+            overlap = over,
+            contact1 = contact1,
+            contact2 = contact2,
+            contactNormal = contactNormal
+        };
 
-            if (type1 > type2) {
-                (c1,c2) = (c2,c1);
-                (type1,type2) = (type2,type1);
+        return outC;
+
+        float Find()
+        {
+            switch (type1) {
+                default: //sphere
+                    return SphereOn(c1.sphere, c2, ref contact1, ref contact2, ref contactNormal);
+                case 1: //capsule
+                    switch (type2) {
+                        default: //capsule-capsule
+                            return CapsuleOnCapsule(c1.capsule, c2.capsule, ref contact1, ref contact2, ref contactNormal);
+                        case 2:
+                            return CapsuleOnTriangle(c1.capsule, c2.triangle, ref contact1, ref contact2, ref contactNormal);
+                        case 3: //sphere-triangle
+                            return CapsuleOnMesh(c1.capsule, c2.mesh, ref contact1, ref contact2, ref contactNormal);
+                    }
             }
-            
-            float over = Find();
 
-            return over;
-
-            float Find()
-            {
-                switch (type1) {
-                    default: //sphere
-                        return SphereOn(c1.sphere, c2, ref contact1, ref contact2, ref contactNormal);
-                        /*switch (type2) {
-                            default: //sphere-sphere
-                                return SphereOnSphere(c1.sphere, c2.sphere, ref contact1, ref contact2, ref contactNormal);
-                            case 1: //sphere-capsule
-                                return SphereOnCapsule(c1.sphere, c2.capsule, ref contact1, ref contact2, ref contactNormal);
-                            case 2: //sphere-triangle
-                                return SphereOnTriangle(c1.sphere, c2.triangle, ref contact1, ref contact2, ref contactNormal);
-                            case 3: //sphere-triangle
-                                return SphereOnMesh(c1.sphere, c2.mesh, ref contact1, ref contact2, ref contactNormal);
-                        }*/
-                    case 1: //capsule
-                        switch (type2) {
-                            default: //capsule-capsule
-                                return CapsuleOnCapsule(c1.capsule, c2.capsule, ref contact1, ref contact2, ref contactNormal);
-                            case 2:
-                                return CapsuleOnTriangle(c1.capsule, c2.triangle, ref contact1, ref contact2, ref contactNormal);
-                            case 3: //sphere-triangle
-                                return CapsuleOnMesh(c1.capsule, c2.mesh, ref contact1, ref contact2, ref contactNormal);
-                        }
-                }
-
-                return 0;
-            }
+            return 0;
         }
     }
 

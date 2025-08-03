@@ -178,11 +178,7 @@ public class PhysicsHandlerS : MonoBehaviour
     void FixedUpdate()
     {
         //normal physics update
-        foreach (Rigidbody4D rb in rigidbodyList)
-        {
-            if (!rb.enabled) continue;
-            rb.PhysicsUpdate();
-        }
+        DoPhysicsUpdate(0);
 
         //collision
         
@@ -199,7 +195,7 @@ public class PhysicsHandlerS : MonoBehaviour
                     if (!RBValid(staticRb)) continue;
                     if (!ObjectBoundOverlap(rb,staticRb)) continue;
 
-                    CheckCollision(rb,staticRb);
+                    CheckCollision(rb.collider,staticRb.collider);
                 }
             }
 
@@ -214,7 +210,7 @@ public class PhysicsHandlerS : MonoBehaviour
                     if (!RBValid(rb2)) continue;
                     if (!ObjectBoundOverlap(rb,rb2)) continue;
 
-                    CheckCollision(rb,rb2);
+                    CheckCollision(rb.collider,rb2.collider);
                 }
             }
         }
@@ -230,7 +226,7 @@ public class PhysicsHandlerS : MonoBehaviour
                     if (!RBValid(rbStatic)) continue;
                     if (!ObjectBoundOverlap(rb,rbStatic)) continue;
 
-                    CheckCollision(rb,rbStatic);
+                    CheckCollision(rb.collider,rbStatic.collider);
                 }
             }
 
@@ -241,9 +237,12 @@ public class PhysicsHandlerS : MonoBehaviour
                 if (rb == rbDynamic) continue;
                 if (!ObjectBoundOverlap(rb,rbDynamic)) continue;
 
-                CheckCollision(rb,rbDynamic);
+                CheckCollision(rb.collider,rbDynamic.collider);
             }
         }
+
+        //second physics update
+        DoPhysicsUpdate(1);
 
         bool RBValid(Rigidbody4D rb)
         {
@@ -251,15 +250,48 @@ public class PhysicsHandlerS : MonoBehaviour
         }
     }
 
-    public void CheckCollision(Rigidbody4D rb1, Rigidbody4D rb2)
+    public void CheckCollision(ColliderS c1, ColliderS c2)
     {
-        ColliderS.CollisionPhysic(rb1.collider, rb2.collider);
         totalCollisionChecks++;
+
+        bool yes = false;
+
+        if (c1.isTrigger || c2.isTrigger)
+        {
+            yes = ColliderS.IsOverlap(c1, c2);
+        }
+        else
+        {
+            yes = ColliderS.CollisionPhysic(c1, c2);
+        }
+
+        if (yes)
+        {
+            c1.CollisionHappen(c2);
+            c2.CollisionHappen(c1);
+        }
     }
 
     public bool ObjectBoundOverlap(Rigidbody4D rb1, Rigidbody4D rb2)
     {
         float objDis = UFunc.DistanceS(rb1.transform4.positionNorm, rb2.transform4.positionNorm);
         return objDis < rb1.boundingRadius + rb2.boundingRadius;
+    }
+
+    void DoPhysicsUpdate(int i)
+    {
+        foreach (Rigidbody4D rb in rigidbodyList)
+        {
+            if (!rb.enabled) continue;
+
+            if (i == 0)
+            {
+                rb.PhysicsUpdate();
+            }
+            else
+            {
+                rb.PhysicsUpdate2();
+            }
+        }
     }
 }

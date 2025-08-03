@@ -57,7 +57,7 @@ public class Rigidbody4D : MonoBehaviour
         }
     }
 
-    public ColliderS collider;
+    new public ColliderS collider;
 
     [SerializeField] bool doYUpLock; //lock the cameras orientation to up is always toawrds the y axis
 
@@ -108,6 +108,12 @@ public class Rigidbody4D : MonoBehaviour
 
         MoveTangent(velocity * Time.fixedDeltaTime);
         if (angularVelocity != Vector3.zero) Rotate(angularVelocity * Time.fixedDeltaTime);
+
+        collider?.PhysicsUpdate();
+    }
+    public void PhysicsUpdate2()
+    {
+        collider?.PhysicsUpdate2();
     }
 
     void DoGravity()
