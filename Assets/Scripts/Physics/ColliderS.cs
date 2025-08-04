@@ -93,58 +93,21 @@ public abstract class ColliderS : MonoBehaviour
         thisFrameOverlapColliders.Add(col);
     }
 
-    struct CollisionObject
-    {
-        public static CollisionObject GetConfig(ColliderS collider, Vector4 contact, Vector4 contactNormal)
-        {
-            CollisionObject outObj = new CollisionObject();
-
-            outObj.centerDis = UFunc.DistanceS(collider.transform4.positionNorm, contact);
-
-            outObj.linVel = collider.rigidbody4.GetLinearVelocityAtAnchor(contact);
-            outObj.angVel = -collider.rigidbody4.GetAngularVelocityAtAnchor(contact)/outObj.centerDis;
-
-            outObj.linDot = UFunc.Dot(outObj.linVel, contactNormal);
-            outObj.angDot = UFunc.Dot(outObj.angVel, contactNormal);
-
-            outObj.vel = outObj.linDot + outObj.angDot*outObj.centerDis;
-            outObj.linearMoment = outObj.linDot*collider.mass;
-            outObj.angularMoment = outObj.angDot*collider.angularMass/outObj.centerDis;
-            outObj.moment = outObj.linearMoment + outObj.angularMoment;
-
-            return outObj;
-        }
-
-        public float centerDis;
-
-        public Vector4 linVel;
-        public Vector4 angVel;
-
-        public float linDot;
-        public float angDot;
-
-        public float vel;
-        public float linearMoment;
-        public float angularMoment;
-        public float moment;
-    }
-
     public static bool IsOverlap(ColliderS c1, ColliderS c2)
     {
-        float overlap = FindCollisionType(c1, c2).overlap;
+        float overlap = FindCollisionType(c1,c2).overlap;
 
         return overlap > 0;
     }
 
     public static bool CollisionPhysic(ColliderS c1, ColliderS c2)
-    {
-        CollisionData colData = FindCollisionType(c1, c2);
+    { 
+        ContactData conData = FindCollisionType(c1,c2);
 
-        float overlap = colData.overlap;
-        Vector4 contact1 = colData.contact1; //the point on c1 that will get pushed
-        Vector4 contact2 = colData.contact2; //the point on c2 that will get pushed
-        Vector4 contactNormal = colData.contactNormal; //the point on c2 that will get pushed
-        //both of these points shall meet when collision is resolved
+        float overlap = conData.overlap;
+        Vector4 contact1 = conData.contact1;
+        Vector4 contact2 = conData.contact2;
+        Vector4 contactNormal = conData.contactNormal;
 
         if (overlap < 0) return false; //return false cause no collision 
 
@@ -160,7 +123,7 @@ public abstract class ColliderS : MonoBehaviour
         float push1 = mass2/totalMass; 
         float push2 = mass1/totalMass;  //the percent of push for c1 and c2
 
-        float bounce = 1 - (1 - c1.bounce)*(1 - c2.bounce);
+        float bounce = 1 - (1-c1.bounce)*(1-c2.bounce);
 
         Vector4 contact = UFunc.Slerp4(contact1, contact2, push1);
 
@@ -171,38 +134,19 @@ public abstract class ColliderS : MonoBehaviour
 
         //velocity stuff
 
-        CollisionObject obj1 = CollisionObject.GetConfig(c1, contact, contactNormal);
-        CollisionObject obj2 = CollisionObject.GetConfig(c2, contact, contactNormal);
-
-        float centerDis1 = obj1.centerDis;
-        Vector4 linVel1 = obj1.linVel;
-        Vector4 angVel1 = obj1.angVel;
-        float linDot1 = obj1.linDot;
-        float angDot1 = obj1.angDot;
-        float vel1 = obj1.vel;
-
-        float centerDis2 = obj2.centerDis;
-        Vector4 linVel2 = obj2.linVel;
-        Vector4 angVel2 = obj2.angVel;
-        float linDot2 = obj2.linDot;
-        float angDot2 = obj2.angDot;
-        float vel2 = obj2.vel;
-
-        /*
         float centerDis1 = UFunc.DistanceS(c1.transform4.positionNorm, contact);
         Vector4 linVel1 = c1.rigidbody4.GetLinearVelocityAtAnchor(contact);
-        Vector4 angVel1 = -c1.rigidbody4.GetAngularVelocityAtAnchor(contact)/centerDis1;
+        Vector4 angVel1 = -c1.rigidbody4.GetAngularVelocityAtAnchor(contact);
         float linDot1 = UFunc.Dot(linVel1, contactNormal);
         float angDot1 = UFunc.Dot(angVel1, contactNormal);
-        float vel1 = angDot1 + angDot1*centerDis1;
+        float vel1 = linDot1 + angDot1;
 
         float centerDis2 = UFunc.DistanceS(c2.transform4.positionNorm, contact);
         Vector4 linVel2 = c2.rigidbody4.GetLinearVelocityAtAnchor(contact);
-        Vector4 angVel2 = -c2.rigidbody4.GetAngularVelocityAtAnchor(contact)/centerDis2;
+        Vector4 angVel2 = -c2.rigidbody4.GetAngularVelocityAtAnchor(contact);
         float linDot2 = UFunc.Dot(linVel2, contactNormal);
         float angDot2 = UFunc.Dot(angVel2, contactNormal);
-        float vel2 = angDot2 + angDot2*centerDis2;
-        */
+        float vel2 = linDot2 + angDot2;
 
         if (vel1 < vel2) return true; //if the velDifference is negative, then the objects arnt moving towards eachotjher, so doint do velocity calucations
 
@@ -225,7 +169,6 @@ public abstract class ColliderS : MonoBehaviour
             float angularVel = angDot1*angularPush1 + angDot2*angularPush2;
             float vel = linearVel + angularVel;
 
-
             c1.rigidbody4.ApplyStaticForce(-contactNormal, -vel, contact, bounce);
             c2.rigidbody4.ApplyStaticForce(contactNormal, vel, contact, bounce);
         }
@@ -233,7 +176,7 @@ public abstract class ColliderS : MonoBehaviour
         return true;
     }
 
-    struct CollisionData
+    struct ContactData
     {
         public float overlap;
         public Vector4 contact1;
@@ -241,28 +184,38 @@ public abstract class ColliderS : MonoBehaviour
         public Vector4 contactNormal;
     }
 
-    static CollisionData FindCollisionType(ColliderS c1, ColliderS c2)
+    static ContactData FindCollisionType(ColliderS col1, ColliderS col2)
     {
-        int type1 = c1.colliderType;
-        int type2 = c2.colliderType;
+        int type1 = col1.colliderType;
+        int type2 = col2.colliderType;
 
+        bool swap = false;
         if (type1 > type2) {
-            (c1,c2) = (c2,c1);
+            (col1,col2) = (col2,col1);
             (type1,type2) = (type2,type1);
+            swap = true;
         }
         
-        Vector4 contact1 = new Vector4();
-        Vector4 contact2 = new Vector4();
-        Vector4 contactNormal = new Vector4();
+        Vector4 con1 = new Vector4();
+        Vector4 con2 = new Vector4();
+        Vector4 conNorm = new Vector4();
+
         float over = Find();
 
-        CollisionData outC = new CollisionData()
+        ContactData outC = new ContactData()
         {
             overlap = over,
-            contact1 = contact1,
-            contact2 = contact2,
-            contactNormal = contactNormal
+            contact1 = con1,
+            contact2 = con2,
+            contactNormal = conNorm
         };
+
+        if (swap)
+        {
+            outC.contact1 = con2;
+            outC.contact2 = con1;
+            outC.contactNormal *= -1;
+        }
 
         return outC;
 
@@ -270,15 +223,15 @@ public abstract class ColliderS : MonoBehaviour
         {
             switch (type1) {
                 default: //sphere
-                    return SphereOn(c1.sphere, c2, ref contact1, ref contact2, ref contactNormal);
+                    return SphereOn(col1.sphere, col2, ref con1, ref con2, ref conNorm);
                 case 1: //capsule
                     switch (type2) {
                         default: //capsule-capsule
-                            return CapsuleOnCapsule(c1.capsule, c2.capsule, ref contact1, ref contact2, ref contactNormal);
+                            return CapsuleOnCapsule(col1.capsule, col2.capsule, ref con1, ref con2, ref conNorm);
                         case 2:
-                            return CapsuleOnTriangle(c1.capsule, c2.triangle, ref contact1, ref contact2, ref contactNormal);
+                            return CapsuleOnTriangle(col1.capsule, col2.triangle, ref con1, ref con2, ref conNorm);
                         case 3: //sphere-triangle
-                            return CapsuleOnMesh(c1.capsule, c2.mesh, ref contact1, ref contact2, ref contactNormal);
+                            return CapsuleOnMesh(col1.capsule, col2.mesh, ref con1, ref con2, ref conNorm);
                     }
             }
 
