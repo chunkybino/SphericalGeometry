@@ -29,6 +29,10 @@ public abstract class ColliderS : MonoBehaviour
         if (rigidbody4 == null) return 0;
         return rigidbody4.bounce;
     }}
+    public float friction {get{
+        if (rigidbody4 == null) return 0;
+        return rigidbody4.friction;
+    }}
 
     public bool isTrigger;
 
@@ -153,11 +157,25 @@ public abstract class ColliderS : MonoBehaviour
         if (c1.isStatic) 
         {
             c2.rigidbody4.ApplyStaticForce(contactNormal, 0, contact, bounce);
+
+            Vector4 tanLin2 = linVel2 - linDot2*contactNormal;
+            Vector4 tanAng2 = angVel2 - angDot2*contactNormal;
+            Vector4 tanVel2 = tanLin2 + tanAng2;
+
+            c2.rigidbody4.ApplyStaticForce(-tanVel2.normalized, -tanVel2.magnitude*Mathf.Pow(1-c2.friction,Time.fixedDeltaTime), contact, 0);
+
             return true;
         } 
         else if (c2.isStatic) 
         {
             c1.rigidbody4.ApplyStaticForce(-contactNormal, 0, contact, bounce);
+
+            Vector4 tanLin1 = linVel1 - linDot1*contactNormal;
+            Vector4 tanAng1 = angVel1 - angDot1*contactNormal;
+            Vector4 tanVel1 = tanLin1 + tanAng1;
+
+            c1.rigidbody4.ApplyStaticForce(-tanVel1.normalized, -tanVel1.magnitude*Mathf.Pow(1-c1.friction,Time.fixedDeltaTime), contact, 0);
+
             return true;
         }
         else

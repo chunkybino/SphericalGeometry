@@ -250,6 +250,7 @@ MonoBehaviour:
   mass: 1
   angularMassMult: 1
   bounce: 0
+  friction: 0
   dontReciveAngularVelocity: 0
   m_isStatic: 1
   collider: {fileID: 14870708}
@@ -1887,6 +1888,7 @@ MonoBehaviour:
   mass: 1
   angularMassMult: 1
   bounce: 0
+  friction: 0
   dontReciveAngularVelocity: 0
   m_isStatic: 1
   collider: {fileID: 607435941}
@@ -2438,6 +2440,7 @@ MonoBehaviour:
   mass: 4
   angularMassMult: 1
   bounce: 0
+  friction: 0
   dontReciveAngularVelocity: 1
   m_isStatic: 0
   collider: {fileID: 665110788}
@@ -2460,9 +2463,9 @@ MonoBehaviour:
   parent: {fileID: 0}
   children:
   - {fileID: 871264117}
-  - {fileID: 1774161676}
-  - {fileID: 1612277668}
   - {fileID: 927178209}
+  - {fileID: 1612277668}
+  - {fileID: 1774161676}
   m_matrix:
     e00: 1
     e01: 0
@@ -2822,6 +2825,7 @@ MonoBehaviour:
   mass: 1.5
   angularMassMult: 0.01
   bounce: 0.5
+  friction: 0.2
   dontReciveAngularVelocity: 0
   m_isStatic: 0
   collider: {fileID: 708456872}
@@ -3219,6 +3223,7 @@ MonoBehaviour:
   mass: 1
   angularMassMult: 1
   bounce: 0
+  friction: 0
   dontReciveAngularVelocity: 0
   m_isStatic: 1
   collider: {fileID: 724789089}
@@ -3373,6 +3378,7 @@ MonoBehaviour:
   mass: 1
   angularMassMult: 1
   bounce: 0
+  friction: 0
   dontReciveAngularVelocity: 0
   m_isStatic: 0
   collider: {fileID: 871264116}
@@ -4352,6 +4358,7 @@ MonoBehaviour:
   mass: 0.6
   angularMassMult: 1
   bounce: 0.5
+  friction: 0.5
   dontReciveAngularVelocity: 0
   m_isStatic: 0
   collider: {fileID: 929819535}
@@ -4903,6 +4910,7 @@ MonoBehaviour:
   mass: 1
   angularMassMult: 1
   bounce: 0
+  friction: 0
   dontReciveAngularVelocity: 0
   m_isStatic: 1
   collider: {fileID: 938559783}
@@ -7409,6 +7417,11 @@ MonoBehaviour:
   - {fileID: 14870709}
   - {fileID: 14870709}
   - {fileID: 14870709}
+  - {fileID: 14870709}
+  - {fileID: 14870709}
+  - {fileID: 14870709}
+  - {fileID: 14870709}
+  - {fileID: 14870709}
   sectors:
   - staticBodies:
     - {fileID: 607435942}
@@ -9257,6 +9270,7 @@ MonoBehaviour:
   mass: 1
   angularMassMult: 1
   bounce: 0
+  friction: 0
   dontReciveAngularVelocity: 0
   m_isStatic: 1
   collider: {fileID: 1466526955}
@@ -9591,6 +9605,7 @@ MonoBehaviour:
   mass: 1
   angularMassMult: 1
   bounce: 0
+  friction: 0
   dontReciveAngularVelocity: 0
   m_isStatic: 1
   collider: {fileID: 1509006518}
@@ -9929,7 +9944,7 @@ MonoBehaviour:
       m_Calls: []
   overlapColliders: []
   thisFrameOverlapColliders: []
-  radius: 0.16
+  radius: 0.18
 --- !u!114 &1569770726
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9955,12 +9970,13 @@ MonoBehaviour:
   mass: 6
   angularMassMult: 1
   bounce: 0.35
+  friction: 0.2
   dontReciveAngularVelocity: 0
   m_isStatic: 0
   collider: {fileID: 1569770725}
   doYUpLock: 0
   sectorIndex: 4
-  allSectors: 04000000
+  allSectors: 0400000006000000
   globalSector: 0
 --- !u!114 &1569770727
 MonoBehaviour:
@@ -10696,6 +10712,7 @@ MonoBehaviour:
   mass: 1
   angularMassMult: 1
   bounce: 0
+  friction: 0
   dontReciveAngularVelocity: 0
   m_isStatic: 1
   collider: {fileID: 1620956662}
@@ -10786,7 +10803,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1662217429
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10841,6 +10858,7 @@ MonoBehaviour:
   mass: 1
   angularMassMult: 0.01
   bounce: 0.8
+  friction: 0.4
   dontReciveAngularVelocity: 0
   m_isStatic: 0
   collider: {fileID: 1662217429}
@@ -11106,6 +11124,7 @@ MonoBehaviour:
   mass: 0.5
   angularMassMult: 1
   bounce: 0.8
+  friction: 0.5
   dontReciveAngularVelocity: 1
   m_isStatic: 0
   collider: {fileID: 1688195795}
@@ -12547,6 +12566,7 @@ MonoBehaviour:
   mass: 0.2
   angularMassMult: 1
   bounce: 0.5
+  friction: 0
   dontReciveAngularVelocity: 0
   m_isStatic: 0
   collider: {fileID: 2035789371}
