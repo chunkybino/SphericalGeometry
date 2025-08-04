@@ -23,6 +23,10 @@ public class MeshMaker : MonoBehaviour
     public bool readTri;
     public bool doubleTri;
 
+    public bool readVertex3;
+
+    public bool subdivide;
+
     public bool doVertex4;
     public Vector4[] vertices4;
 
@@ -83,6 +87,19 @@ public class MeshMaker : MonoBehaviour
             }
             triangles = newTri;
         }
+
+        if (readVertex3)
+        {
+            readVertex3 = false;
+            vertices = mesh.vertices;
+        }
+
+        if (subdivide)
+        {
+            subdivide = false;
+            SetTriInt();
+            SubdivideMesh3(ref vertices, ref trianglesInt);
+        }
     }
 
     void SetTriInt()
@@ -125,5 +142,72 @@ public class MeshMaker : MonoBehaviour
         }
 
         mesh.SetVertexBufferData(vertexArray, 0, 0, vertexCount);
+    }
+
+    public void SubdivideMesh3(ref Vector3[] inVertex, ref int[] inTri)
+    {
+        List<Vector3> newVertList = new List<Vector3>();
+        Dictionary<Vector3,int> newVertDict = new Dictionary<Vector3,int>();
+
+        List<int> newTriList = new List<int>();        
+
+        for (int i = 0; i < inTri.Length/3; i++)
+        {
+            Vector3 vertex1 = inVertex[inTri[3*i]];
+            Vector3 vertex2 = inVertex[inTri[3*i + 1]];
+            Vector3 vertex3 = inVertex[inTri[3*i + 2]];
+
+            Vector3 newVertex1 = Vector3.Lerp(vertex1,vertex2, 0.5f);
+            Vector3 newVertex2 = Vector3.Lerp(vertex2,vertex3, 0.5f);
+            Vector3 newVertex3 = Vector3.Lerp(vertex3,vertex1, 0.5f);
+
+            AddNewTris(
+                new Vector3[] {
+                    vertex1,vertex2,vertex3,
+                    newVertex1,newVertex2,newVertex3
+                }
+            );
+        }
+
+        inTri = UFunc.List2Array(newTriList);
+        inVertex = UFunc.List2Array(newVertList);
+
+        void AddNewTris(Vector3[] triVertex)
+        {
+            int[] vertexIndex = new int[6];
+
+            for (int i = 0; i < triVertex.Length; i++)
+            {
+                Vector3 v = triVertex[i];
+                if (!newVertDict.ContainsKey(v))
+                {
+                    vertexIndex[i] = newVertList.Count;
+                    newVertDict.Add(v,newVertList.Count);
+                    newVertList.Add(v);
+
+                    print("new "+v);
+                }
+                else
+                {
+                    vertexIndex[i] = newVertDict[v];
+                }
+            }
+
+            newTriList.Add(vertexIndex[0]);
+            newTriList.Add(vertexIndex[3]);
+            newTriList.Add(vertexIndex[5]);
+
+            newTriList.Add(vertexIndex[1]);
+            newTriList.Add(vertexIndex[4]);
+            newTriList.Add(vertexIndex[3]);
+
+            newTriList.Add(vertexIndex[2]);
+            newTriList.Add(vertexIndex[5]);
+            newTriList.Add(vertexIndex[4]);
+
+            newTriList.Add(vertexIndex[3]);
+            newTriList.Add(vertexIndex[4]);
+            newTriList.Add(vertexIndex[5]);
+        }
     }
 }
