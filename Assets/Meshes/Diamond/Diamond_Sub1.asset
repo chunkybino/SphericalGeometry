@@ -6,19 +6,19 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: D20_Sub
+  m_Name: Diamond_Sub1
   serializedVersion: 11
   m_SubMeshes:
   - serializedVersion: 2
     firstByte: 0
-    indexCount: 0
+    indexCount: 192
     topology: 0
     baseVertex: 0
     firstVertex: 0
-    vertexCount: 0
+    vertexCount: 18
     localAABB:
       m_Center: {x: 0, y: 0, z: 0}
-      m_Extent: {x: 0, y: 0, z: 0}
+      m_Extent: {x: 1, y: 1, z: 1}
   m_Shapes:
     vertices: []
     shapes: []
@@ -35,15 +35,31 @@ Mesh:
   m_KeepVertices: 1
   m_KeepIndices: 1
   m_IndexFormat: 0
-  m_IndexBuffer: 
+  m_IndexBuffer: 000003000500010004000300020005000400030004000500000005000800020007000500060008000700050007000800000008000b0006000a00080009000b000a0008000a000b0000000b00030009000c000b00010003000c000b000c0003000d000e000f0001000c000e0009000f000c000e000c000f000d000f00100009000a000f00060010000a000f000a0010000d00100011000600070010000200110007001000070011000d0011000e0002000400110001000e000400110004000e0002000400050001000300040000000500030004000300050006000700080002000500070000000800050007000500080009000a000b00060008000a0000000b0008000a0008000b0001000c00030009000b000c00000003000b000c000b00030009000c000f0001000e000c000d000f000e000c000e000f0006000a00100009000f000a000d0010000f000a000f0010000200070011000600100007000d0011001000070010001100010004000e000200110004000d000e001100040011000e00
   m_VertexData:
     serializedVersion: 3
-    m_VertexCount: 0
+    m_VertexCount: 18
     m_Channels:
     - stream: 0
       offset: 0
       format: 0
+      dimension: 3
+    - stream: 0
+      offset: 0
+      format: 0
       dimension: 0
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 12
+      format: 0
+      dimension: 2
     - stream: 0
       offset: 0
       format: 0
@@ -80,24 +96,8 @@ Mesh:
       offset: 0
       format: 0
       dimension: 0
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    m_DataSize: 0
-    _typelessdata: 
+    m_DataSize: 360
+    _typelessdata: 0000803f0000000000000000000000000000003f000000000000803f000000000000003f0000003f00000000000000000000803f0000003f000000000000003f0000003f000000000000803e0000003f000000000000003f0000003f0000003f0000803e0000003f000000000000003f0000803e0000803e00000000000080bf000000000000003f0000003f00000000000000bf0000003f0000003f0000803e0000003f000000bf000000000000803e0000003f0000000000000000000080bf0000003f0000803f00000000000000bf000000bf0000003f0000403f0000003f00000000000000bf0000803e0000403f000000000000003f000000bf0000003f0000403f000080bf00000000000000000000803f0000003f000000bf0000003f000000000000403f0000003f000000bf00000000000000bf0000403f0000403f000000bf000000bf000000000000403f0000003f000000bf000000000000003f0000403f0000803e
   m_CompressedMesh:
     m_Vertices:
       m_NumItems: 0
@@ -152,7 +152,7 @@ Mesh:
     m_UVInfo: 0
   m_LocalAABB:
     m_Center: {x: 0, y: 0, z: 0}
-    m_Extent: {x: 0, y: 0, z: 0}
+    m_Extent: {x: 1, y: 1, z: 1}
   m_MeshUsageFlags: 0
   m_CookingOptions: 30
   m_BakedConvexCollisionMesh: 
