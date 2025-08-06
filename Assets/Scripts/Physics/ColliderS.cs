@@ -133,8 +133,8 @@ public abstract class ColliderS : MonoBehaviour
 
         contactNormal = UFunc.ProjectToVectorNormal(contactNormal, contact).normalized;
 
-        c1.transform4.LeftMult(UFunc.RotateTowardsMatrix(contact1, contact2, -overlap*push1/Transform4D.radius));
-        c2.transform4.LeftMult(UFunc.RotateTowardsMatrix(contact2, contact1, -overlap*push2/Transform4D.radius));
+        c1.transform4.LeftMult(UFunc.RotateTowardsMatrix(contact1, contact));
+        c2.transform4.LeftMult(UFunc.RotateTowardsMatrix(contact2, contact));
 
         //velocity stuff
 

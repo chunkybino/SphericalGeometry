@@ -138,20 +138,7 @@ public class Rigidbody4D : MonoBehaviour
 
     public void MoveTangent(Vector4 moveVel)
     {
-        Vector4 target = (positionNorm + moveVel).normalized;
-
-        Matrix4x4 mat = UFunc.RotateTowardsMatrix(positionNorm, target, -moveVel.magnitude / radius);
-
-        transform4.LeftMult(mat);
-    }
-
-    public void MoveFromAnchor(Vector4 moveVel, Vector4 anchor) //move, but with the movement anchored to a point other than the center
-    {
-        Vector4 target = (anchor + moveVel).normalized;
-
-        Matrix4x4 mat = UFunc.RotateTowardsMatrix(anchor, target, -moveVel.magnitude / radius);
-
-        transform4.LeftMult(mat);
+        transform4.MoveTangent(moveVel);
     }
 
     void MoveRelative(Vector3 moveAmount)

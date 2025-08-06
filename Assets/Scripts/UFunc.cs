@@ -205,24 +205,34 @@ public static class UFunc
         return targetToXY * posToX;
     }
 
-    public static Vector4 RotateTowards(Vector4 pos, Vector4 target, float angle)
-    {
-        Matrix4x4 planeToXY = PlaneToXY(pos, target);
-        Vector4 newPos = new Vector4(Mathf.Cos(angle), -Mathf.Sin(angle), 0, 0);
-
-        return planeToXY.transpose * newPos;
-    }
-
     public static Matrix4x4 RotateTowardsMatrix(Vector4 pos, Vector4 target)
     {
-        return RotateTowardsMatrix(pos, target, VectorAngle(pos, target));
-    }
-    public static Matrix4x4 RotateTowardsMatrix(Vector4 pos, Vector4 target, float angle)
-    {
-        Matrix4x4 planeToXY = PlaneToXY(pos, target);
+        Vector4 reflectVector = ((pos+target)/2).normalized;
 
-        return planeToXY.transpose * MatXYRot(angle) * planeToXY;
+        Matrix4x4 mat = new Matrix4x4();
+        mat.SetColumn(0, BiReflectVector(new Vector4(1,0,0,0), pos, reflectVector));
+        mat.SetColumn(1, BiReflectVector(new Vector4(0,1,0,0), pos, reflectVector));
+        mat.SetColumn(2, BiReflectVector(new Vector4(0,0,1,0), pos, reflectVector));
+        mat.SetColumn(3, BiReflectVector(new Vector4(0,0,0,1), pos, reflectVector));
+
+        return mat;
     }
+
+    public static Matrix4x4 MatrixBiReflect(Vector4 v1, Vector4 v2)
+    {
+        v1 = v1.normalized;
+        v2 = v2.normalized;
+
+        Matrix4x4 mat = new Matrix4x4();
+        mat.SetColumn(0, BiReflectVector(new Vector4(1,0,0,0), v1, v2));
+        mat.SetColumn(1, BiReflectVector(new Vector4(0,1,0,0), v1, v2));
+        mat.SetColumn(2, BiReflectVector(new Vector4(0,0,1,0), v1, v2));
+        mat.SetColumn(3, BiReflectVector(new Vector4(0,0,0,1), v1, v2));
+
+        return mat;
+    }
+
+    //public static Matrix4x4 RotateMatrixBivector(Matrix4x4)
 
     public static Vector4 LineXIntersect(Vector4 v1, Vector4 v2, float intersectVal)
     {
@@ -397,7 +407,6 @@ public static class UFunc
     public static Vector4 Slerp4(Vector4 v1, Vector4 v2, float t)
     {
         float arc = Mathf.Acos(Clamp1(Dot(v1,v2)));
-        float shift = arc*(t-0.5f);
 
         if (arc == 0) return v1;
 
@@ -405,7 +414,7 @@ public static class UFunc
 
         for (int i = 0; i < 4; i++)
         {
-            outV[i] = (v1[i]*Mathf.Sin(arc*0.5f - shift) + v2[i]*Mathf.Sin(arc*0.5f + shift)) / Mathf.Sin(arc);
+            outV[i] = (v1[i]*Mathf.Sin(arc*(1-t)) + v2[i]*Mathf.Sin(arc*t)) / Mathf.Sin(arc);
         }
 
         return outV;
@@ -483,6 +492,15 @@ public static class UFunc
     {
         if (direction == Vector4.zero) return vec;
         return vec - Vector4.Project(vec,direction) + value*direction;
+    }
+
+    public static Vector4 ReflectVector(Vector4 v, Vector4 reflect) //recflects the vector over the normal of th eother vector
+    {
+        return v - 2*reflect*UFunc.Dot(reflect, v)/reflect.sqrMagnitude;
+    }
+    public static Vector4 BiReflectVector(Vector4 v, Vector4 reflect1, Vector4 reflect2)
+    {
+        return ReflectVector(ReflectVector(v, reflect1), reflect2);
     }
 
     public static void PrintList(params string[] par)

@@ -165,15 +165,27 @@ public class Transform4D : MonoBehaviour
         if (lockSterographicPos) transform.position = sterographicPos;
     }
 
+    public void MoveTangent(Vector4 move)
+    {
+        Vector4 target = move.normalized;//(positionNorm + moveVel).normalized;
+
+        Matrix4x4 mat = UFunc.MatrixBiReflect(positionNorm, UFunc.Slerp4(positionNorm,target, move.magnitude*(1/Mathf.PI)));
+
+        //Matrix4x4 mat = UFunc.RotateTowardsMatrix(positionNorm, target, -moveVel.magnitude / radius);
+
+        LeftMult(mat);
+    }
+
     //move relative to our orientation
     public void MoveRelative(Vector3 move)
     {
         Vector3 moveNormal = -move.normalized;
         Vector4 moveTarget = lookMatrix * new Vector4(moveNormal.x,moveNormal.y,moveNormal.z, 0);
 
-        Matrix4x4 moveMatrix = UFunc.RotateTowardsMatrix(position, moveTarget, move.magnitude / radius);
+        Matrix4x4 mat = UFunc.MatrixBiReflect(positionNorm, UFunc.Slerp4(positionNorm,moveTarget,move.magnitude/(2*UFunc.DistanceS(positionNorm,moveTarget))));
+        //Matrix4x4 moveMatrix = UFunc.RotateTowardsMatrix(position, moveTarget, move.magnitude / radius);
 
-        LeftMult(moveMatrix);
+        LeftMult(mat);
     }
 
     public void RotateRelativeXY(float angle) 
