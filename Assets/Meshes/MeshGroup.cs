@@ -63,4 +63,11 @@ public class MeshGroup : ScriptableObject
         AssetDatabase.CreateAsset(mesh, filePath+name+"_Sub"+division+".asset");
         return mesh;
     }
+
+    public Mesh GetMeshFromDistance(float dis)
+    {
+        int index = Mathf.FloorToInt((dis/Mathf.PI)*allMesh.Length);
+        if (index >= allMesh.Length) index = allMesh.Length-1; 
+        return allMesh[index];
+    }
 }

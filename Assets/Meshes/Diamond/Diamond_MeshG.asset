@@ -18,4 +18,7 @@ MonoBehaviour:
   updateSub: 0
   allMesh:
   - {fileID: 4300000, guid: af442388091514041be73133fd807282, type: 2}
+  - {fileID: 4300000, guid: afa7128a46c555242be8b0558a3b95f9, type: 2}
+  - {fileID: 4300000, guid: 0a6df6b5baedb56428202de1516dc72e, type: 2}
+  - {fileID: 4300000, guid: c9c8fad8fe52214468c7697ef3b3e346, type: 2}
   filePath: Assets/Meshes/Diamond/

@@ -3,6 +3,8 @@ using UnityEngine;
 [ExecuteAlways]
 public class Camera4D : MonoBehaviour
 {
+    public static Camera4D mainCamera;
+
     new public Camera camera;
     public Transform4D transform4;
 
@@ -14,6 +16,8 @@ public class Camera4D : MonoBehaviour
     {
         if (!camera) camera = GetComponent<Camera>();
         if (!transform4) transform4 = GetComponent<Transform4D>();
+
+        if (mainCamera == null) mainCamera = this;
     }
 
     void Update()

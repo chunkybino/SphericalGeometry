@@ -11,7 +11,11 @@ public class Renderer4D : MonoBehaviour
 
     new public MeshRenderer renderer;
     public MeshFilter filter;
-    public Mesh mesh;
+    //public Mesh mesh;
+
+    public MeshGroup meshGroup;
+    [SerializeField] bool doLOD;
+    [SerializeField] float LODdistanceMult = 1; //have higher level meshes happen soon if this number is higher
 
     public Color meshColor = Color.white;
 
@@ -22,18 +26,11 @@ public class Renderer4D : MonoBehaviour
     public Matrix4x4 transformMatrix;
     public Vector3 transformScale;
 
-    //public Vertex4D[] vertexArray;
-
     [SerializeField] Vector3[] vertices;
     [SerializeField] Vector2[] uvs;
     [SerializeField] int[] triangles;
-
     
     [SerializeField] bool doVertex4;
-    /*
-    [SerializeField] Vector4[] vertices4;
-    [SerializeField] bool setVertex4;
-    */
 
     void Start()
     {
@@ -73,11 +70,17 @@ public class Renderer4D : MonoBehaviour
         matBlock.SetFloat("_DoV4", doVertex4 ? 1f : 0f);
 
         renderer.SetPropertyBlock(matBlock);
+
+        if (doLOD && meshGroup && Camera4D.mainCamera)
+        {
+            float dis = UFunc.DistanceS(transform4.positionNorm, Camera4D.mainCamera.transform4.positionNorm);
+            filter.sharedMesh = meshGroup.GetMeshFromDistance(dis*LODdistanceMult);
+        }
     }
 
     void Initialize()
     {
-        mesh = filter.sharedMesh;
+        //mesh = filter.sharedMesh;
 
         matBlock = new MaterialPropertyBlock();
 
