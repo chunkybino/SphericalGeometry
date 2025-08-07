@@ -165,6 +165,11 @@ public class Transform4D : MonoBehaviour
         if (lockSterographicPos) transform.position = sterographicPos;
     }
 
+    public void MoveRotor(Rotor r)
+    {
+        matrix = r * matrix;
+    }
+
     public void MoveTangent(Vector4 move)
     {
         Vector4 target = move.normalized;//(positionNorm + moveVel).normalized;

@@ -503,6 +503,16 @@ public static class UFunc
         return ReflectVector(ReflectVector(v, reflect1), reflect2);
     }
 
+    public static float SqrSum(params float[] par)
+    {
+        float sum = 0;
+        for (int i = 0; i < par.Length; i++)
+        {
+            sum += par[i]*par[i];
+        }
+        return sum;
+    }
+
     public static void PrintList(params string[] par)
     {
         string s = "";

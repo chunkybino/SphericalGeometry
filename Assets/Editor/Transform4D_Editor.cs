@@ -80,7 +80,7 @@ public class Transform4D_Editor : Editor
         bool moved = false;
 
         if (GUILayout.Button("Move")) {
-            transform.MoveRelative(moveDirection);
+            transform.MoveRelative(-moveDirection);
             moved = true;
         }
 
