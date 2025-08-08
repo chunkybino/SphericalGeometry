@@ -176,9 +176,13 @@ public class Transform4D : MonoBehaviour
     {
         Vector4 target = move.normalized;//(positionNorm + moveVel).normalized;
 
-        Matrix4x4 mat = UFunc.MatrixBiReflect(positionNorm, UFunc.Slerp4(positionNorm,target, move.magnitude*(1/Mathf.PI)));
+        Rotor r = new Rotor(positionNorm,UFunc.Slerp4(positionNorm,target, move.magnitude*(2/Mathf.PI)));
+        matrix = r * matrix;
+        onRotorLeft?.Invoke(r);
 
-        LeftMult(mat);
+        //Matrix4x4 mat = UFunc.MatrixBiReflect(positionNorm, UFunc.Slerp4(positionNorm,target, move.magnitude*(1/Mathf.PI)));
+
+        //LeftMult(mat);
     }
 
     //move relative to our orientation

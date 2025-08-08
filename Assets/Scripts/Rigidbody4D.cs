@@ -21,7 +21,6 @@ public class Rigidbody4D : MonoBehaviour
     float radius {get{return Transform4D.radius;}}
 
     public Vector4 velocity;
-    //public Rotor velocityR;
     public Vector3 angularVelocity;
 
     [SerializeField] float velocityMagnitude;
@@ -59,6 +58,8 @@ public class Rigidbody4D : MonoBehaviour
         }
     }
 
+    public bool dontDoVelocity;
+
     new public ColliderS collider;
 
     [SerializeField] bool doYUpLock; //lock the cameras orientation to up is always toawrds the y axis
@@ -75,14 +76,14 @@ public class Rigidbody4D : MonoBehaviour
 
     PhysicsHandlerS physicsS;
 
+    [SerializeField] List<Vector4> staticContactNormals = new List<Vector4>();
+    [SerializeField] List<float> staticContactVels = new List<float>();
     void Awake()
     {
         if (!transform4) transform4 = GetComponent<Transform4D>();
         if (!collider) collider = GetComponent<ColliderS>();
 
         physicsS = PhysicsHandlerS.singleton;
-
-        //velocityR = new Rotor(positionNorm,positionNorm);
     }
     void OnEnable()
     {
@@ -102,20 +103,25 @@ public class Rigidbody4D : MonoBehaviour
 
         if (doYUpLock) YUpLock();
 
-        DoGravity();
+        if (!dontDoVelocity)
+        {
+            DoGravity();
 
-        velocityMagnitude = velocity.magnitude;
-        angularVelocityMagnitude = angularVelocity.magnitude;
+            velocityMagnitude = velocity.magnitude;
+            angularVelocityMagnitude = angularVelocity.magnitude;
 
-        linearMomentum = velocityMagnitude*mass;
-        angularMomentum = angularVelocityMagnitude*angularMass;
-        totalMomentum = linearMomentum+angularMomentum;
+            linearMomentum = velocityMagnitude*mass;
+            angularMomentum = angularVelocityMagnitude*angularMass;
+            totalMomentum = linearMomentum+angularMomentum;
 
-        MoveTangent(velocity * Time.fixedDeltaTime);
-        if (angularVelocity != Vector3.zero) Rotate(angularVelocity * Time.fixedDeltaTime);
+            MoveTangent(velocity * Time.fixedDeltaTime);
+            if (angularVelocity != Vector3.zero) Rotate(angularVelocity * Time.fixedDeltaTime);
+        }
 
         collider?.PhysicsUpdate();
-    }
+
+        staticContactNormals.Clear();
+        staticContactVels.Clear();}
     public void PhysicsUpdate2()
     {
         collider?.PhysicsUpdate2();
@@ -125,10 +131,11 @@ public class Rigidbody4D : MonoBehaviour
     {
         Vector4 tangentGravity = UFunc.ProjectToVectorNormal(gravity, positionNorm);
         tangentGravity = tangentGravity.normalized * gravity.magnitude * gravityScale;
-
-        Rotor gravRot = new Rotor(positionNorm, gravity.normalized, gravity.magnitude * gravityScale * Time.fixedDeltaTime);
-
-        //velocityR = gravRot * velocityR;
+        for (int i = 0; i < staticContactNormals.Count; i++) {
+            if (Vector4.Dot(tangentGravity,staticContactNormals[i]) < 0) {
+                tangentGravity = UFunc.SetVectorDirectionValue(tangentGravity, staticContactNormals[i], 0);
+            }
+        }
 
         velocity += tangentGravity * Time.fixedDeltaTime;
 
@@ -143,7 +150,6 @@ public class Rigidbody4D : MonoBehaviour
 
         velocity = UFunc.ProjectToVectorNormal(velocity, position4).normalized * velocity.magnitude; //make sure its tangent just incase we pick up some imprecision along the way
 
-        //velocityR = new Rotor(positionNorm,currentTangent.normalized,currentTangent.magnitude);
         velocity = currentTangent;
     }
 
@@ -170,15 +176,9 @@ public class Rigidbody4D : MonoBehaviour
 
     public Vector4 GetLinearVelocityAtAnchor(Vector4 anchor)
     {
-        //Vector4 currentTangent = velocityR.RotateFull(positionNorm) * velocityR.angle;
-        //print(currentTangent);
-
-        //Vector4 currentTangent = velocityR.RotateFull(positionNorm) * velocityR.angle;
-        Vector4 vel = UFunc.RotateTowardsMatrix(positionNorm, anchor) * velocity;
-        //Vector4 vel = new Rotor(positionNorm,anchor) * currentTangent;
+        Vector4 vel = new Rotor(positionNorm, anchor) * velocity;
         if (vel.magnitude > 0) vel *= velocity.magnitude/vel.magnitude;
         return vel;
-        //return new Rotor(positionNorm,anchor) * currentTangent;
     }
     public Vector4 GetAngularVelocityAtAnchor(Vector4 anchor)
     {
@@ -190,7 +190,6 @@ public class Rigidbody4D : MonoBehaviour
 
         return angularDir * angularVelocity.magnitude * UFunc.DistanceS(positionNorm,anchor);
     }
-    /*
     public Vector4 GetVelocityAtAnchor(Vector4 anchor)
     {
         Matrix4x4 mat = UFunc.RotateTowardsMatrix(positionNorm, anchor);
@@ -209,7 +208,6 @@ public class Rigidbody4D : MonoBehaviour
 
         return linear + angular;
     }
-    */
 
     public void AddLinearVelocityAtAnchor(Vector4 vel, Vector4 anchor)
     {
@@ -217,16 +215,7 @@ public class Rigidbody4D : MonoBehaviour
     }
     public void SetLinearVelocityAtAnchor(Vector4 vel, Vector4 anchor)
     {
-        /*
-        Rotor rot = new Rotor(anchor, vel.normalized, vel.magnitude);
-
-        rot.TranslateRotor(new Rotor(anchor, positionNorm));
-
-        velocityR = rot;
-        */
-
         velocity = UFunc.RotateTowardsMatrix(anchor, positionNorm) * vel;
-        if (velocity.magnitude > 0) velocity *= vel.magnitude/velocity.magnitude;
     }
     public void SetLinearVelocityInDirection(Vector4 direction, float vel, Vector4 anchor)
     {
@@ -249,7 +238,7 @@ public class Rigidbody4D : MonoBehaviour
 
         if (dontReciveAngularVelocity) {
             float newVelDot = -(linearDot-attackVel)*elasticity + attackVel;
-            Vector4 newVel = UFunc.SetVectorDirectionValue(currentLinear,direction, newVelDot);
+            Vector4 newVel = GetFinalVel(newVelDot);
             SetLinearVelocityAtAnchor(newVel,attackPoint);
             return;
         }
@@ -278,19 +267,31 @@ public class Rigidbody4D : MonoBehaviour
         SetAngularVelocityAtAnchor(newAngular, attackPoint);
 
         float newLinearDot = (1+elasticity)*attackLinearVel + linearDot;
-        //if (relativeLinear < 0) newLinearDot = linearDot;
-        Vector4 newLinear = UFunc.SetVectorDirectionValue(currentLinear, direction, newLinearDot);
+        if (relativeLinear < 0) newLinearDot = linearDot;
+        Vector4 newLinear = GetFinalVel(newLinearDot);
         SetLinearVelocityAtAnchor(newLinear, attackPoint);
+
+        Vector4 GetFinalVel(float newDot)
+        {
+            if (elasticity != 1 && Mathf.Abs(newDot) < 0.1f)
+            {
+                newDot = Mathf.MoveTowards(newDot, 0, 1*Time.fixedDeltaTime);
+                //if (Mathf.Abs(newDot) < 0.01f) newDot = 0;
+            }
+            if (velocity.magnitude == 0 || UFunc.CloseTo(Mathf.Abs(linearDot/velocity.magnitude),1,0.05f))
+            {
+                //return direction * newDot;
+            }
+            return UFunc.SetVectorDirectionValue(currentLinear, direction, newDot);
+        }
+    }
+    public void AddStaticContact(Vector4 normal, float vel, Vector4 pos)
+    {
+        staticContactNormals.Add(new Rotor(pos, positionNorm) * normal);
     }
 
     public void SetRelativeVelocityAxis(float vel, int axisIndex)
     {
-        /*
-        Vector4 velVec = transform4.GetBasis(axisIndex);
-        float dot = UFunc.Dot(velVec, velocity);
-        velocity += (-dot+vel) * velVec;
-        */
-
         SetVelocityTowards(transform4.GetBasis(axisIndex), vel);
     }
     public void SetRelativeVelocityX(float vel) {

@@ -256,11 +256,14 @@ MonoBehaviour:
   friction: 0
   dontReciveAngularVelocity: 0
   m_isStatic: 1
+  dontDoVelocity: 0
   collider: {fileID: 14870708}
   doYUpLock: 0
   sectorIndex: 3
   allSectors: 
   globalSector: 1
+  staticContactNormals: []
+  staticContactVels: []
 --- !u!4 &14870710
 Transform:
   m_ObjectHideFlags: 0
@@ -1922,11 +1925,14 @@ MonoBehaviour:
   friction: 0
   dontReciveAngularVelocity: 0
   m_isStatic: 1
+  dontDoVelocity: 0
   collider: {fileID: 607435941}
   doYUpLock: 0
   sectorIndex: 0
   allSectors: 00000000
   globalSector: 0
+  staticContactNormals: []
+  staticContactVels: []
 --- !u!114 &607435943
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2482,11 +2488,14 @@ MonoBehaviour:
   friction: 0
   dontReciveAngularVelocity: 1
   m_isStatic: 0
+  dontDoVelocity: 0
   collider: {fileID: 665110788}
   doYUpLock: 1
   sectorIndex: 6
   allSectors: 06000000
   globalSector: 0
+  staticContactNormals: []
+  staticContactVels: []
 --- !u!114 &665110785
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2875,11 +2884,14 @@ MonoBehaviour:
   friction: 0.2
   dontReciveAngularVelocity: 0
   m_isStatic: 0
+  dontDoVelocity: 0
   collider: {fileID: 708456872}
   doYUpLock: 0
   sectorIndex: 0
   allSectors: 0000000006000000
   globalSector: 0
+  staticContactNormals: []
+  staticContactVels: []
 --- !u!114 &708456874
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3281,11 +3293,14 @@ MonoBehaviour:
   friction: 0
   dontReciveAngularVelocity: 0
   m_isStatic: 1
+  dontDoVelocity: 0
   collider: {fileID: 724789089}
   doYUpLock: 0
   sectorIndex: 1
   allSectors: 01000000
   globalSector: 0
+  staticContactNormals: []
+  staticContactVels: []
 --- !u!4 &724789091
 Transform:
   m_ObjectHideFlags: 0
@@ -3436,11 +3451,14 @@ MonoBehaviour:
   friction: 0
   dontReciveAngularVelocity: 0
   m_isStatic: 0
+  dontDoVelocity: 1
   collider: {fileID: 871264116}
   doYUpLock: 0
   sectorIndex: 6
   allSectors: 06000000
   globalSector: 0
+  staticContactNormals: []
+  staticContactVels: []
 --- !u!114 &871264116
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4439,11 +4457,14 @@ MonoBehaviour:
   friction: 0.5
   dontReciveAngularVelocity: 0
   m_isStatic: 0
+  dontDoVelocity: 0
   collider: {fileID: 929819535}
   doYUpLock: 0
   sectorIndex: 6
   allSectors: 06000000
   globalSector: 0
+  staticContactNormals: []
+  staticContactVels: []
 --- !u!114 &929819537
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5004,11 +5025,14 @@ MonoBehaviour:
   friction: 0
   dontReciveAngularVelocity: 0
   m_isStatic: 1
+  dontDoVelocity: 0
   collider: {fileID: 938559783}
   doYUpLock: 0
   sectorIndex: 0
   allSectors: 
   globalSector: 0
+  staticContactNormals: []
+  staticContactVels: []
 --- !u!1 &943707539
 GameObject:
   m_ObjectHideFlags: 0
@@ -30552,6 +30576,18 @@ MonoBehaviour:
   - {fileID: 14870709}
   - {fileID: 14870709}
   - {fileID: 14870709}
+  - {fileID: 14870709}
+  - {fileID: 14870709}
+  - {fileID: 14870709}
+  - {fileID: 14870709}
+  - {fileID: 14870709}
+  - {fileID: 14870709}
+  - {fileID: 14870709}
+  - {fileID: 14870709}
+  - {fileID: 14870709}
+  - {fileID: 14870709}
+  - {fileID: 14870709}
+  - {fileID: 14870709}
   sectors:
   - staticBodies:
     - {fileID: 607435942}
@@ -32439,11 +32475,14 @@ MonoBehaviour:
   friction: 0
   dontReciveAngularVelocity: 0
   m_isStatic: 1
+  dontDoVelocity: 0
   collider: {fileID: 1466526955}
   doYUpLock: 0
   sectorIndex: 4
   allSectors: 04000000
   globalSector: 0
+  staticContactNormals: []
+  staticContactVels: []
 --- !u!114 &1466526957
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -32782,11 +32821,14 @@ MonoBehaviour:
   friction: 0
   dontReciveAngularVelocity: 0
   m_isStatic: 1
+  dontDoVelocity: 0
   collider: {fileID: 1509006518}
   doYUpLock: 0
   sectorIndex: 0
   allSectors: 00000000
   globalSector: 0
+  staticContactNormals: []
+  staticContactVels: []
 --- !u!114 &1509006516
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -33150,13 +33192,16 @@ MonoBehaviour:
   angularMassMult: 1
   bounce: 0.35
   friction: 0.2
-  dontReciveAngularVelocity: 0
+  dontReciveAngularVelocity: 1
   m_isStatic: 0
+  dontDoVelocity: 0
   collider: {fileID: 1569770725}
   doYUpLock: 0
   sectorIndex: 4
   allSectors: 0400000006000000
   globalSector: 0
+  staticContactNormals: []
+  staticContactVels: []
 --- !u!114 &1569770727
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -33909,11 +33954,14 @@ MonoBehaviour:
   friction: 0
   dontReciveAngularVelocity: 0
   m_isStatic: 1
+  dontDoVelocity: 0
   collider: {fileID: 1620956662}
   doYUpLock: 0
   sectorIndex: 5
   allSectors: 05000000
   globalSector: 0
+  staticContactNormals: []
+  staticContactVels: []
 --- !u!114 &1620956664
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -34058,11 +34106,14 @@ MonoBehaviour:
   friction: 0.4
   dontReciveAngularVelocity: 0
   m_isStatic: 0
+  dontDoVelocity: 0
   collider: {fileID: 1662217429}
   doYUpLock: 0
   sectorIndex: 6
   allSectors: 06000000
   globalSector: 0
+  staticContactNormals: []
+  staticContactVels: []
 --- !u!114 &1662217431
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -34329,11 +34380,14 @@ MonoBehaviour:
   friction: 0.5
   dontReciveAngularVelocity: 1
   m_isStatic: 0
+  dontDoVelocity: 0
   collider: {fileID: 1688195795}
   doYUpLock: 0
   sectorIndex: 6
   allSectors: 06000000
   globalSector: 0
+  staticContactNormals: []
+  staticContactVels: []
 --- !u!114 &1688195797
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -35806,11 +35860,14 @@ MonoBehaviour:
   friction: 0
   dontReciveAngularVelocity: 0
   m_isStatic: 0
+  dontDoVelocity: 0
   collider: {fileID: 2035789371}
   doYUpLock: 0
   sectorIndex: 6
   allSectors: 06000000
   globalSector: 0
+  staticContactNormals: []
+  staticContactVels: []
 --- !u!114 &2035789373
 MonoBehaviour:
   m_ObjectHideFlags: 0

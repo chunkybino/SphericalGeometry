@@ -522,6 +522,11 @@ public static class UFunc
         return Mathf.Repeat(n-lo,hi-lo)+lo;
     }
 
+    public static bool CloseTo(float n, float target, float range)
+    {
+        return n <= target+range && n >= target-range;
+    }
+
     public static void PrintList(params string[] par)
     {
         string s = "";

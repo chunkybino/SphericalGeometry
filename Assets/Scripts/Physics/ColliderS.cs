@@ -163,6 +163,7 @@ public abstract class ColliderS : MonoBehaviour
             Vector4 tanVel2 = tanLin2 + tanAng2;
 
             c2.rigidbody4.ApplyStaticForce(-tanVel2.normalized, -tanVel2.magnitude*Mathf.Pow(1-c2.friction,Time.fixedDeltaTime), contact, 0);
+            c2.rigidbody4.AddStaticContact(contactNormal, 0, contact);
 
             return true;
         } 
@@ -175,6 +176,7 @@ public abstract class ColliderS : MonoBehaviour
             Vector4 tanVel1 = tanLin1 + tanAng1;
 
             c1.rigidbody4.ApplyStaticForce(-tanVel1.normalized, -tanVel1.magnitude*Mathf.Pow(1-c1.friction,Time.fixedDeltaTime), contact, 0);
+            c1.rigidbody4.AddStaticContact(-contactNormal, 0, contact);
 
             return true;
         }
