@@ -242,15 +242,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   transform4: {fileID: 14870707}
   velocity: {x: 0, y: 0, z: 0, w: 0}
-  velocityR:
-    factor1: {x: 0, y: -1, z: 0, w: 0}
-    factor2: {x: 0, y: -1, z: 0, w: 0}
-    bivectorNormal:
-      factor1: {x: 0, y: -0.9999999, z: 0, w: 0}
-      factor2: {x: 0, y: -0.9999999, z: 0, w: 0}
-      sqrMagnitude: 0
-      magnitude: 0
-    angle: 0
   angularVelocity: {x: 0, y: 0, z: 0}
   velocityMagnitude: 0
   angularVelocityMagnitude: 0
@@ -1917,15 +1908,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   transform4: {fileID: 607435943}
   velocity: {x: 0, y: 0, z: 0, w: 0}
-  velocityR:
-    factor1: {x: 1, y: 0, z: 0, w: 0}
-    factor2: {x: 1, y: 0, z: 0, w: 0}
-    bivectorNormal:
-      factor1: {x: 0.99999994, y: 0, z: 0, w: 0}
-      factor2: {x: 0.99999994, y: 0, z: 0, w: 0}
-      sqrMagnitude: 0
-      magnitude: 0
-    angle: 0
   angularVelocity: {x: 0, y: 0, z: 0}
   velocityMagnitude: 0
   angularVelocityMagnitude: 0
@@ -2457,7 +2439,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 665110781}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 03be943eed36d0c4c867e51d5e681a6d, type: 3}
   m_Name: 
@@ -2486,15 +2468,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   transform4: {fileID: 665110785}
   velocity: {x: 0, y: 0, z: 0, w: 0}
-  velocityR:
-    factor1: {x: 0, y: 0.29552022, z: 0, w: 0.95533645}
-    factor2: {x: 0, y: 0.29552022, z: 0, w: 0.95533645}
-    bivectorNormal:
-      factor1: {x: 0, y: 0.29552028, z: 0, w: 0.9553367}
-      factor2: {x: 0, y: 0.29552028, z: 0, w: 0.9553367}
-      sqrMagnitude: 0
-      magnitude: 0
-    angle: 0
   angularVelocity: {x: 0, y: 0, z: 0}
   velocityMagnitude: 0
   angularVelocityMagnitude: 1
@@ -2888,15 +2861,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   transform4: {fileID: 708456874}
   velocity: {x: 0, y: 0, z: 0, w: 0}
-  velocityR:
-    factor1: {x: 0, y: 0, z: 0, w: 0}
-    factor2: {x: 0, y: 0, z: 0, w: 0}
-    bivectorNormal:
-      factor1: {x: 0, y: 0, z: 0, w: 0}
-      factor2: {x: 0, y: 0, z: 0, w: 0}
-      sqrMagnitude: 0
-      magnitude: 0
-    angle: 0
   angularVelocity: {x: 0, y: 0, z: 0}
   velocityMagnitude: 0
   angularVelocityMagnitude: 0
@@ -3303,15 +3267,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   transform4: {fileID: 724789085}
   velocity: {x: 0, y: 0, z: 0, w: 0}
-  velocityR:
-    factor1: {x: -1, y: 0, z: 0, w: 0}
-    factor2: {x: -1, y: 0, z: 0, w: 0}
-    bivectorNormal:
-      factor1: {x: -0.99999994, y: 0, z: 0, w: 0}
-      factor2: {x: -0.99999994, y: 0, z: 0, w: 0}
-      sqrMagnitude: 0
-      magnitude: 0
-    angle: 0
   angularVelocity: {x: 0, y: 0, z: 0}
   velocityMagnitude: 0
   angularVelocityMagnitude: 0
@@ -3467,15 +3422,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   transform4: {fileID: 871264117}
   velocity: {x: 0, y: 0, z: 0, w: 0}
-  velocityR:
-    factor1: {x: -2.356366e-10, y: 0.20845999, z: -0.000000009206001, w: 0.978031}
-    factor2: {x: -2.356366e-10, y: 0.20845999, z: -0.000000009206001, w: 0.978031}
-    bivectorNormal:
-      factor1: {x: -2.356366e-10, y: 0.20845999, z: -0.000000009206001, w: 0.978031}
-      factor2: {x: -2.356366e-10, y: 0.20845999, z: -0.000000009206001, w: 0.978031}
-      sqrMagnitude: 0
-      magnitude: 0
-    angle: 0
   angularVelocity: {x: 0, y: 0, z: 0}
   velocityMagnitude: 0
   angularVelocityMagnitude: 0
@@ -4479,15 +4425,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   transform4: {fileID: 929819537}
   velocity: {x: 0, y: 0, z: 0, w: 0}
-  velocityR:
-    factor1: {x: 0, y: 0, z: 0, w: 0}
-    factor2: {x: 0, y: 0, z: 0, w: 0}
-    bivectorNormal:
-      factor1: {x: 0, y: 0, z: 0, w: 0}
-      factor2: {x: 0, y: 0, z: 0, w: 0}
-      sqrMagnitude: 0
-      magnitude: 0
-    angle: 0
   angularVelocity: {x: 0, y: 0, z: 0}
   velocityMagnitude: 0
   angularVelocityMagnitude: 0
@@ -5053,15 +4990,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   transform4: {fileID: 938559781}
   velocity: {x: 0, y: 0, z: 0, w: 0}
-  velocityR:
-    factor1: {x: 0, y: 0, z: 0, w: 0}
-    factor2: {x: 0, y: 0, z: 0, w: 0}
-    bivectorNormal:
-      factor1: {x: 0, y: 0, z: 0, w: 0}
-      factor2: {x: 0, y: 0, z: 0, w: 0}
-      sqrMagnitude: 0
-      magnitude: 0
-    angle: 0
   angularVelocity: {x: 0, y: 0, z: 0}
   velocityMagnitude: 0
   angularVelocityMagnitude: 0
@@ -30623,6 +30551,7 @@ MonoBehaviour:
   - {fileID: 14870709}
   - {fileID: 14870709}
   - {fileID: 14870709}
+  - {fileID: 14870709}
   sectors:
   - staticBodies:
     - {fileID: 607435942}
@@ -32496,15 +32425,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   transform4: {fileID: 1466526957}
   velocity: {x: 0, y: 0, z: 0, w: 0}
-  velocityR:
-    factor1: {x: 0, y: 0, z: 1, w: 0}
-    factor2: {x: 0, y: 0, z: 1, w: 0}
-    bivectorNormal:
-      factor1: {x: 0, y: 0, z: 0.99999994, w: 0}
-      factor2: {x: 0, y: 0, z: 0.99999994, w: 0}
-      sqrMagnitude: 0
-      magnitude: 0
-    angle: 0
   angularVelocity: {x: 0, y: 0, z: 0}
   velocityMagnitude: 0
   angularVelocityMagnitude: 0
@@ -32848,15 +32768,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   transform4: {fileID: 1509006516}
   velocity: {x: 0, y: 0, z: 0, w: 0}
-  velocityR:
-    factor1: {x: 0, y: 0, z: 0, w: 0}
-    factor2: {x: 0, y: 0, z: 0, w: 0}
-    bivectorNormal:
-      factor1: {x: 0, y: 0, z: 0, w: 0}
-      factor2: {x: 0, y: 0, z: 0, w: 0}
-      sqrMagnitude: 0
-      magnitude: 0
-    angle: 0
   angularVelocity: {x: 0, y: 0, z: 0}
   velocityMagnitude: 0
   angularVelocityMagnitude: 0
@@ -33227,15 +33138,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   transform4: {fileID: 1569770727}
   velocity: {x: 0, y: 0, z: 0, w: 0}
-  velocityR:
-    factor1: {x: 0.4443052, y: 0.27210218, z: 0.7097037, w: 0.4742088}
-    factor2: {x: 0.4443052, y: 0.27210218, z: 0.7097037, w: 0.4742088}
-    bivectorNormal:
-      factor1: {x: 0.44430515, y: 0.27210215, z: 0.7097036, w: 0.47420874}
-      factor2: {x: 0.44430515, y: 0.27210215, z: 0.7097036, w: 0.47420874}
-      sqrMagnitude: 0
-      magnitude: 0
-    angle: 0
   angularVelocity: {x: 0, y: 0, z: 0}
   velocityMagnitude: 0
   angularVelocityMagnitude: 0
@@ -33993,15 +33895,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   transform4: {fileID: 1620956664}
   velocity: {x: 0, y: 0, z: 0, w: 0}
-  velocityR:
-    factor1: {x: 0, y: 0, z: -1, w: 0}
-    factor2: {x: 0, y: 0, z: -1, w: 0}
-    bivectorNormal:
-      factor1: {x: 0, y: 0, z: -0.99999994, w: 0}
-      factor2: {x: 0, y: 0, z: -0.99999994, w: 0}
-      sqrMagnitude: 0
-      magnitude: 0
-    angle: 0
   angularVelocity: {x: 0, y: 0, z: 0}
   velocityMagnitude: 0
   angularVelocityMagnitude: 0
@@ -34151,15 +34044,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   transform4: {fileID: 1662217431}
   velocity: {x: 0, y: 0, z: 0, w: 0}
-  velocityR:
-    factor1: {x: 0, y: 0.38268346, z: 0.3535534, w: 0.85355335}
-    factor2: {x: 0, y: 0.38268346, z: 0.3535534, w: 0.85355335}
-    bivectorNormal:
-      factor1: {x: 0, y: 0.38268346, z: 0.3535534, w: 0.85355335}
-      factor2: {x: 0, y: 0.38268346, z: 0.3535534, w: 0.85355335}
-      sqrMagnitude: 0
-      magnitude: 0
-    angle: 0
   angularVelocity: {x: 0, y: 0, z: 0}
   velocityMagnitude: 0
   angularVelocityMagnitude: 0
@@ -34431,15 +34315,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   transform4: {fileID: 1688195797}
   velocity: {x: 0, y: 0, z: 0, w: 0}
-  velocityR:
-    factor1: {x: 0.38268346, y: 0.3535534, z: 0.32664075, w: 0.7885805}
-    factor2: {x: 0.38268346, y: 0.3535534, z: 0.32664075, w: 0.7885805}
-    bivectorNormal:
-      factor1: {x: 0.38268346, y: 0.3535534, z: 0.32664075, w: 0.7885805}
-      factor2: {x: 0.38268346, y: 0.3535534, z: 0.32664075, w: 0.7885805}
-      sqrMagnitude: 0
-      magnitude: 0
-    angle: 0
   angularVelocity: {x: 0, y: 0, z: 0}
   velocityMagnitude: 0
   angularVelocityMagnitude: 0
@@ -35917,15 +35792,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   transform4: {fileID: 2035789373}
   velocity: {x: 0, y: 0, z: 0, w: 0}
-  velocityR:
-    factor1: {x: 0, y: 0, z: 0, w: 0}
-    factor2: {x: 0, y: 0, z: 0, w: 0}
-    bivectorNormal:
-      factor1: {x: 0, y: 0, z: 0, w: 0}
-      factor2: {x: 0, y: 0, z: 0, w: 0}
-      sqrMagnitude: 0
-      magnitude: 0
-    angle: 0
   angularVelocity: {x: 0, y: 0, z: 0}
   velocityMagnitude: 0
   angularVelocityMagnitude: 0
