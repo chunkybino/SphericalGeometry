@@ -103,6 +103,8 @@ public struct Bivector
         sqrMagnitude = UFunc.SqrSum(m_xy,m_xz,m_xw,m_yz,m_yw,m_zw);
         magnitude = Mathf.Sqrt(sqrMagnitude);
 
+        if (magnitude == 0) return;
+
         for (int i = 0; i < 6; i++) {
             this[i] = this[i] / magnitude;
         }

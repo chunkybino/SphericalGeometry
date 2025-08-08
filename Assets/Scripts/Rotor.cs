@@ -28,17 +28,31 @@ public struct Rotor
 
     public Rotor(Vector4 v1, Vector4 v2, float theta)
     {
-        if (v2 == Vector4.zero)
+        bool zero1 = v1 == Vector4.zero;
+        bool zero2 = v2 == Vector4.zero;
+        if (zero1 && zero2)
+        {
+            v1 = new Vector4(0,0,0,1);
+            v2 = new Vector4(0,0,0,1);
+            theta = 0;
+        }
+        else if (zero1)
         {
             v2 = v1;
             theta = 0;
         }
+        else if (zero2)
+        {
+            v1 = v2;
+            theta = 0;
+        }
 
         theta = UFunc.RepeatRange(theta,-Mathf.PI,Mathf.PI);
-        Debug.Log(theta+"_"+v1+""+v2);
 
         factor1 = v1.normalized;
         factor2 = UFunc.Slerp4Angle(v1,v2,theta/2).normalized;
+
+        //Debug.Log(theta+"_"+v1+""+v2+"_"+factor1+""+factor2);
 
         cos = Mathf.Cos(theta);
         sin = Mathf.Sin(theta);
@@ -48,14 +62,26 @@ public struct Rotor
             bivectorNormal = new Bivector(v1,v2);
         } else {
             bivectorNormal = new Bivector(v1,new Vector4(1,2,3,4));
+            //Debug.Log("Heeeere "+bivectorNormal.factor1+" "+bivectorNormal.factor2);
         }
         bivectorNormal.SetOrtho();
+
+        if (theta == 0) {
+            //Debug.Log("Heeeere2222222222222 "+bivectorNormal.factor1+" "+bivectorNormal.factor2);
+        }
     }
     public Rotor(Bivector bi, float theta)
     {
+        if (bi.magnitude == 0)
+        {
+            bi = new Bivector(new Vector4(0,0,0,1), new Vector4(1,0,0,0));
+            theta = 0;
+        }
+
         theta = UFunc.RepeatRange(theta,-Mathf.PI,Mathf.PI);
 
         angle = theta;
+
         bivectorNormal = bi;
         bivectorNormal.SetOrtho();
 
@@ -64,6 +90,8 @@ public struct Rotor
 
         cos = Mathf.Cos(angle);
         sin = Mathf.Sin(angle);
+
+        //Debug.Log(theta);
     }
 
     /*

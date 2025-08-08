@@ -82,7 +82,7 @@ public class Rigidbody4D : MonoBehaviour
 
         physicsS = PhysicsHandlerS.singleton;
 
-        velocityR = new Rotor(new Vector4(0,0,0,1),new Vector4(0,0,0,1));
+        velocityR = new Rotor(positionNorm,positionNorm);
     }
     void OnEnable()
     {
@@ -98,6 +98,12 @@ public class Rigidbody4D : MonoBehaviour
         if (isStatic) {
             velocity = Vector4.zero;
             return;
+        }
+
+        {
+            Vector4 orth = Bivector.Dot(positionNorm, velocityR.bivectorNormal);
+            Vector4 factor2 = Bivector.Dot(-orth, velocityR.bivectorNormal);
+            print(Vector4.Dot(positionNorm,orth));
         }
 
         if (doYUpLock) YUpLock();
@@ -172,7 +178,7 @@ public class Rigidbody4D : MonoBehaviour
     {
         Vector4 currentTangent = velocityR.RotateFull(positionNorm) * velocityR.angle;
 
-        print(currentTangent);
+        //print(currentTangent);
 
         //Vector4 currentTangent = velocityR.RotateFull(positionNorm) * velocityR.angle;
         //Vector4 vel = UFunc.RotateTowardsMatrix(positionNorm, anchor) * velocity;
@@ -219,11 +225,13 @@ public class Rigidbody4D : MonoBehaviour
     {
         Rotor rot = new Rotor(anchor, vel.normalized, vel.magnitude);
 
+        /*
         print(vel);
         print(vel.magnitude);
         print(rot.angle);
         print(rot.factor1);
         print(rot.factor2);
+        */
 
         rot.TranslateRotor(new Rotor(anchor, positionNorm));
 

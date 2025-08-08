@@ -496,6 +496,7 @@ public static class UFunc
 
     public static Vector4 ReflectVector(Vector4 v, Vector4 reflect) //recflects the vector over the normal of th eother vector
     {
+        if (reflect.sqrMagnitude == 0) return v;
         return v - 2*reflect*UFunc.Dot(reflect, v)/reflect.sqrMagnitude;
     }
     public static Vector4 BiReflectVector(Vector4 v, Vector4 reflect1, Vector4 reflect2)
