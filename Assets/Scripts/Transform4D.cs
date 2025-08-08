@@ -148,6 +148,7 @@ public class Transform4D : MonoBehaviour
 
     [HideInInspector] public UnityEvent<Matrix4x4> onLeftMult;
     [HideInInspector] public UnityEvent<Matrix4x4> onRightMult;
+    [HideInInspector] public UnityEvent<Rotor> onRotorLeft;
 
     void OnValidate()
     {
@@ -168,6 +169,7 @@ public class Transform4D : MonoBehaviour
     public void MoveRotor(Rotor r)
     {
         matrix = r * matrix;
+        onRotorLeft?.Invoke(r);
     }
 
     public void MoveTangent(Vector4 move)

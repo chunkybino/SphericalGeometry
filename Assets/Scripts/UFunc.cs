@@ -52,7 +52,7 @@ public static class UFunc
         );
     }
 
-    //returns index of most significant component of vector
+    //returns index of vector component with largest magnitude
     public static int VectorSignificant(Vector4 v)
     {
         int max = 0;
@@ -511,6 +511,14 @@ public static class UFunc
             sum += par[i]*par[i];
         }
         return sum;
+    }
+
+    public static float RepeatRange(float n, float lo, float hi)
+    {
+        if (hi < lo) {
+            (lo,hi) = (hi,lo);
+        }
+        return Mathf.Repeat(n-lo,hi-lo)+lo;
     }
 
     public static void PrintList(params string[] par)

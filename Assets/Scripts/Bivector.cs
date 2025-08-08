@@ -6,6 +6,10 @@ public struct Bivector
     public Vector4 factor1;
     public Vector4 factor2;
 
+    public Vector4 halfVector {get{
+        return Vector4.Lerp(factor1,factor2,0.5f).normalized;
+    }}
+
     float m_xy;
     float m_xz;
     float m_xw;
@@ -69,6 +73,7 @@ public struct Bivector
     public float magnitude;
 
     public Bivector normalized {get{
+        if (magnitude == 0) return this;
         return this / magnitude;
     }}
 
