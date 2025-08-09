@@ -14,6 +14,8 @@ Shader "Mine/Boring"
 
         _Radius("Radius", Float) = 1
         _DoV4("DoVertex4", Float) = 0
+
+        _WorldLight("World Light Source", Vector) = (0,1,0,0)
     }
 
     SubShader
@@ -24,6 +26,7 @@ Shader "Mine/Boring"
 
             #pragma vertex vertexFunc
             #pragma fragment fragmentFunc
+            #pragma geometry geometryFunc
 
             #include "UnityCG.cginc"
 
@@ -32,11 +35,22 @@ Shader "Mine/Boring"
                 float2 uv : TEXCOORD0;
             };
 
-            struct v2f
+            struct v2g
+            {
+                float4 position : SV_POSITION;
+                float2 uv : TEXCOORD0; 
+                float4 positionWorld : TANGENT;
+            };
+
+            struct g2f
             {
                 float4 position : SV_POSITION;
                 float2 uv : TEXCOORD0;  
+                float4 normal : NORMAL;
+                float4 positionWorld : TANGENT;
+                //fixed4 col : COLOR0;
             };
+
 
             fixed4 _Color;
             sampler2D _MainTexture;
@@ -51,9 +65,11 @@ Shader "Mine/Boring"
 
             float _DoV4;
 
-            v2f vertexFunc(appdata IN)
+            float4 _WorldLight;
+
+            v2g vertexFunc(appdata IN)
             {
-                v2f OUT;
+                v2g OUT;
 
                 float4x4 model = float4x4(_MatC0, _MatC1, _MatC2, _MatC3);
 
@@ -70,6 +86,7 @@ Shader "Mine/Boring"
 
                 //apply model transformation to sphere coords
                 pos4 = mul(model,pos4);
+                OUT.positionWorld = pos4;
 
                 pos4 = mul(UNITY_MATRIX_V, pos4);
 
@@ -89,10 +106,73 @@ Shader "Mine/Boring"
                 return OUT;
             }
 
-            fixed4 fragmentFunc(v2f IN) : SV_Target
+
+            [maxvertexcount(3)]
+            void geometryFunc(triangle v2g IN[3], inout TriangleStream<g2f> OUT)
             {
-                fixed4 pixelColor = tex2D(_MainTexture, IN.uv);
+                g2f v1;
+                g2f v2;
+                g2f v3;
+
+                v1.position = IN[0].position;
+                v1.positionWorld = IN[0].positionWorld;
+                v1.uv = IN[0].uv;
+
+                v2.position = IN[1].position;
+                v2.positionWorld = IN[1].positionWorld;
+                v2.uv = IN[1].uv;
+
+                v3.position = IN[2].position;
+                v3.positionWorld = IN[2].positionWorld;
+                v3.uv = IN[2].uv;
+
+                
+                float4 a = IN[0].positionWorld;
+                float4 b = IN[1].positionWorld;
+                float4 c = IN[2].positionWorld;
+
+                float xy = a.x*b.y - a.y*b.x;
+                float xz = a.x*b.z - a.z*b.x;
+                float xw = a.x*b.w - a.w*b.x;
+                float yz = a.y*b.z - a.z*b.y;
+                float yw = a.y*b.w - a.w*b.y;
+                float zw = a.z*b.w - a.w*b.z;
+
+                float4 norm = fixed4(
+                    -c.w*yz + c.z*yw - c.y*zw, //zyw
+                    c.w*xz - c.z*xw + c.x*zw, //xzw
+                    -c.w*xy - c.x*yw + c.y*xw, //xwy
+                    c.z*xy + c.x*yz - c.y*xz //xyz
+                );
+
+                v1.normal = norm;
+                v2.normal = norm;
+                v3.normal = norm;
+
+                OUT.Append(v1);
+                OUT.Append(v2);
+                OUT.Append(v3);
+            }
+
+            fixed4 fragmentFunc(g2f IN) : SV_Target
+            {
+                fixed4 pixelColor = float4(1,1,1,1);
+                float4 normal = normalize(IN.normal);
+
+                pixelColor = tex2D(_MainTexture, IN.uv);
                 pixelColor *= _Color;
+
+                //float4 colorNorm = abs(float4(normal.x,normal.w,normal.z,normal.y));
+                //pixelColor *= normalize(colorNorm)+float4(1,1,1,1)/2;
+
+                float4 lightDir = _WorldLight - IN.positionWorld;
+                lightDir -= normal*dot(lightDir,normal);
+                lightDir = normalize(lightDir);
+
+                float lightDot = dot(_WorldLight, normal);
+                lightDot = (lightDot+1)/2;
+
+                pixelColor *= lightDot; 
 
                 return pixelColor;
             }

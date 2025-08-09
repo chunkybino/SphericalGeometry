@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: D20
   parentMesh: {fileID: 4300000, guid: b92bb0fdb11fc5047a30bbf146c44cfa, type: 2}
+  pauseSub: 1
   subdivisions: 4
   updateSub: 0
   allMesh:

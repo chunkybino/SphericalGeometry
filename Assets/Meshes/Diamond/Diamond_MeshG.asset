@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Diamond
   parentMesh: {fileID: 4300000, guid: af442388091514041be73133fd807282, type: 2}
+  pauseSub: 1
   subdivisions: 4
   updateSub: 0
   allMesh:

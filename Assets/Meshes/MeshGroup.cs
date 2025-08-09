@@ -10,6 +10,8 @@ public class MeshGroup : ScriptableObject
 
     public Mesh parentMesh;
 
+    public bool pauseSub;
+
     public int subdivisions;
     public bool updateSub;
 
@@ -66,6 +68,8 @@ public class MeshGroup : ScriptableObject
 
     public Mesh GetMeshFromDistance(float dis)
     {
+        if (pauseSub) return parentMesh;
+
         int index = Mathf.FloorToInt((dis/Mathf.PI)*allMesh.Length);
         if (index >= allMesh.Length) index = allMesh.Length-1; 
         return allMesh[index];
