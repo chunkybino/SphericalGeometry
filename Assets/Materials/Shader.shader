@@ -100,74 +100,194 @@ Shader "Mine/Boring"
             }
 
 
-            [maxvertexcount(12)]
+            [maxvertexcount(24)]
             void geometryFunc(triangle v2g IN[3], inout TriangleStream<g2f> OUT)
             {
                 g2f v1;
                 g2f v2;
                 g2f v3;
 
-                g2f v4;
-                g2f v5;
-                g2f v6;
-
-                v1.positionWorld = IN[0].positionWorld;
-                v2.positionWorld = IN[1].positionWorld;
-                v3.positionWorld = IN[2].positionWorld;
-
-                v4.positionWorld = SlerpHalf(IN[0].positionWorld,IN[1].positionWorld);
-                v5.positionWorld = SlerpHalf(IN[1].positionWorld,IN[2].positionWorld);
-                v6.positionWorld = SlerpHalf(IN[2].positionWorld,IN[0].positionWorld);
-
-                v1.uv = IN[0].uv;
-                v2.uv = IN[1].uv;
-                v3.uv = IN[2].uv;
-
-                v4.uv = lerp(IN[0].uv,IN[1].uv,0.5f);
-                v5.uv = lerp(IN[1].uv,IN[2].uv,0.5f);
-                v6.uv = lerp(IN[2].uv,IN[0].uv,0.5f);
-
-                v1.position = mul(UNITY_MATRIX_P, SteroProject(IN[0].position4, _Radius));
-                v2.position = mul(UNITY_MATRIX_P, SteroProject(IN[1].position4, _Radius));
-                v3.position = mul(UNITY_MATRIX_P, SteroProject(IN[2].position4, _Radius));
-                v4.position = mul(UNITY_MATRIX_P, SteroProject(SlerpHalf(IN[0].position4,IN[1].position4), _Radius));
-                v5.position = mul(UNITY_MATRIX_P, SteroProject(SlerpHalf(IN[1].position4,IN[2].position4), _Radius));
-                v6.position = mul(UNITY_MATRIX_P, SteroProject(SlerpHalf(IN[2].position4,IN[0].position4), _Radius));
-
                 float4 norm = HyperCross(IN[0].positionWorld, IN[1].positionWorld, IN[2].positionWorld);
 
                 v1.normal = norm;
                 v2.normal = norm;
                 v3.normal = norm;
-                v4.normal = norm;
-                v5.normal = norm;
-                v6.normal = norm;
 
-                if (_Subdivisions == 1)
+                v1.positionWorld = IN[0].positionWorld;
+                v2.positionWorld = IN[1].positionWorld;
+                v3.positionWorld = IN[2].positionWorld;
+
+                v1.uv = IN[0].uv;
+                v2.uv = IN[1].uv;
+                v3.uv = IN[2].uv;
+
+                v1.position = mul(UNITY_MATRIX_P, SteroProject(IN[0].position4, _Radius));
+                v2.position = mul(UNITY_MATRIX_P, SteroProject(IN[1].position4, _Radius));
+                v3.position = mul(UNITY_MATRIX_P, SteroProject(IN[2].position4, _Radius));
+
+                if (_Subdivisions == 0)
                 {
                     OUT.Append(v1);
-                    OUT.Append(v4);
-                    OUT.Append(v6);
-
-                    OUT.Append(v5);
-
-                    OUT.RestartStrip();
-
-                    OUT.Append(v4);
                     OUT.Append(v2);
-                    OUT.Append(v5);
-
-                    OUT.RestartStrip();
-
-                    OUT.Append(v6);
-                    OUT.Append(v5);
                     OUT.Append(v3);
                 }
                 else
                 {
-                    OUT.Append(v1);
-                    OUT.Append(v2);
-                    OUT.Append(v3);
+                    float4 pos3[3] = {IN[0].position4,IN[1].position4,IN[2].position4};
+                    float4 world3[3] = {IN[0].positionWorld,IN[1].positionWorld,IN[2].positionWorld};
+                    float2 uv3[3] = {IN[0].uv,IN[1].uv,IN[2].uv};
+
+                    float4 pos6[6];
+                    float4 world6[6];
+                    float2 uv6[6];
+
+                    SubdivTri(pos3, world3, uv3, pos6, world6, uv6);
+
+                    g2f v4;
+                    g2f v5;
+                    g2f v6;
+
+                    v4.position = mul(UNITY_MATRIX_P, SteroProject(pos6[3], _Radius));
+                    v5.position = mul(UNITY_MATRIX_P, SteroProject(pos6[4], _Radius));
+                    v6.position = mul(UNITY_MATRIX_P, SteroProject(pos6[5], _Radius));
+
+                    v4.positionWorld = world6[3];
+                    v5.positionWorld = world6[4];
+                    v6.positionWorld = world6[5];
+
+                    v4.uv = uv6[3];
+                    v5.uv = uv6[4];
+                    v6.uv = uv6[5];
+
+                    v4.normal = norm;
+                    v5.normal = norm;
+                    v6.normal = norm;
+
+                    if (_Subdivisions == 1)
+                    {
+                        OUT.Append(v1);
+                        OUT.Append(v4);
+                        OUT.Append(v6);
+                        OUT.Append(v5);
+                        OUT.Append(v3);
+
+                        OUT.RestartStrip();
+
+                        OUT.Append(v4);
+                        OUT.Append(v2);
+                        OUT.Append(v5);
+                    }
+                    else
+                    {
+                        float4 pos15[15];
+                        float4 world15[15];
+                        float2 uv15[15];
+
+                        SubdivTri2(pos6, world6, uv6, pos15, world15, uv15);
+
+                        g2f v7;
+                        g2f v8;
+                        g2f v9;
+                        g2f v10;
+                        g2f v11;
+                        g2f v12;
+                        g2f v13;
+                        g2f v14;
+                        g2f v15;
+
+                        v7.position = mul(UNITY_MATRIX_P, SteroProject(pos15[6], _Radius));
+                        v8.position = mul(UNITY_MATRIX_P, SteroProject(pos15[7], _Radius));
+                        v9.position = mul(UNITY_MATRIX_P, SteroProject(pos15[8], _Radius));
+                        v10.position = mul(UNITY_MATRIX_P, SteroProject(pos15[9], _Radius));
+                        v11.position = mul(UNITY_MATRIX_P, SteroProject(pos15[10], _Radius));
+                        v12.position = mul(UNITY_MATRIX_P, SteroProject(pos15[11], _Radius));
+                        v13.position = mul(UNITY_MATRIX_P, SteroProject(pos15[12], _Radius));
+                        v14.position = mul(UNITY_MATRIX_P, SteroProject(pos15[13], _Radius));
+                        v15.position = mul(UNITY_MATRIX_P, SteroProject(pos15[14], _Radius));
+
+                        v7.positionWorld = world15[6];
+                        v8.positionWorld = world15[7];
+                        v9.positionWorld = world15[8];
+                        v10.positionWorld = world15[9];
+                        v11.positionWorld = world15[10];
+                        v12.positionWorld = world15[11];
+                        v13.positionWorld = world15[12];
+                        v14.positionWorld = world15[13];
+                        v15.positionWorld = world15[14];
+
+                        v7.uv = uv15[6];
+                        v8.uv = uv15[7];
+                        v9.uv = uv15[8];
+                        v10.uv = uv15[9];
+                        v11.uv = uv15[10];
+                        v12.uv = uv15[11];
+                        v13.uv = uv15[12];
+                        v14.uv = uv15[13];
+                        v15.uv = uv15[14];
+
+                        v7.normal = norm;
+                        v8.normal = norm;
+                        v9.normal = norm;
+                        v10.normal = norm;
+                        v11.normal = norm;
+                        v12.normal = norm;
+                        v13.normal = norm;
+                        v14.normal = norm;
+                        v15.normal = norm;
+
+                        /*
+                        OUT.Append(v1);
+                        OUT.Append(v4);
+                        OUT.Append(v6);
+                        OUT.Append(v5);
+                        OUT.Append(v3);
+
+                        OUT.RestartStrip();
+
+                        OUT.Append(v4);
+                        OUT.Append(v2);
+                        OUT.Append(v5);
+                        */
+
+                        //OUT.Append(v1);
+                        //OUT.Append(v10);
+                        //OUT.Append(v6);
+
+                        
+                        OUT.Append(v1);
+                        OUT.Append(v7);
+                        OUT.Append(v9);
+                        OUT.Append(v8);
+                        OUT.Append(v6);
+                        OUT.Append(v13);
+                        OUT.Append(v15);
+                        OUT.Append(v14);
+                        OUT.Append(v3);
+                        
+                        OUT.RestartStrip();
+
+                        OUT.Append(v7);
+                        OUT.Append(v4);
+                        OUT.Append(v8);
+                        OUT.Append(v12);
+                        OUT.Append(v13);
+                        OUT.Append(v5);
+                        OUT.Append(v14);
+
+                        OUT.RestartStrip();
+
+                        OUT.Append(v4);
+                        OUT.Append(v10);
+                        OUT.Append(v12);
+                        OUT.Append(v11);
+                        OUT.Append(v5);
+
+                        OUT.RestartStrip();
+
+                        OUT.Append(v10);
+                        OUT.Append(v2);
+                        OUT.Append(v11);
+                    }
                 }
             }
 

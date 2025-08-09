@@ -310,8 +310,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   parent: {fileID: 0}
   children:
-  - {fileID: 1078582795}
-  - {fileID: 1620956664}
   - {fileID: 2078316006}
   - {fileID: 1466526957}
   - {fileID: 905167640}
@@ -321,6 +319,8 @@ MonoBehaviour:
   - {fileID: 1498909441}
   - {fileID: 607435943}
   - {fileID: 724789085}
+  - {fileID: 1078582795}
+  - {fileID: 1620956664}
   m_matrix:
     e00: 1
     e01: 0
@@ -1794,7 +1794,7 @@ MonoBehaviour:
   triangles: 000000000100000002000000000000000200000004000000000000000400000005000000000000000500000001000000030000000100000005000000030000000500000004000000030000000400000002000000030000000200000001000000
   doVertex4: 0
   setWorldLight: 0
-  worldLight: {x: 0.40824828, y: 0.40824828, z: 0.81649655, w: 0}
+  worldLight: {x: 0, y: 0, z: 0, w: 0}
 --- !u!114 &607435941
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -32564,13 +32564,13 @@ MonoBehaviour:
   children:
   - {fileID: 1449974950}
   - {fileID: 652696503}
-  - {fileID: 1587023191}
-  - {fileID: 1006463141}
   - {fileID: 1119807485}
   - {fileID: 1983602830}
   - {fileID: 943707544}
   - {fileID: 1758921313}
   - {fileID: 2075146610}
+  - {fileID: 1587023191}
+  - {fileID: 1006463141}
   m_matrix:
     e00: 1
     e01: 0
@@ -34262,7 +34262,7 @@ MonoBehaviour:
   triangles: 000000000100000002000000000000000200000004000000000000000400000005000000000000000500000001000000030000000100000005000000030000000500000004000000030000000400000002000000030000000200000001000000
   doVertex4: 0
   setWorldLight: 0
-  worldLight: {x: 0, y: 0, z: 0, w: 0}
+  worldLight: {x: 0.1889822, y: 0.9449112, z: 0.18898225, w: 0.18898225}
 --- !u!114 &1688195795
 MonoBehaviour:
   m_ObjectHideFlags: 0

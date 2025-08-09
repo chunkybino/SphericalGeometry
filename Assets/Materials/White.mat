@@ -31,6 +31,7 @@ Material:
     m_Floats:
     - _DoV4: 0
     - _Radius: 1
+    - _Subdivisions: 2
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _MatC0: {r: 1, g: 1, b: 1, a: 0}
@@ -38,6 +39,6 @@ Material:
     - _MatC2: {r: 1, g: 1, b: 1, a: 0}
     - _MatC3: {r: 1, g: 1, b: 1, a: 0}
     - _Scale: {r: 0.25, g: 0.25, b: 0.25, a: -0.06}
-    - _WorldLight: {r: 0, g: 0, b: 0, a: 1}
+    - _WorldLight: {r: 0.1889822, g: 0.9449112, b: 0.18898225, a: 0.18898225}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

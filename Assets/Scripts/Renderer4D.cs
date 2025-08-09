@@ -34,12 +34,12 @@ public class Renderer4D : MonoBehaviour
 
     [SerializeField] bool setWorldLight;
     [SerializeField] Vector4 worldLight = new Vector4(0,1,0,0);
-    static Vector4 wLight;
+    public static Vector4 wLight;
+    static bool setLight;
 
     void Start()
     {
         Initialize();
-        //worldLight = wLight;
     }
 
     void OnValidate()
@@ -81,8 +81,7 @@ public class Renderer4D : MonoBehaviour
 
         matBlock.SetFloat("_DoV4", doVertex4 ? 1f : 0f);
 
-
-        matBlock.SetVector("_WorldLight", wLight);
+        //matBlock.SetVector("_WorldLight", wLight);
 
         renderer.SetPropertyBlock(matBlock);
 
