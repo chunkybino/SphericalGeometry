@@ -14,6 +14,7 @@ Shader "Mine/Boring"
 
         _Radius("Radius", Float) = 1
         _DoV4("DoVertex4", Float) = 0
+        _Subdivisions("Subdivisions", Float) = 1
 
         _WorldLight("World Light Source", Vector) = (0,1,0,0)
     }
@@ -29,6 +30,7 @@ Shader "Mine/Boring"
             #pragma geometry geometryFunc
 
             #include "UnityCG.cginc"
+            #include "ShaderFunc.hlsl"
 
             struct appdata {
                 float4 vertex : POSITION;
@@ -37,7 +39,7 @@ Shader "Mine/Boring"
 
             struct v2g
             {
-                float4 position : SV_POSITION;
+                float4 position4 : POSITION;
                 float2 uv : TEXCOORD0; 
                 float4 positionWorld : TANGENT;
             };
@@ -48,7 +50,6 @@ Shader "Mine/Boring"
                 float2 uv : TEXCOORD0;  
                 float4 normal : NORMAL;
                 float4 positionWorld : TANGENT;
-                //fixed4 col : COLOR0;
             };
 
 
@@ -62,8 +63,8 @@ Shader "Mine/Boring"
             fixed4 _MatC3;
 
             float _Radius;
-
             float _DoV4;
+            float _Subdivisions;
 
             float4 _WorldLight;
 
@@ -90,16 +91,8 @@ Shader "Mine/Boring"
 
                 pos4 = mul(UNITY_MATRIX_V, pos4);
 
-                //sterographic projection back into 3d
-                if (pos4.w == -1) {
-                    pos4 = float4(999999,0,0,1);
-                } else {
-                    pos4 = pos4 / (1 + pos4.w);
-                    pos4 *= _Radius;
-                    pos4.w = 1;
-                }
-
-                OUT.position = mul(UNITY_MATRIX_P, pos4);
+                OUT.position4 = pos4;
+                //OUT.position = mul(UNITY_MATRIX_P, SteroProject(pos4, _Radius));
 
                 OUT.uv = IN.uv;
 
@@ -107,51 +100,75 @@ Shader "Mine/Boring"
             }
 
 
-            [maxvertexcount(3)]
+            [maxvertexcount(12)]
             void geometryFunc(triangle v2g IN[3], inout TriangleStream<g2f> OUT)
             {
                 g2f v1;
                 g2f v2;
                 g2f v3;
 
-                v1.position = IN[0].position;
+                g2f v4;
+                g2f v5;
+                g2f v6;
+
                 v1.positionWorld = IN[0].positionWorld;
-                v1.uv = IN[0].uv;
-
-                v2.position = IN[1].position;
                 v2.positionWorld = IN[1].positionWorld;
-                v2.uv = IN[1].uv;
-
-                v3.position = IN[2].position;
                 v3.positionWorld = IN[2].positionWorld;
+
+                v4.positionWorld = SlerpHalf(IN[0].positionWorld,IN[1].positionWorld);
+                v5.positionWorld = SlerpHalf(IN[1].positionWorld,IN[2].positionWorld);
+                v6.positionWorld = SlerpHalf(IN[2].positionWorld,IN[0].positionWorld);
+
+                v1.uv = IN[0].uv;
+                v2.uv = IN[1].uv;
                 v3.uv = IN[2].uv;
 
-                
-                float4 a = IN[0].positionWorld;
-                float4 b = IN[1].positionWorld;
-                float4 c = IN[2].positionWorld;
+                v4.uv = lerp(IN[0].uv,IN[1].uv,0.5f);
+                v5.uv = lerp(IN[1].uv,IN[2].uv,0.5f);
+                v6.uv = lerp(IN[2].uv,IN[0].uv,0.5f);
 
-                float xy = a.x*b.y - a.y*b.x;
-                float xz = a.x*b.z - a.z*b.x;
-                float xw = a.x*b.w - a.w*b.x;
-                float yz = a.y*b.z - a.z*b.y;
-                float yw = a.y*b.w - a.w*b.y;
-                float zw = a.z*b.w - a.w*b.z;
+                v1.position = mul(UNITY_MATRIX_P, SteroProject(IN[0].position4, _Radius));
+                v2.position = mul(UNITY_MATRIX_P, SteroProject(IN[1].position4, _Radius));
+                v3.position = mul(UNITY_MATRIX_P, SteroProject(IN[2].position4, _Radius));
+                v4.position = mul(UNITY_MATRIX_P, SteroProject(SlerpHalf(IN[0].position4,IN[1].position4), _Radius));
+                v5.position = mul(UNITY_MATRIX_P, SteroProject(SlerpHalf(IN[1].position4,IN[2].position4), _Radius));
+                v6.position = mul(UNITY_MATRIX_P, SteroProject(SlerpHalf(IN[2].position4,IN[0].position4), _Radius));
 
-                float4 norm = fixed4(
-                    -c.w*yz + c.z*yw - c.y*zw, //zyw
-                    c.w*xz - c.z*xw + c.x*zw, //xzw
-                    -c.w*xy - c.x*yw + c.y*xw, //xwy
-                    c.z*xy + c.x*yz - c.y*xz //xyz
-                );
+                float4 norm = HyperCross(IN[0].positionWorld, IN[1].positionWorld, IN[2].positionWorld);
 
                 v1.normal = norm;
                 v2.normal = norm;
                 v3.normal = norm;
+                v4.normal = norm;
+                v5.normal = norm;
+                v6.normal = norm;
 
-                OUT.Append(v1);
-                OUT.Append(v2);
-                OUT.Append(v3);
+                if (_Subdivisions == 1)
+                {
+                    OUT.Append(v1);
+                    OUT.Append(v4);
+                    OUT.Append(v6);
+
+                    OUT.Append(v5);
+
+                    OUT.RestartStrip();
+
+                    OUT.Append(v4);
+                    OUT.Append(v2);
+                    OUT.Append(v5);
+
+                    OUT.RestartStrip();
+
+                    OUT.Append(v6);
+                    OUT.Append(v5);
+                    OUT.Append(v3);
+                }
+                else
+                {
+                    OUT.Append(v1);
+                    OUT.Append(v2);
+                    OUT.Append(v3);
+                }
             }
 
             fixed4 fragmentFunc(g2f IN) : SV_Target
