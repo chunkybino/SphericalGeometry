@@ -120,20 +120,6 @@ void SubdivTri2(float4 inPos[6], float4 inWorld[6], float2 inUV[6], inout float4
         outUV[i] = inUV[i];
     }
 
-    /*
-    outWorld[6] = SlerpHalf(inWorld[0],inWorld[3]);
-    outWorld[7] = SlerpHalf(inWorld[3],inWorld[5]);
-    outWorld[8] = SlerpHalf(inWorld[5],inWorld[0]);
-
-    outWorld[9] = SlerpHalf(inWorld[3],inWorld[1]);
-    outWorld[10] = SlerpHalf(inWorld[1],inWorld[4]);
-    outWorld[11] = SlerpHalf(inWorld[4],inWorld[3]);
-
-    outWorld[12] = SlerpHalf(inWorld[5],inWorld[4]);
-    outWorld[13] = SlerpHalf(inWorld[4],inWorld[2]);
-    outWorld[14] = SlerpHalf(inWorld[2],inWorld[5]);
-    */
-
     for (uint j = 6; j < 15; j++)
     {
         uint int_1 = Subdivide2_Index1(j);
@@ -142,16 +128,6 @@ void SubdivTri2(float4 inPos[6], float4 inWorld[6], float2 inUV[6], inout float4
         outUV[j] = lerp(inUV[int_1],inUV[int_2],0.5f);
         outPos[j] = SlerpHalf(inPos[int_1],inPos[int_2]);
     }
-
-    /*
-    outUV[4] = lerp(inUV[0],inUV[1],0.5f);
-    outUV[5] = lerp(inUV[1],inUV[2],0.5f);
-    outUV[6] = lerp(inUV[2],inUV[0],0.5f);
-
-    outPos[4] = mul(mat, SteroProject(SlerpHalf(inPos[0],inPos[1]), radius));
-    outPos[5] = mul(mat, SteroProject(SlerpHalf(inPos[1],inPos[2]), radius));
-    outPos[6] = mul(mat, SteroProject(SlerpHalf(inPos[2],inPos[0]), radius));
-    */
 }
 
 
