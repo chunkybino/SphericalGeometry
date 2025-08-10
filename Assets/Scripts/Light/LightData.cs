@@ -6,6 +6,17 @@ using System.Collections;
 public struct LightData
 {
     public Vector4 position;
+    public Vector3 color;
     public float intensity;
+
+    public float doFalloff;
+    public float falloffStart;
+    public float falloffRange;
+
     public float ambience;
+
+    void OnValidate()
+    {
+        doFalloff = Mathf.Floor(Mathf.Clamp(doFalloff,0,1));
+    }
 }

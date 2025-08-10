@@ -110,7 +110,6 @@ void SubdivTri(float4 inPos[3], float4 inWorld[3], float2 inUV[3], inout float4 
     outPos[3] = SlerpHalf(inPos[0],inPos[1]);
     outPos[4] = SlerpHalf(inPos[1],inPos[2]);
     outPos[5] = SlerpHalf(inPos[2],inPos[0]);
-    //mul(mat, SteroProject(SlerpHalf(inPos[0],inPos[1]), radius));
 }
 void SubdivTri2(float4 inPos[6], float4 inWorld[6], float2 inUV[6], inout float4 outPos[15], inout float4 outWorld[15], inout float2 outUV[15])
 {
@@ -129,6 +128,5 @@ void SubdivTri2(float4 inPos[6], float4 inWorld[6], float2 inUV[6], inout float4
         outPos[j] = SlerpHalf(inPos[int_1],inPos[int_2]);
     }
 }
-
 
 #endif

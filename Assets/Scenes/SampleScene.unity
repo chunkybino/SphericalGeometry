@@ -9575,12 +9575,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lightDatas:
   - position: {x: 0, y: 1, z: 0, w: 0}
+    color: {x: 1, y: 1, z: 1}
     intensity: 0.2
+    doFalloff: 0
+    falloffStart: 0
+    falloffRange: 0
     ambience: 1
-  - position: {x: 0.4, y: 0.8, z: 0.4, w: 0.2}
-    intensity: 1
+  - position: {x: 0.66299355, y: 0.104828484, z: 0.66299355, w: 0.33149678}
+    color: {x: 1, y: 1, z: 1}
+    intensity: 2
+    doFalloff: 1
+    falloffStart: 0
+    falloffRange: 1
     ambience: 0.2
-  lightDatasCount: 2
+  - position: {x: 0.26967996, y: 0.13483998, z: 0.8528029, w: 0.42640144}
+    color: {x: 1, y: 1, z: 1}
+    intensity: 2
+    doFalloff: 1
+    falloffStart: 0
+    falloffRange: 1
+    ambience: 0.2
+  lightDatasCount: 3
   setBuffer: 0
 --- !u!4 &1083750112
 Transform:
@@ -9650,6 +9665,8 @@ MonoBehaviour:
   - {fileID: 1569770726}
   - {fileID: 871264115}
   globalBodies:
+  - {fileID: 14870709}
+  - {fileID: 14870709}
   - {fileID: 14870709}
   - {fileID: 14870709}
   - {fileID: 14870709}

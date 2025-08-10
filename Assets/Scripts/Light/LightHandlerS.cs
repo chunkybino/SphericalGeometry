@@ -4,6 +4,7 @@ using UnityEngine;
 public class LightHandlerS : MonoBehaviour
 {
     public LightData[] lightDatas;
+    LightData[] lightDataSend;
     public int lightDatasCount;
 
     [SerializeField] ComputeBuffer lightBuffer;
@@ -40,9 +41,14 @@ public class LightHandlerS : MonoBehaviour
 
     void SetLightBuffer()
     {
+        lightDataSend = new LightData[lightDatas.Length];
         for (int i = 0; i < lightDatas.Length; i++)
         {
             lightDatas[i].position = lightDatas[i].position.normalized;
+
+            lightDataSend[i] = lightDatas[i];
+            lightDataSend[i].doFalloff = lightDatas[i].doFalloff;
+            lightDataSend[i].falloffRange = lightDatas[i].falloffRange == 0 ? 999 : 1/(lightDatas[i].falloffRange); //will become falloffRange on shader side
         }
 
         if (lightBuffer == null || lightDatasCount != lightDatas.Length)
@@ -50,7 +56,7 @@ public class LightHandlerS : MonoBehaviour
             lightDatasCount = lightDatas.Length;
 
             lightBuffer = new ComputeBuffer(lightDatasCount, System.Runtime.InteropServices.Marshal.SizeOf(typeof(LightData))); //System.Runtime.InteropServices.Marshal.SizeOf(typeof(LightData)));
-            lightBuffer.SetData(lightDatas);
+            lightBuffer.SetData(lightDataSend);
             Shader.SetGlobalBuffer("_LightData", lightBuffer);
 
             lightCountBuffer = new ComputeBuffer(1, sizeof(int));
@@ -59,7 +65,7 @@ public class LightHandlerS : MonoBehaviour
         }
         else
         {
-            lightBuffer.SetData(lightDatas);
+            lightBuffer.SetData(lightDataSend);
             Shader.SetGlobalBuffer("_LightData", lightBuffer);
 
             lightCountBuffer.SetData(new int[] {lightDatasCount});

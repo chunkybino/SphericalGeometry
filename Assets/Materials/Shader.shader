@@ -71,7 +71,11 @@ Shader "Mine/Boring"
             struct LightData
             {
                 float4 position;
+                float3 color;
                 float intensity;
+                float doFalloff;
+                float falloffStart;
+                float falloffRange;
                 float ambience;
             };
 
@@ -289,25 +293,36 @@ Shader "Mine/Boring"
                 pixelColor = tex2D(_MainTexture, IN.uv);
                 pixelColor *= _Color;
 
-                float totalLight = 0;
+                float3 totalLight = float3(0,0,0);
 
                 for (int i = 0; i < _LightCount[0]; i++)
                 {
                     LightData light = _LightData[i];
 
-                    float4 lightDir = light.position - IN.positionWorld;
-                    lightDir -= IN.positionWorld*dot(lightDir,IN.positionWorld);
+                    float4 lightDis = light.position - IN.positionWorld;
+                    float4 lightDir = lightDis - IN.positionWorld*dot(lightDis,IN.positionWorld);
                     lightDir = normalize(lightDir);
 
                     float lightDot = dot(lightDir, normal);
                     lightDot = max(lerp(lightDot,1,light.ambience),0);
 
-                    lightDot *= light.intensity;
+                    //fall off
+                    float distance = acos(clamp(dot(light.position,IN.positionWorld), -1,1));//1.57*(1-disDot);
+                    float falloffIntesity = 1;
 
-                    totalLight += lightDot;
+                    if (light.doFalloff)
+                    {
+                        //falloffIntesity = light.intensity/((distance*distance)*light.falloffEnd + 1);
+                        falloffIntesity = 1 - saturate((distance-light.falloffStart)*light.falloffRange);
+                        //if (distance > light.falloffStart) falloffIntesity = 0;
+                    }
+
+                    float intensity = light.intensity*falloffIntesity;
+
+                    totalLight += lightDot*intensity*light.color;
                 }
 
-                pixelColor *= totalLight; 
+                pixelColor.rgb *= totalLight; 
 
                 return pixelColor;
             }
