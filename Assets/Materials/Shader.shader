@@ -66,7 +66,17 @@ Shader "Mine/Boring"
             float _DoV4;
             float _Subdivisions;
 
-            float4 _WorldLight;
+            //float4 _WorldLight;
+
+            struct LightData
+            {
+                float4 position;
+                float intensity;
+                float ambience;
+            };
+
+            StructuredBuffer<int> _LightCount;
+            StructuredBuffer<LightData> _LightData;
 
             v2g vertexFunc(appdata IN)
             {
@@ -92,7 +102,6 @@ Shader "Mine/Boring"
                 pos4 = mul(UNITY_MATRIX_V, pos4);
 
                 OUT.position4 = pos4;
-                //OUT.position = mul(UNITY_MATRIX_P, SteroProject(pos4, _Radius));
 
                 OUT.uv = IN.uv;
 
@@ -234,26 +243,7 @@ Shader "Mine/Boring"
                         v13.normal = norm;
                         v14.normal = norm;
                         v15.normal = norm;
-
-                        /*
-                        OUT.Append(v1);
-                        OUT.Append(v4);
-                        OUT.Append(v6);
-                        OUT.Append(v5);
-                        OUT.Append(v3);
-
-                        OUT.RestartStrip();
-
-                        OUT.Append(v4);
-                        OUT.Append(v2);
-                        OUT.Append(v5);
-                        */
-
-                        //OUT.Append(v1);
-                        //OUT.Append(v10);
-                        //OUT.Append(v6);
-
-                        
+          
                         OUT.Append(v1);
                         OUT.Append(v7);
                         OUT.Append(v9);
@@ -299,17 +289,25 @@ Shader "Mine/Boring"
                 pixelColor = tex2D(_MainTexture, IN.uv);
                 pixelColor *= _Color;
 
-                //float4 colorNorm = abs(float4(normal.x,normal.w,normal.z,normal.y));
-                //pixelColor *= normalize(colorNorm)+float4(1,1,1,1)/2;
+                float totalLight = 0;
 
-                float4 lightDir = _WorldLight - IN.positionWorld;
-                lightDir -= normal*dot(lightDir,normal);
-                lightDir = normalize(lightDir);
+                for (int i = 0; i < _LightCount[0]; i++)
+                {
+                    LightData light = _LightData[i];
 
-                float lightDot = dot(_WorldLight, normal);
-                lightDot = (lightDot+1)/2;
+                    float4 lightDir = light.position - IN.positionWorld;
+                    lightDir -= IN.positionWorld*dot(lightDir,IN.positionWorld);
+                    lightDir = normalize(lightDir);
 
-                pixelColor *= lightDot; 
+                    float lightDot = dot(lightDir, normal);
+                    lightDot = max(lerp(lightDot,1,light.ambience),0);
+
+                    lightDot *= light.intensity;
+
+                    totalLight += lightDot;
+                }
+
+                pixelColor *= totalLight; 
 
                 return pixelColor;
             }
