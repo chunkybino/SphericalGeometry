@@ -8,7 +8,7 @@ public class TopologyMaker : MonoBehaviour
     public Vector4[] inVertex;
 
     public Vector4[] outVertex;
-    public Vector3[] outVertex3D;
+    public Vector3[] outVertex3;
     public Vector2[] outUV;
     public Vector3Int[] outTri;
 
@@ -22,6 +22,8 @@ public class TopologyMaker : MonoBehaviour
     [SerializeField] int axis1 = 0;
     [SerializeField] int axis2 = 1;
     [SerializeField] int axisThick = 3;
+
+    [SerializeField] int D20Sub = 0;
 
     void Update()
     {
@@ -39,7 +41,7 @@ public class TopologyMaker : MonoBehaviour
         if (makeD20)
         {
             makeD20 = false;
-            MakeD20();
+            MakeD20(D20Sub);
         }
     }
 
@@ -213,7 +215,7 @@ public class TopologyMaker : MonoBehaviour
         outTri = circleTri;
     }
 
-    void MakeD20()
+    void MakeD20(int subdivisions = 0)
     {
         float coolAngle = 2*Mathf.PI/5; //just 1/5 of circle
 
@@ -242,8 +244,18 @@ public class TopologyMaker : MonoBehaviour
             tri[2*i + 11] = new Vector3Int(i+7, (i+3)%5 + 1, (i+1)%5 + 7);
         }
 
-        outVertex3D = vert12;
+        outVertex3 = vert12;
         outTri = tri;
+
+        for (int i = 0; i < D20Sub; i++)
+        {
+            MeshMaker.SubdivideMesh3(ref outVertex3, ref outUV, ref outTri);
+        }
+
+        for (int i = 0; i < outVertex3.Length; i++)
+        {
+            outVertex3[i] = outVertex3[i].normalized;
+        }
     }
 
     Vector4 GetCircleAxis(float angle)

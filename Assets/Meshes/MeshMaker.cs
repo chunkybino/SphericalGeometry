@@ -30,6 +30,9 @@ public class MeshMaker : MonoBehaviour
     public bool subdivide3;
     //public bool subdivide4;
 
+    public bool vert3To4;
+    public int vert3To4BlankAxis;
+
     public bool doVertex4;
     public Vector4[] vertices4;
 
@@ -107,6 +110,22 @@ public class MeshMaker : MonoBehaviour
             subdivide3 = false;
             //SetTriInt();
             SubdivideMesh3(ref vertices, ref uv, ref triangles);
+        }
+
+        if (vert3To4)
+        {
+            vert3To4 = false;
+
+            vertices4 = new Vector4[vertices.Length];
+            int index1 = vert3To4BlankAxis > 0 ? 0 : 1;
+            int index2 = vert3To4BlankAxis > 1 ? 1 : 2;
+            int index3 = vert3To4BlankAxis > 2 ? 2 : 3;
+            for (int i = 0; i < vertices.Length; i++)
+            {
+                vertices4[i][index1] = vertices[i].x;
+                vertices4[i][index2] = vertices[i].y;
+                vertices4[i][index3] = vertices[i].z;
+            }
         }
 
         void ReadTri()

@@ -23,7 +23,7 @@ public class LightHandlerS : MonoBehaviour
         }
     }
 
-    void Awake()
+    void OnEnable()
     {
         Dispose();
         SetLightBuffer();
