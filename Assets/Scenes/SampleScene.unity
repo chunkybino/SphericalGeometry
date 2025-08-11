@@ -310,17 +310,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   parent: {fileID: 0}
   children:
-  - {fileID: 607435943}
-  - {fileID: 696461020}
-  - {fileID: 724789085}
-  - {fileID: 905167640}
-  - {fileID: 1078582795}
-  - {fileID: 1133496467}
-  - {fileID: 1457274184}
-  - {fileID: 1466526957}
-  - {fileID: 1498909441}
   - {fileID: 1620956664}
+  - {fileID: 905167640}
   - {fileID: 2078316006}
+  - {fileID: 1466526957}
+  - {fileID: 696461020}
+  - {fileID: 607435943}
+  - {fileID: 1457274184}
+  - {fileID: 1133496467}
+  - {fileID: 724789085}
+  - {fileID: 1498909441}
+  - {fileID: 1078582795}
   m_matrix:
     e00: 1
     e01: 0
@@ -2377,10 +2377,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   parent: {fileID: 0}
   children:
+  - {fileID: 1774161676}
+  - {fileID: 1612277668}
   - {fileID: 871264117}
   - {fileID: 927178209}
-  - {fileID: 1612277668}
-  - {fileID: 1774161676}
   m_matrix:
     e00: 1
     e01: 0
@@ -3308,8 +3308,8 @@ MonoBehaviour:
     falloffRange: 9999
     ambience: 0.6
     direction: {x: 0, y: 0, z: 0, w: 0}
-    rangeCos: -1
-    rangeFalloffCosMult: 9999
+    rangeAngle: 180
+    rangeFalloffAngleMult: 9999
   color: {r: 1, g: 1, b: 1, a: 0}
   intensity: 0.5
   doFalloff: 0
@@ -3318,7 +3318,7 @@ MonoBehaviour:
   ambience: 0.6
   direction: {x: 0, y: 0, z: 0}
   range: 180
-  rangeFalloff: 0
+  rangeFalloff: 180
   dirty: 1
 --- !u!114 &847819229
 MonoBehaviour:
@@ -9897,6 +9897,8 @@ MonoBehaviour:
   - {fileID: 14870709}
   - {fileID: 14870709}
   - {fileID: 14870709}
+  - {fileID: 14870709}
+  - {fileID: 14870709}
   sectors:
   - staticBodies:
     - {fileID: 607435942}
@@ -10201,8 +10203,8 @@ MonoBehaviour:
   - {fileID: 1133496467}
   - {fileID: 938559781}
   - {fileID: 932915826}
-  - {fileID: 98180675}
   - {fileID: 1439639872}
+  - {fileID: 98180675}
   m_matrix:
     e00: 1
     e01: 0
@@ -11907,13 +11909,13 @@ MonoBehaviour:
   children:
   - {fileID: 1449974950}
   - {fileID: 652696503}
-  - {fileID: 943707544}
   - {fileID: 1006463141}
+  - {fileID: 943707544}
   - {fileID: 1119807485}
-  - {fileID: 1587023191}
-  - {fileID: 1758921313}
   - {fileID: 1983602830}
+  - {fileID: 1758921313}
   - {fileID: 2075146610}
+  - {fileID: 1587023191}
   m_matrix:
     e00: 1
     e01: 0
@@ -13413,8 +13415,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   parent: {fileID: 0}
   children:
-  - {fileID: 876432509}
   - {fileID: 913436713}
+  - {fileID: 876432509}
   m_matrix:
     e00: 1
     e01: 0

@@ -25,8 +25,6 @@ public class LightS : MonoBehaviour
     Vector4 direction4;
     [Range(0,180)] public float range = 180;
     [Range(0,180)] public float rangeFalloff = 180;
-    float rangeCos;
-    float rangeFalloffCos;
 
     public bool dirty;
 
@@ -45,9 +43,9 @@ public class LightS : MonoBehaviour
     void Update()
     {
         direction4 = transform4.RelativeToWorld(direction);
-        rangeCos = Mathf.Cos(Mathf.Deg2Rad * range);
-        rangeFalloffCos = Mathf.Cos(Mathf.Deg2Rad * Mathf.Clamp(range+rangeFalloff,0,180));
-        if (rangeFalloffCos > rangeCos) rangeFalloffCos = rangeCos;
+        //rangeCos = Mathf.Cos(Mathf.Deg2Rad * range);
+        //rangeFalloffCos = Mathf.Cos(Mathf.Deg2Rad * Mathf.Clamp(range+rangeFalloff,0,180));
+        //if (rangeFalloffCos > rangeCos) rangeFalloffCos = rangeCos;
 
         if (
             data.position != transform4.positionNorm ||
@@ -58,8 +56,8 @@ public class LightS : MonoBehaviour
             data.falloffRange != falloffRange ||
             data.ambience != ambience ||
             data.direction != direction4 ||
-            data.rangeCos != rangeCos ||
-            data.rangeFalloffCosMult != rangeFalloffCos
+            data.rangeAngle != range ||
+            data.rangeFalloffAngleMult != rangeFalloff
             ) {
             dirty = true;
         }
@@ -70,20 +68,20 @@ public class LightS : MonoBehaviour
 
         data.doFalloff = doFalloff ? 1 : 0;
         data.falloffStart = falloffStart;
-        if (falloffRange == 0) {
-            data.falloffRange = 9999;
-        } else {
+        if (falloffRange != 0) {
             data.falloffRange = 1/falloffRange;
+        } else {
+            data.falloffRange = 9999;
         }
 
         data.ambience = ambience;
 
         data.direction = direction4;
-        data.rangeCos = rangeCos;
-        if (rangeFalloffCos != rangeCos) {
-            data.rangeFalloffCosMult = 1/(rangeCos-rangeFalloffCos);
+        data.rangeAngle = Mathf.Deg2Rad*range;
+        if (rangeFalloff != 0) {
+            data.rangeFalloffAngleMult = 1/(Mathf.Deg2Rad*rangeFalloff);
         } else {
-            data.rangeFalloffCosMult = 9999;
+            data.rangeFalloffAngleMult = 9999;
         }
     }
 }
