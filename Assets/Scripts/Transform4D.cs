@@ -224,8 +224,13 @@ public class Transform4D : MonoBehaviour
     {
         Vector4 pointRel = matrix.transpose * point;
         return new Vector3(pointRel.x,pointRel.y,pointRel.z);
-
     }
+
+    public Vector4 RelativeToWorld(Vector3 relativeDirection)
+    {
+        return lookMatrix * new Vector4(relativeDirection.x,relativeDirection.y,relativeDirection.z,0);
+    }
+
 
     void OnDrawGizmosSelected()
     {

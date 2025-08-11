@@ -70,17 +70,19 @@ Shader "Mine/Boring"
             float _Lit;
             float _DoubleSideLit;
 
-            //float4 _WorldLight;
-
             struct LightData
             {
                 float4 position;
                 float3 color;
                 float intensity;
+
                 float doFalloff;
                 float falloffStart;
                 float falloffRange;
                 float ambience;
+
+                float4 direction;
+                float rangeCos;
             };
 
             StructuredBuffer<int> _LightCount;
@@ -302,38 +304,40 @@ Shader "Mine/Boring"
                     return pixelColor;
                 }
 
-                    float3 totalLight = float3(0,0,0);
+                float3 totalLight = float3(0,0,0);
 
-                    for (int i = 0; i < _LightCount[0]; i++)
+                for (int i = 0; i < _LightCount[0]; i++)
+                {
+                    LightData light = _LightData[i];
+
+                    float4 lightDis = light.position - IN.positionWorld;
+                    float4 dirToLight = lightDis - IN.positionWorld*dot(lightDis,IN.positionWorld);
+                    dirToLight = normalize(dirToLight);
+
+                    float normalLightDot = dot(dirToLight, normal);
+                    normalLightDot = lerp(normalLightDot,abs(normalLightDot),_DoubleSideLit); //should we illiminate from the back side?
+                    normalLightDot = max(lerp(normalLightDot,1,light.ambience),0);
+
+                    //fall off
+                    float distance = acos(clamp(dot(light.position,IN.positionWorld), -1,1));//1.57*(1-disDot);
+                    float falloffIntesity = 1;
+
+                    if (light.doFalloff)
                     {
-                        LightData light = _LightData[i];
-
-                        float4 lightDis = light.position - IN.positionWorld;
-                        float4 lightDir = lightDis - IN.positionWorld*dot(lightDis,IN.positionWorld);
-                        lightDir = normalize(lightDir);
-
-                        float lightDot = dot(lightDir, normal);
-                        lightDot = lerp(lightDot,abs(lightDot),_DoubleSideLit); //should we illiminate from the back side?
-                        lightDot = max(lerp(lightDot,1,light.ambience),0);
-
-                        //fall off
-                        float distance = acos(clamp(dot(light.position,IN.positionWorld), -1,1));//1.57*(1-disDot);
-                        float falloffIntesity = 1;
-
-                        if (light.doFalloff)
-                        {
-                            //falloffIntesity = light.intensity/((distance*distance)*light.falloffEnd + 1);
-                            falloffIntesity = 1 - saturate((distance-light.falloffStart)*light.falloffRange);
-                            //if (distance > light.falloffStart) falloffIntesity = 0;
-                        }
-
-                        float intensity = light.intensity*falloffIntesity;
-
-                        totalLight += lightDot*intensity*light.color;
+                        falloffIntesity = 1 - saturate((distance-light.falloffStart)*light.falloffRange);
                     }
 
-                    pixelColor.rgb *= totalLight; 
-                //}
+                    float intensity = light.intensity*falloffIntesity;
+
+                    float4 lightToPos = lightDis - light.position*dot(lightDis,light.position);
+                    lightToPos = -normalize(lightToPos);
+                    float lightRangeDot = dot(lightToPos, light.direction);
+                    if (lightRangeDot < light.rangeCos) intensity = 0;
+
+                    totalLight += normalLightDot*intensity*light.color;
+                }
+
+                pixelColor.rgb *= totalLight; 
 
                 return pixelColor;
             }

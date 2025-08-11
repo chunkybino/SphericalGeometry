@@ -14,4 +14,7 @@ public struct LightData
     public float falloffRange;
 
     public float ambience;
+
+    public Vector4 direction;
+    public float rangeCos;
 }
