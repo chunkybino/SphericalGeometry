@@ -16,7 +16,8 @@ Shader "Mine/Boring"
         _DoV4("DoVertex4", Float) = 0
         _Subdivisions("Subdivisions", Float) = 1
 
-        _WorldLight("World Light Source", Vector) = (0,1,0,0)
+        _Lit("Lit", Float) = 1
+        _DoubleSideLit("DoubelSideLit", Float) = 0
     }
 
     SubShader
@@ -65,6 +66,9 @@ Shader "Mine/Boring"
             float _Radius;
             float _DoV4;
             float _Subdivisions;
+
+            float _Lit;
+            float _DoubleSideLit;
 
             //float4 _WorldLight;
 
@@ -293,36 +297,43 @@ Shader "Mine/Boring"
                 pixelColor = tex2D(_MainTexture, IN.uv);
                 pixelColor *= _Color;
 
-                float3 totalLight = float3(0,0,0);
-
-                for (int i = 0; i < _LightCount[0]; i++)
+                if (_Lit == 0)
                 {
-                    LightData light = _LightData[i];
-
-                    float4 lightDis = light.position - IN.positionWorld;
-                    float4 lightDir = lightDis - IN.positionWorld*dot(lightDis,IN.positionWorld);
-                    lightDir = normalize(lightDir);
-
-                    float lightDot = dot(lightDir, normal);
-                    lightDot = max(lerp(lightDot,1,light.ambience),0);
-
-                    //fall off
-                    float distance = acos(clamp(dot(light.position,IN.positionWorld), -1,1));//1.57*(1-disDot);
-                    float falloffIntesity = 1;
-
-                    if (light.doFalloff)
-                    {
-                        //falloffIntesity = light.intensity/((distance*distance)*light.falloffEnd + 1);
-                        falloffIntesity = 1 - saturate((distance-light.falloffStart)*light.falloffRange);
-                        //if (distance > light.falloffStart) falloffIntesity = 0;
-                    }
-
-                    float intensity = light.intensity*falloffIntesity;
-
-                    totalLight += lightDot*intensity*light.color;
+                    return pixelColor;
                 }
 
-                pixelColor.rgb *= totalLight; 
+                    float3 totalLight = float3(0,0,0);
+
+                    for (int i = 0; i < _LightCount[0]; i++)
+                    {
+                        LightData light = _LightData[i];
+
+                        float4 lightDis = light.position - IN.positionWorld;
+                        float4 lightDir = lightDis - IN.positionWorld*dot(lightDis,IN.positionWorld);
+                        lightDir = normalize(lightDir);
+
+                        float lightDot = dot(lightDir, normal);
+                        lightDot = lerp(lightDot,abs(lightDot),_DoubleSideLit); //should we illiminate from the back side?
+                        lightDot = max(lerp(lightDot,1,light.ambience),0);
+
+                        //fall off
+                        float distance = acos(clamp(dot(light.position,IN.positionWorld), -1,1));//1.57*(1-disDot);
+                        float falloffIntesity = 1;
+
+                        if (light.doFalloff)
+                        {
+                            //falloffIntesity = light.intensity/((distance*distance)*light.falloffEnd + 1);
+                            falloffIntesity = 1 - saturate((distance-light.falloffStart)*light.falloffRange);
+                            //if (distance > light.falloffStart) falloffIntesity = 0;
+                        }
+
+                        float intensity = light.intensity*falloffIntesity;
+
+                        totalLight += lightDot*intensity*light.color;
+                    }
+
+                    pixelColor.rgb *= totalLight; 
+                //}
 
                 return pixelColor;
             }

@@ -52,11 +52,7 @@ public class PhysicsHandlerS : MonoBehaviour
 
     void Awake()
     {
-        if (!singleton) {
-            singleton = this;
-        } else if (singleton != this) {
-            Destroy(this);
-        }
+        CheckSingleton();
 
         rigidbodyList.Clear();
         staticBodies.Clear();
@@ -64,6 +60,20 @@ public class PhysicsHandlerS : MonoBehaviour
         globalBodies.Clear();
         foreach (Sector s in sectors) {
             s.Clear();
+        }
+    }
+
+    void OnEnable()
+    {
+        CheckSingleton();
+    }
+
+    void CheckSingleton()
+    {
+        if (!singleton) {
+            singleton = this;
+        } else if (singleton != this) {
+            Destroy(this);
         }
     }
 

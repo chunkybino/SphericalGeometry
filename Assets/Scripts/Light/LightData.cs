@@ -14,9 +14,4 @@ public struct LightData
     public float falloffRange;
 
     public float ambience;
-
-    void OnValidate()
-    {
-        doFalloff = Mathf.Floor(Mathf.Clamp(doFalloff,0,1));
-    }
 }

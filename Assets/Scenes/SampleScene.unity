@@ -523,8 +523,8 @@ MonoBehaviour:
   uvs: []
   triangles: 000000000100000002000000000000000200000004000000000000000400000005000000000000000500000001000000030000000100000005000000030000000500000004000000030000000400000002000000030000000200000001000000
   doVertex4: 0
-  setWorldLight: 0
-  worldLight: {x: 0, y: 0, z: 0, w: 0}
+  lit: 1
+  doubleSideLit: 0
 --- !u!114 &98180675
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -714,8 +714,8 @@ MonoBehaviour:
   uvs: []
   triangles: 000000000100000002000000000000000200000004000000000000000400000005000000000000000500000001000000030000000100000005000000030000000500000004000000030000000400000002000000030000000200000001000000
   doVertex4: 0
-  setWorldLight: 0
-  worldLight: {x: 0, y: 1, z: 0, w: 0}
+  lit: 1
+  doubleSideLit: 1
 --- !u!114 &119699959
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1189,8 +1189,8 @@ MonoBehaviour:
   uvs: []
   triangles: 000000000000000000000000
   doVertex4: 1
-  setWorldLight: 0
-  worldLight: {x: 0, y: 1, z: 0, w: 0}
+  lit: 1
+  doubleSideLit: 1
 --- !u!114 &363402355
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1417,8 +1417,8 @@ MonoBehaviour:
   uvs: []
   triangles: 000000000000000000000000
   doVertex4: 1
-  setWorldLight: 0
-  worldLight: {x: 0, y: 0, z: 0, w: 0}
+  lit: 1
+  doubleSideLit: 0
 --- !u!114 &500118752
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1672,8 +1672,8 @@ MonoBehaviour:
   uvs: []
   triangles: 000000000100000002000000000000000200000004000000000000000400000005000000000000000500000001000000030000000100000005000000030000000500000004000000030000000400000002000000030000000200000001000000
   doVertex4: 0
-  setWorldLight: 0
-  worldLight: {x: 0, y: 0, z: 0, w: 0}
+  lit: 1
+  doubleSideLit: 0
 --- !u!114 &607435941
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2094,8 +2094,8 @@ MonoBehaviour:
   uvs: []
   triangles: 000000000100000002000000000000000200000004000000000000000400000005000000000000000500000001000000030000000100000005000000030000000500000004000000030000000400000002000000030000000200000001000000
   doVertex4: 0
-  setWorldLight: 0
-  worldLight: {x: 0, y: 1, z: 0, w: 0}
+  lit: 1
+  doubleSideLit: 1
 --- !u!114 &652696503
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2607,8 +2607,8 @@ MonoBehaviour:
   uvs: []
   triangles: 000000000000000000000000
   doVertex4: 1
-  setWorldLight: 0
-  worldLight: {x: 0, y: 0, z: 0, w: 0}
+  lit: 1
+  doubleSideLit: 0
 --- !u!114 &696461020
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3034,8 +3034,8 @@ MonoBehaviour:
   uvs: []
   triangles: 000000000100000002000000000000000200000004000000000000000400000005000000000000000500000001000000030000000100000005000000030000000500000004000000030000000400000002000000030000000200000001000000
   doVertex4: 0
-  setWorldLight: 0
-  worldLight: {x: 0, y: 0, z: 0, w: 0}
+  lit: 1
+  doubleSideLit: 0
 --- !u!114 &724789089
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3263,6 +3263,130 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &847819227
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 847819230}
+  - component: {fileID: 847819229}
+  - component: {fileID: 847819228}
+  m_Layer: 0
+  m_Name: GlobalLight
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &847819228
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 847819227}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0d3c5384fe237645ac378bcda77ebfd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  transform4: {fileID: 847819229}
+  data:
+    position: {x: 0, y: 0.99999994, z: 0, w: 0}
+    color: {x: 1, y: 1, z: 1}
+    intensity: 1
+    doFalloff: 0
+    falloffStart: 0
+    falloffRange: 9999
+    ambience: 0.6
+  color: {r: 1, g: 1, b: 1, a: 0}
+  intensity: 1
+  doFalloff: 0
+  falloffStart: 0
+  falloffRange: 0
+  ambience: 0.6
+  dirty: 1
+--- !u!114 &847819229
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 847819227}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3e9696e169808a4390b5d2c1be30c0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parent: {fileID: 0}
+  children: []
+  m_matrix:
+    e00: 1
+    e01: 0
+    e02: 0
+    e03: 0
+    e10: 0
+    e11: 0
+    e12: 0
+    e13: 0.99999994
+    e20: 0
+    e21: 0
+    e22: 1
+    e23: 0
+    e30: 0
+    e31: -0.99999994
+    e32: 0
+    e33: 0
+  m_localMatrix:
+    e00: 1
+    e01: 0
+    e02: 0
+    e03: 0
+    e10: 0
+    e11: 0
+    e12: 0
+    e13: 0.99999994
+    e20: 0
+    e21: 0
+    e22: 1
+    e23: 0
+    e30: 0
+    e31: -0.99999994
+    e32: 0
+    e33: 0
+  onMatrixUpdate:
+    m_PersistentCalls:
+      m_Calls: []
+  scale: {x: 1, y: 1, z: 1}
+  sterographicPos: {x: 0, y: 0.99999994, z: 0}
+  lockSterographicPos: 1
+  onLeftMult:
+    m_PersistentCalls:
+      m_Calls: []
+  onRightMult:
+    m_PersistentCalls:
+      m_Calls: []
+  onRotorLeft:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!4 &847819230
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 847819227}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.99999994, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3623,8 +3747,8 @@ MonoBehaviour:
   uvs: []
   triangles: 
   doVertex4: 0
-  setWorldLight: 0
-  worldLight: {x: 0, y: 0, z: 0, w: 0}
+  lit: 1
+  doubleSideLit: 0
 --- !u!4 &876432513
 Transform:
   m_ObjectHideFlags: 0
@@ -3761,8 +3885,8 @@ MonoBehaviour:
   uvs: []
   triangles: 000000000100000002000000000000000200000004000000000000000400000005000000000000000500000001000000030000000100000005000000030000000500000004000000030000000400000002000000030000000200000001000000
   doVertex4: 0
-  setWorldLight: 0
-  worldLight: {x: 0, y: 0, z: 0, w: 0}
+  lit: 1
+  doubleSideLit: 0
 --- !u!114 &905167640
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4024,8 +4148,8 @@ MonoBehaviour:
   uvs: []
   triangles: 
   doVertex4: 0
-  setWorldLight: 0
-  worldLight: {x: 0, y: 0, z: 0, w: 0}
+  lit: 1
+  doubleSideLit: 0
 --- !u!4 &913436717
 Transform:
   m_ObjectHideFlags: 0
@@ -4261,8 +4385,8 @@ MonoBehaviour:
   uvs: []
   triangles: 000000000100000002000000000000000200000004000000000000000400000005000000000000000500000001000000030000000100000005000000030000000500000004000000030000000400000002000000030000000200000001000000
   doVertex4: 0
-  setWorldLight: 0
-  worldLight: {x: 0, y: 1, z: 0, w: 0}
+  lit: 1
+  doubleSideLit: 0
 --- !u!114 &929819535
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4530,8 +4654,8 @@ MonoBehaviour:
   uvs: []
   triangles: 000000000100000002000000000000000200000004000000000000000400000005000000000000000500000001000000030000000100000005000000030000000500000004000000030000000400000002000000030000000200000001000000
   doVertex4: 0
-  setWorldLight: 0
-  worldLight: {x: 0, y: 1, z: 0, w: 0}
+  lit: 1
+  doubleSideLit: 1
 --- !u!114 &932915826
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4738,8 +4862,8 @@ MonoBehaviour:
   uvs: []
   triangles: 000000000100000002000000000000000200000004000000000000000400000005000000000000000500000001000000030000000100000005000000030000000500000004000000030000000400000002000000030000000200000001000000
   doVertex4: 0
-  setWorldLight: 0
-  worldLight: {x: 0, y: 1, z: 0, w: 0}
+  lit: 1
+  doubleSideLit: 1
 --- !u!114 &938559781
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5022,8 +5146,8 @@ MonoBehaviour:
   uvs: []
   triangles: 000000000100000002000000000000000200000004000000000000000400000005000000000000000500000001000000030000000100000005000000030000000500000004000000030000000400000002000000030000000200000001000000
   doVertex4: 0
-  setWorldLight: 0
-  worldLight: {x: 0, y: 0, z: 0, w: 0}
+  lit: 1
+  doubleSideLit: 0
 --- !u!114 &943707544
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9052,8 +9176,8 @@ MonoBehaviour:
   uvs: []
   triangles: 000000000000000000000000
   doVertex4: 1
-  setWorldLight: 0
-  worldLight: {x: 0, y: 1, z: 0, w: 0}
+  lit: 1
+  doubleSideLit: 1
 --- !u!114 &964396795
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9268,8 +9392,8 @@ MonoBehaviour:
   uvs: []
   triangles: 000000000100000002000000000000000200000004000000000000000400000005000000000000000500000001000000030000000100000005000000030000000500000004000000030000000400000002000000030000000200000001000000
   doVertex4: 0
-  setWorldLight: 0
-  worldLight: {x: 0, y: 0, z: 0, w: 0}
+  lit: 1
+  doubleSideLit: 0
 --- !u!114 &1006463141
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9459,8 +9583,8 @@ MonoBehaviour:
   uvs: []
   triangles: 000000000100000002000000000000000200000004000000000000000400000005000000000000000500000001000000030000000100000005000000030000000500000004000000030000000400000002000000030000000200000001000000
   doVertex4: 0
-  setWorldLight: 0
-  worldLight: {x: 0, y: 0, z: 0, w: 0}
+  lit: 1
+  doubleSideLit: 0
 --- !u!114 &1078582795
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9573,29 +9697,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ce58b9682d2b7c4f9c548b719da6295, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lightDatas:
-  - position: {x: 0, y: 1, z: 0, w: 0}
-    color: {x: 1, y: 1, z: 1}
-    intensity: 0.2
-    doFalloff: 0
-    falloffStart: 0
-    falloffRange: 0
-    ambience: 1
-  - position: {x: 0.66299355, y: 0.104828484, z: 0.66299355, w: 0.33149678}
-    color: {x: 1, y: 1, z: 1}
-    intensity: 2
-    doFalloff: 1
-    falloffStart: 0
-    falloffRange: 1
-    ambience: 0.2
-  - position: {x: 0.26967996, y: 0.13483998, z: 0.8528029, w: 0.42640144}
-    color: {x: 1, y: 1, z: 1}
-    intensity: 2
-    doFalloff: 1
-    falloffStart: 0
-    falloffRange: 1
-    ambience: 0.2
-  lightDatasCount: 3
+  lights:
+  - {fileID: 847819228}
+  lightDatasCount: 1
   setBuffer: 0
 --- !u!4 &1083750112
 Transform:
@@ -9665,6 +9769,15 @@ MonoBehaviour:
   - {fileID: 1569770726}
   - {fileID: 871264115}
   globalBodies:
+  - {fileID: 14870709}
+  - {fileID: 14870709}
+  - {fileID: 14870709}
+  - {fileID: 14870709}
+  - {fileID: 14870709}
+  - {fileID: 14870709}
+  - {fileID: 14870709}
+  - {fileID: 14870709}
+  - {fileID: 14870709}
   - {fileID: 14870709}
   - {fileID: 14870709}
   - {fileID: 14870709}
@@ -9959,8 +10072,8 @@ MonoBehaviour:
   uvs: []
   triangles: 000000000100000002000000000000000200000004000000000000000400000005000000000000000500000001000000030000000100000005000000030000000500000004000000030000000400000002000000030000000200000001000000
   doVertex4: 0
-  setWorldLight: 0
-  worldLight: {x: 0, y: 0, z: 0, w: 0}
+  lit: 1
+  doubleSideLit: 0
 --- !u!114 &1119807485
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10569,8 +10682,8 @@ MonoBehaviour:
   uvs: []
   triangles: 
   doVertex4: 0
-  setWorldLight: 0
-  worldLight: {x: 0, y: 1, z: 0, w: 0}
+  lit: 1
+  doubleSideLit: 0
 --- !u!4 &1357220933
 Transform:
   m_ObjectHideFlags: 0
@@ -10722,8 +10835,8 @@ MonoBehaviour:
   uvs: []
   triangles: 000000000100000002000000000000000200000004000000000000000400000005000000000000000500000001000000030000000100000005000000030000000500000004000000030000000400000002000000030000000200000001000000
   doVertex4: 0
-  setWorldLight: 0
-  worldLight: {x: 0, y: 0, z: 0, w: 0}
+  lit: 1
+  doubleSideLit: 0
 --- !u!114 &1439639872
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10922,8 +11035,8 @@ MonoBehaviour:
   uvs: []
   triangles: 000000000000000000000000
   doVertex4: 1
-  setWorldLight: 0
-  worldLight: {x: 0, y: 1, z: 0, w: 0}
+  lit: 1
+  doubleSideLit: 1
 --- !u!114 &1447499149
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11108,8 +11221,8 @@ MonoBehaviour:
   uvs: []
   triangles: 000000000100000002000000000000000200000004000000000000000400000005000000000000000500000001000000030000000100000005000000030000000500000004000000030000000400000002000000030000000200000001000000
   doVertex4: 0
-  setWorldLight: 0
-  worldLight: {x: 0, y: 1, z: 0, w: 0}
+  lit: 1
+  doubleSideLit: 1
 --- !u!114 &1449974950
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11323,8 +11436,8 @@ MonoBehaviour:
   uvs: []
   triangles: 000000000000000000000000
   doVertex4: 1
-  setWorldLight: 0
-  worldLight: {x: 0, y: 0, z: 0, w: 0}
+  lit: 1
+  doubleSideLit: 0
 --- !u!114 &1457274184
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11531,8 +11644,8 @@ MonoBehaviour:
   uvs: []
   triangles: 000000000100000002000000000000000200000004000000000000000400000005000000000000000500000001000000030000000100000005000000030000000500000004000000030000000400000002000000030000000200000001000000
   doVertex4: 0
-  setWorldLight: 0
-  worldLight: {x: 0, y: 0, z: 0, w: 0}
+  lit: 1
+  doubleSideLit: 0
 --- !u!114 &1466526955
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11967,8 +12080,8 @@ MonoBehaviour:
   uvs: []
   triangles: 000000000100000002000000000000000200000004000000000000000400000005000000000000000500000001000000030000000100000005000000030000000500000004000000030000000400000002000000030000000200000001000000
   doVertex4: 0
-  setWorldLight: 0
-  worldLight: {x: 0, y: 1, z: 0, w: 0}
+  lit: 1
+  doubleSideLit: 0
 --- !u!114 &1509006515
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12309,8 +12422,8 @@ MonoBehaviour:
   uvs: []
   triangles: 000000000100000002000000000000000200000004000000000000000400000005000000000000000500000001000000030000000100000005000000030000000500000004000000030000000400000002000000030000000200000001000000
   doVertex4: 0
-  setWorldLight: 0
-  worldLight: {x: 0, y: 0, z: 0, w: 0}
+  lit: 1
+  doubleSideLit: 0
 --- !u!114 &1569770725
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12593,8 +12706,8 @@ MonoBehaviour:
   uvs: []
   triangles: 000000000100000002000000000000000200000004000000000000000400000005000000000000000500000001000000030000000100000005000000030000000500000004000000030000000400000002000000030000000200000001000000
   doVertex4: 0
-  setWorldLight: 0
-  worldLight: {x: 0, y: 0, z: 0, w: 0}
+  lit: 1
+  doubleSideLit: 0
 --- !u!114 &1587023191
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12793,8 +12906,8 @@ MonoBehaviour:
   uvs: []
   triangles: 
   doVertex4: 0
-  setWorldLight: 0
-  worldLight: {x: 0, y: 0, z: 0, w: 0}
+  lit: 1
+  doubleSideLit: 1
 --- !u!114 &1612277668
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12996,8 +13109,8 @@ MonoBehaviour:
   uvs: []
   triangles: 000000000100000002000000000000000200000004000000000000000400000005000000000000000500000001000000030000000100000005000000030000000500000004000000030000000400000002000000030000000200000001000000
   doVertex4: 0
-  setWorldLight: 0
-  worldLight: {x: 0, y: 0, z: 0, w: 0}
+  lit: 1
+  doubleSideLit: 0
 --- !u!114 &1620956662
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13485,8 +13598,8 @@ MonoBehaviour:
   uvs: []
   triangles: 000000000100000002000000000000000200000004000000000000000400000005000000000000000500000001000000030000000100000005000000030000000500000004000000030000000400000002000000030000000200000001000000
   doVertex4: 0
-  setWorldLight: 0
-  worldLight: {x: 0.1889822, y: 0.9449112, z: 0.18898225, w: 0.18898225}
+  lit: 1
+  doubleSideLit: 0
 --- !u!114 &1688195795
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13811,8 +13924,8 @@ MonoBehaviour:
   uvs: []
   triangles: 
   doVertex4: 0
-  setWorldLight: 0
-  worldLight: {x: 0, y: 1, z: 0, w: 0}
+  lit: 1
+  doubleSideLit: 0
 --- !u!4 &1748959805
 Transform:
   m_ObjectHideFlags: 0
@@ -13964,8 +14077,8 @@ MonoBehaviour:
   uvs: []
   triangles: 000000000100000002000000000000000200000004000000000000000400000005000000000000000500000001000000030000000100000005000000030000000500000004000000030000000400000002000000030000000200000001000000
   doVertex4: 0
-  setWorldLight: 0
-  worldLight: {x: 0, y: 0, z: 0, w: 0}
+  lit: 1
+  doubleSideLit: 0
 --- !u!114 &1758921313
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14212,8 +14325,8 @@ MonoBehaviour:
   uvs: []
   triangles: 
   doVertex4: 0
-  setWorldLight: 0
-  worldLight: {x: 0, y: 0, z: 0, w: 0}
+  lit: 1
+  doubleSideLit: 1
 --- !u!4 &1774161680
 Transform:
   m_ObjectHideFlags: 0
@@ -14429,8 +14542,8 @@ MonoBehaviour:
   uvs: []
   triangles: 000000000100000002000000000000000200000004000000000000000400000005000000000000000500000001000000030000000100000005000000030000000500000004000000030000000400000002000000030000000200000001000000
   doVertex4: 0
-  setWorldLight: 0
-  worldLight: {x: 0, y: 1, z: 0, w: 0}
+  lit: 1
+  doubleSideLit: 1
 --- !u!1 &1963907474
 GameObject:
   m_ObjectHideFlags: 0
@@ -14561,8 +14674,8 @@ MonoBehaviour:
   uvs: []
   triangles: 000000000000000000000000
   doVertex4: 1
-  setWorldLight: 0
-  worldLight: {x: 0, y: 1, z: 0, w: 0}
+  lit: 1
+  doubleSideLit: 1
 --- !u!114 &1963907479
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14762,8 +14875,8 @@ MonoBehaviour:
   uvs: []
   triangles: 000000000100000002000000000000000200000004000000000000000400000005000000000000000500000001000000030000000100000005000000030000000500000004000000030000000400000002000000030000000200000001000000
   doVertex4: 0
-  setWorldLight: 0
-  worldLight: {x: 0, y: 0, z: 0, w: 0}
+  lit: 1
+  doubleSideLit: 0
 --- !u!114 &1983602830
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14955,8 +15068,8 @@ MonoBehaviour:
   uvs: []
   triangles: 000000000100000002000000000000000200000004000000000000000400000005000000000000000500000001000000030000000100000005000000030000000500000004000000030000000400000002000000030000000200000001000000
   doVertex4: 0
-  setWorldLight: 0
-  worldLight: {x: 0, y: 1, z: 0, w: 0}
+  lit: 1
+  doubleSideLit: 0
 --- !u!114 &2035789371
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15239,8 +15352,8 @@ MonoBehaviour:
   uvs: []
   triangles: 000000000100000002000000000000000200000004000000000000000400000005000000000000000500000001000000030000000100000005000000030000000500000004000000030000000400000002000000030000000200000001000000
   doVertex4: 0
-  setWorldLight: 0
-  worldLight: {x: 0, y: 0, z: 0, w: 0}
+  lit: 1
+  doubleSideLit: 0
 --- !u!114 &2075146610
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15424,8 +15537,8 @@ MonoBehaviour:
   uvs: []
   triangles: 000000000000000000000000
   doVertex4: 1
-  setWorldLight: 0
-  worldLight: {x: 0, y: 0, z: 0, w: 0}
+  lit: 1
+  doubleSideLit: 0
 --- !u!114 &2078316006
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15517,6 +15630,7 @@ SceneRoots:
   - {fileID: 959043053}
   - {fileID: 1091455079}
   - {fileID: 1083750112}
+  - {fileID: 847819230}
   - {fileID: 832575519}
   - {fileID: 512728412}
   - {fileID: 69122365}
