@@ -17,4 +17,5 @@ public struct LightData
 
     public Vector4 direction;
     public float rangeCos;
+    public float rangeFalloffCosMult;
 }

@@ -83,6 +83,7 @@ Shader "Mine/Boring"
 
                 float4 direction;
                 float rangeCos;
+                float rangeFalloffCosMult;
             };
 
             StructuredBuffer<int> _LightCount;
@@ -327,12 +328,13 @@ Shader "Mine/Boring"
                         falloffIntesity = 1 - saturate((distance-light.falloffStart)*light.falloffRange);
                     }
 
-                    float intensity = light.intensity*falloffIntesity;
-
                     float4 lightToPos = lightDis - light.position*dot(lightDis,light.position);
                     lightToPos = -normalize(lightToPos);
                     float lightRangeDot = dot(lightToPos, light.direction);
-                    if (lightRangeDot < light.rangeCos) intensity = 0;
+                    float coneIntensity = 1 - saturate((light.rangeCos-lightRangeDot)*light.rangeFalloffCosMult);
+                    //if (lightRangeDot < light.rangeCos) intensity = 0;
+
+                    float intensity = light.intensity*falloffIntesity*coneIntensity;
 
                     totalLight += normalLightDot*intensity*light.color;
                 }

@@ -3309,6 +3309,7 @@ MonoBehaviour:
     ambience: 0.6
     direction: {x: 0, y: 0, z: 0, w: 0}
     rangeCos: -1
+    rangeFalloffCosMult: 9999
   color: {r: 1, g: 1, b: 1, a: 0}
   intensity: 0.5
   doFalloff: 0
@@ -3317,6 +3318,7 @@ MonoBehaviour:
   ambience: 0.6
   direction: {x: 0, y: 0, z: 0}
   range: 180
+  rangeFalloff: 0
   dirty: 1
 --- !u!114 &847819229
 MonoBehaviour:

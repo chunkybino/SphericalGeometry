@@ -24,7 +24,9 @@ public class LightS : MonoBehaviour
     public Vector3 direction = new Vector3(1,0,0);
     Vector4 direction4;
     [Range(0,180)] public float range = 180;
+    [Range(0,180)] public float rangeFalloff = 180;
     float rangeCos;
+    float rangeFalloffCos;
 
     public bool dirty;
 
@@ -44,6 +46,8 @@ public class LightS : MonoBehaviour
     {
         direction4 = transform4.RelativeToWorld(direction);
         rangeCos = Mathf.Cos(Mathf.Deg2Rad * range);
+        rangeFalloffCos = Mathf.Cos(Mathf.Deg2Rad * Mathf.Clamp(range+rangeFalloff,0,180));
+        if (rangeFalloffCos > rangeCos) rangeFalloffCos = rangeCos;
 
         if (
             data.position != transform4.positionNorm ||
@@ -54,7 +58,8 @@ public class LightS : MonoBehaviour
             data.falloffRange != falloffRange ||
             data.ambience != ambience ||
             data.direction != direction4 ||
-            data.rangeCos != rangeCos
+            data.rangeCos != rangeCos ||
+            data.rangeFalloffCosMult != rangeFalloffCos
             ) {
             dirty = true;
         }
@@ -75,5 +80,10 @@ public class LightS : MonoBehaviour
 
         data.direction = direction4;
         data.rangeCos = rangeCos;
+        if (rangeFalloffCos != rangeCos) {
+            data.rangeFalloffCosMult = 1/(rangeCos-rangeFalloffCos);
+        } else {
+            data.rangeFalloffCosMult = 9999;
+        }
     }
 }
