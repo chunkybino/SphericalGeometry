@@ -231,6 +231,15 @@ public class Rigidbody4D : MonoBehaviour
 
         angularVelocity = axis * vel.magnitude / distance;
     }
+    public void AddAngularVelocityAtAnchor(Vector4 vel, Vector4 anchor)
+    {
+        float distance = UFunc.DistanceS(transform4.positionNorm, anchor);
+        Vector3 vel3 = transform4.RelativeDirectionTo(vel);
+        Vector3 anchor3 = transform4.RelativeDirectionTo(anchor);
+        Vector3 axis = Vector3.Cross(vel3,anchor3).normalized;
+
+        angularVelocity += axis * vel.magnitude / distance;
+    }
     public void ApplyStaticForce(Vector4 direction, float attackVel, Vector4 attackPoint, float elasticity)
     {
         Vector4 currentLinear = GetLinearVelocityAtAnchor(attackPoint);
@@ -268,8 +277,9 @@ public class Rigidbody4D : MonoBehaviour
 
         float newAngularDot = (1+elasticity)*attackAngularVel + angularPerpDot;
         if (angularPerpDot > newAngularDot) newAngularDot = angularPerpDot;
-        Vector4 newAngular = UFunc.SetVectorDirectionValue(currentAngular, attackPerpDir, newAngularDot);
-        SetAngularVelocityAtAnchor(newAngular, attackPoint);
+        //Vector4 newAngular = UFunc.SetVectorDirectionValue(currentAngular, attackPerpDir, newAngularDot);
+        //SetAngularVelocityAtAnchor(newAngular, attackPoint);
+        AddAngularVelocityAtAnchor(attackPerpDir*(newAngularDot-angularPerpDot), attackPoint);
 
         float newLinearDot = (1+elasticity)*attackLinearVel + linearDot;
         if (linearDot > newLinearDot) newLinearDot = linearDot;
@@ -278,6 +288,9 @@ public class Rigidbody4D : MonoBehaviour
 
         print(angularPerpDot+" "+newAngularDot+" "+attackAngularVel);
         print(relativeLinear+" "+linearDot+" "+newLinearDot+" "+attackLinearVel);
+        //print(currentAngular+" "+newAngular);
+
+        angularVelocity.y = 0;
 
         Vector4 GetFinalVel(float newDot)
         {
