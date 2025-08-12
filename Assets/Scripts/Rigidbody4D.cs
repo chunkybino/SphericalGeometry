@@ -253,23 +253,31 @@ public class Rigidbody4D : MonoBehaviour
         float distance = UFunc.DistanceS(positionNorm, attackPoint);
 
         float relativeLinear = attackVel - linearDot - angularNormalDot;
+
+        if (relativeLinear < 0) return;
+
         float sinA = Vector4.Dot(direction, attackPerpDir);
 
-        float linearMassPush = 1 / (1 + (angularMassMult/(distance*distance))/sinA);
-        float angularMassPush = sinA == 0 ? 1 : (angularMassMult/(distance*distance))/sinA / (1 + (angularMassMult/(distance*distance))/sinA);
+        float pointAngularInertia = (angularMassMult/(distance*distance * sinA*sinA));
+
+        float linearMassPush = 1 / (1 + pointAngularInertia);
+        float angularMassPush = sinA == 0 ? 1 : pointAngularInertia / (1 + pointAngularInertia);
 
         float attackLinearVel = relativeLinear*(1-linearMassPush);
         float attackAngularVel = relativeLinear*(1-angularMassPush);
 
         float newAngularDot = (1+elasticity)*attackAngularVel + angularPerpDot;
-        if (angularPerpDot > attackAngularVel) newAngularDot = angularPerpDot;
+        if (angularPerpDot > newAngularDot) newAngularDot = angularPerpDot;
         Vector4 newAngular = UFunc.SetVectorDirectionValue(currentAngular, attackPerpDir, newAngularDot);
         SetAngularVelocityAtAnchor(newAngular, attackPoint);
 
         float newLinearDot = (1+elasticity)*attackLinearVel + linearDot;
-        if (relativeLinear < 0) newLinearDot = linearDot;
+        if (linearDot > newLinearDot) newLinearDot = linearDot;
         Vector4 newLinear = GetFinalVel(newLinearDot);
         SetLinearVelocityAtAnchor(newLinear, attackPoint);
+
+        print(angularPerpDot+" "+newAngularDot+" "+attackAngularVel);
+        print(relativeLinear+" "+linearDot+" "+newLinearDot+" "+attackLinearVel);
 
         Vector4 GetFinalVel(float newDot)
         {

@@ -77,6 +77,11 @@ public static class UFunc
         return v1 - normal*UFunc.Dot(normal.normalized, v1);
     }
 
+    public static Vector4 DirectionFromTo(Vector4 from, Vector4 to)
+    {
+        return ProjectToVectorNormal(to-from,from).normalized;
+    }
+
     public static Vector3 SterographicProjection(Vector4 pos, float radius)
     {
         if (pos.w == -radius) return new Vector3(9999, 0, 0);

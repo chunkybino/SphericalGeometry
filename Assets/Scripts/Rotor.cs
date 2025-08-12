@@ -126,6 +126,11 @@ public struct Rotor
         return UFunc.BiReflectVector(v, bivectorNormal.factor1, bivectorNormal.halfVector);
     }
 
+    public Vector4 InverseRotate(Vector4 v)
+    {
+        return UFunc.BiReflectVector(v, factor2, factor1);
+    }
+
     public static Rotor operator *(Rotor left, Rotor right)
     {
         Bivector bi = (left.angle*left.bivectorNormal) + (right.angle*right.bivectorNormal);
