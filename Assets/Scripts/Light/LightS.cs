@@ -42,7 +42,7 @@ public class LightS : MonoBehaviour
 
     void Update()
     {
-        direction4 = transform4.RelativeToWorld(direction);
+        direction4 = transform4.RelativeToWorld(direction.normalized);
         //rangeCos = Mathf.Cos(Mathf.Deg2Rad * range);
         //rangeFalloffCos = Mathf.Cos(Mathf.Deg2Rad * Mathf.Clamp(range+rangeFalloff,0,180));
         //if (rangeFalloffCos > rangeCos) rangeFalloffCos = rangeCos;

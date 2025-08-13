@@ -133,7 +133,7 @@ public class Rigidbody4D : MonoBehaviour
         tangentGravity = tangentGravity.normalized * gravity.magnitude * gravityScale;
         for (int i = 0; i < staticContactNormals.Count; i++) {
             if (Vector4.Dot(tangentGravity,staticContactNormals[i]) < 0) {
-                tangentGravity = UFunc.SetVectorDirectionValue(tangentGravity, staticContactNormals[i], 0);
+                //tangentGravity = UFunc.SetVectorDirectionValue(tangentGravity, staticContactNormals[i], 0);
             }
         }
 
@@ -234,9 +234,18 @@ public class Rigidbody4D : MonoBehaviour
     public void AddAngularVelocityAtAnchor(Vector4 vel, Vector4 anchor)
     {
         float distance = UFunc.DistanceS(transform4.positionNorm, anchor);
-        Vector3 vel3 = transform4.RelativeDirectionTo(vel);
-        Vector3 anchor3 = transform4.RelativeDirectionTo(anchor);
-        Vector3 axis = Vector3.Cross(vel3,anchor3).normalized;
+        Vector3 vel3 = transform4.RelativeDirectionTo(vel).normalized;
+        Vector3 anchor3 = transform4.RelativeDirectionTo(anchor).normalized;
+        Vector3 axis = Vector3.Cross(vel3,anchor3);
+
+        Matrix4x4 mat = transform4.matrix.transpose;
+
+        Vector4 localVel = (mat * (new Rotor(anchor,positionNorm) * vel)).normalized;
+        Vector4 localAnchor = (mat * anchor);
+        Vector3 localVel3 = new Vector3(localVel.x,localVel.y,localVel.z).normalized;
+        Vector3 localAnchor3 = new Vector3(localAnchor.x,localAnchor.y,localAnchor.z).normalized;
+
+        Vector3 cross3 = Vector3.Cross(localVel3, localAnchor3).normalized;
 
         angularVelocity += axis * vel.magnitude / distance;
     }
@@ -275,22 +284,14 @@ public class Rigidbody4D : MonoBehaviour
         float attackLinearVel = relativeLinear*(1-linearMassPush);
         float attackAngularVel = relativeLinear*(1-angularMassPush);
 
-        float newAngularDot = (1+elasticity)*attackAngularVel + angularPerpDot;
-        if (angularPerpDot > newAngularDot) newAngularDot = angularPerpDot;
-        //Vector4 newAngular = UFunc.SetVectorDirectionValue(currentAngular, attackPerpDir, newAngularDot);
-        //SetAngularVelocityAtAnchor(newAngular, attackPoint);
-        AddAngularVelocityAtAnchor(attackPerpDir*(newAngularDot-angularPerpDot), attackPoint);
+        float newAngularDot = (1+elasticity)*attackAngularVel;
+        if (angularNormalDot > newAngularDot) newAngularDot = angularPerpDot;
+        AddAngularVelocityAtAnchor(direction*(newAngularDot), attackPoint);
 
         float newLinearDot = (1+elasticity)*attackLinearVel + linearDot;
         if (linearDot > newLinearDot) newLinearDot = linearDot;
         Vector4 newLinear = GetFinalVel(newLinearDot);
         SetLinearVelocityAtAnchor(newLinear, attackPoint);
-
-        print(angularPerpDot+" "+newAngularDot+" "+attackAngularVel);
-        print(relativeLinear+" "+linearDot+" "+newLinearDot+" "+attackLinearVel);
-        //print(currentAngular+" "+newAngular);
-
-        angularVelocity.y = 0;
 
         Vector4 GetFinalVel(float newDot)
         {
