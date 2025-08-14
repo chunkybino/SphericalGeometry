@@ -95,4 +95,17 @@ public class Renderer4D : MonoBehaviour
         newBounds.min = new Vector3(-99999,-99999,-99999);
         renderer.bounds = newBounds;
     }
+
+    public int GetVertexCount()
+    {
+        return filter.sharedMesh.vertices.Length;
+    }
+    public Vector3[] GetVertex3()
+    {
+        return filter.sharedMesh.vertices;
+    }
+    public int[] GetTri()
+    {
+        return filter.sharedMesh.triangles;
+    }
 }

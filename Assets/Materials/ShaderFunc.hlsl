@@ -35,6 +35,20 @@ float4 HyperCross(float4 a, float4 b, float4 c)
     );
 }
 
+float4 Slerp4(float4 a, float4 b, float4 angle, float arc)
+{
+    if (arc == 0) return a;
+
+    float4 outV;
+
+    for (int i = 0; i < 4; i++)
+    {
+        outV[i] = (a[i]*sin(arc-angle) + b[i]*sin(angle)) / sin(arc);
+    }
+
+    return outV;
+}
+
 float4 SlerpHalf(float4 a, float4 b)
 {
     return normalize((a+b)/2);

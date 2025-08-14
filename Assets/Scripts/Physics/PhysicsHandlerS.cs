@@ -277,8 +277,6 @@ public class PhysicsHandlerS : MonoBehaviour
 
         if (yes)
         {
-            print(c1.gameObject.name+"   "+c2.gameObject.name);
-
             c1.CollisionHappen(c2);
             c2.CollisionHappen(c1);
         }

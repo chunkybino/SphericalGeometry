@@ -18,6 +18,8 @@ Shader "Mine/Boring"
 
         _Lit("Lit", Float) = 1
         _DoubleSideLit("DoubelSideLit", Float) = 0
+
+        _DoShadow("DoShadow", Float) = 1
     }
 
     SubShader
@@ -88,6 +90,17 @@ Shader "Mine/Boring"
 
             StructuredBuffer<int> _LightCount;
             StructuredBuffer<LightData> _LightData;
+
+            struct ShadowData
+            {
+                float4 center;
+                float4 norm1;
+                float4 norm2;
+                float4 norm3;
+            };
+
+            StructuredBuffer<int> _ShadowCount;
+            StructuredBuffer<ShadowData> _ShadowData;
 
             v2g vertexFunc(appdata IN)
             {
@@ -336,6 +349,34 @@ Shader "Mine/Boring"
                     //if (lightRangeDot < light.rangeCos) intensity = 0;
 
                     float intensity = light.intensity*falloffIntesity*coneIntensity;
+
+                    //shadowtime
+                    for (int j = 0; j < _ShadowCount[0]; j++)
+                    {
+                        ShadowData shadow = _ShadowData[j];
+
+                        precise float lightPlaneAngle = 1.57 - acos(dot(shadow.center, light.position));
+                        precise float posPlaneAngle = 1.57 - acos(dot(shadow.center, IN.positionWorld));
+
+                        if (sign(lightPlaneAngle) == sign(posPlaneAngle)) 
+                        {
+                            continue;
+                        }
+
+                        precise float4 planePos = Slerp4(IN.positionWorld,light.position,abs(posPlaneAngle),abs(lightPlaneAngle-posPlaneAngle));
+
+                        float dot1 = dot(planePos,shadow.norm1);
+                        float dot2 = dot(planePos,shadow.norm2);
+                        float dot3 = dot(planePos,shadow.norm3);
+
+                        //intensity = 0;
+
+                        if (dot1 < 0 && dot2 < 0 && dot3 < 0)
+                        {
+                            intensity = 0;
+                            break;
+                        }
+                    }
 
                     totalLight += normalLightDot*intensity*light.color;
                 }
