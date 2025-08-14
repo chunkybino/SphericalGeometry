@@ -36,6 +36,9 @@ public class Renderer4D : MonoBehaviour
     [SerializeField] bool lit = true;
     [SerializeField] bool doubleSideLit = false;
 
+    public bool castShadows = false;
+    bool m_castShadows = false;
+
     void Start()
     {
         Initialize();
@@ -49,6 +52,16 @@ public class Renderer4D : MonoBehaviour
             initialize = false;
             Initialize();
         }
+
+        if (castShadows != m_castShadows)
+        {
+            if (castShadows) {
+                LightHandlerS.singleton.AddStaticShadow(this);
+            } else {
+                LightHandlerS.singleton.RemoveStaticShadow(this);
+            }
+        }
+        m_castShadows = castShadows;
     }
 
     void Update()
