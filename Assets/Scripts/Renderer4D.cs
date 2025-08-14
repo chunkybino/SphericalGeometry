@@ -27,10 +27,11 @@ public class Renderer4D : MonoBehaviour
     public Vector3 transformScale;
 
     [SerializeField] Vector3[] vertices;
+    [SerializeField] Vector4[] vertex4;
     [SerializeField] Vector2[] uvs;
     [SerializeField] int[] triangles;
     
-    [SerializeField] bool doVertex4;
+    public bool doVertex4;
 
     [SerializeField] bool lit = true;
     [SerializeField] bool doubleSideLit = false;
@@ -38,6 +39,8 @@ public class Renderer4D : MonoBehaviour
     void Start()
     {
         Initialize();
+
+        vertex4 = ReadVertex4();
     }
 
     void OnValidate()
@@ -107,5 +110,28 @@ public class Renderer4D : MonoBehaviour
     public int[] GetTri()
     {
         return filter.sharedMesh.triangles;
+    }
+
+    public Vector4[] GetVertex4()
+    {
+        return vertex4;
+    }
+
+    public Vector4[] ReadVertex4()
+    {
+        Vector4[] outV = new Vector4[0];
+
+        using (var data = Mesh.AcquireReadOnlyMeshData(filter.sharedMesh))
+        {
+            NativeArray<MeshMaker.Vertex4D> verts = data[0].GetVertexData<MeshMaker.Vertex4D>();
+
+            outV = new Vector4[verts.Length];
+            for (int i = 0; i < verts.Length; i++)
+            {
+                outV[i] = verts[i].pos;
+            }
+        }
+
+        return outV;
     }
 }

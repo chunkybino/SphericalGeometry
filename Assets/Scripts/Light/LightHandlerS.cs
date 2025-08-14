@@ -31,7 +31,7 @@ public class LightHandlerS : MonoBehaviour
 
     public bool setShadowBuffer;
 
-    public Renderer4D shadowRenderer;
+    public Renderer4D[] shadowRenderers;
 
     void OnValidate()
     {
@@ -180,36 +180,57 @@ public class LightHandlerS : MonoBehaviour
         if (!setShadowBuffer) return;
         setShadowBuffer = false;
 
-        int[] shadowTri = shadowRenderer.GetTri();
-        Vector3[] shadowVertex = shadowRenderer.GetVertex3();
-        Vector4[] shadowVertex4 = new Vector4[shadowVertex.Length];
-        int shadowTriCount = shadowTri.Length/3;
-
-        Vector4[] shadowSend = new Vector4[shadowTriCount*4];
-
-        Matrix4x4 mat = shadowRenderer.transform4.matrix;
-
-        for (int i = 0; i < shadowVertex.Length; i++)
+        int totalShadowTriLength = 0;
+        for (int i = 0; i < shadowRenderers.Length; i++)
         {
-            Vector3 p = Vector3.Scale(shadowRenderer.transformScale, shadowVertex[i]);
-            shadowVertex4[i] = mat * UFunc.SterographicInverse(p,1);
-
-            //shadowVertex4[i] = UFunc.Slerp4(shadowRenderer.transform4.positionNorm, shadowVertex4[i], shadowRenderer.transformScale.x);
-            //shadowVertex4[i] = UFunc.SterographicInverse(shadowVertex[i],1);
+            totalShadowTriLength += shadowRenderers[i].GetTri().Length/3;
         }
-        for (int i = 0; i < shadowTriCount; i++)
+
+        Vector4[] shadowSend = new Vector4[totalShadowTriLength*4];
+
+        int triPlaceIndex = 0;
+
+        for (int j = 0; j < shadowRenderers.Length; j++)
         {
-            AddTri(shadowVertex4[shadowTri[3*i+0]], shadowVertex4[shadowTri[3*i+1]], shadowVertex4[shadowTri[3*i+2]], i);
+            Renderer4D ren = shadowRenderers[j];
+
+            int[] shadowTri = ren.GetTri();
+            Vector4[] shadowVertex4 = new Vector4[0];
+            int shadowTriCount = shadowTri.Length/3;
+
+            Matrix4x4 mat = ren.transform4.matrix;
+
+            if (!ren.doVertex4)
+            {
+                Vector3[] shadowVertex = ren.GetVertex3();
+                shadowVertex4 = new Vector4[shadowVertex.Length];
+
+                for (int i = 0; i < shadowVertex.Length; i++)
+                {
+                    Vector3 p = Vector3.Scale(ren.transformScale, shadowVertex[i]);
+                    shadowVertex4[i] = mat * UFunc.SterographicInverse(p,1);
+                }
+            }
+            else
+            {
+                shadowVertex4 =  ren.GetVertex4();
+            }
+
+            for (int i = 0; i < shadowTriCount; i++)
+            {
+                AddTri(shadowVertex4[shadowTri[3*i+0]], shadowVertex4[shadowTri[3*i+1]], shadowVertex4[shadowTri[3*i+2]], triPlaceIndex);
+                triPlaceIndex++;
+            }
         }
 
         send = shadowSend;
 
-        shadowBuffer = new ComputeBuffer(shadowTriCount, sizeof(float) * 16);
+        shadowBuffer = new ComputeBuffer(totalShadowTriLength, sizeof(float) * 16);
         shadowBuffer.SetData(shadowSend);
         Shader.SetGlobalBuffer("_ShadowData", shadowBuffer);
 
         shadowCountBuffer = new ComputeBuffer(1, sizeof(int));
-        shadowCountBuffer.SetData(new int[] {shadowTriCount});
+        shadowCountBuffer.SetData(new int[] {totalShadowTriLength});
         Shader.SetGlobalBuffer("_ShadowCount", shadowCountBuffer);
 
         void AddTri(Vector4 v1, Vector4 v2, Vector4 v3, int i)
