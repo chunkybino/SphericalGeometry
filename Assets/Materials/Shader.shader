@@ -334,11 +334,12 @@ Shader "Mine/Boring"
 
                     //fall off
                     float distance = acos(clamp(dot(light.position,IN.positionWorld), -1,1));//1.57*(1-disDot);
-                    float falloffIntesity = 1;
+                    precise float falloffIntesity = 1;
 
                     if (light.doFalloff)
                     {
-                        falloffIntesity = 1 - saturate((distance-light.falloffStart)*light.falloffRange);
+                        //falloffIntesity = 1 - saturate((distance-light.falloffStart)*light.falloffRange);
+                        falloffIntesity = 1/(_Radius*(1.57)*sin(distance/_Radius));
                     }
 
                     float4 lightToPos = lightDis - light.position*dot(lightDis,light.position);

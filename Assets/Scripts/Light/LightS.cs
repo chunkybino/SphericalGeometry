@@ -9,8 +9,8 @@ public class LightS : MonoBehaviour
 
     public LightData data;
 
-    int m_lightIndex;
-    public int lightIndex {get{return m_lightIndex;}set{m_lightIndex = value;}}
+    //int m_lightIndex;
+    //public int lightIndex {get{return m_lightIndex;}set{m_lightIndex = value;}}
 
     public Color color;
     public float intensity;

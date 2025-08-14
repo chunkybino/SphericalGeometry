@@ -78,6 +78,9 @@ public class Rigidbody4D : MonoBehaviour
 
     [SerializeField] List<Vector4> staticContactNormals = new List<Vector4>();
     [SerializeField] List<float> staticContactVels = new List<float>();
+
+    bool moveThisFixedFrame; //did we mupdate our transform this fixed frame
+
     void Awake()
     {
         if (!transform4) transform4 = GetComponent<Transform4D>();
@@ -125,17 +128,17 @@ public class Rigidbody4D : MonoBehaviour
     public void PhysicsUpdate2()
     {
         collider?.PhysicsUpdate2();
+
+        if (!globalSector && moveThisFixedFrame) {
+            moveThisFixedFrame = false;
+            physicsS?.UpdateRigidbodySector(this);
+        }
     }
 
     void DoGravity()
     {
         Vector4 tangentGravity = UFunc.ProjectToVectorNormal(gravity, positionNorm);
         tangentGravity = tangentGravity.normalized * gravity.magnitude * gravityScale;
-        for (int i = 0; i < staticContactNormals.Count; i++) {
-            if (Vector4.Dot(tangentGravity,staticContactNormals[i]) < 0) {
-                //tangentGravity = UFunc.SetVectorDirectionValue(tangentGravity, staticContactNormals[i], 0);
-            }
-        }
 
         velocity += tangentGravity * Time.fixedDeltaTime;
 
@@ -338,9 +341,8 @@ public class Rigidbody4D : MonoBehaviour
     }
     void OnMatrixUpdate(Matrix4x4 mat)
     {
-        if (!globalSector) {
-            physicsS?.UpdateRigidbodySector(this);
-        }
+        moveThisFixedFrame = true;
+        //if (!globalSector) physicsS?.UpdateRigidbodySector(this);
     }
 
     void Rotate(Vector3 rotateAmount)
