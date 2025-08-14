@@ -55,6 +55,8 @@ public class LightHandlerS : MonoBehaviour
 
         Dispose();
 
+        setShadowBuffer = true;
+
         UpdateBufferSendData();
         SetLightBuffer();
     }
