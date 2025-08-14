@@ -160,7 +160,7 @@ public class LightHandlerS : MonoBehaviour
 
         lights.Remove(light);
 
-        for (int i = light.lightIndex; i < lights.Count; i++)
+        for (int i = light.lightIndex; i < lights.Count-1; i++)
         {
             lights[i].lightIndex--;
         }
