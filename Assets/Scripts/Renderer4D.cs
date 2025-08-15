@@ -13,9 +13,9 @@ public class Renderer4D : MonoBehaviour
     public MeshFilter filter;
     //public Mesh mesh;
 
-    public MeshGroup meshGroup;
-    [SerializeField] bool doLOD;
-    [SerializeField] float LODdistanceMult = 1; //have higher level meshes happen soon if this number is higher
+    //public MeshGroup meshGroup;
+    //[SerializeField] bool doLOD;
+    //[SerializeField] float LODdistanceMult = 1; //have higher level meshes happen soon if this number is higher
 
     public Color meshColor = Color.white;
 
@@ -43,7 +43,12 @@ public class Renderer4D : MonoBehaviour
     {
         Initialize();
 
-        vertex4 = ReadVertex4();
+        if (doVertex4) {
+            vertex4 = ReadVertex4();
+        } else {
+            vertices = filter.sharedMesh.vertices;
+        }
+        triangles = filter.sharedMesh.triangles;
     }
 
     void OnValidate()
@@ -93,11 +98,13 @@ public class Renderer4D : MonoBehaviour
 
         renderer.SetPropertyBlock(matBlock);
 
+        /*
         if (doLOD && meshGroup && Camera4D.mainCamera)
         {
             float dis = UFunc.DistanceS(transform4.positionNorm, Camera4D.mainCamera.transform4.positionNorm);
             filter.sharedMesh = meshGroup.GetMeshFromDistance(dis*LODdistanceMult);
         }
+        */
     }
 
     void Initialize()
@@ -112,22 +119,24 @@ public class Renderer4D : MonoBehaviour
         renderer.bounds = newBounds;
     }
 
-    public int GetVertexCount()
-    {
-        return filter.sharedMesh.vertices.Length;
-    }
     public Vector3[] GetVertex3()
     {
-        return filter.sharedMesh.vertices;
+        return vertices;
     }
     public int[] GetTri()
     {
-        return filter.sharedMesh.triangles;
+        return triangles;
     }
 
     public Vector4[] GetVertex4()
     {
         return vertex4;
+    }
+
+    public struct Vertex4D
+    {
+        public Vector4 pos;
+        public Vector2 uv;
     }
 
     public Vector4[] ReadVertex4()
@@ -136,7 +145,7 @@ public class Renderer4D : MonoBehaviour
 
         using (var data = Mesh.AcquireReadOnlyMeshData(filter.sharedMesh))
         {
-            NativeArray<MeshMaker.Vertex4D> verts = data[0].GetVertexData<MeshMaker.Vertex4D>();
+            NativeArray<Vertex4D> verts = data[0].GetVertexData<Vertex4D>();
 
             outV = new Vector4[verts.Length];
             for (int i = 0; i < verts.Length; i++)

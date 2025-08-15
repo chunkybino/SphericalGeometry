@@ -94,6 +94,8 @@ public class PhysicsHandlerS : MonoBehaviour
 
     public void AddRigidbody(Rigidbody4D rb)
     {
+        if (rigidbodyList == null) return;
+
         if (!rigidbodyList.Contains(rb)) rigidbodyList.Add(rb);
 
         if (rb.isStatic) {

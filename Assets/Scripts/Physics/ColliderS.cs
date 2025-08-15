@@ -254,8 +254,6 @@ public abstract class ColliderS : MonoBehaviour
                             return CapsuleOnMesh(col1.capsule, col2.mesh, ref con1, ref con2, ref conNorm);
                     }
             }
-
-            return 0;
         }
     }
 

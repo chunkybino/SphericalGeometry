@@ -6,7 +6,7 @@ using System.Collections.Generic;
 [CreateAssetMenu(menuName = "ScriptableObject/MeshGroup", fileName = "MeshGroup")]
 public class MeshGroup : ScriptableObject
 {
-    public string name;
+    new public string name;
 
     public Mesh parentMesh;
 

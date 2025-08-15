@@ -5,7 +5,7 @@ public class GroundCheck : MonoBehaviour
 {    
     public bool grounded;
 
-    public ColliderS collider;
+    new public ColliderS collider;
 
     public List<ColliderS> ignoreColliders;
 
