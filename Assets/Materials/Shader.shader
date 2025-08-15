@@ -347,7 +347,6 @@ Shader "Mine/Boring"
                     float lightRangeAngle = acos(dot(lightToPos, light.direction));
 
                     float coneIntensity = 1 - saturate((lightRangeAngle-light.rangeAngle)*light.rangeFalloffAngleMult);
-                    //if (lightRangeDot < light.rangeCos) intensity = 0;
 
                     float intensity = light.intensity*falloffIntesity*coneIntensity;
 
@@ -359,7 +358,7 @@ Shader "Mine/Boring"
                         precise float lightPlaneAngle = 1.57 - acos(dot(shadow.center, light.position));
                         precise float posPlaneAngle = 1.57 - acos(dot(shadow.center, IN.positionWorld));
 
-                        if (sign(lightPlaneAngle) == sign(posPlaneAngle) || abs(posPlaneAngle) < 0.01) 
+                        if (sign(lightPlaneAngle) == sign(posPlaneAngle) || abs(posPlaneAngle) < 0.005) 
                         {
                             continue;
                         }
