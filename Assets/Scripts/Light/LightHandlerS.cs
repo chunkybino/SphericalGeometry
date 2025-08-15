@@ -134,9 +134,6 @@ public class LightHandlerS : MonoBehaviour
 
     void SetLightBuffer()
     {
-        lightBuffer?.Release();
-        lightCountBuffer?.Release();
-
         lightDatasCount = lights.Count;
         
         if (lightDatasCount > 0)
@@ -155,7 +152,6 @@ public class LightHandlerS : MonoBehaviour
     {
         if (lights.Contains(light)) return;
 
-        //light.lightIndex = lights.Count;
         lights.Add(light);
 
         UpdateFullBuffer();
@@ -166,18 +162,13 @@ public class LightHandlerS : MonoBehaviour
 
         lights.Remove(light);
 
-        /*
-        for (int i = light.lightIndex; i < lights.Count-1; i++)
-        {
-            lights[i].lightIndex--;
-        }
-        */
-
         UpdateFullBuffer();
     }
 
     void Dispose()
     {
+        print("dispose");
+
         lightBuffer?.Release();
         lightCountBuffer?.Release();
 
@@ -187,9 +178,6 @@ public class LightHandlerS : MonoBehaviour
 
     void SetStaticShadowBuffer()
     {
-        shadowBuffer?.Release();
-        shadowCountBuffer?.Release();
-
         int totalShadowTriLength = 0;
         for (int i = 0; i < staticShadowRenderers.Count; i++)
         {
@@ -242,6 +230,9 @@ public class LightHandlerS : MonoBehaviour
         shadowCountBuffer = new ComputeBuffer(1, sizeof(int));
         shadowCountBuffer.SetData(new int[] {totalShadowTriLength});
         Shader.SetGlobalBuffer("_ShadowCount", shadowCountBuffer);
+
+        shadowBuffer?.Release();
+        shadowCountBuffer?.Release();
 
         void AddTri(Vector4 v1, Vector4 v2, Vector4 v3, int i)
         {
