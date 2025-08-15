@@ -12,7 +12,7 @@ public class GuyController4D : MonoBehaviour
     [SerializeField] float speed = 0.4f;
     [SerializeField] Vector3 moveVector;
 
-    [SerializeField] float lookSpeed = 1;
+    [SerializeField] float lookSpeed = 0.02f;
 
     [SerializeField] bool doCameraPitch;
 
@@ -36,7 +36,9 @@ public class GuyController4D : MonoBehaviour
         if (input.forward) moveVector.z--;  
 
         if (input.down) moveVector.y--;      
-        if (input.up) moveVector.y++;    
+        if (input.up) moveVector.y++;
+
+        if (moveVector.x != 0 && moveVector.z != 0) moveVector *= 0.707f;
 
         rb.SetRelativeVelocityX(moveVector.x * speed);
         rb.SetRelativeVelocityZ(moveVector.z * speed);
@@ -51,10 +53,10 @@ public class GuyController4D : MonoBehaviour
 
         if (camera && doCameraPitch) 
         {
-            camera.pitchAngle = Mathf.Clamp(camera.pitchAngle + (angleVector.y * Time.deltaTime), -Mathf.PI/2, Mathf.PI/2);
+            camera.pitchAngle = Mathf.Clamp(camera.pitchAngle + (angleVector.y), -Mathf.PI/2, Mathf.PI/2);
         }
 
-        transform4.RotateRelativeXZ(-angleVector.x  * Time.deltaTime);
+        transform4.RotateRelativeXZ(-angleVector.x);
         //rb.angularVelocity = new Vector3(0, -angleVector.x, 0);
     }
 }
