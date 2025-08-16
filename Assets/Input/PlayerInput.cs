@@ -5,6 +5,9 @@ using UnityEngine.InputSystem;
 
 public class PlayerInput : MonoBehaviour
 {
+    public static bool disableInput;
+    bool m_inputDisabled;
+
     public PlayerInputActions inputs;
 
     public bool up {get{return m_up.IsPressed();}}
@@ -50,6 +53,7 @@ public class PlayerInput : MonoBehaviour
     {
         if (inputs == null) inputs = new PlayerInputActions();
         inputs.Player.Enable();
+
         SetUpActions();
     }
     void OnDisable()
@@ -74,5 +78,19 @@ public class PlayerInput : MonoBehaviour
         m_space = inputs.Player.Space;
 
         m_mouse = inputs.Player.MouseDelta;
+    }
+
+    void Update()
+    {
+        if (disableInput != m_inputDisabled)
+        {
+            m_inputDisabled = disableInput;
+
+            if (disableInput) {
+                inputs.Player.Disable();
+            } else {
+                inputs.Player.Enable();
+            }
+        }
     }
 }

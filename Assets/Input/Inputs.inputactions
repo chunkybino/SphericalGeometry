@@ -248,6 +248,54 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "Debug",
+            "id": "957e2c64-4cd6-4fd0-bd19-1272965fed45",
+            "actions": [
+                {
+                    "name": "OpenConsole",
+                    "type": "Button",
+                    "id": "f4428e02-ac4a-4e09-a1f3-80ef0fa3bf48",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "CommandSubmit",
+                    "type": "Button",
+                    "id": "5a71e1ba-0900-41ba-a969-845f79fb4896",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "e324db89-cab7-45ec-8ccb-a08ffa42c33d",
+                    "path": "<Keyboard>/backquote",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "OpenConsole",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6cd276a1-9ea6-4ee0-944a-9c6964e6b939",
+                    "path": "<Keyboard>/enter",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "CommandSubmit",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": []

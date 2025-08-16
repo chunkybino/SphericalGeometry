@@ -145,6 +145,10 @@ public class Rigidbody4D : MonoBehaviour
         velocity = UFunc.ProjectToVectorNormal(velocity, positionNorm).normalized * velocity.magnitude; //make sure its tangent just incase we pick up some imprecision along the way
     }
 
+    public void SetVelocity(Vector4 vel)
+    {
+        velocity = UFunc.ProjectToVectorNormal(vel, positionNorm);
+    }
     public void SetVelocityTowards(Vector4 target, float vel)
     {
         Vector4 currentTangent = velocity; //velocityR.RotateFull(positionNorm) * velocityR.angle;
@@ -154,6 +158,11 @@ public class Rigidbody4D : MonoBehaviour
         velocity = UFunc.ProjectToVectorNormal(velocity, position4).normalized * velocity.magnitude; //make sure its tangent just incase we pick up some imprecision along the way
 
         velocity = currentTangent;
+    }
+
+    public void SetAngularVelocity(Vector3 ang)
+    {
+        angularVelocity = ang;
     }
 
     public void MoveRotor(Rotor rot)

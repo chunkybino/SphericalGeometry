@@ -557,4 +557,54 @@ public static class UFunc
         }
         return ar;
     }
+
+    public static List<string> ParseBySpace(string input)
+    {
+        return ParseByCharacter(input, " ");
+    }
+    public static List<string> ParseByComma(string input)
+    {
+        return ParseByCharacter(input, ",");
+    }
+
+    //keep quote - if true, any text between 2 quotation marks is considered one word
+    public static List<string> ParseByCharacter(string input, string parseChar = " ", bool keepQuote = false)
+    {
+        List<string> outList = new List<string>();
+
+        bool isSpace = true;
+        bool quote = false;
+        for (int i = 0; i < input.Length; i++)
+        {
+            string c = input[i].ToString();
+
+            if (c == "\"" && keepQuote) {
+                quote = !quote;
+                continue;
+            }
+
+            if (quote) {
+                if (isSpace) {
+                    outList.Add(c);
+                } else {
+                    outList[^1] += c;
+                }
+                isSpace = false;
+                continue;
+            }
+
+            if (c != parseChar)
+            {
+                if (isSpace) {
+                    outList.Add(c);
+                } else {
+                    outList[^1] += c;
+                }
+            }
+
+            isSpace = c == parseChar;
+        }
+
+        return outList;
+    }
 }

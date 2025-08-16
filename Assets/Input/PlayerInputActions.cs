@@ -270,6 +270,54 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""Debug"",
+            ""id"": ""957e2c64-4cd6-4fd0-bd19-1272965fed45"",
+            ""actions"": [
+                {
+                    ""name"": ""OpenConsole"",
+                    ""type"": ""Button"",
+                    ""id"": ""f4428e02-ac4a-4e09-a1f3-80ef0fa3bf48"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""CommandSubmit"",
+                    ""type"": ""Button"",
+                    ""id"": ""5a71e1ba-0900-41ba-a969-845f79fb4896"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""e324db89-cab7-45ec-8ccb-a08ffa42c33d"",
+                    ""path"": ""<Keyboard>/backquote"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""OpenConsole"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6cd276a1-9ea6-4ee0-944a-9c6964e6b939"",
+                    ""path"": ""<Keyboard>/enter"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""CommandSubmit"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -288,11 +336,16 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_Player_RightArrow = m_Player.FindAction("RightArrow", throwIfNotFound: true);
         m_Player_Space = m_Player.FindAction("Space", throwIfNotFound: true);
         m_Player_MouseDelta = m_Player.FindAction("MouseDelta", throwIfNotFound: true);
+        // Debug
+        m_Debug = asset.FindActionMap("Debug", throwIfNotFound: true);
+        m_Debug_OpenConsole = m_Debug.FindAction("OpenConsole", throwIfNotFound: true);
+        m_Debug_CommandSubmit = m_Debug.FindAction("CommandSubmit", throwIfNotFound: true);
     }
 
     ~@PlayerInputActions()
     {
         UnityEngine.Debug.Assert(!m_Player.enabled, "This will cause a leak and performance issues, PlayerInputActions.Player.Disable() has not been called.");
+        UnityEngine.Debug.Assert(!m_Debug.enabled, "This will cause a leak and performance issues, PlayerInputActions.Debug.Disable() has not been called.");
     }
 
     public void Dispose()
@@ -484,6 +537,60 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         }
     }
     public PlayerActions @Player => new PlayerActions(this);
+
+    // Debug
+    private readonly InputActionMap m_Debug;
+    private List<IDebugActions> m_DebugActionsCallbackInterfaces = new List<IDebugActions>();
+    private readonly InputAction m_Debug_OpenConsole;
+    private readonly InputAction m_Debug_CommandSubmit;
+    public struct DebugActions
+    {
+        private @PlayerInputActions m_Wrapper;
+        public DebugActions(@PlayerInputActions wrapper) { m_Wrapper = wrapper; }
+        public InputAction @OpenConsole => m_Wrapper.m_Debug_OpenConsole;
+        public InputAction @CommandSubmit => m_Wrapper.m_Debug_CommandSubmit;
+        public InputActionMap Get() { return m_Wrapper.m_Debug; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(DebugActions set) { return set.Get(); }
+        public void AddCallbacks(IDebugActions instance)
+        {
+            if (instance == null || m_Wrapper.m_DebugActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_DebugActionsCallbackInterfaces.Add(instance);
+            @OpenConsole.started += instance.OnOpenConsole;
+            @OpenConsole.performed += instance.OnOpenConsole;
+            @OpenConsole.canceled += instance.OnOpenConsole;
+            @CommandSubmit.started += instance.OnCommandSubmit;
+            @CommandSubmit.performed += instance.OnCommandSubmit;
+            @CommandSubmit.canceled += instance.OnCommandSubmit;
+        }
+
+        private void UnregisterCallbacks(IDebugActions instance)
+        {
+            @OpenConsole.started -= instance.OnOpenConsole;
+            @OpenConsole.performed -= instance.OnOpenConsole;
+            @OpenConsole.canceled -= instance.OnOpenConsole;
+            @CommandSubmit.started -= instance.OnCommandSubmit;
+            @CommandSubmit.performed -= instance.OnCommandSubmit;
+            @CommandSubmit.canceled -= instance.OnCommandSubmit;
+        }
+
+        public void RemoveCallbacks(IDebugActions instance)
+        {
+            if (m_Wrapper.m_DebugActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(IDebugActions instance)
+        {
+            foreach (var item in m_Wrapper.m_DebugActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_DebugActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public DebugActions @Debug => new DebugActions(this);
     public interface IPlayerActions
     {
         void OnLeft(InputAction.CallbackContext context);
@@ -498,5 +605,10 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         void OnRightArrow(InputAction.CallbackContext context);
         void OnSpace(InputAction.CallbackContext context);
         void OnMouseDelta(InputAction.CallbackContext context);
+    }
+    public interface IDebugActions
+    {
+        void OnOpenConsole(InputAction.CallbackContext context);
+        void OnCommandSubmit(InputAction.CallbackContext context);
     }
 }
