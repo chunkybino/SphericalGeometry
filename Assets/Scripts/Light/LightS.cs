@@ -16,8 +16,10 @@ public class LightS : MonoBehaviour
     public float intensity;
 
     public bool doFalloff;
-    public float falloffStart;
-    public float falloffRange;
+    //public float falloffStart;
+    //public float falloffRange;
+
+    public float falloffDegree = 2;
 
     public float ambience;
 
@@ -51,9 +53,10 @@ public class LightS : MonoBehaviour
             data.position != transform4.positionNorm ||
             data.color != new Vector3(color.r,color.g,color.b) ||
             data.intensity != intensity ||
-            data.doFalloff != (doFalloff ? 1 : 0) ||
-            data.falloffStart != falloffStart ||
-            data.falloffRange != falloffRange ||
+            //data.doFalloff != (doFalloff ? 1 : 0) ||
+            //data.falloffStart != falloffStart ||
+            //data.falloffRange != falloffRange ||
+            data.falloffDegree != falloffDegree ||
             data.ambience != ambience ||
             data.direction != direction4 ||
             data.rangeAngle != range ||
@@ -66,13 +69,17 @@ public class LightS : MonoBehaviour
         data.color = new Vector3(color.r,color.g,color.b);
         data.intensity = intensity;
 
-        data.doFalloff = doFalloff ? 1 : 0;
+        //data.doFalloff = doFalloff ? 1 : 0;
+        /*
         data.falloffStart = falloffStart;
         if (falloffRange != 0) {
             data.falloffRange = 1/falloffRange;
         } else {
             data.falloffRange = 9999;
         }
+        */
+
+        data.falloffDegree = doFalloff ? falloffDegree : 0;
 
         data.ambience = ambience;
 

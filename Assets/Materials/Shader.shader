@@ -53,7 +53,6 @@ Shader "Mine/Boring"
                 float2 uv : TEXCOORD0;  
                 float4 normal : NORMAL;
                 float4 positionWorld : TANGENT;
-                float3 totalLight : TEXCOORD1;
             };
 
 
@@ -79,14 +78,16 @@ Shader "Mine/Boring"
                 float3 color;
                 float intensity;
 
-                float doFalloff;
-                float falloffStart;
-                float falloffRange;
+                //float doFalloff;
+                //float falloffStart;
+                //float falloffRange;
                 float ambience;
 
                 float4 direction;
                 float rangeAngle;
                 float rangeFalloffAngleMult;
+
+                float falloffDegree;
             };
 
             StructuredBuffer<int> _LightCount;
@@ -165,52 +166,16 @@ Shader "Mine/Boring"
                     outV[j].positionWorld = IN[j].positionWorld;
                     outV[j].uv = IN[j].uv;
                     outV[j].position = mul(UNITY_MATRIX_P, SteroProject(IN[j].position4, _Radius));
-
-                    float4 pos = IN[j].positionWorld;
-
-                    float3 totalLight = float3(0,0,0);
-
-                    for (int i = 0; i < _LightCount[0]; i++)
-                    {
-                        LightData light = _LightData[i];
-
-                        float4 lightDis = light.position - pos;
-                        float4 dirToLight = lightDis - pos*dot(lightDis,pos);
-                        dirToLight = normalize(dirToLight);
-
-                        float normalLightDot = dot(dirToLight, norm);
-                        normalLightDot = lerp(normalLightDot,abs(normalLightDot),_DoubleSideLit); //should we illiminate from the back side?
-                        normalLightDot = max(lerp(normalLightDot,1,light.ambience),0);
-
-                        //fall off
-                        float distance = acos(clamp(dot(light.position,pos), -1,1));//1.57*(1-disDot);
-                        precise float falloffIntesity = 1;
-
-                        if (light.doFalloff)
-                        {
-                            //falloffIntesity = 1 - saturate((distance-light.falloffStart)*light.falloffRange);
-                            falloffIntesity = 1/(_Radius*(1.57)*sin(distance/_Radius));
-                        }
-
-                        float4 lightToPos = lightDis - light.position*dot(lightDis,light.position);
-                        lightToPos = -normalize(lightToPos);
-                        float lightRangeAngle = acos(dot(lightToPos, light.direction));
-
-                        float coneIntensity = 1 - saturate((lightRangeAngle-light.rangeAngle)*light.rangeFalloffAngleMult);
-
-                        float intensity = light.intensity*falloffIntesity*coneIntensity;
-
-                        totalLight += normalLightDot*intensity*light.color;
-                    }
-
-                    outV[j].totalLight = totalLight;
                 }
 
-                OUT.Append(outV[0]);
-                OUT.Append(outV[1]);
-                OUT.Append(outV[2]);
+                //OUT.Append(outV[0]);
+                //OUT.Append(outV[1]);
+                //OUT.Append(outV[2]);
 
-                /*
+                g2f v1 = outV[0];
+                g2f v2 = outV[1];
+                g2f v3 = outV[2];
+
                 if (_Subdivisions == 0)
                 {
                     OUT.Append(v1);
@@ -356,13 +321,12 @@ Shader "Mine/Boring"
                         OUT.Append(v11);
                     }
                 }
-                */
             }
 
             fixed4 fragmentFunc(g2f IN) : SV_Target
             {
                 fixed4 pixelColor = float4(1,1,1,1);
-                //float4 normal = normalize(IN.normal);
+                float4 normal = normalize(IN.normal);
 
                 pixelColor = tex2D(_MainTexture, IN.uv);
                 pixelColor *= _Color;
@@ -372,9 +336,8 @@ Shader "Mine/Boring"
                     return pixelColor;
                 }
 
-                float3 totalLight = IN.totalLight;//float3(0,0,0);
+                float3 totalLight = float3(0,0,0);
 
-                /*
                 for (int i = 0; i < _LightCount[0]; i++)
                 {
                     LightData light = _LightData[i];
@@ -389,13 +352,15 @@ Shader "Mine/Boring"
 
                     //fall off
                     float distance = acos(clamp(dot(light.position,IN.positionWorld), -1,1));//1.57*(1-disDot);
-                    precise float falloffIntesity = 1;
+                    precise float falloffIntesity = pow(_Radius*(1.57)*sin(distance/_Radius) + 1, -light.falloffDegree);
 
-                    if (light.doFalloff)
+                    /*
+                    if (false)//light.doFalloff)
                     {
                         //falloffIntesity = 1 - saturate((distance-light.falloffStart)*light.falloffRange);
-                        falloffIntesity = 1/(_Radius*(1.57)*sin(distance/_Radius));
+                        falloffIntesity = pow(_Radius*(1.57)*sin(distance/_Radius) + 1, -light.falloffDegree);
                     }
+                    */
 
                     float4 lightToPos = lightDis - light.position*dot(lightDis,light.position);
                     lightToPos = -normalize(lightToPos);
@@ -435,7 +400,6 @@ Shader "Mine/Boring"
 
                     totalLight += normalLightDot*intensity*light.color;
                 }
-                */
 
                 pixelColor.rgb *= totalLight; 
 

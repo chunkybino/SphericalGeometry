@@ -13,36 +13,14 @@ public class LightHandlerS : MonoBehaviour
     [SerializeField] ComputeBuffer lightBuffer;
     [SerializeField] ComputeBuffer lightCountBuffer;
 
-    public bool setBuffer;
-
-    [SerializeField] Vector4 shadowV1;
-    [SerializeField] Vector4 shadowV2;
-    [SerializeField] Vector4 shadowV3;
-
-    [SerializeField] Vector4 shadowCenter;
-    [SerializeField] Vector4 shadowNorm1;
-    [SerializeField] Vector4 shadowNorm2;
-    [SerializeField] Vector4 shadowNorm3;
-
-    [SerializeField] Vector4[] send;
+    [SerializeField] Vector4[] shadowSend;
 
     [SerializeField] ComputeBuffer shadowBuffer;
     [SerializeField] ComputeBuffer shadowCountBuffer;
 
-    public bool setShadowBuffer;
-
     public List<Renderer4D> staticShadowRenderers = new List<Renderer4D>();
 
-    void OnValidate()
-    {
-        if (setBuffer)
-        {
-            setBuffer = false;
-
-            UpdateBufferSendData();
-            SetLightBuffer();
-        }
-    }
+    public bool disableShadows;
 
     void Awake()
     {
@@ -107,10 +85,23 @@ public class LightHandlerS : MonoBehaviour
             lightBuffer.SetData(lightDataSend, startIndex, startIndex, bufferCount);
         }
 
-        if (setShadowBuffer) {
-            setShadowBuffer = false;
-            SetStaticShadowBuffer();
+        if (disableShadows)
+        {
+            if (shadowSend.Length > 0)
+            {
+                shadowBuffer?.Release();
+                shadowCountBuffer?.Release();
+                shadowSend = new Vector4[0];
+            }
         }
+        else
+        {
+            if (shadowSend.Length == 0 && staticShadowRenderers.Count > 0)
+            {
+                SetStaticShadowBuffer();
+            }
+        }
+        
     }
 
     void UpdateFullBuffer()
@@ -178,6 +169,8 @@ public class LightHandlerS : MonoBehaviour
 
     void SetStaticShadowBuffer()
     {
+        if (disableShadows) return;
+
         int totalShadowTriLength = 0;
         for (int i = 0; i < staticShadowRenderers.Count; i++)
         {
@@ -221,7 +214,7 @@ public class LightHandlerS : MonoBehaviour
             }
         }
 
-        send = shadowSend;
+        this.shadowSend = shadowSend;
 
         shadowBuffer = new ComputeBuffer(totalShadowTriLength, sizeof(float) * 16);
         shadowBuffer.SetData(shadowSend);
@@ -230,9 +223,6 @@ public class LightHandlerS : MonoBehaviour
         shadowCountBuffer = new ComputeBuffer(1, sizeof(int));
         shadowCountBuffer.SetData(new int[] {totalShadowTriLength});
         Shader.SetGlobalBuffer("_ShadowCount", shadowCountBuffer);
-
-        shadowBuffer?.Release();
-        shadowCountBuffer?.Release();
 
         void AddTri(Vector4 v1, Vector4 v2, Vector4 v3, int i)
         {
