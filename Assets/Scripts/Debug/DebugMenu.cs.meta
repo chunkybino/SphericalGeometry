@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 8ea15d8834245e24a8dbd4d6c4f3e766
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - menuObject: {instanceID: 0}
+  - consoleInput: {instanceID: 0}
+  - consoleLogText: {instanceID: 0}
+  - debugSpawnObjects: {fileID: 11400000, guid: 5ea7cfedd1f3c6d4d8f0d27895939b3d, type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -7,6 +7,8 @@ public class MeshColliderS : ColliderS
     public override int colliderType {get{return 3;}}
     public override MeshColliderS mesh {get{return this;}}
 
+    public Vector3 scale = new Vector3(1,1,1);
+
     public Vector3[] verticies = new Vector3[0];
     public Vector3Int[] triangles = new Vector3Int[0];
 
@@ -83,7 +85,7 @@ public class MeshColliderS : ColliderS
         float furthestDot = 0;
 
         for (int i = 0; i < verticies.Length; i++) {
-            verticies4[i] = UFunc.ProjectLocal3QuickS(Vector3.Scale(verticies[i],transform4.scale));
+            verticies4[i] = UFunc.ProjectLocal3QuickS(Vector3.Scale(verticies[i], transform4.scale*scale));
 
             float dot = verticies4[0].w;
             if (i == 0 || dot > furthestDot) {

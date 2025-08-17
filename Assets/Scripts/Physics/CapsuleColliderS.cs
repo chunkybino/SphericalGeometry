@@ -5,9 +5,10 @@ public class CapsuleColliderS : ColliderS
     public float radius = 1;
     public float length = 1;
 
-    public override float m_radius {get{return radius;}}
+    public override float m_radius {get{return radius*transform4.scale;}}
+    public float m_length {get{return length*transform4.scale;}}
 
-    public override float boundingRadius {get{return radius + length;}}
+    public override float boundingRadius {get{return m_radius + m_length;}}
 
     public Axis axis;
     public enum Axis {X,Y,Z};
@@ -25,13 +26,13 @@ public class CapsuleColliderS : ColliderS
         return transform4.matrix * point2local;
     }}
     public Vector4 point1local {get{
-        Vector4 v = new Vector4(0,0,0,Mathf.Cos(length/Transform4D.radius));
-        v[capsuleAxis] = Mathf.Sin(length/Transform4D.radius);
+        Vector4 v = new Vector4(0,0,0,Mathf.Cos(m_length/Transform4D.radius));
+        v[capsuleAxis] = Mathf.Sin(m_length/Transform4D.radius);
         return v;
     }}
     public Vector4 point2local {get{
-        Vector4 v = new Vector4(0,0,0,Mathf.Cos(length/Transform4D.radius));
-        v[capsuleAxis] = -Mathf.Sin(length/Transform4D.radius);
+        Vector4 v = new Vector4(0,0,0,Mathf.Cos(m_length/Transform4D.radius));
+        v[capsuleAxis] = -Mathf.Sin(m_length/Transform4D.radius);
         return v;
     }}
 

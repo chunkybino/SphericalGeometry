@@ -22,6 +22,8 @@ public class LightHandlerS : MonoBehaviour
 
     public bool disableShadows;
 
+    public bool updateFullBuffer;
+
     void Awake()
     {
         CheckSingleton();
@@ -55,6 +57,15 @@ public class LightHandlerS : MonoBehaviour
     void OnDisable()
     {
         Dispose();
+    }
+
+    void OnValidate()
+    {
+        if (updateFullBuffer) {
+            updateFullBuffer = false;
+            SetLightBuffer();
+            SetStaticShadowBuffer();
+        }
     }
 
     void Update()

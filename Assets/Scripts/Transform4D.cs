@@ -134,7 +134,7 @@ public class Transform4D : MonoBehaviour
         }
     }
 
-    public Vector3 scale = new Vector3(1,1,1);
+    public float scale = 1;
 
     //stereographically project the points into 3d space
     public Vector3 Sterographic()
@@ -166,6 +166,10 @@ public class Transform4D : MonoBehaviour
         if (lockSterographicPos) transform.position = sterographicPos;
     }
 
+    public void MoveTo(Vector4 pos)
+    {
+        MoveRotor(new Rotor(positionNorm,pos));
+    }
     public void MoveRotor(Rotor r)
     {
         matrix = r * matrix;

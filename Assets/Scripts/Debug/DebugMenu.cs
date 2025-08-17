@@ -22,6 +22,8 @@ public class DebugMenu : MonoBehaviour
     public List<string> consoleLog = new List<string>();
     public int maxConsoleLength = 10;
 
+    public DebugSpawnObjects_SO debugSpawnObjects;
+
     void OnEnable()
     {
         if (inputs == null) inputs = new PlayerInputActions();
@@ -134,6 +136,9 @@ public class DebugMenu : MonoBehaviour
             case "angularVelocity":
                 ConsoleAngularVelocity(command);
                 break;
+            case "spawnRB":
+                ConsoleSpawnRB(command);
+                break;
         }
     }
 
@@ -143,7 +148,8 @@ public class DebugMenu : MonoBehaviour
             "--- COMMAND LIST ---",
             "teleport {object name} {x} {y} {z} {w}",
             "velocity {object name} {x} {y} {z} {w}",
-            "angularVelocity {object name} {x} {y} {z}"
+            "angularVelocity {object name} {x} {y} {z}",
+            "spawnRB {object type} {object name} {posX} {posY} {posZ} {posW} {scale}"
         };
 
         WriteToConsole(write);
@@ -181,15 +187,10 @@ public class DebugMenu : MonoBehaviour
             }
         }
         
-        if (newPos == Vector4.zero) {
-            WriteToConsole("error: invalid position input (zero vector)");
-            return;
-        }
-
+        if (newPos == Vector4.zero) newPos = new Vector4(0,0,0,1);
         newPos = newPos.normalized;
 
-        Rotor moveRotor = new Rotor(targetTransform.positionNorm, newPos);
-        targetTransform.MoveRotor(moveRotor);
+        targetTransform.MoveTo(newPos);
 
         WriteToConsole("teleported "+command[1]+" to "+newPos);
     }
@@ -271,5 +272,50 @@ public class DebugMenu : MonoBehaviour
         targetRb.SetAngularVelocity(newAngular);
 
         WriteToConsole("set "+command[1]+" angularVelocity to "+newAngular);
+    }
+
+    void ConsoleSpawnRB(List<string> command)
+    {
+        if (command.Count < 8) {
+            return;
+        }
+
+        string spawnType = command[1];
+
+        Rigidbody4D spawnPrefab = debugSpawnObjects.GetRigidbody(spawnType);
+
+        if (!spawnPrefab) {
+            WriteToConsole("error: spawn object dont exist");
+            return;
+        }
+
+        Vector4 spawnPos = new Vector4();
+        for (int i = 0; i < 4; i++)
+        {
+            if (float.TryParse(command[i+3], out float result)) {
+                spawnPos[i] = result;
+            } else {
+                WriteToConsole("error: invalid position input (cannot parse to float)");
+                return;
+            }
+        }
+
+        if (spawnPos == Vector4.zero) spawnPos = new Vector4(0,0,0,1);
+        spawnPos = spawnPos.normalized;
+
+        Rigidbody4D spawnRb = Instantiate(spawnPrefab);
+        Transform4D spawnTransform = spawnRb.transform4;
+
+        spawnRb.gameObject.name = command[2];
+
+        spawnTransform.MoveTo(spawnPos);
+        
+        float scale = 1;
+        if (float.TryParse(command[7], out float result2)) {
+            scale = result2;
+        }
+        spawnTransform.scale = scale;
+
+        WriteToConsole("spawned "+command[1]+" \""+command[2]+"\" at "+spawnPos);
     }
 }

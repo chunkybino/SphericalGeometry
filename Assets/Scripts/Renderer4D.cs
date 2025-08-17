@@ -24,7 +24,8 @@ public class Renderer4D : MonoBehaviour
     public bool initialize;
 
     public Matrix4x4 transformMatrix;
-    public Vector3 transformScale;
+    public Vector3 scaleMult = new Vector3(1,1,1);
+    public Vector3 transformScale; 
 
     [SerializeField] Vector3[] vertices;
     [SerializeField] Vector4[] vertex4;
@@ -51,8 +52,23 @@ public class Renderer4D : MonoBehaviour
         triangles = filter.sharedMesh.triangles;
     }
 
+    void OnEnable()
+    {
+        if (castShadows) {
+            LightHandlerS.singleton.AddStaticShadow(this);
+        }
+    }
+    void OnDisable()
+    {
+        if (castShadows) {
+            LightHandlerS.singleton.RemoveStaticShadow(this);
+        }
+    }
+
     void OnValidate()
     {
+        if (!gameObject.activeInHierarchy) return;
+
         if (initialize) {
             initialize = false;
             Initialize();
@@ -74,10 +90,7 @@ public class Renderer4D : MonoBehaviour
         if (!transform4 || !renderer || !filter) return;
 
         transformMatrix = transform4.matrix.inverse;
-        transformScale = transform4.scale;
-
-        transformMatrix = transform4.matrix.inverse;
-        transformScale = transform4.scale;
+        transformScale = scaleMult * transform4.scale;
 
         if (matBlock == null) matBlock = new MaterialPropertyBlock();
 
