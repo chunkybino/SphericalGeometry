@@ -127,17 +127,14 @@ public class DebugMenu : MonoBehaviour
             case "help":
                 ConsoleHelp();
                 break;
-            case "teleport":
-                ConsoleTeleport(command);
-                break;
-            case "velocity":
-                ConsoleVelocity(command);
-                break;
-            case "angularVelocity":
-                ConsoleAngularVelocity(command);
+            case "set":
+                ConsoleSet(command);
                 break;
             case "spawnRB":
                 ConsoleSpawnRB(command);
+                break;
+            default:
+                WriteToConsole("command dont exist");
                 break;
         }
     }
@@ -149,129 +146,92 @@ public class DebugMenu : MonoBehaviour
             "teleport {object name} {x} {y} {z} {w}",
             "velocity {object name} {x} {y} {z} {w}",
             "angularVelocity {object name} {x} {y} {z}",
+            "set {object name} position {x} {y} {z} {w}",
             "spawnRB {object type} {object name} {posX} {posY} {posZ} {posW} {scale}"
         };
 
         WriteToConsole(write);
     }
 
-    void ConsoleTeleport(List<string> command)
+    void ConsoleSet(List<string> command)
     {
-        if (command.Count < 6) {
+        if (command.Count < 3) {
+            WriteToConsole("error: not enough parameters");
             return;
         }
 
         GameObject targetObj = GameObject.Find(command[1]);
-
         if (targetObj == null) {
-            WriteToConsole("error: teleport object not found");
+            WriteToConsole("error: target object not found");
+            return;
+        }
+
+        string commandType = command[2];
+
+        command.RemoveAt(0);
+        command.RemoveAt(0);
+
+        switch (commandType)
+        {
+            case "position":
+                SetPosition(targetObj, command);
+                break;
+            case "velocity":
+                SetVelocity(targetObj, command);
+                break;
+            default:
+                WriteToConsole("error: set command dont exist");
+                break;
+        }
+    }
+
+    void SetPosition(GameObject targetObj, List<string> command)
+    {
+        if (command.Count < 4) {
+            WriteToConsole("error: not enough parameters");
             return;
         }
 
         Transform4D targetTransform = targetObj.GetComponent<Transform4D>();
-
         if (targetTransform == null) {
-            WriteToConsole("error: teleport object does not have transform");
+            WriteToConsole("error: object does not have transform");
             return;
         }
 
-        Vector4 newPos = new Vector4();
+        Vector4 newPos = ParseToVector4(command[0],command[1],command[2],command[3]);
 
-        for (int i = 0; i < 4; i++)
-        {
-            if (float.TryParse(command[i+2], out float result)) {
-                newPos[i] = result;
-            } else {
-                WriteToConsole("error: invalid position input (cannot parse to float)");
-                return;
-            }
-        }
-        
         if (newPos == Vector4.zero) newPos = new Vector4(0,0,0,1);
         newPos = newPos.normalized;
 
         targetTransform.MoveTo(newPos);
 
-        WriteToConsole("teleported "+command[1]+" to "+newPos);
+        WriteToConsole("set "+targetObj.name+" position to "+newPos);
     }
 
-    void ConsoleVelocity(List<string> command)
+    void SetVelocity(GameObject targetObj, List<string> command)
     {
-        if (command.Count < 6) {
+        if (command.Count < 4) {
+            WriteToConsole("error: not enough parameters");
             return;
         }
 
-        GameObject targetObj = GameObject.Find(command[1]);
-
-        if (targetObj == null) {
-            WriteToConsole("error: velocity object not found");
+        Rigidbody4D targetRB = targetObj.GetComponent<Rigidbody4D>();
+        if (targetRB == null) {
+            WriteToConsole("error: object does not have rigidbody");
             return;
         }
 
-        Rigidbody4D targetRb = targetObj.GetComponent<Rigidbody4D>();
+        Vector4 newVel = ParseToVector4(command[0],command[1],command[2],command[3]);
 
-        if (targetRb == null) {
-            WriteToConsole("error: velocity object does not have rigibody");
-            return;
+        if (newVel != Vector4.zero) {
+            float velMag = newVel.magnitude;
+            newVel = UFunc.ProjectToVectorNormal(newVel, targetRB.transform4.positionNorm);
+            newVel = newVel * velMag/newVel.magnitude;
         }
 
-        Vector4 newVel = new Vector4();
+        targetRB.SetVelocity(newVel);
 
-        for (int i = 0; i < 4; i++)
-        {
-            if (float.TryParse(command[i+2], out float result)) {
-                newVel[i] = result;
-            } else {
-                WriteToConsole("error: invalid velocity input (cannot parse to float)");
-                return;
-            }
-        }
-
-        float mag = newVel.magnitude;
-        newVel = UFunc.ProjectToVectorNormal(newVel, targetRb.transform4.positionNorm);
-
-        newVel = newVel.normalized * mag;
-
-        targetRb.SetVelocity(newVel);
-
-        WriteToConsole("set "+command[1]+" velocity to "+newVel);
-    }
-
-    void ConsoleAngularVelocity(List<string> command)
-    {
-        if (command.Count < 5) {
-            return;
-        }
-
-        GameObject targetObj = GameObject.Find(command[1]);
-
-        if (targetObj == null) {
-            WriteToConsole("error: angularVelocity object not found");
-            return;
-        }
-
-        Rigidbody4D targetRb = targetObj.GetComponent<Rigidbody4D>();
-
-        if (targetRb == null) {
-            WriteToConsole("error: angularVelocity object does not have rigibody");
-            return;
-        }
-
-        Vector3 newAngular = new Vector3();
-
-        for (int i = 0; i < 3; i++)
-        {
-            if (float.TryParse(command[i+2], out float result)) {
-                newAngular[i] = result;
-            } else {
-                WriteToConsole("error: invalid angularVelocity input (cannot parse to float)");
-                return;
-            }
-        }
-
-        targetRb.SetAngularVelocity(newAngular);
-
-        WriteToConsole("set "+command[1]+" angularVelocity to "+newAngular);
+        WriteToConsole("set "+targetObj.name+" velocity to "+newVel);
     }
 
     void ConsoleSpawnRB(List<string> command)
@@ -317,5 +277,59 @@ public class DebugMenu : MonoBehaviour
         spawnTransform.scale = scale;
 
         WriteToConsole("spawned "+command[1]+" \""+command[2]+"\" at "+spawnPos);
+    }
+
+    Vector4 ParseToVector4(string s0, string s1, string s2, string s3)
+    {
+        string[] str = new string[] {s0,s1,s2,s3};
+        Vector4 outV = new Vector4();
+
+        for (int i = 0; i < 4; i++)
+        {
+            outV[i] = ParseNum(str[i]);
+        }
+
+        return outV;
+    }
+    float ParseNum(string str)
+    {
+        if (str.Length > 4 && str[0] == '$' && str[1] == 'R' && str[2] == '[' && str[^1] == ']')
+        {
+            string randStr1 = "";
+            string randStr2 = "";
+            bool add2 = false;
+
+            for (int i = 3; i < str.Length; i++)
+            {
+                if (str[i] == ',') {
+                    add2 = true;
+                } else {
+                    if (!add2) {
+                        randStr1 += str[i];
+                    } else {
+                        randStr2 += str[i];
+                    }
+                }
+            }
+
+            float rand1 = 0;
+            float rand2 = 0;
+
+            if (float.TryParse(randStr1, out float result1)) {
+                rand1 = result1;
+            }
+            if (float.TryParse(randStr1, out float result2)) {
+                rand2 = result2;
+            }
+
+            float randOut = Random.Range(rand1,rand2);
+            return randOut;
+        }
+
+        float outF = 0;
+        if (float.TryParse(str, out float resultF)) {
+            outF = resultF;
+        }
+        return outF;
     }
 }
