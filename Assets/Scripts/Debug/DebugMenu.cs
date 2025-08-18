@@ -160,13 +160,24 @@ public class DebugMenu : MonoBehaviour
                     WriteToConsole(new string[] {
                         "--- COMMAND set --- sets property of object",
                         "set {object name} {property}",
+
                         "set {object name} position {x} {y} {z} {w}",
                         "set {object name} velocity {x} {y} {z} {w}",
                         "set {object name} angularVelocity {x} {y} {z}",
+
+                        "set {object name} rigidbody gravityScale {val}",
+                        "set {object name} rigidbody gravity {x} {y} {z} {w}",
+                        "set {object name} rigidbody mass {val}",
+                        "set {object name} rigidbody angularMassMult {val}",
+                        "set {object name} rigidbody bounce {val}",
+                        "set {object name} rigidbody friction {val}",
+
                         "set {object name} renderer color {r} {g} {b}",
                         "set {object name} renderer lit {bool}",
+                        "set {object name} renderer doubleSideLit {bool}",
+
                         "set {object name} light color {r} {g} {b}",
-                        "set {object name} light intensity {value}"
+                        "set {object name} light intensity {val}"
                     });
                     break;
                 case "spawnRB":
@@ -209,6 +220,9 @@ public class DebugMenu : MonoBehaviour
                 break;
             case "angularVelocity":
                 SetAngularVelocity(targetObj, command);
+                break;
+            case "rigidbody":
+                SetRigidbodyProperty(targetObj, command);
                 break;
             case "renderer":
                 SetRendererProperty(targetObj, command);
@@ -291,6 +305,121 @@ public class DebugMenu : MonoBehaviour
         WriteToConsole("set "+targetObj.name+" angularVelocity to "+newAngVel);
     }
 
+    void SetRigidbodyProperty(GameObject targetObj, List<string> command)
+    {
+        if (command.Count < 1) {
+            WriteToConsole("error: not enough parameters");
+            return;
+        }
+
+        Rigidbody4D targetRB = targetObj.GetComponent<Rigidbody4D>();
+        if (targetRB == null) {
+            WriteToConsole("error: object does not have rigidbody");
+            return;
+        }
+
+        string property = command[0];
+        command.RemoveAt(0);
+
+        switch (property)
+        {
+            case "gravityScale":
+                SetGravityScale(command);
+                break;
+            case "gravity":
+                SetGravity(command);
+                break;
+            case "mass":
+                SetMass(command);
+                break;
+            case "angularMassMult":
+                SetAngularMassMult(command);
+                break;
+            case "bounce":
+                SetBounce(command);
+                break;
+            case "friction":
+                SetFriction(command);
+                break;
+            default:
+                WriteToConsole("error: rigidbody property dont exist");
+                break;
+        }
+
+        void SetGravityScale(List<string> command)
+        {
+            if (command.Count < 1) {
+                WriteToConsole("error: not enough parameters");
+                return;
+            }
+
+            float newVal = ParseNum(command[0]);
+            targetRB.gravityScale = newVal;
+
+            WriteToConsole("set "+targetObj.name+" rigidbody gravityScale to "+newVal);
+        }
+        void SetGravity(List<string> command)
+        {
+            if (command.Count < 4) {
+                WriteToConsole("error: not enough parameters");
+                return;
+            }
+
+            Vector4 newVal = ParseToVector4(command[0],command[1],command[2],command[3]);
+            targetRB.gravity = newVal;
+
+            WriteToConsole("set "+targetObj.name+" rigidbody gravity to "+newVal);
+        }
+        void SetMass(List<string> command)
+        {
+            if (command.Count < 1) {
+                WriteToConsole("error: not enough parameters");
+                return;
+            }
+
+            float newVal = ParseNum(command[0]);
+            targetRB.mass = newVal;
+
+            WriteToConsole("set "+targetObj.name+" rigidbody mass to "+newVal);
+        }
+        void SetAngularMassMult(List<string> command)
+        {
+            if (command.Count < 1) {
+                WriteToConsole("error: not enough parameters");
+                return;
+            }
+
+            float newVal = ParseNum(command[0]);
+            targetRB.angularMassMult = newVal;
+
+            WriteToConsole("set "+targetObj.name+" rigidbody angularMassMult to "+newVal);
+        }
+        void SetBounce(List<string> command)
+        {
+            if (command.Count < 1) {
+                WriteToConsole("error: not enough parameters");
+                return;
+            }
+
+            float newVal = ParseNum(command[0]);
+            targetRB.bounce = newVal;
+
+            WriteToConsole("set "+targetObj.name+" rigidbody bounce to "+newVal);
+        }
+        void SetFriction(List<string> command)
+        {
+            if (command.Count < 1) {
+                WriteToConsole("error: not enough parameters");
+                return;
+            }
+
+            float newVal = ParseNum(command[0]);
+            targetRB.friction = newVal;
+
+            WriteToConsole("set "+targetObj.name+" rigidbody friction to "+newVal);
+        }
+    }
+
     void SetRendererProperty(GameObject targetObj, List<string> command)
     {
         if (command.Count < 1) {
@@ -314,6 +443,9 @@ public class DebugMenu : MonoBehaviour
                 break;
             case "lit":
                 SetLit(command);
+                break;
+            case "doubleSideLit":
+                SetDoubleSideLit(command);
                 break;
             default:
                 WriteToConsole("error: renderer property dont exist");
@@ -343,6 +475,18 @@ public class DebugMenu : MonoBehaviour
             targetRenderer.lit = state;
 
             WriteToConsole("set "+targetObj.name+" render lit to "+state);
+        }
+        void SetDoubleSideLit(List<string> command)
+        {
+            if (command.Count < 1) {
+                WriteToConsole("error: not enough parameters");
+                return;
+            }
+
+            bool state = ParseToBool(command[0]);
+            targetRenderer.doubleSideLit = state;
+
+            WriteToConsole("set "+targetObj.name+" render doubleSideLit to "+state);
         }
     }
 
@@ -478,7 +622,7 @@ public class DebugMenu : MonoBehaviour
             string randStr2 = "";
             bool add2 = false;
 
-            for (int i = 3; i < str.Length; i++)
+            for (int i = 3; i < str.Length-1; i++)
             {
                 if (str[i] == ',') {
                     add2 = true;
@@ -497,7 +641,7 @@ public class DebugMenu : MonoBehaviour
             if (float.TryParse(randStr1, out float result1)) {
                 rand1 = result1;
             }
-            if (float.TryParse(randStr1, out float result2)) {
+            if (float.TryParse(randStr2, out float result2)) {
                 rand2 = result2;
             }
 
