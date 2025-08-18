@@ -543,12 +543,12 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 380648244}
-  - {fileID: 973035766}
-  - {fileID: 673748456}
   - {fileID: 670483998}
+  - {fileID: 673748456}
+  - {fileID: 972909453}
+  - {fileID: 973035766}
   - {fileID: 1235126669}
   - {fileID: 1785689454}
-  - {fileID: 972909453}
   m_matrix:
     e00: 1
     e01: 0
@@ -657,11 +657,11 @@ MonoBehaviour:
   - {fileID: 1457274184}
   - {fileID: 2078316006}
   - {fileID: 68174992}
-  - {fileID: 2098311261}
   - {fileID: 607435943}
   - {fileID: 724789085}
   - {fileID: 1466526957}
   - {fileID: 1620956664}
+  - {fileID: 2098311261}
   m_matrix:
     e00: 1
     e01: 0
@@ -2028,7 +2028,7 @@ MonoBehaviour:
     m_SingletonActionBindings: []
     m_Flags: 0
   consoleLog: []
-  maxConsoleLength: 10
+  maxConsoleLength: 32
   debugSpawnObjects: {fileID: 11400000, guid: 5ea7cfedd1f3c6d4d8f0d27895939b3d, type: 2}
 --- !u!1 &500118748
 GameObject:
@@ -7042,25 +7042,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lights:
+  - {fileID: 911192557}
   - {fileID: 1840079385}
   - {fileID: 1960778978}
-  - {fileID: 911192557}
   lightDatasCount: 3
   shadowSend: []
   staticShadowRenderers:
   - {fileID: 973035765}
-  - {fileID: 972909452}
-  - {fileID: 380648247}
-  - {fileID: 670483997}
   - {fileID: 1785689453}
-  - {fileID: 1620956661}
   - {fileID: 724789088}
-  - {fileID: 275762486}
-  - {fileID: 1466526954}
-  - {fileID: 673748455}
   - {fileID: 1235126668}
-  - {fileID: 1606570715}
   - {fileID: 607435940}
+  - {fileID: 670483997}
+  - {fileID: 275762486}
+  - {fileID: 380648247}
+  - {fileID: 673748455}
+  - {fileID: 972909452}
+  - {fileID: 1466526954}
+  - {fileID: 1620956661}
+  - {fileID: 1606570715}
   disableShadows: 1
   updateFullBuffer: 0
 --- !u!4 &1083750112
@@ -7135,6 +7135,9 @@ MonoBehaviour:
   - {fileID: 1840079390}
   - {fileID: 434266643}
   globalBodies:
+  - {fileID: 14870709}
+  - {fileID: 14870709}
+  - {fileID: 14870709}
   - {fileID: 14870709}
   - {fileID: 14870709}
   - {fileID: 14870709}
@@ -8464,7 +8467,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 250, y: 85}
-  m_SizeDelta: {x: 500, y: 170}
+  m_SizeDelta: {x: 500, y: 450}
   m_Pivot: {x: 0, y: 0}
 --- !u!1 &1447499144
 GameObject:
@@ -10289,8 +10292,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 14
-  m_fontSizeBase: 14
+  m_fontSize: 12
+  m_fontSizeBase: 12
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18

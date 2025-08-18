@@ -59,6 +59,7 @@ public class DebugMenu : MonoBehaviour
             {
                 ConsoleCommand(consoleInput.text);
                 consoleInput.text = "";
+                consoleInput.ActivateInputField();
             }
         }
     }
@@ -100,6 +101,12 @@ public class DebugMenu : MonoBehaviour
         UpdateConsole();
     }
 
+    void ClearConsole()
+    {
+        consoleLog.Clear();
+        UpdateConsole();
+    }
+
     void UpdateConsole()
     {
         string newText = "";
@@ -127,6 +134,12 @@ public class DebugMenu : MonoBehaviour
             case "help":
                 ConsoleHelp(command);
                 break;
+            case "clear":
+                ClearConsole();
+                break;
+            case "gameRule":
+                ConsoleGameRule(command);
+                break;
             case "set":
                 ConsoleSet(command);
                 break;
@@ -145,6 +158,8 @@ public class DebugMenu : MonoBehaviour
         {
             string[] write = {
                 "--- COMMAND LIST --- use \"help {command}\" for more info",
+                "clear",
+                "gameRule {rule} {state}",
                 "set {object name} {property}",
                 "spawnRB {object type} {object name} {posX} {posY} {posZ} {posW} {scale}",
                 "--- random = $R[{lower},{upper}] ---"
@@ -156,6 +171,18 @@ public class DebugMenu : MonoBehaviour
         {
             switch (command[1])
             {
+                case "clear":
+                    WriteToConsole(new string[] {
+                        "--- COMMAND clear --- clears the console",
+                    });
+                    break;
+                case "gameRule":
+                    WriteToConsole(new string[] {
+                        "--- COMMAND gameRule ---",
+                        "gameRule {rule} {state}",
+                        "gameRule disableShadows {state}"
+                    });
+                    break;
                 case "set":
                     WriteToConsole(new string[] {
                         "--- COMMAND set --- sets property of object",
@@ -188,6 +215,46 @@ public class DebugMenu : MonoBehaviour
                     });
                     break;
             }
+        }
+    }
+
+    void ConsoleGameRule(List<string> command)
+    {
+        if (command.Count < 3) {
+            WriteToConsole("error: not enough parameters");
+            return;
+        } 
+
+        string rule = command[1];
+
+        bool ruleState = ParseToBool(command[2]);
+
+        command.RemoveAt(0);
+        command.RemoveAt(0);
+        command.RemoveAt(0);
+
+        switch (rule)
+        {
+            case "disableShadows":
+                SetDisableShadows();
+                break;
+            default:
+                WriteToConsole("error: gameRule dont exist");
+                break;
+        }
+
+        void SetDisableShadows()
+        {
+            LightHandlerS lightHandler = FindObjectOfType<LightHandlerS>();
+
+            if (lightHandler == null) {
+                WriteToConsole("error: lightHandler dont exist");
+                return;
+            }
+
+            lightHandler.disableShadows = ruleState;
+
+            WriteToConsole("set gameRule disableShadows to "+ruleState);
         }
     }
 
