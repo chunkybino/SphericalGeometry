@@ -7,10 +7,19 @@ public class LightHandlerS : MonoBehaviour
     public static LightHandlerS singleton;
 
     public List<LightS> lights = new List<LightS>();
+    public List<LightS> noShadowLights = new List<LightS>();
+    public List<LightS> shadowLights = new List<LightS>();
+
     LightData[] lightDataSend;
-    public int lightDatasCount;
+    LightData[] lightDataSendNoShadow;
+    LightData[] lightDataSendShadow;
+
+    [SerializeField] int lightDatasCount;
+    [SerializeField] int noShadowlightDatasCount;
+    [SerializeField] int shadowLightDatasCount;
 
     [SerializeField] ComputeBuffer lightBuffer;
+    [SerializeField] ComputeBuffer shadowLightBuffer;
     [SerializeField] ComputeBuffer lightCountBuffer;
 
     [SerializeField] Vector4[] shadowSend;
@@ -37,7 +46,7 @@ public class LightHandlerS : MonoBehaviour
 
         SetStaticShadowBuffer();
 
-        UpdateBufferSendData();
+        //UpdateBufferSendData();
         SetLightBuffer();
     }
 
@@ -72,28 +81,36 @@ public class LightHandlerS : MonoBehaviour
     {
         UpdateBufferSendData();
 
-        int startIndex = 0;
-        int bufferCount = 0;
-        for (int i = 0; i < lights.Count; i++)
+        UpdateBuf(noShadowLights, lightBuffer, lightDataSendNoShadow);
+        UpdateBuf(shadowLights, shadowLightBuffer, lightDataSendShadow);
+
+        //SetLightBuffer();
+
+        void UpdateBuf(List<LightS> light, ComputeBuffer buff, LightData[] send)
         {
-            if (lights[i].dirty)
+            int startIndex = 0;
+            int bufferCount = 0;
+            for (int i = 0; i < light.Count; i++)
             {
-                if (bufferCount == 0) {
-                    startIndex = i;
+                if (light[i].dirty)
+                {
+                    if (bufferCount == 0) {
+                        startIndex = i;
+                    }
+                    bufferCount++;
+                    light[i].dirty = false;
                 }
-                bufferCount++;
-                lights[i].dirty = false;
-            }
-            else
-            {
-                if (bufferCount > 0) {
-                    lightBuffer.SetData(lightDataSend, startIndex, startIndex, bufferCount);
-                    bufferCount = 0;
+                else
+                {
+                    if (bufferCount > 0) {
+                        buff.SetData(send, startIndex, startIndex, bufferCount);
+                        bufferCount = 0;
+                    }
                 }
             }
-        }
-        if (bufferCount > 0) {
-            lightBuffer.SetData(lightDataSend, startIndex, startIndex, bufferCount);
+            if (bufferCount > 0) {
+                buff.SetData(send, startIndex, startIndex, bufferCount);
+            }
         }
 
         if (disableShadows)
@@ -119,7 +136,7 @@ public class LightHandlerS : MonoBehaviour
     {
         UpdateBufferSendData();
 
-        if (lightBuffer == null || lights.Count != lightDatasCount)
+        if (lightBuffer == null || lights.Count != lightDatasCount || noShadowLights.Count != noShadowlightDatasCount || shadowLights.Count != shadowLightDatasCount)
         {
             SetLightBuffer();
         }
@@ -132,21 +149,54 @@ public class LightHandlerS : MonoBehaviour
         {
             lightDataSend[i] = lights[i].data;
         }
+
+        lightDataSendNoShadow = new LightData[noShadowLights.Count];
+        for (int i = 0; i < noShadowLights.Count; i++)
+        {
+            lightDataSendNoShadow[i] = noShadowLights[i].data;
+        }
+
+        lightDataSendShadow = new LightData[shadowLights.Count];
+        for (int i = 0; i < shadowLights.Count; i++)
+        {
+            lightDataSendShadow[i] = shadowLights[i].data;
+        }
     }   
 
     void SetLightBuffer()
     {
-        lightDatasCount = lights.Count;
-        
-        if (lightDatasCount > 0)
+        noShadowLights.Clear();
+        shadowLights.Clear();
+        for (int i = 0; i < lights.Count; i++)
         {
-            lightBuffer = new ComputeBuffer(lightDatasCount, System.Runtime.InteropServices.Marshal.SizeOf(typeof(LightData))); //System.Runtime.InteropServices.Marshal.SizeOf(typeof(LightData)));
-            lightBuffer.SetData(lightDataSend);
-            Shader.SetGlobalBuffer("_LightData", lightBuffer);
+            if (!lights[i].castShadows) {
+                noShadowLights.Add(lights[i]);
+            } else {
+                shadowLights.Add(lights[i]);
+            }
         }
 
-        lightCountBuffer = new ComputeBuffer(1, sizeof(int));
-        lightCountBuffer.SetData(new int[] {lightDatasCount});
+        lightDatasCount = lights.Count;
+        noShadowlightDatasCount = noShadowLights.Count;
+        shadowLightDatasCount = shadowLights.Count;
+
+        UpdateBufferSendData();
+        
+        if (noShadowlightDatasCount > 0)
+        {
+            lightBuffer = new ComputeBuffer(noShadowlightDatasCount, System.Runtime.InteropServices.Marshal.SizeOf(typeof(LightData))); //System.Runtime.InteropServices.Marshal.SizeOf(typeof(LightData)));
+            lightBuffer.SetData(lightDataSendNoShadow);
+            Shader.SetGlobalBuffer("_LightDataNoShadow", lightBuffer);
+        }
+        if (shadowLightDatasCount > 0)
+        {
+            shadowLightBuffer = new ComputeBuffer(shadowLightDatasCount, System.Runtime.InteropServices.Marshal.SizeOf(typeof(LightData))); //System.Runtime.InteropServices.Marshal.SizeOf(typeof(LightData)));
+            shadowLightBuffer.SetData(lightDataSendShadow);
+            Shader.SetGlobalBuffer("_LightDataShadow", shadowLightBuffer);
+        }
+
+        lightCountBuffer = new ComputeBuffer(2, sizeof(int));
+        lightCountBuffer.SetData(new int[] {lightDatasCount,shadowLightDatasCount});
         Shader.SetGlobalBuffer("_LightCount", lightCountBuffer);
     }
 
@@ -166,12 +216,17 @@ public class LightHandlerS : MonoBehaviour
 
         UpdateFullBuffer();
     }
+    public void UpdateLightCastShadow()
+    {
+        SetLightBuffer();
+    }
 
     void Dispose()
     {
         print("dispose");
 
         lightBuffer?.Release();
+        shadowLightBuffer?.Release();
         lightCountBuffer?.Release();
 
         shadowBuffer?.Release();
@@ -227,9 +282,11 @@ public class LightHandlerS : MonoBehaviour
 
         this.shadowSend = shadowSend;
 
-        shadowBuffer = new ComputeBuffer(totalShadowTriLength, sizeof(float) * 16);
-        shadowBuffer.SetData(shadowSend);
-        Shader.SetGlobalBuffer("_ShadowData", shadowBuffer);
+        if (totalShadowTriLength > 0) {
+            shadowBuffer = new ComputeBuffer(totalShadowTriLength, sizeof(float) * 16);
+            shadowBuffer.SetData(shadowSend);
+            Shader.SetGlobalBuffer("_ShadowData", shadowBuffer);
+        }
 
         shadowCountBuffer = new ComputeBuffer(1, sizeof(int));
         shadowCountBuffer.SetData(new int[] {totalShadowTriLength});

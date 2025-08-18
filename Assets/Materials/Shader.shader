@@ -81,6 +81,7 @@ Shader "Mine/Boring"
                 //float doFalloff;
                 //float falloffStart;
                 //float falloffRange;
+                
                 float ambience;
 
                 float4 direction;
@@ -91,7 +92,8 @@ Shader "Mine/Boring"
             };
 
             StructuredBuffer<int> _LightCount;
-            StructuredBuffer<LightData> _LightData;
+            StructuredBuffer<LightData> _LightDataNoShadow;
+            StructuredBuffer<LightData> _LightDataShadow;
 
             struct ShadowData
             {
@@ -340,7 +342,7 @@ Shader "Mine/Boring"
 
                 for (int i = 0; i < _LightCount[0]; i++)
                 {
-                    LightData light = _LightData[i];
+                    LightData light = _LightDataNoShadow[i];
 
                     float4 lightDis = light.position - IN.positionWorld;
                     float4 dirToLight = lightDis - IN.positionWorld*dot(lightDis,IN.positionWorld);
@@ -351,8 +353,50 @@ Shader "Mine/Boring"
                     normalLightDot = max(lerp(normalLightDot,1,light.ambience),0);
 
                     //fall off
-                    float distance = acos(clamp(dot(light.position,IN.positionWorld), -1,1));//1.57*(1-disDot);
-                    precise float falloffIntesity = pow(_Radius*(1.57)*sin(distance/_Radius) + 1, -light.falloffDegree);
+                    precise float falloffIntesity = 1;
+                    if (light.falloffDegree != 0)
+                    {
+                        float distance = acos(clamp(dot(light.position,IN.positionWorld), -1,1));//1.57*(1-disDot);
+                        precise float falloffIntesity = pow(_Radius*(1.57)*sin(distance/_Radius) + 1, -light.falloffDegree);
+                    }
+                    /*
+                    if (false)//light.doFalloff)
+                    {
+                        //falloffIntesity = 1 - saturate((distance-light.falloffStart)*light.falloffRange);
+                        falloffIntesity = pow(_Radius*(1.57)*sin(distance/_Radius) + 1, -light.falloffDegree);
+                    }
+                    */
+
+                    float4 lightToPos = lightDis - light.position*dot(lightDis,light.position);
+                    lightToPos = -normalize(lightToPos);
+                    float lightRangeAngle = acos(dot(lightToPos, light.direction));
+
+                    float coneIntensity = 1 - saturate((lightRangeAngle-light.rangeAngle)*light.rangeFalloffAngleMult);
+
+                    float intensity = light.intensity*falloffIntesity*coneIntensity;
+
+                    totalLight += max(normalLightDot*intensity,0)*light.color;
+                }
+
+                for (int i = 0; i < _LightCount[1]; i++)
+                {
+                    LightData light = _LightDataShadow[i];
+
+                    float4 lightDis = light.position - IN.positionWorld;
+                    float4 dirToLight = lightDis - IN.positionWorld*dot(lightDis,IN.positionWorld);
+                    dirToLight = normalize(dirToLight);
+
+                    float normalLightDot = dot(dirToLight, normal);
+                    normalLightDot = lerp(normalLightDot,abs(normalLightDot),_DoubleSideLit); //should we illiminate from the back side?
+                    normalLightDot = max(lerp(normalLightDot,1,light.ambience),0);
+
+                    //fall off
+                    precise float falloffIntesity = 1;
+                    if (light.falloffDegree != 0)
+                    {
+                        float distance = acos(clamp(dot(light.position,IN.positionWorld), -1,1));//1.57*(1-disDot);
+                        precise float falloffIntesity = pow(_Radius*(1.57)*sin(distance/_Radius) + 1, -light.falloffDegree);
+                    }
 
                     /*
                     if (false)//light.doFalloff)
@@ -398,7 +442,7 @@ Shader "Mine/Boring"
                         }
                     }
 
-                    totalLight += normalLightDot*intensity*light.color;
+                    totalLight += max(normalLightDot*intensity,0)*light.color;
                 }
 
                 pixelColor.rgb *= totalLight; 

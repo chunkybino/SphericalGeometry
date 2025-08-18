@@ -146,6 +146,9 @@ public class DebugMenu : MonoBehaviour
             case "spawnRB":
                 ConsoleSpawnRB(command);
                 break;
+            case "cloneRB":
+                ConsoleCloneRB(command);
+                break;
             default:
                 WriteToConsole("command dont exist");
                 break;
@@ -162,6 +165,7 @@ public class DebugMenu : MonoBehaviour
                 "gameRule {rule} {state}",
                 "set {object name} {property}",
                 "spawnRB {object type} {object name} {posX} {posY} {posZ} {posW} {scale}",
+                "cloneRB {object name} {number}",
                 "--- random = $R[{lower},{upper}] ---"
             };
 
@@ -212,6 +216,13 @@ public class DebugMenu : MonoBehaviour
                         "--- COMMAND spawnRB --- spawns a dynamic physics object",
                         "spawnRB {object type} {object name} {posX} {posY} {posZ} {posW} {scale}",
                         "object types --- ball"
+                    });
+                    break;
+                case "cloneRB":
+                    WriteToConsole(new string[] {
+                        "--- COMMAND cloneRB --- creates copies of a object at a slight position offset",
+                        "cloneRB {object name}",
+                        "cloneRB {object name} {number}"
                     });
                     break;
             }
@@ -615,6 +626,7 @@ public class DebugMenu : MonoBehaviour
     void ConsoleSpawnRB(List<string> command)
     {
         if (command.Count < 8) {
+            WriteToConsole("error: not enough parameters");
             return;
         }
 
@@ -655,6 +667,40 @@ public class DebugMenu : MonoBehaviour
         spawnTransform.scale = scale;
 
         WriteToConsole("spawned "+command[1]+" \""+command[2]+"\" at "+spawnPos);
+    }
+
+    void ConsoleCloneRB(List<string> command)
+    {
+        if (command.Count < 2) {
+            WriteToConsole("error: not enough parameters");
+            return;
+        }
+
+        GameObject targetObj = GameObject.Find(command[1]);
+        if (targetObj == null) {
+            WriteToConsole("error: target object not found");
+            return;
+        }
+        Rigidbody4D targetRB = targetObj.GetComponent<Rigidbody4D>();
+        if (targetRB == null) {
+            WriteToConsole("error: object does not have rigidbody");
+            return;
+        }
+
+        int copies = 1;
+        if (command.Count > 1) {
+            copies = Mathf.FloorToInt(ParseNum(command[2]));
+        }
+
+        for (int i = 0; i < copies; i++)
+        {
+            Rigidbody4D newRB = Instantiate(targetRB);
+            Transform4D newTransform = newRB.transform4;
+            newTransform.MoveRelative(new Vector3(newTransform.scale,0,0)*(i+1));
+            newTransform.gameObject.name = targetRB.gameObject.name + "_Clone" + (i+1).ToString();
+        }
+
+        WriteToConsole("cloned "+command[1]+" "+copies+" times");
     }
 
     Vector3 ParseToVector3(string s0, string s1, string s2)

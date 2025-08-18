@@ -28,6 +28,9 @@ public class LightS : MonoBehaviour
     [Range(0,180)] public float range = 180;
     [Range(0,180)] public float rangeFalloff = 180;
 
+    public bool castShadows;
+    bool m_castShadows;
+
     public bool dirty;
 
     void OnEnable()
@@ -44,6 +47,11 @@ public class LightS : MonoBehaviour
 
     void Update()
     {
+        if (m_castShadows != castShadows) {
+            m_castShadows = castShadows;
+            lightHandler.UpdateLightCastShadow();
+        }
+
         direction4 = transform4.RelativeToWorld(direction.normalized);
         //rangeCos = Mathf.Cos(Mathf.Deg2Rad * range);
         //rangeFalloffCos = Mathf.Cos(Mathf.Deg2Rad * Mathf.Clamp(range+rangeFalloff,0,180));
