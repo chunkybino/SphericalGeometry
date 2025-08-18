@@ -125,7 +125,7 @@ public class DebugMenu : MonoBehaviour
         switch (command[0])
         {
             case "help":
-                ConsoleHelp();
+                ConsoleHelp(command);
                 break;
             case "set":
                 ConsoleSet(command);
@@ -139,18 +139,45 @@ public class DebugMenu : MonoBehaviour
         }
     }
 
-    void ConsoleHelp()
+    void ConsoleHelp(List<string> command)
     {
-        string[] write = {
-            "--- COMMAND LIST ---",
-            "teleport {object name} {x} {y} {z} {w}",
-            "velocity {object name} {x} {y} {z} {w}",
-            "angularVelocity {object name} {x} {y} {z}",
-            "set {object name} position {x} {y} {z} {w}",
-            "spawnRB {object type} {object name} {posX} {posY} {posZ} {posW} {scale}"
-        };
+        if (command.Count < 2)
+        {
+            string[] write = {
+                "--- COMMAND LIST --- use \"help {command}\" for more info",
+                "set {object name} {property}",
+                "spawnRB {object type} {object name} {posX} {posY} {posZ} {posW} {scale}",
+                "--- random = $R[{lower},{upper}] ---"
+            };
 
-        WriteToConsole(write);
+            WriteToConsole(write);
+        }
+        else
+        {
+            switch (command[1])
+            {
+                case "set":
+                    WriteToConsole(new string[] {
+                        "--- COMMAND set --- sets property of object",
+                        "set {object name} {property}",
+                        "set {object name} position {x} {y} {z} {w}",
+                        "set {object name} velocity {x} {y} {z} {w}",
+                        "set {object name} angularVelocity {x} {y} {z}",
+                        "set {object name} renderer color {r} {g} {b}",
+                        "set {object name} renderer lit {bool}",
+                        "set {object name} light color {r} {g} {b}",
+                        "set {object name} light intensity {value}"
+                    });
+                    break;
+                case "spawnRB":
+                    WriteToConsole(new string[] {
+                        "--- COMMAND spawnRB --- spawns a dynamic physics object",
+                        "spawnRB {object type} {object name} {posX} {posY} {posZ} {posW} {scale}",
+                        "object types --- ball"
+                    });
+                    break;
+            }
+        }
     }
 
     void ConsoleSet(List<string> command)
@@ -170,6 +197,7 @@ public class DebugMenu : MonoBehaviour
 
         command.RemoveAt(0);
         command.RemoveAt(0);
+        command.RemoveAt(0);
 
         switch (commandType)
         {
@@ -178,6 +206,15 @@ public class DebugMenu : MonoBehaviour
                 break;
             case "velocity":
                 SetVelocity(targetObj, command);
+                break;
+            case "angularVelocity":
+                SetAngularVelocity(targetObj, command);
+                break;
+            case "renderer":
+                SetRendererProperty(targetObj, command);
+                break;
+            case "light":
+                SetLightProperty(targetObj, command);
                 break;
             default:
                 WriteToConsole("error: set command dont exist");
@@ -234,6 +271,136 @@ public class DebugMenu : MonoBehaviour
         WriteToConsole("set "+targetObj.name+" velocity to "+newVel);
     }
 
+    void SetAngularVelocity(GameObject targetObj, List<string> command)
+    {
+        if (command.Count < 3) {
+            WriteToConsole("error: not enough parameters");
+            return;
+        }
+
+        Rigidbody4D targetRB = targetObj.GetComponent<Rigidbody4D>();
+        if (targetRB == null) {
+            WriteToConsole("error: object does not have rigidbody");
+            return;
+        }
+
+        Vector3 newAngVel = ParseToVector3(command[0],command[1],command[2]);
+
+        targetRB.SetAngularVelocity(newAngVel);
+
+        WriteToConsole("set "+targetObj.name+" angularVelocity to "+newAngVel);
+    }
+
+    void SetRendererProperty(GameObject targetObj, List<string> command)
+    {
+        if (command.Count < 1) {
+            WriteToConsole("error: not enough parameters");
+            return;
+        }
+
+        Renderer4D targetRenderer = targetObj.GetComponent<Renderer4D>();
+        if (targetRenderer == null) {
+            WriteToConsole("error: object does not have renderer");
+            return;
+        }
+
+        string property = command[0];
+        command.RemoveAt(0);
+
+        switch (property)
+        {
+            case "color":
+                SetColor(command);
+                break;
+            case "lit":
+                SetLit(command);
+                break;
+            default:
+                WriteToConsole("error: renderer property dont exist");
+                break;
+        }
+
+        void SetColor(List<string> command)
+        {
+            if (command.Count < 3) {
+                WriteToConsole("error: not enough parameters");
+                return;
+            }
+
+            Vector3 newColor = ParseToVector3(command[0],command[1],command[2]);
+            targetRenderer.meshColor = new Color(newColor.x,newColor.y,newColor.z);
+
+            WriteToConsole("set "+targetObj.name+" render color to "+newColor);
+        }
+        void SetLit(List<string> command)
+        {
+            if (command.Count < 1) {
+                WriteToConsole("error: not enough parameters");
+                return;
+            }
+
+            bool state = ParseToBool(command[0]);
+            targetRenderer.lit = state;
+
+            WriteToConsole("set "+targetObj.name+" render lit to "+state);
+        }
+    }
+
+    void SetLightProperty(GameObject targetObj, List<string> command)
+    {
+        if (command.Count < 1) {
+            WriteToConsole("error: not enough parameters");
+            return;
+        }
+
+        LightS targetLight = targetObj.GetComponent<LightS>();
+        if (targetLight == null) {
+            WriteToConsole("error: object does not have light");
+            return;
+        }
+
+        string property = command[0];
+        command.RemoveAt(0);
+
+        switch (property)
+        {
+            case "color":
+                SetColor(command);
+                break;
+            case "intensity":
+                SetIntensity(command);
+                break;
+            default:
+                WriteToConsole("error: light property dont exist");
+                break;
+        }
+
+        void SetColor(List<string> command)
+        {
+            if (command.Count < 3) {
+                WriteToConsole("error: not enough parameters");
+                return;
+            }
+
+            Vector3 newColor = ParseToVector3(command[0],command[1],command[2]);
+            targetLight.color = new Color(newColor.x,newColor.y,newColor.z);
+
+            WriteToConsole("set "+targetObj.name+" light color to "+newColor);
+        }
+        void SetIntensity(List<string> command)
+        {
+            if (command.Count < 1) {
+                WriteToConsole("error: not enough parameters");
+                return;
+            }
+
+            float newIntensity = ParseNum(command[0]);
+            targetLight.intensity = newIntensity;
+
+            WriteToConsole("set "+targetObj.name+" light intensity to "+newIntensity);
+        }
+    }
+
     void ConsoleSpawnRB(List<string> command)
     {
         if (command.Count < 8) {
@@ -279,6 +446,18 @@ public class DebugMenu : MonoBehaviour
         WriteToConsole("spawned "+command[1]+" \""+command[2]+"\" at "+spawnPos);
     }
 
+    Vector3 ParseToVector3(string s0, string s1, string s2)
+    {
+        string[] str = new string[] {s0,s1,s2};
+        Vector3 outV = new Vector3();
+
+        for (int i = 0; i < 3; i++)
+        {
+            outV[i] = ParseNum(str[i]);
+        }
+
+        return outV;
+    }
     Vector4 ParseToVector4(string s0, string s1, string s2, string s3)
     {
         string[] str = new string[] {s0,s1,s2,s3};
@@ -331,5 +510,10 @@ public class DebugMenu : MonoBehaviour
             outF = resultF;
         }
         return outF;
+    }
+    bool ParseToBool(string str)
+    {
+        if (str == "true") return true;
+        return false;
     }
 }

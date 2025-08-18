@@ -34,8 +34,8 @@ public class Renderer4D : MonoBehaviour
     
     public bool doVertex4;
 
-    [SerializeField] bool lit = true;
-    [SerializeField] bool doubleSideLit = false;
+    public bool lit = true;
+    public bool doubleSideLit = false;
 
     public bool castShadows = false;
     bool m_castShadows = false;
