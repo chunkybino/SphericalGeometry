@@ -24,6 +24,7 @@ Shader "Mine/Boring"
 
     SubShader
     {
+        Tags { "Shadow" = "True"}
         Pass
         {
             CGPROGRAM

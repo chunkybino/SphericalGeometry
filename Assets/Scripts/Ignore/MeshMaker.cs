@@ -1,10 +1,8 @@
 using UnityEngine;
-using UnityEditor;
 using UnityEngine.Rendering;
 using System.Collections;
 using System.Collections.Generic;
 
-[ExecuteInEditMode]
 public class MeshMaker : MonoBehaviour
 {
     public Vector3[] vertices;
@@ -13,7 +11,6 @@ public class MeshMaker : MonoBehaviour
     public Vector3Int[] triangles;
     public int[] trianglesInt;
 
-    public bool makeNew;
     public string makeNewName = "NewMesh";
 
     public Mesh mesh;
@@ -38,14 +35,6 @@ public class MeshMaker : MonoBehaviour
 
     void OnValidate()
     {
-        if (makeNew) {
-            makeNew = false;
-
-            mesh = new Mesh();
-
-            AssetDatabase.CreateAsset(mesh, "Assets/Meshes/"+makeNewName+".asset");
-        }
-
         if (saveMesh) {
             saveMesh = false;
             if (!mesh) return;
@@ -62,8 +51,6 @@ public class MeshMaker : MonoBehaviour
 
             SetTriInt();
             mesh.triangles = trianglesInt;
-
-            AssetDatabase.SaveAssets();
         }
 
         if (readMesh)
@@ -79,8 +66,6 @@ public class MeshMaker : MonoBehaviour
             saveTri = false;
             SetTriInt();
             mesh.triangles = trianglesInt;
-
-            AssetDatabase.SaveAssets();
         }
 
         if (readTri)
