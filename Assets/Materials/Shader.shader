@@ -99,6 +99,7 @@ Shader "Mine/Boring"
             struct ShadowData
             {
                 float4 center;
+                float4 direction;
                 float4 norm1;
                 float4 norm2;
                 float4 norm3;
@@ -424,11 +425,15 @@ Shader "Mine/Boring"
                         float posDot = dot(IN.positionWorld,shadow.center);
                         float lightDot = dot(light.position,shadow.center);
 
+                        float dotDirection = dot(IN.positionWorld,shadow.center); //are we infront or behind the light
+
                         float dot1 = dot(IN.positionWorld,shadow.norm1);
                         float dot2 = dot(IN.positionWorld,shadow.norm2);
                         float dot3 = dot(IN.positionWorld,shadow.norm3);
 
-                        if (sign(posDot) != sign(lightDot) && dot1 < 0 && dot2 < 0 && dot3 < 0)
+                        bool behindShadow = dotDirection < 0 && posDot*sign(lightDot) < -0.002;
+
+                        if (behindShadow && dot1 < 0 && dot2 < 0 && dot3 < 0)
                         {
                             intensity = 0;
                             break;

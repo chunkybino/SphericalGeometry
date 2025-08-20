@@ -305,7 +305,7 @@ public class LightHandlerS : MonoBehaviour
             shadowLights[i].SetShadowNormals();
             Vector4[] norms = shadowLights[i].shadowSideNormals;
 
-            shadowTriBufferSpan[i] = new Vector2Int(placeIndex,placeIndex + norms.Length/4);
+            shadowTriBufferSpan[i] = new Vector2Int(placeIndex,placeIndex + norms.Length/5);
             placeIndex++;
 
             for (int j = 0; j < norms.Length; j++)
@@ -318,7 +318,7 @@ public class LightHandlerS : MonoBehaviour
         if (sendList.Count == 0) return;
 
         if (sendList.Count > 0) {
-            shadowBuffer = new ComputeBuffer(sendList.Count, sizeof(float) * 16);
+            shadowBuffer = new ComputeBuffer(sendList.Count, sizeof(float) * 20);
             shadowBuffer.SetData(sendList);
             Shader.SetGlobalBuffer("_ShadowData", shadowBuffer);
         }
@@ -336,7 +336,7 @@ public class LightHandlerS : MonoBehaviour
         void AddTri(Vector4 v1, Vector4 v2, Vector4 v3, int i)
         {
             //shadowTriNormals[i] = UFunc.HyperCross(v1,v2,v3);
-            shadowTriVerticies[4*i + 0] = UFunc.HyperCross(v1,v2,v3);
+            shadowTriVerticies[4*i + 0] = UFunc.HyperCross(v1,v2,v3).normalized;
             shadowTriVerticies[4*i + 1] = v1;
             shadowTriVerticies[4*i + 2] = v2;
             shadowTriVerticies[4*i + 3] = v3;

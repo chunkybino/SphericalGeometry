@@ -74,6 +74,8 @@ public class Renderer4D : MonoBehaviour
             Initialize();
         }
 
+        if (!LightHandlerS.singleton) return;
+
         if (castShadows != m_castShadows)
         {
             if (castShadows) {

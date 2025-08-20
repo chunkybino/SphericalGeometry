@@ -119,19 +119,22 @@ public class LightS : MonoBehaviour
     public void SetShadowNormals()
     {
         Vector4[] shadowTriVerticies = LightHandlerS.singleton.shadowTriVerticies;
-        shadowSideNormals = new Vector4[shadowTriVerticies.Length];
+        shadowSideNormals = new Vector4[shadowTriVerticies.Length * 5/4];
 
-        for (int i = 0; i < shadowTriVerticies.Length/4; i++)
+        for (int i = 0; i < shadowSideNormals.Length/5; i++)
         {
-            int i0 = 4*i + 0;
-            int i1 = 4*i + 1;
-            int i2 = 4*i + 2;
-            int i3 = 4*i + 3;
+            Vector4 center = shadowTriVerticies[4*i + 0];
+            Vector4 v1 = shadowTriVerticies[4*i + 1];
+            Vector4 v2 = shadowTriVerticies[4*i + 2];
+            Vector4 v3 = shadowTriVerticies[4*i + 3];
 
-            shadowSideNormals[i0] = shadowTriVerticies[i0];
-            shadowSideNormals[i1] = UFunc.HyperCross(transform4.positionNorm,shadowTriVerticies[i1],shadowTriVerticies[i2]);
-            shadowSideNormals[i2] = UFunc.HyperCross(transform4.positionNorm,shadowTriVerticies[i2],shadowTriVerticies[i3]);
-            shadowSideNormals[i3] = UFunc.HyperCross(transform4.positionNorm,shadowTriVerticies[i3],shadowTriVerticies[i1]);
+            shadowSideNormals[5*i + 0] = center;
+
+            shadowSideNormals[5*i + 1] = -center + Vector4.Dot(center,transform4.positionNorm)*transform4.positionNorm;
+
+            shadowSideNormals[5*i + 2] = UFunc.HyperCross(transform4.positionNorm,v1,v2);
+            shadowSideNormals[5*i + 3] = UFunc.HyperCross(transform4.positionNorm,v2,v3);
+            shadowSideNormals[5*i + 4] = UFunc.HyperCross(transform4.positionNorm,v3,v1);
         }
     }
 }
