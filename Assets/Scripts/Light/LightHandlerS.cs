@@ -22,19 +22,24 @@ public class LightHandlerS : MonoBehaviour
     [SerializeField] ComputeBuffer shadowLightBuffer;
     [SerializeField] ComputeBuffer lightCountBuffer;
 
-    [SerializeField] Vector4[] shadowSend;
+    [SerializeField] List<Vector4> shadowSend;
 
-    [SerializeField] Vector4[] shadowTriNormals;
     public Vector4[] shadowTriVerticies;
+    public Vector4[] dynamicShadowTriVerticies;
+
+    int totalShadowTriLength = 0;
+    int totalDynamicShadowTriLength = 0;
+
     [SerializeField] Vector4[] shadowSideNormals;
     [SerializeField] Vector2Int[] shadowTriBufferSpan; //x = buffer start, y = end
 
     [SerializeField] ComputeBuffer shadowBuffer;
-    [SerializeField] ComputeBuffer shadowCountBuffer;
+    //[SerializeField] ComputeBuffer shadowCountBuffer;
 
     [SerializeField] ComputeBuffer shadowSpanBuffer;
 
     public List<Renderer4D> staticShadowRenderers = new List<Renderer4D>();
+    public List<Renderer4D> dynamicShadowRenderers = new List<Renderer4D>();
 
     public bool disableShadows;
 
@@ -51,7 +56,7 @@ public class LightHandlerS : MonoBehaviour
 
         Dispose();
 
-        SetStaticShadowBuffer();
+        SetStaticShadowBuffer(true);
 
         //UpdateBufferSendData();
         SetLightBuffer();
@@ -80,7 +85,7 @@ public class LightHandlerS : MonoBehaviour
         if (updateFullBuffer) {
             updateFullBuffer = false;
             SetLightBuffer();
-            SetStaticShadowBuffer();
+            SetStaticShadowBuffer(true);
         }
     }
 
@@ -120,21 +125,28 @@ public class LightHandlerS : MonoBehaviour
             }
         }
 
+        /////////////////////////////
+        //the rest of update
+
         if (disableShadows)
         {
-            if (shadowSend.Length > 0)
+            if (shadowSend.Count > 0)
             {
                 shadowBuffer?.Release();
-                shadowCountBuffer?.Release();
+                //shadowCountBuffer?.Release();
                 shadowSpanBuffer?.Release();
-                shadowSend = new Vector4[0];
+                shadowSend.Clear();
             }
         }
         else
         {
-            if (shadowSend.Length == 0 && staticShadowRenderers.Count > 0)
+            if (shadowSend.Count == 0 && staticShadowRenderers.Count+dynamicShadowRenderers.Count > 0)
             {
-                SetStaticShadowBuffer();
+                SetStaticShadowBuffer(true);
+            }
+            else
+            {
+                SetStaticShadowBuffer(false);
             }
         }
         
@@ -238,61 +250,80 @@ public class LightHandlerS : MonoBehaviour
         lightCountBuffer?.Release();
 
         shadowBuffer?.Release();
-        shadowCountBuffer?.Release();
+        //shadowCountBuffer?.Release();
         shadowSpanBuffer?.Release();
     }
 
-    void SetStaticShadowBuffer()
+    void SetStaticShadowBuffer(bool doStatic = true)
     {
         if (disableShadows) return;
 
-        //print("");
-
-        int totalShadowTriLength = 0;
-        for (int i = 0; i < staticShadowRenderers.Count; i++)
+        //static 
+        if (doStatic)
         {
-            totalShadowTriLength += staticShadowRenderers[i].GetTri().Length/3;
+            totalShadowTriLength = 0;
+            for (int i = 0; i < staticShadowRenderers.Count; i++) {
+                totalShadowTriLength += staticShadowRenderers[i].GetTri().Length/3;
+            }
+
+            shadowTriVerticies = new Vector4[totalShadowTriLength*4];
+            AddRenderersToTri(staticShadowRenderers, shadowTriVerticies);
         }
+        ///////////////
 
-        //shadowSend = new Vector4[totalShadowTriLength*4];
+        //dynamic
+        totalDynamicShadowTriLength = 0;
+        for (int i = 0; i < dynamicShadowRenderers.Count; i++) {
+            totalDynamicShadowTriLength += dynamicShadowRenderers[i].GetTri().Length/3;
+        }
+        ///////////////////////
 
-        //shadowTriNormals = new Vector4[totalShadowTriLength];
-        shadowTriVerticies = new Vector4[totalShadowTriLength*4];
-        //shadowSideNormals = new Vector4[totalShadowTriLength*3];
+        dynamicShadowTriVerticies = new Vector4[totalDynamicShadowTriLength*4];
+        AddRenderersToTri(dynamicShadowRenderers, dynamicShadowTriVerticies);
 
-        int triPlaceIndex = 0;
-
-        for (int j = 0; j < staticShadowRenderers.Count; j++)
+        void AddRenderersToTri(List<Renderer4D> renderers, Vector4[] vertexArray)
         {
-            Renderer4D ren = staticShadowRenderers[j];
-
-            int[] shadowTri = ren.GetTri();
-            Vector4[] shadowVertex4 = new Vector4[0];
-            int shadowTriCount = shadowTri.Length/3;
-
-            Matrix4x4 mat = ren.transform4.matrix;
-
-            if (!ren.doVertex4)
+            int triPlaceIndex = 0;
+            for (int j = 0; j < renderers.Count; j++)
             {
-                Vector3[] shadowVertex = ren.GetVertex3();
-                shadowVertex4 = new Vector4[shadowVertex.Length];
+                Renderer4D ren = renderers[j];
 
-                for (int i = 0; i < shadowVertex.Length; i++)
+                int[] shadowTri = ren.GetTri();
+                Vector4[] shadowVertex4 = new Vector4[0];
+                int shadowTriCount = shadowTri.Length/3;
+
+                Matrix4x4 mat = ren.transform4.matrix;
+
+                if (!ren.doVertex4)
                 {
-                    Vector3 p = Vector3.Scale(ren.transformScale, shadowVertex[i]);
-                    shadowVertex4[i] = mat * UFunc.SterographicInverse(p,1);
+                    Vector3[] shadowVertex = ren.GetVertex3();
+                    shadowVertex4 = new Vector4[shadowVertex.Length];
+
+                    for (int i = 0; i < shadowVertex.Length; i++)
+                    {
+                        Vector3 p = Vector3.Scale(ren.transformScale, shadowVertex[i]);
+                        shadowVertex4[i] = mat * UFunc.SterographicInverse(p,1);
+                    }
+                }
+                else
+                {
+                    shadowVertex4 =  ren.GetVertex4();
+                }
+
+                for (int i = 0; i < shadowTriCount; i++)
+                {
+                    AddTri(shadowVertex4[shadowTri[3*i+0]], shadowVertex4[shadowTri[3*i+1]], shadowVertex4[shadowTri[3*i+2]], triPlaceIndex);
+
+                    triPlaceIndex++;
                 }
             }
-            else
-            {
-                shadowVertex4 =  ren.GetVertex4();
-            }
 
-            for (int i = 0; i < shadowTriCount; i++)
+            void AddTri(Vector4 v1, Vector4 v2, Vector4 v3, int i)
             {
-                AddTri(shadowVertex4[shadowTri[3*i+0]], shadowVertex4[shadowTri[3*i+1]], shadowVertex4[shadowTri[3*i+2]], triPlaceIndex);
-
-                triPlaceIndex++;
+                vertexArray[4*i + 0] = UFunc.HyperCross(v1,v2,v3).normalized;
+                vertexArray[4*i + 1] = v1;
+                vertexArray[4*i + 2] = v2;
+                vertexArray[4*i + 3] = v3;
             }
         }
 
@@ -302,19 +333,25 @@ public class LightHandlerS : MonoBehaviour
         int placeIndex = 0;
         for (int i = 0; i < shadowLights.Count; i++)
         {
-            shadowLights[i].SetShadowNormals();
+            shadowLights[i].SetShadowNormals(false); //set dynamic shadows only
+            if (doStatic) shadowLights[i].SetShadowNormals(true); //also static shadows if needed
+
             Vector4[] norms = shadowLights[i].shadowSideNormals;
+            Vector4[] normsDynamic = shadowLights[i].dynamicShadowSideNormals;
 
-            shadowTriBufferSpan[i] = new Vector2Int(placeIndex,placeIndex + norms.Length/5);
-            placeIndex++;
+            int span = norms.Length/5 + normsDynamic.Length/5;
+            shadowTriBufferSpan[i] = new Vector2Int(placeIndex,placeIndex + span);
+            placeIndex += span+1;
 
-            for (int j = 0; j < norms.Length; j++)
-            {
-                //shadowSideNormals[placeIndex] = norms[j];
+            for (int j = 0; j < norms.Length; j++) {
                 sendList.Add(norms[j]);
+            }
+            for (int j = 0; j < normsDynamic.Length; j++) {
+                sendList.Add(normsDynamic[j]);
             }
         }
 
+        shadowSend = sendList;
         if (sendList.Count == 0) return;
 
         if (sendList.Count > 0) {
@@ -332,38 +369,36 @@ public class LightHandlerS : MonoBehaviour
         shadowCountBuffer.SetData(new int[] {totalShadowTriLength});
         Shader.SetGlobalBuffer("_ShadowCount", shadowCountBuffer);
         */
+    }
 
-        void AddTri(Vector4 v1, Vector4 v2, Vector4 v3, int i)
+    public void AddShadow(Renderer4D ren, bool isStatic)
+    {
+        if (isStatic)
         {
-            //shadowTriNormals[i] = UFunc.HyperCross(v1,v2,v3);
-            shadowTriVerticies[4*i + 0] = UFunc.HyperCross(v1,v2,v3).normalized;
-            shadowTriVerticies[4*i + 1] = v1;
-            shadowTriVerticies[4*i + 2] = v2;
-            shadowTriVerticies[4*i + 3] = v3;
-
-            /*
-            shadowSend[4*i + 0] = UFunc.HyperCross(v1,v2,v3).normalized;
-            shadowSend[4*i + 1] = UFunc.HyperCross(v1,v2,shadowSend[4*i]).normalized;
-            shadowSend[4*i + 2] = UFunc.HyperCross(v2,v3,shadowSend[4*i]).normalized;
-            shadowSend[4*i + 3] = UFunc.HyperCross(v3,v1,shadowSend[4*i]).normalized;
-            */
+            if (staticShadowRenderers.Contains(ren)) return;
+            staticShadowRenderers.Add(ren);
         }
+        else
+        {
+            if (dynamicShadowRenderers.Contains(ren)) return;
+            dynamicShadowRenderers.Add(ren);
+        }
+
+        SetStaticShadowBuffer(isStatic);
     }
-
-    public void AddStaticShadow(Renderer4D ren)
+    public void RemoveShadow(Renderer4D ren, bool isStatic)
     {
-        if (staticShadowRenderers.Contains(ren)) return;
+        if (isStatic)
+        {
+            if (!staticShadowRenderers.Contains(ren)) return;
+            staticShadowRenderers.Remove(ren);
+        }
+        else
+        {
+            if (!dynamicShadowRenderers.Contains(ren)) return;
+            dynamicShadowRenderers.Remove(ren);
+        }
 
-        staticShadowRenderers.Add(ren);
-
-        SetStaticShadowBuffer();
-    }
-    public void RemoveStaticShadow(Renderer4D ren)
-    {
-        if (!staticShadowRenderers.Contains(ren)) return;
-
-        staticShadowRenderers.Remove(ren);
-
-        SetStaticShadowBuffer();
+        SetStaticShadowBuffer(isStatic);
     }
 }

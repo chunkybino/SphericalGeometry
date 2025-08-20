@@ -42,6 +42,7 @@ public class LightS : MonoBehaviour
     public bool setShadows;
 
     public Vector4[] shadowSideNormals = new Vector4[0];
+    public Vector4[] dynamicShadowSideNormals = new Vector4[0];
 
     void OnEnable()
     {
@@ -60,7 +61,7 @@ public class LightS : MonoBehaviour
         if (setShadows)
         {
             setShadows = false;
-            SetShadowNormals();
+            SetShadowNormals(true);
         }
 
         if (m_castShadows != castShadows) {
@@ -116,25 +117,34 @@ public class LightS : MonoBehaviour
         }
     }
 
-    public void SetShadowNormals()
+    public void SetShadowNormals(bool setStatic)
     {
-        Vector4[] shadowTriVerticies = LightHandlerS.singleton.shadowTriVerticies;
-        shadowSideNormals = new Vector4[shadowTriVerticies.Length * 5/4];
+        //Vector4[] shadowTriVerticies = LightHandlerS.singleton.shadowTriVerticies;
+        //shadowSideNormals = new Vector4[shadowTriVerticies.Length * 5/4];
 
-        for (int i = 0; i < shadowSideNormals.Length/5; i++)
+        Vector4[] inVertex = setStatic ? LightHandlerS.singleton.shadowTriVerticies : LightHandlerS.singleton.dynamicShadowTriVerticies;
+        Vector4[] outVertex = new Vector4[inVertex.Length * 5/4];
+
+        for (int i = 0; i < outVertex.Length/5; i++)
         {
-            Vector4 center = shadowTriVerticies[4*i + 0];
-            Vector4 v1 = shadowTriVerticies[4*i + 1];
-            Vector4 v2 = shadowTriVerticies[4*i + 2];
-            Vector4 v3 = shadowTriVerticies[4*i + 3];
+            Vector4 center = inVertex[4*i + 0];
+            Vector4 v1 = inVertex[4*i + 1];
+            Vector4 v2 = inVertex[4*i + 2];
+            Vector4 v3 = inVertex[4*i + 3];
 
-            shadowSideNormals[5*i + 0] = center;
+            outVertex[5*i + 0] = center;
 
-            shadowSideNormals[5*i + 1] = -center + Vector4.Dot(center,transform4.positionNorm)*transform4.positionNorm;
+            outVertex[5*i + 1] = -center + Vector4.Dot(center,transform4.positionNorm)*transform4.positionNorm;
 
-            shadowSideNormals[5*i + 2] = UFunc.HyperCross(transform4.positionNorm,v1,v2);
-            shadowSideNormals[5*i + 3] = UFunc.HyperCross(transform4.positionNorm,v2,v3);
-            shadowSideNormals[5*i + 4] = UFunc.HyperCross(transform4.positionNorm,v3,v1);
+            outVertex[5*i + 2] = UFunc.HyperCross(transform4.positionNorm,v1,v2);
+            outVertex[5*i + 3] = UFunc.HyperCross(transform4.positionNorm,v2,v3);
+            outVertex[5*i + 4] = UFunc.HyperCross(transform4.positionNorm,v3,v1);
+        }
+
+        if (setStatic) {
+            shadowSideNormals = outVertex;
+        } else {
+            dynamicShadowSideNormals = outVertex;
         }
     }
 }

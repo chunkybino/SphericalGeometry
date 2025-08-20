@@ -206,6 +206,7 @@ public class DebugMenu : MonoBehaviour
                         "set {object name} renderer color {r} {g} {b}",
                         "set {object name} renderer lit {bool}",
                         "set {object name} renderer doubleSideLit {bool}",
+                        "set {object name} renderer castShadows {bool}",
 
                         "set {object name} light color {r} {g} {b}",
                         "set {object name} light intensity {val}"
@@ -525,6 +526,9 @@ public class DebugMenu : MonoBehaviour
             case "doubleSideLit":
                 SetDoubleSideLit(command);
                 break;
+            case "castShadows":
+                SetCastShadows(command);
+                break;
             default:
                 WriteToConsole("error: renderer property dont exist");
                 break;
@@ -565,6 +569,18 @@ public class DebugMenu : MonoBehaviour
             targetRenderer.doubleSideLit = state;
 
             WriteToConsole("set "+targetObj.name+" render doubleSideLit to "+state);
+        }
+        void SetCastShadows(List<string> command)
+        {
+            if (command.Count < 1) {
+                WriteToConsole("error: not enough parameters");
+                return;
+            }
+
+            bool state = ParseToBool(command[0]);
+            targetRenderer.castShadows = state;
+
+            WriteToConsole("set "+targetObj.name+" render castShadows to "+state);
         }
     }
 

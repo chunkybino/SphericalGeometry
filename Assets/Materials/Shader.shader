@@ -105,7 +105,7 @@ Shader "Mine/Boring"
                 float4 norm3;
             };
 
-            StructuredBuffer<int> _ShadowCount;
+            //StructuredBuffer<int> _ShadowCount;
             StructuredBuffer<int2> _ShadowSpan;
             StructuredBuffer<ShadowData> _ShadowData;
 

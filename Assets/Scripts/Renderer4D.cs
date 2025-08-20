@@ -40,6 +40,8 @@ public class Renderer4D : MonoBehaviour
     public bool castShadows = false;
     bool m_castShadows = false;
 
+    public bool isStatic;
+
     void Start()
     {
         Initialize();
@@ -54,14 +56,20 @@ public class Renderer4D : MonoBehaviour
 
     void OnEnable()
     {
+        if (!isStatic)
+        {
+            Rigidbody4D rb = GetComponent<Rigidbody4D>();
+            if (rb) isStatic = rb.isStatic;
+        }
+
         if (castShadows) {
-            LightHandlerS.singleton.AddStaticShadow(this);
+            LightHandlerS.singleton.AddShadow(this, isStatic);
         }
     }
     void OnDisable()
     {
         if (castShadows) {
-            LightHandlerS.singleton.RemoveStaticShadow(this);
+            LightHandlerS.singleton.AddShadow(this, isStatic);
         }
     }
 
@@ -75,16 +83,6 @@ public class Renderer4D : MonoBehaviour
         }
 
         if (!LightHandlerS.singleton) return;
-
-        if (castShadows != m_castShadows)
-        {
-            if (castShadows) {
-                LightHandlerS.singleton.AddStaticShadow(this);
-            } else {
-                LightHandlerS.singleton.RemoveStaticShadow(this);
-            }
-        }
-        m_castShadows = castShadows;
     }
 
     void Update()
@@ -112,6 +110,18 @@ public class Renderer4D : MonoBehaviour
         matBlock.SetFloat("_DoubleSideLit", doubleSideLit ? 1f : 0f);
 
         renderer.SetPropertyBlock(matBlock);
+
+
+
+        if (castShadows != m_castShadows)
+        {
+            if (castShadows) {
+                LightHandlerS.singleton.AddShadow(this, isStatic);
+            } else {
+                LightHandlerS.singleton.RemoveShadow(this, isStatic);
+            }
+        }
+        m_castShadows = castShadows;
 
         /*
         if (doLOD && meshGroup && Camera4D.mainCamera)
