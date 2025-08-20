@@ -24,8 +24,15 @@ public class LightHandlerS : MonoBehaviour
 
     [SerializeField] Vector4[] shadowSend;
 
+    [SerializeField] Vector4[] shadowTriNormals;
+    public Vector4[] shadowTriVerticies;
+    [SerializeField] Vector4[] shadowSideNormals;
+    [SerializeField] Vector2Int[] shadowTriBufferSpan; //x = buffer start, y = end
+
     [SerializeField] ComputeBuffer shadowBuffer;
     [SerializeField] ComputeBuffer shadowCountBuffer;
+
+    [SerializeField] ComputeBuffer shadowSpanBuffer;
 
     public List<Renderer4D> staticShadowRenderers = new List<Renderer4D>();
 
@@ -119,6 +126,7 @@ public class LightHandlerS : MonoBehaviour
             {
                 shadowBuffer?.Release();
                 shadowCountBuffer?.Release();
+                shadowSpanBuffer?.Release();
                 shadowSend = new Vector4[0];
             }
         }
@@ -231,11 +239,14 @@ public class LightHandlerS : MonoBehaviour
 
         shadowBuffer?.Release();
         shadowCountBuffer?.Release();
+        shadowSpanBuffer?.Release();
     }
 
     void SetStaticShadowBuffer()
     {
         if (disableShadows) return;
+
+        //print("");
 
         int totalShadowTriLength = 0;
         for (int i = 0; i < staticShadowRenderers.Count; i++)
@@ -243,7 +254,11 @@ public class LightHandlerS : MonoBehaviour
             totalShadowTriLength += staticShadowRenderers[i].GetTri().Length/3;
         }
 
-        Vector4[] shadowSend = new Vector4[totalShadowTriLength*4];
+        //shadowSend = new Vector4[totalShadowTriLength*4];
+
+        //shadowTriNormals = new Vector4[totalShadowTriLength];
+        shadowTriVerticies = new Vector4[totalShadowTriLength*4];
+        //shadowSideNormals = new Vector4[totalShadowTriLength*3];
 
         int triPlaceIndex = 0;
 
@@ -276,28 +291,62 @@ public class LightHandlerS : MonoBehaviour
             for (int i = 0; i < shadowTriCount; i++)
             {
                 AddTri(shadowVertex4[shadowTri[3*i+0]], shadowVertex4[shadowTri[3*i+1]], shadowVertex4[shadowTri[3*i+2]], triPlaceIndex);
+
                 triPlaceIndex++;
             }
         }
 
-        this.shadowSend = shadowSend;
+        List<Vector4> sendList = new List<Vector4>();
 
-        if (totalShadowTriLength > 0) {
-            shadowBuffer = new ComputeBuffer(totalShadowTriLength, sizeof(float) * 16);
-            shadowBuffer.SetData(shadowSend);
+        shadowTriBufferSpan = new Vector2Int[shadowLights.Count];
+        int placeIndex = 0;
+        for (int i = 0; i < shadowLights.Count; i++)
+        {
+            shadowLights[i].SetShadowNormals();
+            Vector4[] norms = shadowLights[i].shadowSideNormals;
+
+            shadowTriBufferSpan[i] = new Vector2Int(placeIndex,placeIndex + norms.Length/4);
+            placeIndex++;
+
+            for (int j = 0; j < norms.Length; j++)
+            {
+                //shadowSideNormals[placeIndex] = norms[j];
+                sendList.Add(norms[j]);
+            }
+        }
+
+        if (sendList.Count == 0) return;
+
+        if (sendList.Count > 0) {
+            shadowBuffer = new ComputeBuffer(sendList.Count, sizeof(float) * 16);
+            shadowBuffer.SetData(sendList);
             Shader.SetGlobalBuffer("_ShadowData", shadowBuffer);
         }
 
+        shadowSpanBuffer = new ComputeBuffer(shadowTriBufferSpan.Length, sizeof(int)*2);
+        shadowSpanBuffer.SetData(shadowTriBufferSpan);
+        Shader.SetGlobalBuffer("_ShadowSpan", shadowSpanBuffer);
+
+        /*
         shadowCountBuffer = new ComputeBuffer(1, sizeof(int));
         shadowCountBuffer.SetData(new int[] {totalShadowTriLength});
         Shader.SetGlobalBuffer("_ShadowCount", shadowCountBuffer);
+        */
 
         void AddTri(Vector4 v1, Vector4 v2, Vector4 v3, int i)
         {
+            //shadowTriNormals[i] = UFunc.HyperCross(v1,v2,v3);
+            shadowTriVerticies[4*i + 0] = UFunc.HyperCross(v1,v2,v3);
+            shadowTriVerticies[4*i + 1] = v1;
+            shadowTriVerticies[4*i + 2] = v2;
+            shadowTriVerticies[4*i + 3] = v3;
+
+            /*
             shadowSend[4*i + 0] = UFunc.HyperCross(v1,v2,v3).normalized;
             shadowSend[4*i + 1] = UFunc.HyperCross(v1,v2,shadowSend[4*i]).normalized;
             shadowSend[4*i + 2] = UFunc.HyperCross(v2,v3,shadowSend[4*i]).normalized;
             shadowSend[4*i + 3] = UFunc.HyperCross(v3,v1,shadowSend[4*i]).normalized;
+            */
         }
     }
 

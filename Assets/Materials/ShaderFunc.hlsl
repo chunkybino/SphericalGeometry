@@ -3,17 +3,30 @@
 
 float4 SteroProject(float4 pos4, float4 radius)
 {
-    float Step = step(1, -pos4.w);
+    if (pos4.w != -1)
+    {
+        pos4 = pos4 / (1 + pos4.w);
+        pos4 *= radius;
+        pos4.w = 1;
+    }
+    else
+    {
+        pos4 = float4(99999,0,0,1);
+    }
 
-    pos4.w += Step;
+    return pos4;
+}
 
-    pos4 = pos4 / (1 + pos4.w);
-    pos4 *= radius;
-    pos4.w = 1;
-
-    pos4.x = lerp(pos4.x, 999999, Step);
-    pos4.y = lerp(pos4.y, 0, Step);
-    pos4.z = lerp(pos4.z, 0, Step);
+float4 GnomonicProject(float4 pos4)
+{
+    if (pos4.w != 0)
+    {
+        pos4 = pos4 / pos4.w;
+    }
+    else
+    {
+        pos4 = pos4 * 99999;
+    }
 
     return pos4;
 }

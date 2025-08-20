@@ -34,16 +34,14 @@ public class LightS : MonoBehaviour
 
     public bool dirty;
 
-    public ComputeShader shadowMapShader;
-    public RenderTexture shadowMap;
+    public ComputeShader shadowMapCompute;
+    public ComputeBuffer shadowMapGeometryBuffer;
+    public ComputeBuffer shadowMapShadowBuffer;
+    public bool[,,] shadowMapData;
 
-    public bool setShadow;
+    public bool setShadows;
 
-    public Camera shadowCam;
-
-    public Material shadowCamMaterial;
-    public Shader shadowCamShader;
-    public Renderer4D[] shadowCamRenders = new Renderer4D[0];
+    public Vector4[] shadowSideNormals = new Vector4[0];
 
     void OnEnable()
     {
@@ -59,10 +57,10 @@ public class LightS : MonoBehaviour
 
     void Update()
     {
-        DrawShadowCam();
-
-        if (setShadow) {
-            //SetShadowMap();
+        if (setShadows)
+        {
+            setShadows = false;
+            SetShadowNormals();
         }
 
         if (m_castShadows != castShadows) {
@@ -118,62 +116,22 @@ public class LightS : MonoBehaviour
         }
     }
 
-    void SetShadowMap()
+    public void SetShadowNormals()
     {
-        shadowMap = new RenderTexture(64,64,6);
-        shadowMap.enableRandomWrite = true;
-        shadowMap.Create();
+        Vector4[] shadowTriVerticies = LightHandlerS.singleton.shadowTriVerticies;
+        shadowSideNormals = new Vector4[shadowTriVerticies.Length];
 
-        shadowMapShader.SetTexture(0, "Result", shadowMap);
-    }
-
-    public void OnPostRender() 
-    {
-        return;
-        for (int i = 0; i < shadowCamRenders.Length; i++)
+        for (int i = 0; i < shadowTriVerticies.Length/4; i++)
         {
-            Renderer4D r = shadowCamRenders[i];
+            int i0 = 4*i + 0;
+            int i1 = 4*i + 1;
+            int i2 = 4*i + 2;
+            int i3 = 4*i + 3;
 
-            MaterialPropertyBlock prop = new MaterialPropertyBlock();
-            Matrix4x4 transformMatrix = r.transform4.matrix.inverse;
-            prop.SetVector("_MatC0", transformMatrix.GetColumn(0));
-            prop.SetVector("_MatC1", transformMatrix.GetColumn(1));
-            prop.SetVector("_MatC2", transformMatrix.GetColumn(2));
-            prop.SetVector("_MatC3", transformMatrix.GetColumn(3));
-            prop.SetVector("_Scale", new Vector4(r.transformScale.x,r.transformScale.y,r.transformScale.z,0));
-            prop.SetFloat("_DoV4", r.doVertex4 ? 1f : 0f);
-
-            print(i);
-            print(transformMatrix.GetColumn(3));
-
-            RenderParams rparams = new RenderParams();
-
-            rparams.camera = shadowCam;
-            rparams.material = shadowCamMaterial;
-            rparams.matProps = prop;
-
-            Graphics.RenderMesh(rparams, r.filter.sharedMesh, 0, Matrix4x4.identity);
-            //Graphics.DrawMesh(r.filter.sharedMesh, r.transform4.matrix, shadowCamMaterial, 0, shadowCam, 0, prop);
+            shadowSideNormals[i0] = shadowTriVerticies[i0];
+            shadowSideNormals[i1] = UFunc.HyperCross(transform4.positionNorm,shadowTriVerticies[i1],shadowTriVerticies[i2]);
+            shadowSideNormals[i2] = UFunc.HyperCross(transform4.positionNorm,shadowTriVerticies[i2],shadowTriVerticies[i3]);
+            shadowSideNormals[i3] = UFunc.HyperCross(transform4.positionNorm,shadowTriVerticies[i3],shadowTriVerticies[i1]);
         }
-    }
-
-    void DrawShadowCam()
-    {
-
-    }
-    void LateUpdate()
-    {
-        if (!shadowCam) return;
-
-        //shadowCam.depthTextureMode = DepthTextureMode.Depth;
-
-        //shadowCam.transform.position = Vector3.zero;
-        shadowCam.worldToCameraMatrix = transform4.matrix.inverse;
-
-        shadowCam.Render();
-
-        //shadowCam.Render();
-        //shadowCam.SetReplacementShader(shadowCamShader, "");
-        //shadowCam.RenderWithShader(shadowCamShader, "");
     }
 }

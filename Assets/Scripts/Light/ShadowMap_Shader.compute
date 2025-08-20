@@ -3,12 +3,27 @@
 
 // Create a RenderTexture with enableRandomWrite flag and set it
 // with cs.SetTexture
-RWTexture2D<float4> Result;
+RWStructuredBuffer<float4> verticies;
 
-[numthreads(8,8,1)]
+struct VolumeOut
+{
+    float4 normal;
+    float4 edgeNorm1;
+    float4 edgeNorm2;
+    float4 edgeNorm3;
+};
+
+RWStructuredBuffer<float4> Result;
+
+[numthreads(8,1,1)]
 void CSMain (uint3 id : SV_DispatchThreadID)
 {
-    // TODO: insert actual code here!
+    //VolumeOut outV;
 
-    Result[id.xy] = float4(id.x & id.y, (id.x & 15)/15.0, (id.y & 15)/15.0, 0.0);
+    float4 v1 = verticies[3*id.x + 0];
+    float4 v2 = verticies[3*id.x + 1];
+    float4 v3 = verticies[3*id.x + 2];
+
+    //outV.normal = cross((v2-v1),(v3-v1));
+    Result[id.x] = float4(1,1,1,1);
 }
