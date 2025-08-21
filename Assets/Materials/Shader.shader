@@ -104,11 +104,23 @@ Shader "Mine/Boring"
                 //float4 norm2;
                 //float4 norm3;
             };
+            /*
+            struct RayCastShadowData
+            {
+                float4 center;
+                //float4 direction;
+                float4 norm1;
+                float4 norm2;
+                float4 norm3;
+            };
+            */
 
-            //StructuredBuffer<int> _ShadowCount;
             StructuredBuffer<int2> _ShadowSpan;
-            StructuredBuffer<int2> _ShadowSpanSub;
+            StructuredBuffer<int3> _ShadowSpanSub;
             StructuredBuffer<ShadowData> _ShadowData;
+
+            StructuredBuffer<int> _RaycastShadowCount;
+            StructuredBuffer<float4> _RaycastShadowData;
 
             v2g vertexFunc(appdata IN)
             {
@@ -396,9 +408,9 @@ Shader "Mine/Boring"
 
                     //fall off
                     precise float falloffIntesity = 1;
+                    float distance = acos(clamp(dot(light.position,IN.positionWorld), -1,1));//1.57*(1-disDot);
                     if (light.falloffDegree != 0)
                     {
-                        float distance = acos(clamp(dot(light.position,IN.positionWorld), -1,1));//1.57*(1-disDot);
                         precise float falloffIntesity = pow(_Radius*(1.57)*sin(distance/_Radius) + 1, -light.falloffDegree);
                     }
 
@@ -419,13 +431,29 @@ Shader "Mine/Boring"
                     float intensity = light.intensity*falloffIntesity*coneIntensity;
 
                     //shadowtime
+                    /*
                     for (int j = _ShadowSpan[i].x; j < _ShadowSpan[i].y; j++)
                     {
-                        //ShadowData shadow = _ShadowData[j];
-                        int2 shadowSpanSub = _ShadowSpanSub[j];
+                        int3 shadowSpanSub = _ShadowSpanSub[j];
 
                         bool behindAll = true;
                         for (int k = shadowSpanSub.x; k < shadowSpanSub.y; k++)
+                        {
+                            if (dot(IN.positionWorld,_ShadowData[k].direction) > 0)
+                            {
+                                behindAll = false;
+                                break;
+                            }
+                        }
+
+                        if (distance < _ShadowData[shadowSpanSub.y].direction.x && behindAll)
+                        {
+                            //behindAll = false;
+                            continue;
+                            //intensity *= 0.5;
+                        }
+                        
+                        for (int k = shadowSpanSub.y; k < shadowSpanSub.z; k++)
                         {
                             if (dot(IN.positionWorld,_ShadowData[k].direction) > 0)
                             {
@@ -438,34 +466,25 @@ Shader "Mine/Boring"
                         {
                             intensity = 0;
                             break;
-                        }
+                        }                   
+                    }
+                    */
 
-                        /*
-                        float posDot = dot(IN.positionWorld,shadow.center);
-                        float lightDot = dot(light.position,shadow.center);
+                    for (int j = 0; j < 1; j++) //_RaycastShadowCount[0]
+                    {
+                        //RayCastShadowData shadow = _RaycastShadowData[j];
+                        float4 center = _RaycastShadowData[4*j + 0];
+                        float4 norm1 = _RaycastShadowData[4*j + 1];
+                        float4 norm2 = _RaycastShadowData[4*j + 2];
+                        float4 norm3 = _RaycastShadowData[4*j + 3];
                         
+                        precise float lightPlaneAngle = 1.57 - acos(dot(center, light.position));
+                        precise float posPlaneAngle = 1.57 - acos(dot(center, IN.positionWorld));
 
-                        //float dotDirection = dot(IN.positionWorld,shadow.center); //are we infront or behind the light
+                        //intensity = _RaycastShadowData[0].y;
 
-                        float dot1 = dot(IN.positionWorld,shadow.norm1);
-                        float dot2 = dot(IN.positionWorld,shadow.norm2);
-                        float dot3 = dot(IN.positionWorld,shadow.norm3);
-
-                        bool behindShadow = dotDirection < 0 && posDot*sign(lightDot) < -0.002;
-
-                        if (behindShadow && dot1 < 0 && dot2 < 0 && dot3 < 0)
-                        {
-                            intensity = 0;
-                            break;
-                        }
-                        */
-
-                        /*
-                        precise float lightPlaneAngle = 1.57 - acos(dot(shadow.center, light.position));
-                        precise float posPlaneAngle = 1.57 - acos(dot(shadow.center, IN.positionWorld));
-
-                        float lightPlaneDot = dot(shadow.center, light.position);
-                        float posPlaneDot = dot(shadow.center, IN.positionWorld);
+                        float lightPlaneDot = dot(center, light.position);
+                        float posPlaneDot = dot(center, IN.positionWorld);
 
                         if (sign(lightPlaneAngle) == sign(posPlaneAngle) || abs(posPlaneAngle) < 0.005) 
                         {
@@ -474,18 +493,17 @@ Shader "Mine/Boring"
 
                         precise float4 planePos = Slerp4(IN.positionWorld,light.position,abs(posPlaneAngle),abs(lightPlaneAngle-posPlaneAngle));
 
-                        float dot1 = dot(planePos,shadow.norm1);
-                        float dot2 = dot(planePos,shadow.norm2);
-                        float dot3 = dot(planePos,shadow.norm3);
+                        float dot1 = dot(planePos,norm1);
+                        float dot2 = dot(planePos,norm2);
+                        float dot3 = dot(planePos,norm3);
 
                         //intensity = 0;
 
-                        if (dot1 < 0 && dot2 < 0 && dot3 < 0)
+                        if (dot1 < 0 || dot2 < 0 || dot3 < 0)
                         {
                             intensity = 0;
                             break;
                         }
-                        */
                     }
 
                     totalLight += max(normalLightDot*intensity,0)*light.color;

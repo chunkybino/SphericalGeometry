@@ -32,9 +32,10 @@ public class LightHandlerS : MonoBehaviour
 
     [SerializeField] Vector4[] shadowSideNormals;
     [SerializeField] Vector2Int[] shadowTriBufferSpan; //x = buffer start, y = end
+    [SerializeField] List<Vector3Int> shadowSubSpan;
 
     [SerializeField] ComputeBuffer shadowBuffer;
-    //[SerializeField] ComputeBuffer shadowCountBuffer;
+    [SerializeField] ComputeBuffer shadowCountBuffer;
 
     [SerializeField] ComputeBuffer shadowSpanBuffer;
     [SerializeField] ComputeBuffer shadowSpanSubBuffer;
@@ -43,6 +44,7 @@ public class LightHandlerS : MonoBehaviour
     public List<Renderer4D> dynamicShadowRenderers = new List<Renderer4D>();
 
     public bool disableShadows;
+    public bool shadowRaycast;
 
     public bool updateFullBuffer;
 
@@ -136,8 +138,9 @@ public class LightHandlerS : MonoBehaviour
             if (shadowSend.Count > 0)
             {
                 shadowBuffer?.Release();
-                //shadowCountBuffer?.Release();
+                shadowCountBuffer?.Release();
                 shadowSpanBuffer?.Release();
+                shadowSpanSubBuffer?.Release();
                 shadowSend.Clear();
             }
         }
@@ -254,143 +257,172 @@ public class LightHandlerS : MonoBehaviour
         lightCountBuffer?.Release();
 
         shadowBuffer?.Release();
-        //shadowCountBuffer?.Release();
+        shadowCountBuffer?.Release();
         shadowSpanBuffer?.Release();
+        shadowSpanSubBuffer?.Release();
     }
 
     void SetStaticShadowBuffer(bool doStatic = true)
     {
         if (disableShadows) return;
 
-        /*
-        //static 
-        if (doStatic)
+        if (shadowRaycast)
         {
-            totalShadowTriLength = 0;
-            for (int i = 0; i < staticShadowRenderers.Count; i++) {
-                totalShadowTriLength += staticShadowRenderers[i].GetTri().Length/3;
-            }
-
-            shadowTriVerticies = new Vector4[totalShadowTriLength*4];
-            AddRenderersToTri(staticShadowRenderers, shadowTriVerticies);
-        }
-        ///////////////
-
-        //dynamic
-        totalDynamicShadowTriLength = 0;
-        for (int i = 0; i < dynamicShadowRenderers.Count; i++) {
-            totalDynamicShadowTriLength += dynamicShadowRenderers[i].GetTri().Length/3;
-        }
-        ///////////////////////
-
-        dynamicShadowTriVerticies = new Vector4[totalDynamicShadowTriLength*4];
-        AddRenderersToTri(dynamicShadowRenderers, dynamicShadowTriVerticies);
-
-        void AddRenderersToTri(List<Renderer4D> renderers, Vector4[] vertexArray)
-        {
-            int triPlaceIndex = 0;
-            for (int j = 0; j < renderers.Count; j++)
+            //static 
+            if (doStatic)
             {
-                Renderer4D ren = renderers[j];
+                totalShadowTriLength = 0;
+                for (int i = 0; i < staticShadowRenderers.Count; i++) {
+                    totalShadowTriLength += staticShadowRenderers[i].GetTri().Length/3;
+                }
 
-                int[] shadowTri = ren.GetTri();
-                Vector4[] shadowVertex4 = new Vector4[0];
-                int shadowTriCount = shadowTri.Length/3;
+                shadowTriVerticies = new Vector4[totalShadowTriLength*4];
+                AddRenderersToTri(staticShadowRenderers, shadowTriVerticies);
+            }
+            ///////////////
 
-                Matrix4x4 mat = ren.transform4.matrix;
+            //dynamic
+            totalDynamicShadowTriLength = 0;
+            for (int i = 0; i < dynamicShadowRenderers.Count; i++) {
+                totalDynamicShadowTriLength += dynamicShadowRenderers[i].GetTri().Length/3;
+            }
+            ///////////////////////
 
-                if (!ren.doVertex4)
+            dynamicShadowTriVerticies = new Vector4[totalDynamicShadowTriLength*4];
+            AddRenderersToTri(dynamicShadowRenderers, dynamicShadowTriVerticies);
+
+            void AddRenderersToTri(List<Renderer4D> renderers, Vector4[] vertexArray)
+            {
+                int triPlaceIndex = 0;
+                for (int j = 0; j < renderers.Count; j++)
                 {
-                    Vector3[] shadowVertex = ren.GetVertex3();
-                    shadowVertex4 = new Vector4[shadowVertex.Length];
+                    Renderer4D ren = renderers[j];
 
-                    for (int i = 0; i < shadowVertex.Length; i++)
+                    int[] shadowTri = ren.GetTri();
+                    Vector4[] shadowVertex4 = ren.GetVertexWorld();
+                    int shadowTriCount = shadowTri.Length/3;
+
+                    Matrix4x4 mat = ren.transform4.matrix;
+
+                    /*
+                    if (!ren.doVertex4)
                     {
-                        Vector3 p = Vector3.Scale(ren.transformScale, shadowVertex[i]);
-                        shadowVertex4[i] = mat * UFunc.SterographicInverse(p,1);
+                        Vector3[] shadowVertex = ren.GetVertex3();
+                        shadowVertex4 = new Vector4[shadowVertex.Length];
+
+                        for (int i = 0; i < shadowVertex.Length; i++)
+                        {
+                            Vector3 p = Vector3.Scale(ren.transformScale, shadowVertex[i]);
+                            shadowVertex4[i] = mat * UFunc.SterographicInverse(p,1);
+                        }
+                    }
+                    else
+                    {
+                        shadowVertex4 =  ren.GetVertex4();
+                    }
+                    */
+
+                    for (int i = 0; i < shadowTriCount; i++)
+                    {
+                        AddTri(shadowVertex4[shadowTri[3*i+0]], shadowVertex4[shadowTri[3*i+1]], shadowVertex4[shadowTri[3*i+2]], triPlaceIndex);
+
+                        triPlaceIndex++;
                     }
                 }
-                else
+
+                void AddTri(Vector4 v1, Vector4 v2, Vector4 v3, int i)
                 {
-                    shadowVertex4 =  ren.GetVertex4();
+                    vertexArray[4*i + 0] = UFunc.HyperCross(v1,v2,v3).normalized;
+                    vertexArray[4*i + 1] = v1;
+                    vertexArray[4*i + 2] = v2;
+                    vertexArray[4*i + 3] = v3;
                 }
-
-                for (int i = 0; i < shadowTriCount; i++)
-                {
-                    AddTri(shadowVertex4[shadowTri[3*i+0]], shadowVertex4[shadowTri[3*i+1]], shadowVertex4[shadowTri[3*i+2]], triPlaceIndex);
-
-                    triPlaceIndex++;
-                }
-            }
-
-            void AddTri(Vector4 v1, Vector4 v2, Vector4 v3, int i)
-            {
-                vertexArray[4*i + 0] = UFunc.HyperCross(v1,v2,v3).normalized;
-                vertexArray[4*i + 1] = v1;
-                vertexArray[4*i + 2] = v2;
-                vertexArray[4*i + 3] = v3;
             }
         }
-        */
 
         List<Vector4> sendList = new List<Vector4>();
 
         shadowTriBufferSpan = new Vector2Int[shadowLights.Count];
-        List<Vector2Int> shadowSubSpan = new List<Vector2Int>();
+        shadowSubSpan.Clear();
 
         int placeIndex = 0;
         for (int i = 0; i < shadowLights.Count; i++)
         {
-            shadowLights[i].SetShadowNormals(false); //set dynamic shadows only
-            if (doStatic) shadowLights[i].SetShadowNormals(true); //also static shadows if needed
+            if (!shadowRaycast)
+            {
+                shadowLights[i].SetShadowNormals(doStatic); //set dynamic shadows only
 
-            List<Vector4> sideNorms = shadowLights[i].allSideNormals;
-            //Vector4[] norms = shadowLights[i].shadowSideNormals;
-            //Vector4[] normsDynamic = shadowLights[i].dynamicShadowSideNormals;
+                List<Vector4> sideNorms = shadowLights[i].allSideNormals;
 
-            //shadowSubSpan.AddRange(shadowLights[i].sideNormalSpan);
-            foreach (Vector2Int v in shadowLights[i].sideNormalSpan) {
-                shadowSubSpan.Add(new Vector2Int(v.x+sendList.Count,v.y+sendList.Count));
+                foreach (Vector3Int v in shadowLights[i].sideNormalSpan) {
+                    shadowSubSpan.Add(new Vector3Int(v.x+sendList.Count, v.y+sendList.Count, v.z+sendList.Count));
+                }
+
+                //int span = sideNorms.Count;//norms.Length/5 + normsDynamic.Length/5;
+                shadowTriBufferSpan[i] = new Vector2Int(placeIndex,placeIndex + shadowLights[i].sideNormalSpan.Count);
+                placeIndex += shadowLights[i].sideNormalSpan.Count;
+
+                sendList.AddRange(sideNorms);
             }
+            else
+            {
+                foreach (Vector4 v in shadowTriVerticies) {
+                    sendList.Add(v);
+                }
+                foreach (Vector4 v in dynamicShadowTriVerticies) {
+                    sendList.Add(v);
+                }
 
-            //int span = sideNorms.Count;//norms.Length/5 + normsDynamic.Length/5;
-            shadowTriBufferSpan[i] = new Vector2Int(placeIndex,placeIndex + shadowLights[i].sideNormalSpan.Count);
-            placeIndex += shadowLights[i].sideNormalSpan.Count;
+                /*
+                shadowLights[i].SetRaycastShadowNormals(doStatic);
 
-            sendList.AddRange(sideNorms);
+                Vector4[] norms = shadowLights[i].shadowSideNormals;
+                Vector4[] normsDynamic = shadowLights[i].dynamicShadowSideNormals;
 
-            /*
-            for (int j = 0; j < norms.Length; j++) {
-                sendList.Add(norms[j]);
+                for (int j = 0; j < norms.Length; j++) {
+                    sendList.Add(norms[j]);
+                }
+                for (int j = 0; j < normsDynamic.Length; j++) {
+                    sendList.Add(normsDynamic[j]);
+                }
+                */
             }
-            for (int j = 0; j < normsDynamic.Length; j++) {
-                sendList.Add(normsDynamic[j]);
-            }
-            */
         }
 
         shadowSend = sendList;
         if (sendList.Count == 0) return;
 
-        if (sendList.Count > 0) {
-            shadowBuffer = new ComputeBuffer(sendList.Count, sizeof(float) * 4);
-            shadowBuffer.SetData(sendList);
-            Shader.SetGlobalBuffer("_ShadowData", shadowBuffer);
+        if (sendList.Count > 0) 
+        {
+            if (!shadowRaycast)
+            {
+                shadowBuffer = new ComputeBuffer(sendList.Count, sizeof(float) * 4);
+                shadowBuffer.SetData(sendList);
+                Shader.SetGlobalBuffer("_ShadowData", shadowBuffer);
+            }
+            else
+            {
+                shadowBuffer?.Release();
+                shadowBuffer = new ComputeBuffer(sendList.Count, sizeof(float) * 4);
+                shadowBuffer.SetData(sendList);
+                Shader.SetGlobalBuffer("_RaycastShadowData", shadowBuffer);
+
+                shadowCountBuffer = new ComputeBuffer(1, sizeof(int));
+                shadowCountBuffer.SetData(new int[] {sendList.Count/4});
+                Shader.SetGlobalBuffer("_RaycastShadowCount", shadowCountBuffer);
+            }
         }
 
-        shadowSpanBuffer = new ComputeBuffer(shadowTriBufferSpan.Length, sizeof(int)*2);
-        shadowSpanBuffer.SetData(shadowTriBufferSpan);
-        Shader.SetGlobalBuffer("_ShadowSpan", shadowSpanBuffer);
+        if (shadowTriBufferSpan.Length > 0 && shadowSubSpan.Count > 0 && !shadowRaycast) 
+        {
+            shadowSpanBuffer = new ComputeBuffer(shadowTriBufferSpan.Length, sizeof(int)*2);
+            shadowSpanBuffer.SetData(shadowTriBufferSpan);
+            Shader.SetGlobalBuffer("_ShadowSpan", shadowSpanBuffer);
 
-        shadowSpanSubBuffer = new ComputeBuffer(shadowSubSpan.Count, sizeof(int)*2);
-        shadowSpanSubBuffer.SetData(shadowSubSpan);
-        Shader.SetGlobalBuffer("_ShadowSpanSub", shadowSpanSubBuffer);
-
-        /*
-        shadowCountBuffer = new ComputeBuffer(1, sizeof(int));
-        shadowCountBuffer.SetData(new int[] {totalShadowTriLength});
-        Shader.SetGlobalBuffer("_ShadowCount", shadowCountBuffer);
-        */
+            shadowSpanSubBuffer = new ComputeBuffer(shadowSubSpan.Count, sizeof(int)*3);
+            shadowSpanSubBuffer.SetData(shadowSubSpan);
+            Shader.SetGlobalBuffer("_ShadowSpanSub", shadowSpanSubBuffer);
+        }
     }
 
     public void AddShadow(Renderer4D ren, bool isStatic)

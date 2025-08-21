@@ -82,7 +82,7 @@ public static class UFunc
         return ProjectToVectorNormal(to-from,from).normalized;
     }
 
-    public static Vector3 SterographicProjection(Vector4 pos, float radius)
+    public static Vector3 SterographicProjection(Vector4 pos, float radius = 1)
     {
         if (pos.w == -radius) return new Vector3(9999, 0, 0);
         return radius * new Vector3(pos.x, pos.y, pos.z) / (radius + pos.w);
@@ -92,6 +92,19 @@ public static class UFunc
         Vector4 newPos = (radius * 2 / ((pos.x*pos.x) + (pos.y*pos.y) + (pos.z*pos.z) + 1)) * new Vector4(pos.x,pos.y,pos.z,1);
         newPos.w -= radius;
         return newPos;
+    }
+
+    public static Vector3 GnomonicProjection(Vector4 pos)
+    {
+        if (pos.w != 0)
+        {
+            pos = pos / pos.w;
+        }
+        else
+        {
+            pos = pos * 99999;
+        }
+        return pos;
     }
 
     public static Matrix4x4 MatXYRot(float angle) {

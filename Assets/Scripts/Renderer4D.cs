@@ -49,13 +49,6 @@ public class Renderer4D : MonoBehaviour
     {
         Initialize();
 
-        if (doVertex4) {
-            vertex4 = ReadVertex4();
-        } else {
-            vertices = filter.sharedMesh.vertices;
-        }
-        triangles = filter.sharedMesh.triangles;
-
         //verticesWorldDirty = true;
     }
 
@@ -149,6 +142,13 @@ public class Renderer4D : MonoBehaviour
         newBounds.max = new Vector3(99999,99999,99999);
         newBounds.min = new Vector3(-99999,-99999,-99999);
         renderer.bounds = newBounds;
+
+        if (doVertex4) {
+            vertex4 = ReadVertex4();
+        } else {
+            vertices = filter.sharedMesh.vertices;
+        }
+        triangles = filter.sharedMesh.triangles;
     }
 
     public Vector3[] GetVertex3()
