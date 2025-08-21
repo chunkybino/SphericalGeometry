@@ -1,0 +1,38 @@
+// Each #kernel tells which function to compile; you can have many kernels
+#pragma kernel CSMain
+
+// Create a RenderTexture with enableRandomWrite flag and set it
+// with cs.SetTexture
+
+struct ShadowTri
+{
+    float4 v1;
+    float4 v2;
+    float4 v3;
+    float4 center;
+    float4 norm1;
+    float4 norm1;
+    float4 norm3;
+}
+
+RWStructuredBuffer<ShadowTri> shadowTri;
+
+RWStructuredBuffer<bool> map;
+
+float4 lightPos;
+
+int resolution;
+
+[numthreads(8,8,8)]
+void CSMain (uint3 id : SV_DispatchThreadID)
+{
+    uint mapIndex = id.x + id.y*resolution + id.z*resolution*resolution
+    float3 pos = float3(((float)2*id.x)/resolution - 1, ((float)2*id.y)/resolution - 1, ((float)2*id.z)/resolution - 1);
+
+    float light3 = lightPos;
+
+    for (int i = 0; i < shadowTri.Length; i++)
+    {
+
+    }
+}

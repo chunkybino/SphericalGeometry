@@ -38,7 +38,6 @@ public class LightS : MonoBehaviour
     public ComputeShader shadowMapCompute;
     public ComputeBuffer shadowMapGeometryBuffer;
     public ComputeBuffer shadowMapShadowBuffer;
-    //public bool[,,] shadowMapData;
 
     public bool setShadows;
 
@@ -52,8 +51,8 @@ public class LightS : MonoBehaviour
 
     public ComputeShader edgeVertexCompute;
 
-    public Vector3[] gnomeProj;
-    public List<int> outsideInt;
+    public bool[,,] shadowMapData;
+    public ComputeShader shadowMapCompute;
 
     void OnEnable()
     {
@@ -159,14 +158,12 @@ public class LightS : MonoBehaviour
 
             ComputeBuffer vertexDataBuffer = new ComputeBuffer(vertexWorld.Length, sizeof(float)*5);
 
-            gnomeProj = new Vector3[vertexWorld.Length];
 
             EdgeVertexData[] vertexData = new EdgeVertexData[vertexWorld.Length];
             for (int j = 0; j < vertexData.Length; j++) {
                 //vertexData[j].vertex = renVerticies[j];
                 vertexData[j].vertex = UFunc.SterographicProjection(transform4.matrix.transpose * vertexWorld[j]);
                 //vertexData[j].vertex = UFunc.GnomonicProjection(transform4.matrix.transpose * vertexWorld[j]);
-                gnomeProj[j] = vertexData[j].vertex;
             }
 
             /*
@@ -282,5 +279,49 @@ public class LightS : MonoBehaviour
         } else {
             dynamicShadowSideNormals = outVertex;
         }
+    }
+
+    public void SetShadowMap()
+    {
+        List<Vector4> shadowVerticies = lightHandler.shadowTriVerticies;
+        Vector4[] shadowTri = new Vector4[shadowVerticies.Count];
+
+        Vector3 lightPos = UFunc.GnomonicProjection(transform4.positionNorm);
+
+        for (int i = 0; i < shadowVerticies/3; i++)
+        {
+            Vector4 v1 = UFunc.GnomonicProjection(shadowVerticies[3*i + 0]);
+            Vector4 v2 = UFunc.GnomonicProjection(shadowVerticies[3*i + 1]);
+            Vector4 v3 = UFunc.GnomonicProjection(shadowVerticies[3*i + 2]);
+
+            //Vector3 cross = Vector3.Cross((v2-v1),(v3-v1));
+
+            Vector3 norm1 = Vector3.Cross((v1-lightPos),(v2-lightPos));
+            Vector3 norm2 = Vector3.Cross((v2-lightPos),(v3-lightPos));
+            Vector3 norm3 = Vector3.Cross((v3-lightPos),(v1-lightPos));
+        }
+
+        int resolution = 16;
+        int threads = 8;
+
+        shadowMapData = new bool[resolution,resolution,resolution]; 
+        int cubeSize = resolution*resolution*resolution;
+
+        ComputeBuffer shadowTriBuff = new ComputeBuffer(shadowTri.Count/4, sizeof(float)*16);
+        shadowTriBuff.SetData(shadowTri);
+        shadowMapCompute.SetBuffer(0, "shadowTri", shadowTriBuff);
+
+        ComputeBuffer shadowMapBuff = new ComputeBuffer(cubeSize, sizeof(bool)*cubeSize);
+        shadowMapBuff.SetData(shadowMapData);
+        shadowMapCompute.SetBuffer(0, "map", shadowMapBuff);
+
+        shadowMapCompute.SetInt("resolution", resolution);
+        shadowMapCompute.SetVector("resolution", lightPos);
+
+        edgeVertexCompute.Dispatch(0, resolution/threads,resolution/threads,resolution/threads);
+
+        shadowTriBuff.Release();
+        shadowMapBuff.GetData(shadowMapData);
+        shadowMapBuff.Release();
     }
 }

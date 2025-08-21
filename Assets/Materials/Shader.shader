@@ -178,13 +178,25 @@ Shader "Mine/Boring"
                 outV[2].position = mul(UNITY_MATRIX_P, SteroProject(IN[2].position4, _Radius));
                 */
 
+                bool draw = true;
+                int negCount = 0;
+
                 for (int j = 0; j < 3; j++)
                 {
                     outV[j].normal = norm;
                     outV[j].positionWorld = IN[j].positionWorld;
                     outV[j].uv = IN[j].uv;
-                    outV[j].position = mul(UNITY_MATRIX_P, SteroProject(IN[j].position4, _Radius));
+                    outV[j].position = mul(UNITY_MATRIX_P, GnomonicProject(IN[j].position4));
+
+                    if (IN[j].positionWorld.w <= 0)
+                    {
+                        negCount++;
+                        outV[j].position *= -1;
+                        //outV[j].position.y *= -1;
+                    }
                 }
+
+                if (negCount != 0 && negCount != 3) draw = false;
 
                 //OUT.Append(outV[0]);
                 //OUT.Append(outV[1]);
@@ -194,11 +206,14 @@ Shader "Mine/Boring"
                 g2f v2 = outV[1];
                 g2f v3 = outV[2];
 
-                if (_Subdivisions == 0)
+                if (_Subdivisions == 0 || true)
                 {
+                    if (draw)
+                    {
                     OUT.Append(v1);
                     OUT.Append(v2);
                     OUT.Append(v3);
+                    }
                 }
                 else
                 {
