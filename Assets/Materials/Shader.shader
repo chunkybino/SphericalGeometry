@@ -470,7 +470,7 @@ Shader "Mine/Boring"
                     }
                     */
 
-                    for (int j = 0; j < 1; j++) //_RaycastShadowCount[0]
+                    for (int j = 0; j < _RaycastShadowCount[0]; j++)
                     {
                         //RayCastShadowData shadow = _RaycastShadowData[j];
                         float4 center = _RaycastShadowData[4*j + 0];
@@ -499,7 +499,7 @@ Shader "Mine/Boring"
 
                         //intensity = 0;
 
-                        if (dot1 < 0 || dot2 < 0 || dot3 < 0)
+                        if (dot1 < 0 && dot2 < 0 && dot3 < 0)
                         {
                             intensity = 0;
                             break;
