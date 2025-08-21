@@ -28,6 +28,9 @@ public class Renderer4D : MonoBehaviour
     public Vector3 transformScale; 
 
     [SerializeField] Vector3[] vertices;
+    Vector4[] verticiesWorld;
+    //bool verticesWorldDirty;
+
     [SerializeField] Vector4[] vertex4;
     [SerializeField] Vector2[] uvs;
     [SerializeField] int[] triangles;
@@ -52,6 +55,8 @@ public class Renderer4D : MonoBehaviour
             vertices = filter.sharedMesh.vertices;
         }
         triangles = filter.sharedMesh.triangles;
+
+        //verticesWorldDirty = true;
     }
 
     void OnEnable()
@@ -87,6 +92,8 @@ public class Renderer4D : MonoBehaviour
 
     void Update()
     {
+        //verticesWorldDirty = true;
+
         if (!transform4 || !renderer || !filter) return;
 
         transformMatrix = transform4.matrix.inverse;
@@ -147,6 +154,19 @@ public class Renderer4D : MonoBehaviour
     public Vector3[] GetVertex3()
     {
         return vertices;
+    }
+    public Vector4[] GetVertexWorld()
+    {
+        //if (!verticesWorldDirty) return verticiesWorld;
+
+        verticiesWorld = new Vector4[vertices.Length];
+
+        for (int i = 0; i < vertices.Length; i++)
+        {
+            verticiesWorld[i] = transform4.matrix * UFunc.SterographicInverse(Vector3.Scale(transformScale, vertices[i]),1);
+        }
+
+        return verticiesWorld;
     }
     public int[] GetTri()
     {

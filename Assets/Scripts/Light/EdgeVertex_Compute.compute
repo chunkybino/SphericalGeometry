@@ -1,0 +1,73 @@
+// Each #kernel tells which function to compile; you can have many kernels
+#pragma kernel CSMain
+
+struct EdgeVertexData
+{
+    float3 vertex;
+    int nextIndex;
+    int result;
+};
+
+RWStructuredBuffer<EdgeVertexData> verticies;
+float4 direction4;
+//float4 direction5;
+
+[numthreads(8,1,1)]
+void CSMain (uint3 id : SV_DispatchThreadID)
+{
+    if (id.x >= verticies.Length) return;
+
+    float3 dir3 = direction4;
+    float3 vertex = verticies[id.x].vertex;
+    vertex -= dot(vertex,dir3)*dir3;
+
+    float mag2 = dot(vertex,vertex);
+
+    float3 crossDir = cross(dir3,vertex);
+
+    //verticies[id.x].nextIndex = direction4.x;
+
+    if (crossDir.x == 0 && crossDir.y == 0 && crossDir.z == 0) return;
+
+    float maxSlopeLeft = -9999;
+    float maxSlopeRight = -9999;
+
+    int nextVertexIndex = 0;
+
+    for (uint i = 0; i < verticies.Length; i++)
+    {
+        if (i == id.x) continue;
+
+        float3 v = verticies[i].vertex;
+
+        float dotY = dot(vertex,v) - mag2;
+        float dotX =  dot(crossDir,v);
+
+        if (dotX == 0 && dotY > 0) {
+            return;
+        }
+
+        float slope = dotY/dotX;
+
+        if (dotX < 0)
+        {
+            maxSlopeLeft = max(maxSlopeLeft, -slope);
+        }
+        else if (slope > maxSlopeRight)
+        {
+            maxSlopeRight = slope;
+            nextVertexIndex = (int)i;
+        }
+    }
+
+    float signL = sign(maxSlopeLeft);
+    float signR = sign(maxSlopeRight);
+
+    verticies[id.x].nextIndex = nextVertexIndex;
+    verticies[id.x].result = 1;
+
+    if (signL > 0 && signR > 0 || (signL != signR && maxSlopeRight > -maxSlopeLeft)) 
+    {
+        verticies[id.x].result = 0;
+    }
+}

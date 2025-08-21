@@ -37,6 +37,7 @@ public class LightHandlerS : MonoBehaviour
     //[SerializeField] ComputeBuffer shadowCountBuffer;
 
     [SerializeField] ComputeBuffer shadowSpanBuffer;
+    [SerializeField] ComputeBuffer shadowSpanSubBuffer;
 
     public List<Renderer4D> staticShadowRenderers = new List<Renderer4D>();
     public List<Renderer4D> dynamicShadowRenderers = new List<Renderer4D>();
@@ -44,6 +45,8 @@ public class LightHandlerS : MonoBehaviour
     public bool disableShadows;
 
     public bool updateFullBuffer;
+
+    public ComputeShader edgeVertexCompute;
 
     void Awake()
     {
@@ -120,7 +123,7 @@ public class LightHandlerS : MonoBehaviour
                     }
                 }
             }
-            if (bufferCount > 0) {
+            if (bufferCount > 0 && buff != null) {
                 buff.SetData(send, startIndex, startIndex, bufferCount);
             }
         }
@@ -204,6 +207,7 @@ public class LightHandlerS : MonoBehaviour
         
         if (noShadowlightDatasCount > 0)
         {
+            //print(System.Runtime.InteropServices.Marshal.SizeOf(typeof(LightData)));
             lightBuffer = new ComputeBuffer(noShadowlightDatasCount, System.Runtime.InteropServices.Marshal.SizeOf(typeof(LightData))); //System.Runtime.InteropServices.Marshal.SizeOf(typeof(LightData)));
             lightBuffer.SetData(lightDataSendNoShadow);
             Shader.SetGlobalBuffer("_LightDataNoShadow", lightBuffer);
@@ -258,6 +262,7 @@ public class LightHandlerS : MonoBehaviour
     {
         if (disableShadows) return;
 
+        /*
         //static 
         if (doStatic)
         {
@@ -326,36 +331,49 @@ public class LightHandlerS : MonoBehaviour
                 vertexArray[4*i + 3] = v3;
             }
         }
+        */
 
         List<Vector4> sendList = new List<Vector4>();
 
         shadowTriBufferSpan = new Vector2Int[shadowLights.Count];
+        List<Vector2Int> shadowSubSpan = new List<Vector2Int>();
+
         int placeIndex = 0;
         for (int i = 0; i < shadowLights.Count; i++)
         {
             shadowLights[i].SetShadowNormals(false); //set dynamic shadows only
             if (doStatic) shadowLights[i].SetShadowNormals(true); //also static shadows if needed
 
-            Vector4[] norms = shadowLights[i].shadowSideNormals;
-            Vector4[] normsDynamic = shadowLights[i].dynamicShadowSideNormals;
+            List<Vector4> sideNorms = shadowLights[i].allSideNormals;
+            //Vector4[] norms = shadowLights[i].shadowSideNormals;
+            //Vector4[] normsDynamic = shadowLights[i].dynamicShadowSideNormals;
 
-            int span = norms.Length/5 + normsDynamic.Length/5;
-            shadowTriBufferSpan[i] = new Vector2Int(placeIndex,placeIndex + span);
-            placeIndex += span+1;
+            //shadowSubSpan.AddRange(shadowLights[i].sideNormalSpan);
+            foreach (Vector2Int v in shadowLights[i].sideNormalSpan) {
+                shadowSubSpan.Add(new Vector2Int(v.x+sendList.Count,v.y+sendList.Count));
+            }
 
+            //int span = sideNorms.Count;//norms.Length/5 + normsDynamic.Length/5;
+            shadowTriBufferSpan[i] = new Vector2Int(placeIndex,placeIndex + shadowLights[i].sideNormalSpan.Count);
+            placeIndex += shadowLights[i].sideNormalSpan.Count;
+
+            sendList.AddRange(sideNorms);
+
+            /*
             for (int j = 0; j < norms.Length; j++) {
                 sendList.Add(norms[j]);
             }
             for (int j = 0; j < normsDynamic.Length; j++) {
                 sendList.Add(normsDynamic[j]);
             }
+            */
         }
 
         shadowSend = sendList;
         if (sendList.Count == 0) return;
 
         if (sendList.Count > 0) {
-            shadowBuffer = new ComputeBuffer(sendList.Count, sizeof(float) * 20);
+            shadowBuffer = new ComputeBuffer(sendList.Count, sizeof(float) * 4);
             shadowBuffer.SetData(sendList);
             Shader.SetGlobalBuffer("_ShadowData", shadowBuffer);
         }
@@ -363,6 +381,10 @@ public class LightHandlerS : MonoBehaviour
         shadowSpanBuffer = new ComputeBuffer(shadowTriBufferSpan.Length, sizeof(int)*2);
         shadowSpanBuffer.SetData(shadowTriBufferSpan);
         Shader.SetGlobalBuffer("_ShadowSpan", shadowSpanBuffer);
+
+        shadowSpanSubBuffer = new ComputeBuffer(shadowSubSpan.Count, sizeof(int)*2);
+        shadowSpanSubBuffer.SetData(shadowSubSpan);
+        Shader.SetGlobalBuffer("_ShadowSpanSub", shadowSpanSubBuffer);
 
         /*
         shadowCountBuffer = new ComputeBuffer(1, sizeof(int));

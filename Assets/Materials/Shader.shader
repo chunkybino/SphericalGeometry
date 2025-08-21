@@ -98,15 +98,16 @@ Shader "Mine/Boring"
 
             struct ShadowData
             {
-                float4 center;
+                //float4 center;
                 float4 direction;
-                float4 norm1;
-                float4 norm2;
-                float4 norm3;
+                //float4 norm1;
+                //float4 norm2;
+                //float4 norm3;
             };
 
             //StructuredBuffer<int> _ShadowCount;
             StructuredBuffer<int2> _ShadowSpan;
+            StructuredBuffer<int2> _ShadowSpanSub;
             StructuredBuffer<ShadowData> _ShadowData;
 
             v2g vertexFunc(appdata IN)
@@ -420,12 +421,31 @@ Shader "Mine/Boring"
                     //shadowtime
                     for (int j = _ShadowSpan[i].x; j < _ShadowSpan[i].y; j++)
                     {
-                        ShadowData shadow = _ShadowData[j];
+                        //ShadowData shadow = _ShadowData[j];
+                        int2 shadowSpanSub = _ShadowSpanSub[j];
 
+                        bool behindAll = true;
+                        for (int k = shadowSpanSub.x; k < shadowSpanSub.y; k++)
+                        {
+                            if (dot(IN.positionWorld,_ShadowData[k].direction) > 0)
+                            {
+                                behindAll = false;
+                                break;
+                            }
+                        }
+
+                        if (behindAll)
+                        {
+                            intensity = 0;
+                            break;
+                        }
+
+                        /*
                         float posDot = dot(IN.positionWorld,shadow.center);
                         float lightDot = dot(light.position,shadow.center);
+                        
 
-                        float dotDirection = dot(IN.positionWorld,shadow.center); //are we infront or behind the light
+                        //float dotDirection = dot(IN.positionWorld,shadow.center); //are we infront or behind the light
 
                         float dot1 = dot(IN.positionWorld,shadow.norm1);
                         float dot2 = dot(IN.positionWorld,shadow.norm2);
@@ -438,6 +458,7 @@ Shader "Mine/Boring"
                             intensity = 0;
                             break;
                         }
+                        */
 
                         /*
                         precise float lightPlaneAngle = 1.57 - acos(dot(shadow.center, light.position));
