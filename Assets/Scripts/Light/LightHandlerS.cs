@@ -25,7 +25,7 @@ public class LightHandlerS : MonoBehaviour
     public List<Vector4> shadowSend;
 
     public Vector4[] shadowTriNormals;
-    public Vector4[] dynamicshadowTriNormals;
+    public Vector4[] dynamicShadowTriNormals;
 
     public List<Vector4> shadowTriVerticies = new List<Vector4>();
 
@@ -292,8 +292,8 @@ public class LightHandlerS : MonoBehaviour
             }
             ///////////////////////
 
-            dynamicshadowTriNormals = new Vector4[totalDynamicShadowTriLength*4];
-            AddRenderersToTri(dynamicShadowRenderers, dynamicshadowTriNormals);
+            dynamicShadowTriNormals = new Vector4[totalDynamicShadowTriLength*4];
+            AddRenderersToTri(dynamicShadowRenderers, dynamicShadowTriNormals);
 
             void AddRenderersToTri(List<Renderer4D> renderers, Vector4[] vertexArray)
             {
@@ -377,7 +377,7 @@ public class LightHandlerS : MonoBehaviour
                 foreach (Vector4 v in shadowTriNormals) {
                     sendList.Add(v);
                 }
-                foreach (Vector4 v in dynamicshadowTriNormals) {
+                foreach (Vector4 v in dynamicShadowTriNormals) {
                     sendList.Add(v);
                 }
 

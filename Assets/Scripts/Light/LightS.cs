@@ -35,10 +35,6 @@ public class LightS : MonoBehaviour
 
     public bool dirty;
 
-    public ComputeShader shadowMapCompute;
-    public ComputeBuffer shadowMapGeometryBuffer;
-    public ComputeBuffer shadowMapShadowBuffer;
-
     public bool setShadows;
 
     public Vector4[] shadowSideNormals = new Vector4[0];
@@ -203,8 +199,6 @@ public class LightS : MonoBehaviour
                 if (startEdgeIndex == nextIndex) break;
             }
 
-            outsideInt = outsideIndex;
-
             int sideNormalCount = outsideIndex.Count;
             int faceNormalsCount = outsideIndex.Count - 2;
 
@@ -255,7 +249,7 @@ public class LightS : MonoBehaviour
 
     public void SetRaycastShadowNormals(bool setStatic)
     {
-        Vector4[] inVertex = setStatic ? LightHandlerS.singleton.shadowTriVerticies : LightHandlerS.singleton.dynamicShadowTriVerticies;
+        Vector4[] inVertex = setStatic ? LightHandlerS.singleton.shadowTriNormals : LightHandlerS.singleton.dynamicShadowTriNormals;
         Vector4[] outVertex = new Vector4[inVertex.Length * 5/4];
 
         for (int i = 0; i < outVertex.Length/5; i++)
@@ -284,21 +278,28 @@ public class LightS : MonoBehaviour
     public void SetShadowMap()
     {
         List<Vector4> shadowVerticies = lightHandler.shadowTriVerticies;
-        Vector4[] shadowTri = new Vector4[shadowVerticies.Count];
+        Vector4[] shadowTri = new Vector4[shadowVerticies.Count * 4/3];
 
         Vector3 lightPos = UFunc.GnomonicProjection(transform4.positionNorm);
 
-        for (int i = 0; i < shadowVerticies/3; i++)
+        for (int i = 0; i < shadowVerticies.Count/3; i++)
         {
-            Vector4 v1 = UFunc.GnomonicProjection(shadowVerticies[3*i + 0]);
-            Vector4 v2 = UFunc.GnomonicProjection(shadowVerticies[3*i + 1]);
-            Vector4 v3 = UFunc.GnomonicProjection(shadowVerticies[3*i + 2]);
+            Vector3 v1 = UFunc.GnomonicProjection(shadowVerticies[3*i + 0]);
+            Vector3 v2 = UFunc.GnomonicProjection(shadowVerticies[3*i + 1]);
+            Vector3 v3 = UFunc.GnomonicProjection(shadowVerticies[3*i + 2]);
 
-            //Vector3 cross = Vector3.Cross((v2-v1),(v3-v1));
+            Vector3 cross = Vector3.Cross((v2-v1),(v3-v1)).normalized;
+            cross /= Vector3.Dot((v1-lightPos),cross); //give the face normal a length of the inverse distance from the light to the plane
+            //this way we know if a point is past the plane by checking if its dot product with the face normal is greater than 1
 
             Vector3 norm1 = Vector3.Cross((v1-lightPos),(v2-lightPos));
             Vector3 norm2 = Vector3.Cross((v2-lightPos),(v3-lightPos));
             Vector3 norm3 = Vector3.Cross((v3-lightPos),(v1-lightPos));
+
+            shadowTri[4*i + 0] = cross;
+            shadowTri[4*i + 1] = norm1;
+            shadowTri[4*i + 2] = norm2;
+            shadowTri[4*i + 3] = norm3;
         }
 
         int resolution = 16;
@@ -307,7 +308,7 @@ public class LightS : MonoBehaviour
         shadowMapData = new bool[resolution,resolution,resolution]; 
         int cubeSize = resolution*resolution*resolution;
 
-        ComputeBuffer shadowTriBuff = new ComputeBuffer(shadowTri.Count/4, sizeof(float)*16);
+        ComputeBuffer shadowTriBuff = new ComputeBuffer(shadowTri.Length/4, sizeof(float)*16);
         shadowTriBuff.SetData(shadowTri);
         shadowMapCompute.SetBuffer(0, "shadowTri", shadowTriBuff);
 
@@ -316,7 +317,7 @@ public class LightS : MonoBehaviour
         shadowMapCompute.SetBuffer(0, "map", shadowMapBuff);
 
         shadowMapCompute.SetInt("resolution", resolution);
-        shadowMapCompute.SetVector("resolution", lightPos);
+        shadowMapCompute.SetVector("lightPos", lightPos);
 
         edgeVertexCompute.Dispatch(0, resolution/threads,resolution/threads,resolution/threads);
 

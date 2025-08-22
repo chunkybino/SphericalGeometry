@@ -1,12 +1,11 @@
 #ifndef SHADERFUNC_HLSL
 #define SHADERFUNC_HLSL
 
-float4 SteroProject(float4 pos4, float4 radius)
+float4 SteroProject(float4 pos4)
 {
     if (pos4.w != -1)
     {
         pos4 = pos4 / (1 + pos4.w);
-        pos4 *= radius;
         pos4.w = 1;
     }
     else
@@ -27,6 +26,7 @@ float4 GnomonicProject(float4 pos4)
     {
         pos4 = pos4 * 99999;
     }
+    pos4.w = 1;
 
     return pos4;
 }

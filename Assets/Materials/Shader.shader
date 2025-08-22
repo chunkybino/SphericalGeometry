@@ -134,7 +134,7 @@ Shader "Mine/Boring"
                 if (_DoV4 != 1) //skip this step if we already have out vertex in spherical coords
                 {
                     //convert model coords to sphere coords, using sterographic inverse
-                    pos4 *= _Scale / _Radius;
+                    pos4 *= _Scale;
                     pos4 = (2 / ((pos4.x*pos4.x) + (pos4.y*pos4.y) + (pos4.z*pos4.z) + 1)) * float4(pos4.x,pos4.y,pos4.z,1);
                     pos4.w -= 1;
                 }
@@ -178,25 +178,13 @@ Shader "Mine/Boring"
                 outV[2].position = mul(UNITY_MATRIX_P, SteroProject(IN[2].position4, _Radius));
                 */
 
-                bool draw = true;
-                int negCount = 0;
-
                 for (int j = 0; j < 3; j++)
                 {
                     outV[j].normal = norm;
                     outV[j].positionWorld = IN[j].positionWorld;
                     outV[j].uv = IN[j].uv;
-                    outV[j].position = mul(UNITY_MATRIX_P, GnomonicProject(IN[j].position4));
-
-                    if (IN[j].positionWorld.w <= 0)
-                    {
-                        negCount++;
-                        outV[j].position *= -1;
-                        //outV[j].position.y *= -1;
-                    }
+                    outV[j].position = mul(UNITY_MATRIX_P, SteroProject(IN[j].position4));
                 }
-
-                if (negCount != 0 && negCount != 3) draw = false;
 
                 //OUT.Append(outV[0]);
                 //OUT.Append(outV[1]);
@@ -208,12 +196,9 @@ Shader "Mine/Boring"
 
                 if (_Subdivisions == 0 || true)
                 {
-                    if (draw)
-                    {
                     OUT.Append(v1);
                     OUT.Append(v2);
                     OUT.Append(v3);
-                    }
                 }
                 else
                 {
@@ -231,9 +216,9 @@ Shader "Mine/Boring"
                     g2f v5;
                     g2f v6;
 
-                    v4.position = mul(UNITY_MATRIX_P, SteroProject(pos6[3], _Radius));
-                    v5.position = mul(UNITY_MATRIX_P, SteroProject(pos6[4], _Radius));
-                    v6.position = mul(UNITY_MATRIX_P, SteroProject(pos6[5], _Radius));
+                    v4.position = mul(UNITY_MATRIX_P, SteroProject(pos6[3]));
+                    v5.position = mul(UNITY_MATRIX_P, SteroProject(pos6[4]));
+                    v6.position = mul(UNITY_MATRIX_P, SteroProject(pos6[5]));
 
                     v4.positionWorld = world6[3];
                     v5.positionWorld = world6[4];
@@ -279,15 +264,15 @@ Shader "Mine/Boring"
                         g2f v14;
                         g2f v15;
 
-                        v7.position = mul(UNITY_MATRIX_P, SteroProject(pos15[6], _Radius));
-                        v8.position = mul(UNITY_MATRIX_P, SteroProject(pos15[7], _Radius));
-                        v9.position = mul(UNITY_MATRIX_P, SteroProject(pos15[8], _Radius));
-                        v10.position = mul(UNITY_MATRIX_P, SteroProject(pos15[9], _Radius));
-                        v11.position = mul(UNITY_MATRIX_P, SteroProject(pos15[10], _Radius));
-                        v12.position = mul(UNITY_MATRIX_P, SteroProject(pos15[11], _Radius));
-                        v13.position = mul(UNITY_MATRIX_P, SteroProject(pos15[12], _Radius));
-                        v14.position = mul(UNITY_MATRIX_P, SteroProject(pos15[13], _Radius));
-                        v15.position = mul(UNITY_MATRIX_P, SteroProject(pos15[14], _Radius));
+                        v7.position = mul(UNITY_MATRIX_P, SteroProject(pos15[6]));
+                        v8.position = mul(UNITY_MATRIX_P, SteroProject(pos15[7]));
+                        v9.position = mul(UNITY_MATRIX_P, SteroProject(pos15[8]));
+                        v10.position = mul(UNITY_MATRIX_P, SteroProject(pos15[9]));
+                        v11.position = mul(UNITY_MATRIX_P, SteroProject(pos15[10]));
+                        v12.position = mul(UNITY_MATRIX_P, SteroProject(pos15[11]));
+                        v13.position = mul(UNITY_MATRIX_P, SteroProject(pos15[12]));
+                        v14.position = mul(UNITY_MATRIX_P, SteroProject(pos15[13]));
+                        v15.position = mul(UNITY_MATRIX_P, SteroProject(pos15[14]));
 
                         v7.positionWorld = world15[6];
                         v8.positionWorld = world15[7];
