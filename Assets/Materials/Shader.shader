@@ -122,6 +122,9 @@ Shader "Mine/Boring"
             StructuredBuffer<int> _RaycastShadowCount;
             StructuredBuffer<float4> _RaycastShadowData;
 
+
+            StructuredBuffer<bool> _ShadowMap;
+
             v2g vertexFunc(appdata IN)
             {
                 v2g OUT;
@@ -470,6 +473,9 @@ Shader "Mine/Boring"
                     }
                     */
 
+
+                    //raycast
+                    /*
                     for (int j = 0; j < _RaycastShadowCount[0]; j++)
                     {
                         //RayCastShadowData shadow = _RaycastShadowData[j];
@@ -504,6 +510,17 @@ Shader "Mine/Boring"
                             intensity = 0;
                             break;
                         }
+                    }
+                    */
+
+                    //shadow map time
+
+                    uint largestComponent = GetVectorSignificant(IN.positionWorld);
+                    if (largestComponent == 1 && IN.positionWorld[largestComponent] > 0)
+                    {
+                        float3 gnoPos = GnomonicProject(IN.positionWorld);
+                        gnoPos *= 16;
+                        uint mapIndex = uint3(floor(gnoPos.x),floor(gnoPos.y),floor(gnoPos.z));
                     }
 
                     totalLight += max(normalLightDot*intensity,0)*light.color;

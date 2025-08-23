@@ -42,6 +42,8 @@ public class LightHandlerS : MonoBehaviour
     [SerializeField] ComputeBuffer shadowSpanBuffer;
     [SerializeField] ComputeBuffer shadowSpanSubBuffer;
 
+    [SerializeField] ComputeBuffer shadowMapBuffer;
+
     public List<Renderer4D> staticShadowRenderers = new List<Renderer4D>();
     public List<Renderer4D> dynamicShadowRenderers = new List<Renderer4D>();
 
@@ -262,6 +264,8 @@ public class LightHandlerS : MonoBehaviour
         shadowCountBuffer?.Release();
         shadowSpanBuffer?.Release();
         shadowSpanSubBuffer?.Release();
+
+        shadowMapBuffer?.Release();
     }
 
     void SetStaticShadowBuffer(bool doStatic = true)
@@ -430,6 +434,15 @@ public class LightHandlerS : MonoBehaviour
             shadowSpanSubBuffer = new ComputeBuffer(shadowSubSpan.Count, sizeof(int)*3);
             shadowSpanSubBuffer.SetData(shadowSubSpan);
             Shader.SetGlobalBuffer("_ShadowSpanSub", shadowSpanSubBuffer);
+        }
+
+        if (shadowLights.Count > 0)
+        {
+            LightS l = shadowLights[0];
+
+            shadowMapBuffer = new ComputeBuffer(l.shadowMapData.Length, sizeof(int)*2);
+            shadowMapBuffer.SetData(l.shadowMapData);
+            Shader.SetGlobalBuffer("_ShadowMap", shadowMapBuffer);
         }
     }
 

@@ -67,6 +67,15 @@ float4 SlerpHalf(float4 a, float4 b)
     return normalize((a+b)/2);
 }
 
+uint GetVectorSignificant(float4 v)
+{
+    uint maxIndex = 0;
+    for (int i = 1; i < 4; i++) {
+        if (v[i] > v[maxIndex]) maxIndex = i;
+    }
+    return maxIndex;
+}
+
 inline uint Subdivide2_Index1(uint inIndex)
 {
     switch (inIndex)
