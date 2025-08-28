@@ -443,12 +443,130 @@ public static class UFunc
     //slerp between v1 and v2 till we find the point closest to the target point
     public static Vector4 SlerpPointClose(Vector4 v1, Vector4 v2, Vector4 target)
     {
-        return Slerp4(v1,v2,SlerpPointCloseFactor(v1,v2,target,false));
+        target = SlerpPointCloseUnclamped(v1,v2,target);
+        return ClampBetweenVectors(target,v1,v2); 
     }
     public static Vector4 SlerpPointCloseUnclamped(Vector4 v1, Vector4 v2, Vector4 target)
     {
-        return Slerp4(v1,v2,SlerpPointCloseFactor(v1,v2,target,true));
+        return ProjectVectorToPlane(v1,v2,target);
     }
+    public static Vector4 ClampBetweenVectors(Vector4 v, Vector4 clamp1, Vector4 clamp2)
+    {
+        float dotClamp = Vector4.Dot(clamp1,clamp2);
+
+        float dot1 = Vector4.Dot(v,clamp1);
+        float dot2 = Vector4.Dot(v,clamp2);
+
+        if (dot1 > dotClamp && dot2 > dotClamp) return v;
+
+        if (dot1 > dot2) {
+            v = clamp1;
+        }
+        else
+        {
+            v = clamp2;
+        }
+
+        return v;
+    }
+
+    public static void DoubleArcClose(Vector4 v1, Vector4 v2, Vector4 u1, Vector4 u2, ref Vector4 close1, ref Vector4 close2)
+    {
+        Vector4 outV = new Vector4();
+        Vector4 outU = new Vector4();
+
+        UFunc.DoubleArcCloseUnclamped(v1,v2,u1,u2, ref outV, ref outU);
+
+        close1 = outV;
+        close2 = outU;
+
+        Vector4 close2_set1 = UFunc.ClampBetweenVectors(close2, u1,u2);
+        Vector4 close1_set1 = UFunc.SlerpPointClose(v1,v2,close2_set1);
+
+        Vector4 close1_set2 = UFunc.ClampBetweenVectors(close1, v1,v2);
+        Vector4 close2_set2 = UFunc.SlerpPointClose(u1,u2,close1_set2);
+
+        if (Vector4.Dot(close1_set1,close2_set1) > Vector4.Dot(close1_set2,close2_set2))
+        {
+            close1 = close1_set1;
+            close2 = close2_set1;
+        }
+        else
+        {
+            close1 = close1_set2;
+            close2 = close2_set2;
+        }
+
+        //Debug.Log(DistanceS(outV,outU));
+
+        //close1 = UFunc.SlerpPointCloseUnclamped(v1,v2,u1);
+        //close2 = u1;
+
+        /*
+        return;
+
+        float maxDot = Vector4.Dot(outV,outU);
+
+        bool onArc1 = UFunc.BetweenS(v1,v2,outV) && UFunc.BetweenS(u1,u2,outU);
+        bool onArc2 = UFunc.BetweenS(v1,v2,-outV) && UFunc.BetweenS(u1,u2,-outU);
+
+        if (onArc2) {
+            outV *= -1;
+            outU *= -1;
+        }
+
+        Debug.Log(onArc1+" "+onArc2);
+
+        if (!onArc1 && !onArc2 && false) {
+            maxDot = -1;
+            Vector4 v1Close = UFunc.SlerpPointClose(u1,u2, v1);
+            Vector4 v2Close = UFunc.SlerpPointClose(u1,u2, v2);
+            Vector4 u1Close = UFunc.SlerpPointClose(v1,v2, u1);
+            Vector4 u2Close = UFunc.SlerpPointClose(v1,v2, u2);
+
+            int chooseInt = 0;
+            CheckDot(v1,v1Close, 1);
+            CheckDot(v2,v2Close, 2);
+            CheckDot(u1Close,u1, 3);
+            CheckDot(u2Close,u2, 4);
+
+            Debug.Log(chooseInt);
+
+            void CheckDot(Vector4 vPoint, Vector4 uPoint, int i)
+            {
+                if (Vector4.Dot(vPoint,uPoint) > maxDot) {
+                    maxDot = Vector4.Dot(vPoint,uPoint);
+                    outV = vPoint;
+                    outU = uPoint;
+
+                    chooseInt = i;
+                }
+            }
+        }
+
+        close1 = outV;
+        close2 = outU;
+        */
+    }
+    public static void DoubleArcCloseUnclamped(Vector4 v1, Vector4 v2, Vector4 u1, Vector4 u2, ref Vector4 close1, ref Vector4 close2)
+    {
+        //findes closest point on v arc to u arc (final point will be on v)
+
+        Vector4 sphereNorm = HyperCross(v1,v2,u1).normalized;
+
+        Vector4 u3 = (u2 - Vector4.Dot(u2,sphereNorm)*sphereNorm).normalized; //u2 projected onto sphere of v1,v2,u1
+
+        Vector4 sphere1 = HyperCross(v1,v2,sphereNorm).normalized;
+        Vector4 sphere2 = HyperCross(u1,u3,sphereNorm).normalized;
+
+        close1 = HyperCross(sphere1,sphere2,sphereNorm).normalized;
+        close2 = SlerpPointCloseUnclamped(u1,u2,close1);
+
+        if (Vector4.Dot(close1,close2) < 0) {
+            close2 *= -1;
+        }
+    }
+    /*
     public static float SlerpPointCloseFactor(Vector4 v1, Vector4 v2, Vector4 target, bool unclamped = false, bool doPrint = false)
     {
         float dot1 = Clamp1(Dot(v1,v2));
@@ -491,6 +609,15 @@ public static class UFunc
         if (doPrint) Debug.Log(factor);
 
         return factor;
+    }
+    */
+
+    public static Vector4 ProjectVectorToPlane(Vector4 plane1, Vector4 plane2, Vector4 v)
+    {
+        Vector4 hyperCross = HyperCross(plane1,plane2,v);
+        Vector4 planeNorm = -HyperCross(plane1,plane2,hyperCross).normalized;
+
+        return (v - Vector4.Dot(v,planeNorm)*planeNorm).normalized;
     }
 
     public static Vector4 SetVectorDirectionValue(Vector4 vec, Vector4 direction, float value)

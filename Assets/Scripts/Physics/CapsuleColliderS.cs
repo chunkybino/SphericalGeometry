@@ -41,6 +41,8 @@ public class CapsuleColliderS : ColliderS
 
     public override Vector4 PointClose(Vector4 point)
     {
+        Vector4 s = UFunc.SlerpPointClose(point1,point2,point);
+
         return UFunc.SlerpPointClose(point1,point2,point);
     }
 }

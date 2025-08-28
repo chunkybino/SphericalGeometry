@@ -283,46 +283,14 @@ public abstract class ColliderS : MonoBehaviour
 
     public static float CapsuleOnCapsule(CapsuleColliderS c1, CapsuleColliderS c2, ref Vector4 contact1, ref Vector4 contact2, ref Vector4 contactNorm)
     {
-        Vector4 point1_1 = new Vector4();
-        Vector4 point2_1 = new Vector4();
-        FindMin(0, 0, ref point1_1, ref point2_1);
+        Vector4 close1 = new Vector4();
+        Vector4 close2 = new Vector4();
 
-        Vector4 point1_2 = new Vector4();
-        Vector4 point2_2 = new Vector4();
-        FindMin(1, 1, ref point1_1, ref point2_1);
+        UFunc.DoubleArcClose(c1.point1,c1.point2,c2.point1,c2.point2, ref close1, ref close2);
 
-        if (UFunc.Dot(point1_1,point2_1) > UFunc.Dot(point1_2,point2_2))
-        {
-            return PointRadiusContact(point1_1, c1.m_radius, point2_1, c2.m_radius, ref contact1, ref contact2, ref contactNorm);
-        }
-        else
-        {
-            return PointRadiusContact(point1_2, c1.m_radius, point2_2, c2.m_radius, ref contact1, ref contact2, ref contactNorm);
-        }
+        print(c1.point1 +""+c1.point2+""+c2.point1+""+c2.point2+""+ close1+""+ close2);
 
-        void FindMin(float t1, float t2, ref Vector4 point1, ref Vector4 point2)
-        {
-            int iterations = 6;
-
-            point1 = UFunc.Slerp4(c1.point1,c1.point2, t1);
-            point2 = UFunc.Slerp4(c2.point1,c2.point2, t2);
-
-            for (int i = 0; i < iterations; i++)
-            {
-                if (i % 2 == 0)
-                {
-                    t1 = UFunc.SlerpPointCloseFactor(c1.point1,c1.point2,point2);
-                    point1 = UFunc.Slerp4(c1.point1,c1.point2, t1);
-                }
-                else
-                {
-                    t2 = UFunc.SlerpPointCloseFactor(c2.point1,c2.point2,point1);
-                    point2 = UFunc.Slerp4(c2.point1,c2.point2, t2);
-                }
-
-                if (point1 == point2) break;
-            }
-        }
+        return PointRadiusContact(close1, c1.m_radius, close2, c2.m_radius, ref contact1, ref contact2, ref contactNorm);
     }
 
     public static float CapsuleOnTriangle(CapsuleColliderS c1, TriColliderS c2, ref Vector4 contact1, ref Vector4 contact2, ref Vector4 contactNorm)

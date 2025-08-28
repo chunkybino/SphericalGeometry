@@ -14,15 +14,17 @@ public class MeshColliderS : ColliderS
 
     [SerializeField] Vector4[] verticies4 = new Vector4[0];
     [SerializeField] Vector4[] verticiesWorld = new Vector4[0];
+    [SerializeField] Vector4[] normals = new Vector4[0];
 
     [SerializeField] Vector2Int[] edges = new Vector2Int[0];
     Dictionary<Vector2Int,int> edgesDict = new Dictionary<Vector2Int,int>();
 
-    [SerializeField] TriData[] triDatas = new TriData[0];
+    //[SerializeField] TriData[] triDatas = new TriData[0];
 
     public override float boundingRadius {get{return furthestVertexDistance;}}
     [SerializeField] float furthestVertexDistance;
 
+    /*
     [System.Serializable]
     struct TriData
     {
@@ -56,6 +58,7 @@ public class MeshColliderS : ColliderS
             if (UFunc.Dot(edgeNormals[2], GetVertex(1)) > 0) edgeNormals[2] *= -1;
         }
     }
+    */
 
     [SerializeField] bool calcVertex;
     [SerializeField] bool calcTri;
@@ -105,9 +108,11 @@ public class MeshColliderS : ColliderS
             verticiesWorld[i] = transform4.matrix * verticies4[i];
         } 
 
+        /*
         for (int i = 0; i < triDatas.Length; i++) {
             triDatas[i].Calc();
-        } 
+        }
+        */ 
     }
     void CalcTriangles()
     {
@@ -137,6 +142,14 @@ public class MeshColliderS : ColliderS
         }
         edges = UFunc.List2Array(edgeList);
 
+
+        normals = new Vector4[triangles.Length];
+        for (int i = 0; i < normals.Length; i++)
+        {
+            normals[i] = UFunc.HyperCross(verticiesWorld[triangles[i].x],verticiesWorld[triangles[i].y],verticiesWorld[triangles[i].z]).normalized;
+        }
+
+        /*
         triDatas = new TriData[triangles.Length];
 
         for (int i = 0; i < triangles.Length; i++) {
@@ -151,8 +164,10 @@ public class MeshColliderS : ColliderS
             tri.Calc();
             triDatas[i] = tri;
         }
+        */
     }
 
+    /*
     public override Vector4 PointClose(Vector4 point)
     {
         Vector4 outV = new Vector4();
@@ -273,6 +288,71 @@ public class MeshColliderS : ColliderS
                 if (prev1 == point1) return; //if we get back the same point, stop here
                 prev1 = point1;
             }
+        }
+    }
+    */
+
+    public override Vector4 PointClose(Vector4 point)
+    {
+        if (normals.Length == 0) return point;
+
+        float largestDot = -1;
+        int largestDotIndex = 0;
+
+        for (int i = 0; i < normals.Length; i++)
+        {
+            float dot = Vector4.Dot(normals[i], point);
+            if (dot > largestDot) {
+                largestDot = dot;
+                largestDotIndex = i;
+            }
+        }
+
+        Vector4 outV = (point - largestDot*normals[largestDotIndex]).normalized;
+
+        float normalDistanceDot = Vector4.Dot(point,outV);
+
+        for (int i = 0; i < verticiesWorld.Length; i++)
+        {
+            float dot = Vector4.Dot(verticiesWorld[i], point);
+
+            if (dot > normalDistanceDot)
+            {
+                outV = verticiesWorld[i];
+                normalDistanceDot = dot;
+            }
+        }
+
+        for (int i = 0; i < edges.Length; i++)
+        {
+            Vector4 closePoint = UFunc.SlerpPointClose(verticiesWorld[edges[i].x],verticiesWorld[edges[i].y], point);
+
+            float dot = Vector4.Dot(closePoint, point);
+
+            if (dot > normalDistanceDot)
+            {
+                outV = verticiesWorld[i];
+                normalDistanceDot = dot;
+            }
+        }
+
+        return outV;
+    }
+
+    public void LineClose(Vector4 v1, Vector4 v2, ref Vector4 outLine, ref Vector4 outTri)
+    {
+        Vector4 p1 = PointClose(v1);
+        Vector4 p2 = PointClose(v2);
+
+        if (Vector4.Dot(p1,v1) > Vector4.Dot(p2,v2))
+        {
+            outLine = v1;
+            outTri = p1;
+        }
+        else
+        {
+            outLine = v2;
+            outTri = p2;
         }
     }
 }
