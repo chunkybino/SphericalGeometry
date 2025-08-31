@@ -496,57 +496,6 @@ public static class UFunc
             close1 = close1_set2;
             close2 = close2_set2;
         }
-
-        //Debug.Log(DistanceS(outV,outU));
-
-        //close1 = UFunc.SlerpPointCloseUnclamped(v1,v2,u1);
-        //close2 = u1;
-
-        /*
-        return;
-
-        float maxDot = Vector4.Dot(outV,outU);
-
-        bool onArc1 = UFunc.BetweenS(v1,v2,outV) && UFunc.BetweenS(u1,u2,outU);
-        bool onArc2 = UFunc.BetweenS(v1,v2,-outV) && UFunc.BetweenS(u1,u2,-outU);
-
-        if (onArc2) {
-            outV *= -1;
-            outU *= -1;
-        }
-
-        Debug.Log(onArc1+" "+onArc2);
-
-        if (!onArc1 && !onArc2 && false) {
-            maxDot = -1;
-            Vector4 v1Close = UFunc.SlerpPointClose(u1,u2, v1);
-            Vector4 v2Close = UFunc.SlerpPointClose(u1,u2, v2);
-            Vector4 u1Close = UFunc.SlerpPointClose(v1,v2, u1);
-            Vector4 u2Close = UFunc.SlerpPointClose(v1,v2, u2);
-
-            int chooseInt = 0;
-            CheckDot(v1,v1Close, 1);
-            CheckDot(v2,v2Close, 2);
-            CheckDot(u1Close,u1, 3);
-            CheckDot(u2Close,u2, 4);
-
-            Debug.Log(chooseInt);
-
-            void CheckDot(Vector4 vPoint, Vector4 uPoint, int i)
-            {
-                if (Vector4.Dot(vPoint,uPoint) > maxDot) {
-                    maxDot = Vector4.Dot(vPoint,uPoint);
-                    outV = vPoint;
-                    outU = uPoint;
-
-                    chooseInt = i;
-                }
-            }
-        }
-
-        close1 = outV;
-        close2 = outU;
-        */
     }
     public static void DoubleArcCloseUnclamped(Vector4 v1, Vector4 v2, Vector4 u1, Vector4 u2, ref Vector4 close1, ref Vector4 close2)
     {
@@ -566,51 +515,14 @@ public static class UFunc
             close2 *= -1;
         }
     }
-    /*
-    public static float SlerpPointCloseFactor(Vector4 v1, Vector4 v2, Vector4 target, bool unclamped = false, bool doPrint = false)
+
+    public static Vector4 ArcPlaneIntersect(Vector4 planeNorm, Vector4 arc1, Vector4 arc2)
     {
-        float dot1 = Clamp1(Dot(v1,v2));
-        float dot2 = Clamp1(Dot(v1,target));
-        float dot3 = Clamp1(Dot(v2,target));
+        Vector4 sphereNorm1 = HyperCross(planeNorm, arc1, arc2).normalized;
+        Vector4 sphereNorm2 = HyperCross(sphereNorm1, arc1, arc2).normalized;
 
-        float arc = Mathf.Acos(dot1);
-
-        if (arc == 0) return 0;
-
-        //float sign = Mathf.Sign(dot2 - dot1*Mathf.Cos(arc));
-        float sign = Mathf.Sign(dot3);
-
-        float tan = Mathf.Atan(((dot2/dot3) - dot1) / Mathf.Sin(arc));
-        if (dot2 == 0 || dot1 == 0) tan = Mathf.PI/2;
-
-        //float factor = ( (sign*Mathf.PI/2) + tan ) / arc;
-        if (sign == -1) {
-            tan =  Mathf.PI + tan;
-            if (tan > Mathf.PI) tan -= 2*Mathf.PI;
-        }
-
-        float factor = 1 - tan/arc;
-        if (doPrint) {
-            Debug.Log(sign);
-            Debug.Log(dot2+" "+dot3);
-            Debug.Log(tan+" "+arc);
-            Debug.Log(factor);
-            Debug.Log(-factor+1);
-        }
-
-        if (unclamped) return factor;
-
-        //check edges
-        if (factor < 0 || factor > 1)
-        {
-            factor = dot2 > dot3 ? 0 : 1; //take greatest, since we actual comparing dot product, not distance
-        }
-
-        if (doPrint) Debug.Log(factor);
-
-        return factor;
+        return HyperCross(planeNorm,sphereNorm1,sphereNorm2);
     }
-    */
 
     public static Vector4 ProjectVectorToPlane(Vector4 plane1, Vector4 plane2, Vector4 v)
     {

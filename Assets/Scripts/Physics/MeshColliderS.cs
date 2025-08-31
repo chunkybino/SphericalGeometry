@@ -148,149 +148,7 @@ public class MeshColliderS : ColliderS
         {
             normals[i] = UFunc.HyperCross(verticiesWorld[triangles[i].x],verticiesWorld[triangles[i].y],verticiesWorld[triangles[i].z]).normalized;
         }
-
-        /*
-        triDatas = new TriData[triangles.Length];
-
-        for (int i = 0; i < triangles.Length; i++) {
-            TriData tri = new TriData();
-            tri.mesh = this;
-            tri.vertexIndicies = triangles[i];
-            tri.edgeIndicies = new Vector3Int(
-                edgesDict[new Vector2Int(triangles[i].x,triangles[i].y)],
-                edgesDict[new Vector2Int(triangles[i].y,triangles[i].z)],
-                edgesDict[new Vector2Int(triangles[i].z,triangles[i].x)]
-            );
-            tri.Calc();
-            triDatas[i] = tri;
-        }
-        */
     }
-
-    /*
-    public override Vector4 PointClose(Vector4 point)
-    {
-        Vector4 outV = new Vector4();
-        float outDot = 0;
-
-        //true = vertex/edge at corosponding index will not be checked
-        //while looping through triangles, if ourporjected point has a negative dot product with the edge normal
-        //that edge becomes invalid, only check edges that have only positive dot products
-        bool[] invalidEdges = new bool[edges.Length];
-        //if a a projected point hase a positive dot with an opposite edge to a vertex, that vertex becoms invalid
-        bool[] invalidVerticies = new bool[verticiesWorld.Length];
-
-        bool foundFace = false;
-
-        for (int i = 0; i < triangles.Length; i++)
-        {
-            TriData tri = triDatas[i];
-            Vector4 v1 = tri.GetVertex(0);
-            Vector4 v2 = tri.GetVertex(1);
-            Vector4 v3 = tri.GetVertex(2);
-
-            Vector4 proj = (point - tri.center*UFunc.Dot(point, tri.center)).normalized;
-
-            float[] dots = {
-                UFunc.Dot(tri.edgeNormals[0], proj),
-                UFunc.Dot(tri.edgeNormals[1], proj),
-                UFunc.Dot(tri.edgeNormals[2], proj)
-            };
-
-            if  (dots[0] > 0 && dots[1] > 0 && dots[2] > 0)
-            {
-                print("how " + gameObject.name);
-            }
-
-            if (dots[0] < 0 && dots[1] < 0 && dots[2] < 0)
-            {
-                float dot = UFunc.Dot(point, proj);
-                if (!foundFace || dot > outDot) {
-                    outV = proj;
-                    outDot = dot;
-                    foundFace = true;
-                }
-            }
-            else if (!foundFace && false) //if we've already found a face, dont bother checking edges
-            {
-                //invalidate any edge where the other 2 edges have negative dots
-                if (dots[0] < 0) invalidEdges[tri.edgeIndicies.x] = true;
-                if (dots[1] < 0) invalidEdges[tri.edgeIndicies.y] = true;
-                if (dots[2] < 0) invalidEdges[tri.edgeIndicies.z] = true;
-
-                if (dots[0] < 0 || dots[2] < 0) invalidVerticies[tri.vertexIndicies.x] = true;
-                if (dots[1] < 0 || dots[0] < 0) invalidVerticies[tri.vertexIndicies.y] = true;
-                if (dots[2] < 0 || dots[1] < 0) invalidVerticies[tri.vertexIndicies.y] = true;
-            }
-        }
-
-        //if our point projects onto one of the faces, return that point
-        if (foundFace) return outV;
-
-        //if not, check edges next
-        bool found = false;
-
-        for (int i = 0; i < edges.Length; i++) 
-        {
-            if (invalidEdges[i]) continue;
-            
-            Vector4 close = UFunc.SlerpPointClose(verticiesWorld[edges[i].x], verticiesWorld[edges[i].y], point);
-            float dot = UFunc.Dot(close,point);
-            if (!found || dot > outDot) {
-                outV = close;
-                outDot = dot;
-                found = true;
-            }
-        }
-
-        for (int i = 0; i < verticiesWorld.Length; i++) 
-        {
-            if (invalidVerticies[i]) continue;
-
-            float dot = UFunc.Dot(verticiesWorld[i],point);
-            if (!found || dot > outDot) {
-                outV = verticiesWorld[i];
-                outDot = dot;
-                found = true;
-            }
-        }
-
-        return outV;
-    }
-
-    public void LineClose(Vector4 v1, Vector4 v2, ref Vector4 outLine, ref Vector4 outTri)
-    {
-        Vector4[] points = new Vector4[4];
-
-        FindMin(0, ref points[0], ref points[1]);
-        FindMin(1, ref points[2], ref points[3]);
-
-        //take the closest
-        if (UFunc.Dot(points[0],points[1]) > UFunc.Dot(points[2],points[3])) {
-            outLine = points[0];
-            outTri = points[1];
-        } else {
-            outLine = points[2];
-            outTri = points[3];
-        }
-
-        void FindMin(float startT, ref Vector4 point1, ref Vector4 point2)
-        {
-            int iterations = 6;
-
-            point1 = UFunc.Slerp4(v1,v2,startT);
-            Vector4 prev1 = point1;
-
-            for (int i = 0; i < iterations; i++)
-            {
-                point2 = PointClose(point1);
-                point1 = UFunc.SlerpPointClose(v1,v2,point2);
-                if (prev1 == point1) return; //if we get back the same point, stop here
-                prev1 = point1;
-            }
-        }
-    }
-    */
 
     public override Vector4 PointClose(Vector4 point)
     {
@@ -341,19 +199,173 @@ public class MeshColliderS : ColliderS
 
     public void LineClose(Vector4 v1, Vector4 v2, ref Vector4 outLine, ref Vector4 outTri)
     {
-        Vector4 p1 = PointClose(v1);
-        Vector4 p2 = PointClose(v2);
+        Vector4 projPoint1 = v1;
+        Vector4 projPoint2 = v2;
 
-        if (Vector4.Dot(p1,v1) > Vector4.Dot(p2,v2))
+        for (int i = 0; i < normals.Length; i++)
         {
-            outLine = v1;
-            outTri = p1;
+            float d1 = Vector4.Dot(projPoint1,normals[i]);
+            if (d1 > 0) {
+                projPoint1 = (projPoint1 - d1*normals[i]).normalized;
+            }
+
+            float d2 = Vector4.Dot(projPoint2,normals[i]);
+            if (d2 > 0) {
+                projPoint2 = (projPoint2 - d2*normals[i]).normalized;
+            }
+        }
+
+        float closeDistanceDot = Vector4.Dot(v1,projPoint1);
+        Vector4 closeTri = projPoint1;
+        Vector4 closeLine = v1;
+        if (Vector4.Dot(v1,projPoint2) < closeDistanceDot)
+        {
+            closeDistanceDot = Vector4.Dot(v2,projPoint2);
+            closeTri = projPoint2;
+            closeLine = v2;
+        }
+
+        print(closeTri+" "+closeLine+" "+closeDistanceDot);
+
+        //closeDistanceDot = -1;
+
+        for (int i = 0; i < edges.Length; i++)
+        {
+            Vector4 close1 = new Vector4();
+            Vector4 close2 = new Vector4();
+            UFunc.DoubleArcClose(verticiesWorld[edges[i].x],verticiesWorld[edges[i].y], v1, v2, ref close1, ref close2);
+
+            Vector4 norm = UFunc.DirectionFromTo(close1,close2);
+
+            print("hi "+Vector4.Dot(norm,close2)+" "+Vector4.Dot(norm,v1)+" "+Vector4.Dot(norm,v2));
+            //float closeDot = Vector4.Dot(norm,close2);
+
+            bool invalidEdge = false; //check all the verticies, making sure they arnt further outward than our capsule, if they are, ignore this edge
+            float vertexDir = 1;
+            for (int j = 0; j < verticiesWorld.Length; j++)
+            {
+                float vertDot = Vector4.Dot(norm, verticiesWorld[j]);
+                print(vertDot);
+
+                if (j == 0) vertexDir = Mathf.Sign(vertDot);
+                if (vertexDir == 1)
+                {
+                    if (vertDot < 0.01f) {
+                        invalidEdge = true;
+                        break;
+                    }
+                }
+                else
+                {
+                    if (vertDot > 0.01f) {
+                        invalidEdge = true;
+                        break;
+                    }
+                }
+            }
+
+            print(norm+" "+invalidEdge+" "+i);
+            print(verticiesWorld[edges[i].x]+" "+verticiesWorld[edges[i].y]);
+            if (invalidEdge) continue;
+
+            float thisDot = Vector4.Dot(close1,close2);
+            //print(thisDot+" "+close1+" "+close2+" "+closeDistanceDot);
+            if (thisDot > closeDistanceDot)
+            {
+                closeDistanceDot = thisDot;
+                closeTri = close1;
+                closeLine = close2;
+            }
+        }
+
+        print(closeTri+" "+closeLine+" "+closeDistanceDot+" "+2);
+
+        outLine = closeLine;
+        outTri = closeTri;
+
+        /*
+        //faces
+        float minFaceDot = 999;
+        Vector4 minFaceNormal = new Vector4();
+
+        for (int i = 0; i < normals.Length; i++)
+        {
+            float thisMinDot = Mathf.Min(Vector4.Dot(v1,normals[i]), Vector4.Dot(v2,normals[i]));
+
+            if (thisMinDot < minFaceDot) {
+                minFaceDot = thisMinDot;
+                minFaceNormal = normals[i];
+            }
+        }
+
+        Vector4 faceClose = new Vector4();
+        Vector4 faceCloseLinePoint = new Vector4();
+
+        if (Vector4.Dot(v1,minFaceNormal) <  Vector4.Dot(v2,minFaceNormal))
+        {
+            faceClose = (v1 - Vector4.Dot(v1,minFaceNormal)*minFaceNormal).normalized;
+            faceCloseLinePoint = v1;
         }
         else
         {
-            outLine = v2;
-            outTri = p2;
+            faceClose = (v2 - Vector4.Dot(v2,minFaceNormal)*minFaceNormal).normalized;
+            faceCloseLinePoint = v2;
         }
+
+        //edges
+        float closeEdgeDot = -1;
+        Vector4 closeEdgePoint = new Vector4();
+        Vector4 closeEdgeLinePoint = new Vector4();
+        for (int i = 0; i < edges.Length; i++)
+        {
+            Vector4 close1 = new Vector4();
+            Vector4 close2 = new Vector4();
+            UFunc.DoubleArcClose(verticiesWorld[edges[i].x],verticiesWorld[edges[i].y], v1, v2, ref close1, ref close2);
+
+            float thisDot = Vector4.Dot(close1,close2);
+            if (thisDot > closeEdgeDot)
+            {
+                closeEdgePoint = close1;
+                closeEdgeLinePoint = close2;
+            }
+        }
+
+
+        bool facePointInRange = true;
+        for (int i = 0; i < normals.Length; i++)
+        {
+            float dot = Vector4.Dot(faceClose,normals[i]);
+            if (dot > 0.001f) {
+                facePointInRange = false;
+                break;
+            }
+        }
+
+        print(facePointInRange+" "+UFunc.DistanceS(faceClose, faceCloseLinePoint)+" "+UFunc.DistanceS(closeEdgePoint, closeEdgeLinePoint));
+        print(closeEdgeLinePoint+" "+closeEdgePoint);
+
+        if (facePointInRange)
+        {
+            float distanceFace = UFunc.DistanceS(faceClose, faceCloseLinePoint);
+            float distanceEdge = UFunc.DistanceS(closeEdgePoint, closeEdgeLinePoint);
+
+            if (distanceEdge < distanceFace)
+            {
+                outLine = closeEdgeLinePoint;
+                outTri = closeEdgePoint;
+            }
+            else
+            {
+                outLine = faceCloseLinePoint;
+                outTri = faceClose;
+            }
+        }
+        else
+        {
+            outLine = closeEdgeLinePoint;
+            outTri = closeEdgePoint;
+        }
+        */
     }
 }
  

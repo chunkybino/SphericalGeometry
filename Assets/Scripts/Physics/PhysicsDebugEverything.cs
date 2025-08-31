@@ -13,69 +13,20 @@ public class PhysiicsDebugEverything : MonoBehaviour
     [SerializeField] bool doPointClose;
     [SerializeField] bool flipPointClose;
 
+    [SerializeField] MeshColliderS mesh1;
+    [SerializeField] bool meshCapClose;
+
     // Update is called once per frame
     void Update()
     {
-        /*
-        Vector4 v1 = cap1.point1;
-        Vector4 v2 = cap1.point2;
-        Vector4 u1 = cap2.point1;
-        Vector4 u2 = cap2.point2;
-
-        Vector4 sphereNorm = UFunc.HyperCross(v1,v2,u1).normalized;
-
-        Vector4 u3 = (u2 - Vector4.Dot(u2,sphereNorm)*sphereNorm).normalized; //u2 projected onto sphere of v1,v2,u1
-
-        print(Vector4.Dot(u2,sphereNorm));
-        print(u1 +" "+ u2 +" "+u3);
-
-        //print(Vector4.Dot(sphereNorm,v1)+" "+Vector4.Dot(sphereNorm,v2)+" "+Vector4.Dot(sphereNorm,u1));
-
-        Vector4 sphere1 = UFunc.HyperCross(v1,v2,sphereNorm).normalized;
-        Vector4 sphere2 = UFunc.HyperCross(u1,u3,sphereNorm).normalized;
-
-        Vector4 close1 = UFunc.HyperCross(sphere1,sphere2,sphereNorm).normalized;
-        Vector4 close2 = UFunc.SlerpPointCloseUnclamped(u1,u2,close1);
-
-        close2 = UFunc.ClampBetweenVectors(close2, u1,u2);
-        close1 = UFunc.SlerpPointClose(v1,v2,close2);
-
-        Vector4 pos = new Vector4();
-
-        switch (pointIndex)
+        if (meshCapClose)
         {
-            case 0:
-                pos = u3;
-                break;
-            case 1:
-                pos = close1;
-                break;
-            case 2:
-                pos = close2;
-                break;
-            case 3:
-                pos = sphereNorm;
-                break;
-            case 4:
-                pos = sphere1;
-                break;
-            case 5:
-                pos = sphere2;
-                break;
-        }
+            Vector4 linePoint = new Vector4();
+            Vector4 meshPoint = new Vector4();
+            mesh1.LineClose(cap1.point1,cap1.point2, ref linePoint, ref meshPoint);
 
-        if (doPointClose)
-        {
-            pos = UFunc.SlerpPointCloseUnclamped(v1,v2,u1);
-            if (flipPointClose) {
-                pos = UFunc.SlerpPointCloseUnclamped(v1,v2,u2);
-            }
-        }
-
-        transform4.MoveRotor(new Rotor(transform4.positionNorm,pos));
-
-        return;
-        */
+            transform4.MoveRotor(new Rotor(transform4.positionNorm,meshPoint));
+        }   
 
         if (doPointClose)
         {

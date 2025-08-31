@@ -312,13 +312,13 @@ MonoBehaviour:
   children:
   - {fileID: 0}
   - {fileID: 0}
-  - {fileID: 1785689454}
-  - {fileID: 1235126669}
-  - {fileID: 973035766}
-  - {fileID: 972909453}
-  - {fileID: 673748456}
-  - {fileID: 670483998}
   - {fileID: 380648244}
+  - {fileID: 670483998}
+  - {fileID: 673748456}
+  - {fileID: 972909453}
+  - {fileID: 973035766}
+  - {fileID: 1235126669}
+  - {fileID: 1785689454}
   m_matrix:
     e00: 1
     e01: 0
@@ -423,15 +423,15 @@ MonoBehaviour:
   children:
   - {fileID: 0}
   - {fileID: 0}
-  - {fileID: 2098311261}
-  - {fileID: 1620956664}
-  - {fileID: 1466526957}
-  - {fileID: 724789085}
-  - {fileID: 607435943}
-  - {fileID: 68174992}
   - {fileID: 1457274184}
   - {fileID: 696461020}
+  - {fileID: 68174992}
+  - {fileID: 607435943}
+  - {fileID: 724789085}
+  - {fileID: 1466526957}
+  - {fileID: 1620956664}
   - {fileID: 2078316006}
+  - {fileID: 2098311261}
   m_matrix:
     e00: 1
     e01: 0
@@ -513,7 +513,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &161632703
 Transform:
   m_ObjectHideFlags: 0
@@ -5717,6 +5717,19 @@ MonoBehaviour:
   - {fileID: 1026110816}
   - {fileID: 1872592469}
   - {fileID: 785149374}
+  - {fileID: 1785689453}
+  - {fileID: 1620956661}
+  - {fileID: 1606570715}
+  - {fileID: 1466526954}
+  - {fileID: 1235126668}
+  - {fileID: 973035765}
+  - {fileID: 972909452}
+  - {fileID: 724789088}
+  - {fileID: 673748455}
+  - {fileID: 670483997}
+  - {fileID: 607435940}
+  - {fileID: 380648247}
+  - {fileID: 275762486}
   disableShadows: 1
   updateFullBuffer: 0
 --- !u!4 &1083750112
@@ -11556,8 +11569,8 @@ MonoBehaviour:
   - {fileID: 2098311261}
   - {fileID: 0}
   - {fileID: 0}
-  - {fileID: 1606570716}
   - {fileID: 275762487}
+  - {fileID: 1606570716}
   m_matrix:
     e00: 1
     e01: 0
