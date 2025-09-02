@@ -55,7 +55,14 @@ public class PhysiicsDebugEverything : MonoBehaviour
                 close2 = close2_2;
             }
 
-            transform4.MoveRotor(new Rotor(transform4.positionNorm,close1));
+            if (!flipPointClose)
+            {
+                transform4.MoveRotor(new Rotor(transform4.positionNorm,close1));
+            }
+            else
+            {
+                transform4.MoveRotor(new Rotor(transform4.positionNorm,close2));
+            }
         }
     }
 }

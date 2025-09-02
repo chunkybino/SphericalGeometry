@@ -19,6 +19,8 @@ public class MeshColliderS : ColliderS
     [SerializeField] Vector2Int[] edges = new Vector2Int[0];
     Dictionary<Vector2Int,int> edgesDict = new Dictionary<Vector2Int,int>();
 
+    [SerializeField] List<Vector2Int> edgeTriangles = new List<Vector2Int>(); //the triangles that are connected to each edge
+
     //[SerializeField] TriData[] triDatas = new TriData[0];
 
     public override float boundingRadius {get{return furthestVertexDistance;}}
@@ -112,7 +114,7 @@ public class MeshColliderS : ColliderS
         for (int i = 0; i < triDatas.Length; i++) {
             triDatas[i].Calc();
         }
-        */ 
+        */
     }
     void CalcTriangles()
     {
@@ -141,6 +143,37 @@ public class MeshColliderS : ColliderS
             }
         }
         edges = UFunc.List2Array(edgeList);
+
+        edgeTriangles.Clear();
+        for (int i = 0; i < triangles.Length; i++)
+        {
+            Vector3Int tri = triangles[i];
+            Vector2Int e1 = new Vector2Int(tri.x,tri.y);
+            Vector2Int e2 = new Vector2Int(tri.y,tri.z);
+            Vector2Int e3 = new Vector2Int(tri.z,tri.x);
+
+            int edgeInt1 = edgesDict[e1];
+            int edgeInt2 = edgesDict[e2];
+            int edgeInt3 = edgesDict[e3];
+
+            if (edgeInt1 < edgeTriangles.Count) {
+                edgeTriangles[edgeInt1] = new Vector2Int(edgeTriangles[edgeInt1].x,i);
+            } else {
+                edgeTriangles.Add(new Vector2Int(i,i));
+            }
+
+            if (edgeInt2 < edgeTriangles.Count) {
+                edgeTriangles[edgeInt2] = new Vector2Int(edgeTriangles[edgeInt2].x,i);
+            } else {
+                edgeTriangles.Add(new Vector2Int(i,i));
+            }
+
+            if (edgeInt3 < edgeTriangles.Count) {
+                edgeTriangles[edgeInt3] = new Vector2Int(edgeTriangles[edgeInt3].x,i);
+            } else {
+                edgeTriangles.Add(new Vector2Int(i,i));
+            }
+        }
 
 
         normals = new Vector4[triangles.Length];
@@ -197,175 +230,116 @@ public class MeshColliderS : ColliderS
         return outV;
     }
 
-    public void LineClose(Vector4 v1, Vector4 v2, ref Vector4 outLine, ref Vector4 outTri)
+    public void LineClose(Vector4 v1, Vector4 v2, ref Vector4 outLine, ref Vector4 outMesh)
     {
-        Vector4 projPoint1 = v1;
-        Vector4 projPoint2 = v2;
+        //Vector4 projPoint1 = v1;
+        //Vector4 projPoint2 = v2;
 
-        for (int i = 0; i < normals.Length; i++)
+        Vector4 closeMesh = new Vector4();
+        Vector4 closeLine = new Vector4();
+
+        float maxFaceDot = -1;
+
+        for (int i = 0; i < triangles.Length; i++)
         {
-            float d1 = Vector4.Dot(projPoint1,normals[i]);
-            if (d1 > 0) {
-                projPoint1 = (projPoint1 - d1*normals[i]).normalized;
-            }
+            Vector4 norm = normals[i];
+            
+            float d1 = Vector4.Dot(v1,norm);
+            float d2 = Vector4.Dot(v2,norm);
 
-            float d2 = Vector4.Dot(projPoint2,normals[i]);
-            if (d2 > 0) {
-                projPoint2 = (projPoint2 - d2*normals[i]).normalized;
-            }
-        }
-
-        float closeDistanceDot = Vector4.Dot(v1,projPoint1);
-        Vector4 closeTri = projPoint1;
-        Vector4 closeLine = v1;
-        if (Vector4.Dot(v1,projPoint2) < closeDistanceDot)
-        {
-            closeDistanceDot = Vector4.Dot(v2,projPoint2);
-            closeTri = projPoint2;
-            closeLine = v2;
-        }
-
-        print(closeTri+" "+closeLine+" "+closeDistanceDot);
-
-        //closeDistanceDot = -1;
-
-        for (int i = 0; i < edges.Length; i++)
-        {
-            Vector4 close1 = new Vector4();
-            Vector4 close2 = new Vector4();
-            UFunc.DoubleArcClose(verticiesWorld[edges[i].x],verticiesWorld[edges[i].y], v1, v2, ref close1, ref close2);
-
-            Vector4 norm = UFunc.DirectionFromTo(close1,close2);
-
-            print("hi "+Vector4.Dot(norm,close2)+" "+Vector4.Dot(norm,v1)+" "+Vector4.Dot(norm,v2));
-            //float closeDot = Vector4.Dot(norm,close2);
-
-            bool invalidEdge = false; //check all the verticies, making sure they arnt further outward than our capsule, if they are, ignore this edge
-            float vertexDir = 1;
-            for (int j = 0; j < verticiesWorld.Length; j++)
+            if (Mathf.Min(d1,d2) > maxFaceDot)
             {
-                float vertDot = Vector4.Dot(norm, verticiesWorld[j]);
-                print(vertDot);
-
-                if (j == 0) vertexDir = Mathf.Sign(vertDot);
-                if (vertexDir == 1)
+                if (d1 < d2)
                 {
-                    if (vertDot < 0.01f) {
-                        invalidEdge = true;
-                        break;
-                    }
+                    closeMesh = (v1 - d1*norm).normalized;
+                    closeLine = v1;
+                    maxFaceDot = d1;
                 }
                 else
                 {
-                    if (vertDot > 0.01f) {
-                        invalidEdge = true;
-                        break;
-                    }
+                    closeMesh = (v2 - d2*norm).normalized;
+                    closeLine = v2;
+                    maxFaceDot = d2;
+                }
+            }
+        }
+
+        Vector4 edgeCloseMesh = new Vector4();
+        Vector4 edgeCloseLine = new Vector4();
+        float closeEdgeDot = -1;
+
+        for (int i = 0; i < edges.Length; i++)
+        {
+            Vector4 e1 = verticiesWorld[edges[i].x];
+            Vector4 e2 = verticiesWorld[edges[i].y];
+
+            Vector4 edgePoint = new Vector4();
+            Vector4 linePoint = new Vector4();
+
+            UFunc.DoubleArcClose(e1,e2,v1,v2, ref edgePoint, ref linePoint);
+            Vector4 edgeDir = UFunc.DirectionFromTo(edgePoint, linePoint);
+
+            float minDot = 0;
+            float maxDot = 0;
+            int minDotIndex = 0;
+            int maxDotIndex = 0;
+
+            for (int j = 0; j < verticiesWorld.Length; j++)
+            {
+                Vector4 vert = verticiesWorld[j];
+
+                float dot = Vector4.Dot(edgeDir,vert);
+
+                if (dot < minDot) 
+                {
+                    minDot = dot;
+                    minDotIndex = i;
+                }
+                if (dot > maxDot) 
+                {
+                    maxDot = dot;
+                    maxDotIndex = i;
                 }
             }
 
-            print(norm+" "+invalidEdge+" "+i);
-            print(verticiesWorld[edges[i].x]+" "+verticiesWorld[edges[i].y]);
-            if (invalidEdge) continue;
-
-            float thisDot = Vector4.Dot(close1,close2);
-            //print(thisDot+" "+close1+" "+close2+" "+closeDistanceDot);
-            if (thisDot > closeDistanceDot)
+            if (Mathf.Abs(minDot) < 0.01f)
             {
-                closeDistanceDot = thisDot;
-                closeTri = close1;
-                closeLine = close2;
+                edgeDir *= -1;
             }
-        }
-
-        print(closeTri+" "+closeLine+" "+closeDistanceDot+" "+2);
-
-        outLine = closeLine;
-        outTri = closeTri;
-
-        /*
-        //faces
-        float minFaceDot = 999;
-        Vector4 minFaceNormal = new Vector4();
-
-        for (int i = 0; i < normals.Length; i++)
-        {
-            float thisMinDot = Mathf.Min(Vector4.Dot(v1,normals[i]), Vector4.Dot(v2,normals[i]));
-
-            if (thisMinDot < minFaceDot) {
-                minFaceDot = thisMinDot;
-                minFaceNormal = normals[i];
-            }
-        }
-
-        Vector4 faceClose = new Vector4();
-        Vector4 faceCloseLinePoint = new Vector4();
-
-        if (Vector4.Dot(v1,minFaceNormal) <  Vector4.Dot(v2,minFaceNormal))
-        {
-            faceClose = (v1 - Vector4.Dot(v1,minFaceNormal)*minFaceNormal).normalized;
-            faceCloseLinePoint = v1;
-        }
-        else
-        {
-            faceClose = (v2 - Vector4.Dot(v2,minFaceNormal)*minFaceNormal).normalized;
-            faceCloseLinePoint = v2;
-        }
-
-        //edges
-        float closeEdgeDot = -1;
-        Vector4 closeEdgePoint = new Vector4();
-        Vector4 closeEdgeLinePoint = new Vector4();
-        for (int i = 0; i < edges.Length; i++)
-        {
-            Vector4 close1 = new Vector4();
-            Vector4 close2 = new Vector4();
-            UFunc.DoubleArcClose(verticiesWorld[edges[i].x],verticiesWorld[edges[i].y], v1, v2, ref close1, ref close2);
-
-            float thisDot = Vector4.Dot(close1,close2);
-            if (thisDot > closeEdgeDot)
+            else if (Mathf.Abs(maxDot) < 0.01f)
             {
-                closeEdgePoint = close1;
-                closeEdgeLinePoint = close2;
-            }
-        }
 
-
-        bool facePointInRange = true;
-        for (int i = 0; i < normals.Length; i++)
-        {
-            float dot = Vector4.Dot(faceClose,normals[i]);
-            if (dot > 0.001f) {
-                facePointInRange = false;
-                break;
-            }
-        }
-
-        print(facePointInRange+" "+UFunc.DistanceS(faceClose, faceCloseLinePoint)+" "+UFunc.DistanceS(closeEdgePoint, closeEdgeLinePoint));
-        print(closeEdgeLinePoint+" "+closeEdgePoint);
-
-        if (facePointInRange)
-        {
-            float distanceFace = UFunc.DistanceS(faceClose, faceCloseLinePoint);
-            float distanceEdge = UFunc.DistanceS(closeEdgePoint, closeEdgeLinePoint);
-
-            if (distanceEdge < distanceFace)
-            {
-                outLine = closeEdgeLinePoint;
-                outTri = closeEdgePoint;
             }
             else
             {
-                outLine = faceCloseLinePoint;
-                outTri = faceClose;
+                print(i+" "+minDot+" "+maxDot+" invalid");
+                continue;
             }
+
+            float v1Dot = Vector4.Dot(v1, edgeDir);
+            float v2Dot = Vector4.Dot(v2, edgeDir);
+            float disDot = Mathf.Min(v1Dot,v2Dot);
+
+            if (disDot > closeEdgeDot)
+            {
+                closeEdgeDot = disDot;
+                edgeCloseMesh = edgePoint;
+                edgeCloseLine = linePoint;
+            }
+        }
+
+        print(maxFaceDot+" "+closeEdgeDot);
+
+        if (maxFaceDot > closeEdgeDot)
+        {
+            outLine = closeLine;
+            outMesh = closeMesh;
         }
         else
         {
-            outLine = closeEdgeLinePoint;
-            outTri = closeEdgePoint;
+            outLine = edgeCloseLine;
+            outMesh = edgeCloseMesh;
         }
-        */
     }
 }
  

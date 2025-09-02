@@ -286,7 +286,7 @@ public abstract class ColliderS : MonoBehaviour
         Vector4 close1 = new Vector4();
         Vector4 close2 = new Vector4();
 
-        UFunc.DoubleArcClose(c1.point1,c1.point2,c2.point1,c2.point2, ref close1, ref close2);
+        c1.LineClose(c2.point1, c2.point2, ref close1, ref close2);
 
         return PointRadiusContact(close1, c1.m_radius, close2, c2.m_radius, ref contact1, ref contact2, ref contactNorm);
     }
