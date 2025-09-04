@@ -253,6 +253,15 @@ public abstract class ColliderS : MonoBehaviour
                         case 3: //sphere-triangle
                             return CapsuleOnMesh(col1.capsule, col2.mesh, ref con1, ref con2, ref conNorm);
                     }
+                case 3: //mesh
+                    if (type2 == 3)
+                    {
+                        return MeshOnMesh(col1.mesh, col2.mesh, ref con1, ref con2, ref conNorm);
+                    } 
+                    else
+                    {
+                        return 0;
+                    }
             }
         }
     }
@@ -307,6 +316,13 @@ public abstract class ColliderS : MonoBehaviour
 
         c2.LineClose(c1.point1, c1.point2, ref linePoint, ref meshPoint);
 
+        print(UFunc.DistanceS(meshPoint,linePoint)+" "+meshPoint+" "+linePoint);
+
         return PointRadiusContact(linePoint, c1.m_radius, meshPoint, 0, ref contact1, ref contact2, ref contactNorm);
+    }
+
+    public static float MeshOnMesh(MeshColliderS c1, MeshColliderS c2, ref Vector4 contact1, ref Vector4 contact2, ref Vector4 contactNorm)
+    {
+        return 0;
     }
 }

@@ -79,7 +79,7 @@ public static class UFunc
 
     public static Vector4 DirectionFromTo(Vector4 from, Vector4 to)
     {
-        return ProjectToVectorNormal(to-from,from).normalized;
+        return ProjectToVectorNormal((to-from).normalized,from).normalized;
     }
 
     public static Vector3 SterographicProjection(Vector4 pos, float radius)
@@ -499,8 +499,26 @@ public static class UFunc
     }
     public static void DoubleArcCloseUnclamped(Vector4 v1, Vector4 v2, Vector4 u1, Vector4 u2, ref Vector4 close1, ref Vector4 close2)
     {
-        //findes closest point on v arc to u arc (final point will be on v)
+        int iterations = 5;
 
+        float slerpFactor = 0;
+
+        for (int i = 0; i < iterations; i++)
+        {
+            Vector4 point = Slerp4Angle(v1,v2,slerpFactor);
+            Vector4 close = SlerpPointCloseUnclamped(u1,u2,point);
+
+            Vector4 tangent = Slerp4Angle(v1,v2,slerpFactor+Mathf.PI/2);
+            Vector4 closeDir = ProjectToVectorNormal(close,point).normalized;
+            float angleError = Mathf.PI/2 - DistanceS(tangent,closeDir);
+
+            slerpFactor += angleError;
+        }
+
+        close1 = Slerp4Angle(v1,v2,slerpFactor);
+        close2 = SlerpPointCloseUnclamped(u1,u2,close1);
+
+        /*
         Vector4 sphereNorm = HyperCross(v1,v2,u1).normalized;
 
         Vector4 u3 = (u2 - Vector4.Dot(u2,sphereNorm)*sphereNorm).normalized; //u2 projected onto sphere of v1,v2,u1
@@ -514,6 +532,7 @@ public static class UFunc
         if (Vector4.Dot(close1,close2) < 0) {
             close2 *= -1;
         }
+        */
     }
 
     public static Vector4 ArcPlaneIntersect(Vector4 planeNorm, Vector4 arc1, Vector4 arc2)

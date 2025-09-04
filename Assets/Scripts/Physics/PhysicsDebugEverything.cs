@@ -16,6 +16,9 @@ public class PhysiicsDebugEverything : MonoBehaviour
     [SerializeField] MeshColliderS mesh1;
     [SerializeField] bool meshCapClose;
 
+    [SerializeField] SphereColliderS sphere1;
+    [SerializeField] bool meshSphereClose;
+
     // Update is called once per frame
     void Update()
     {
@@ -27,6 +30,13 @@ public class PhysiicsDebugEverything : MonoBehaviour
 
             transform4.MoveRotor(new Rotor(transform4.positionNorm,meshPoint));
         }   
+
+        if (meshSphereClose)
+        {
+            Vector4 closeMesh = mesh1.PointClose(sphere1.center);
+
+            transform4.MoveRotor(new Rotor(transform4.positionNorm,closeMesh));
+        }
 
         if (doPointClose)
         {

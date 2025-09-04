@@ -8,7 +8,7 @@ public class CapsuleColliderS : ColliderS
     public override float m_radius {get{return radius*transform4.scale;}}
     public float m_length {get{return length*transform4.scale;}}
 
-    public override float boundingRadius {get{return m_radius + m_length;}}
+    public override float boundingRadius {get{return m_radius + 2*m_length;}}
 
     public Axis axis;
     public enum Axis {X,Y,Z};
