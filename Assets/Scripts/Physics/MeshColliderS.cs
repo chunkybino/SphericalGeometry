@@ -252,27 +252,47 @@ public class MeshColliderS : ColliderS
 
     public void LineClose(Vector4 v1, Vector4 v2, ref Vector4 outLine, ref Vector4 outMesh)
     {
-        List<Vector4> checkDirections = new List<Vector4>();
-        List<Vector4> directionMeshPoints = new List<Vector4>();
-        List<Vector4> directionLinePoints = new List<Vector4>();
-        //List<Vector4> linePoints = new List<Vector4>();
+        float maxAngleSpace = -2;
+        Vector4 maxSpaceMesh = new Vector4();
+        Vector4 maxSpaceLine = new Vector4();
 
         for (int i = 0; i < triangles.Length; i++)
         {
             Vector4 norm = normals[i];
-            checkDirections.Add(norm);
 
             float dot1 = Vector4.Dot(v1,norm);
             float dot2 = Vector4.Dot(v2,norm);
 
+            Vector4 meshP = new Vector4();
+            Vector4 lineP = new Vector4();
+            float minD = 0;
+
             if (dot1 < dot2) {
-                directionMeshPoints.Add(UFunc.ProjectToVectorNormal(v1,norm).normalized);
-                directionLinePoints.Add(v1);
+                meshP = UFunc.ProjectToVectorNormal(v1,norm).normalized;
+                lineP = v1;
+                minD = dot1;
             } else {
-                directionMeshPoints.Add(UFunc.ProjectToVectorNormal(v2,norm).normalized);
-                directionLinePoints.Add(v2);
+                meshP = UFunc.ProjectToVectorNormal(v2,norm).normalized;
+                lineP = v2;
+                minD = dot2;
+            }
+
+            float ang = Mathf.PI/2 - Mathf.Acos(minD); 
+
+            print(i+" "+meshP+" "+lineP+" "+dot1+" "+dot2+" "+ang+" "+maxAngleSpace);
+
+            if (ang > maxAngleSpace)
+            {
+                print("new face "+ang+" "+lineP+" "+meshP);
+                maxAngleSpace = ang;
+                maxSpaceLine = lineP;
+                maxSpaceMesh = meshP;
             }
         }
+
+        List<Vector4> checkDirections = new List<Vector4>();
+        List<Vector4> directionMeshPoints = new List<Vector4>();
+        List<Vector4> directionLinePoints = new List<Vector4>();
 
         for (int i = 0; i < edges.Length; i++)
         {
@@ -284,6 +304,14 @@ public class MeshColliderS : ColliderS
             UFunc.DoubleArcClose(e1,e2,v1,v2, ref edgeC, ref lineC);
             Vector4 edgeDir = UFunc.DirectionFromTo(edgeC,lineC);
 
+            print("edge "+i+" "+edgeC+" "+lineC+" "+UFunc.DistanceS(edgeC,lineC));
+
+            Vector4 proj1 = UFunc.ProjectVectorToPlane(edgeC,lineC,v1);
+            Vector4 proj2 = UFunc.ProjectVectorToPlane(edgeC,lineC,v2);
+            print(lineC+" "+proj1+" "+proj2+" "+UFunc.Dot(edgeDir,proj1)+" "+UFunc.Dot(edgeDir,proj1));
+            print(proj1.magnitude+" "+proj2.magnitude+" "+UFunc.DistanceS(proj1,proj2));
+            print(edgeC+" "+lineC);
+
             checkDirections.Add(edgeDir);
             checkDirections.Add(-edgeDir);
 
@@ -293,6 +321,7 @@ public class MeshColliderS : ColliderS
             directionLinePoints.Add(lineC);
         }
 
+        /*
         for (int i = 0; i < verticiesWorld.Length; i++)
         {
             Vector4 vert = verticiesWorld[i];
@@ -302,225 +331,174 @@ public class MeshColliderS : ColliderS
             Vector4 dir = UFunc.DirectionFromTo(vert,close);
 
             checkDirections.Add(dir);
-            //checkDirections.Add(-dir);
 
             directionMeshPoints.Add(vert);
-            //directionMeshPoints.Add(vert);
             directionLinePoints.Add(close);
-            //directionLinePoints.Add(close);
+        }
+        */
+        
+
+        for (int i = 0; i < checkDirections.Count; i++)
+        {
+            Vector4 dir = checkDirections[i];
+            Vector4 dirMesh = directionMeshPoints[i];
+
+            float maxMeshDot = -1;
+            for (int j = 0; j < verticiesWorld.Length; j++) {
+                Vector4 projV = UFunc.ProjectVectorToPlane(dirMesh,dir, verticiesWorld[j]);
+                float d = Vector4.Dot(projV, dir);
+                maxMeshDot = Mathf.Max(d,maxMeshDot);
+            }
+
+            Vector4 projLine1 = UFunc.SlerpPointCloseUnclamped(dirMesh,dir, v1);
+            Vector4 projLine2 = UFunc.SlerpPointCloseUnclamped(dirMesh,dir, v2);
+
+            float minLineDot = Mathf.Min(Vector4.Dot(projLine1, dir),Vector4.Dot(projLine2, dir));
+
+            float meshAng = Mathf.PI/2 - Mathf.Acos(maxMeshDot);
+            float lineAng = Mathf.PI/2 - Mathf.Acos(minLineDot);
+
+            float angleSpace = lineAng - meshAng;
+
+            print(i+" "+checkDirections[i]+" "+projLine1+" "+Vector4.Dot(projLine1,dir)+" "+projLine2+" "+Vector4.Dot(projLine2,dir)
+            +" "+maxMeshDot+" "+minLineDot+" "+meshAng+" "+lineAng+" "+angleSpace);
+
+            if (maxMeshDot > 0.05f) continue;
+
+            //if (maxMeshDot > 0.05f) continue;
+
+            if (angleSpace > maxAngleSpace) {
+                maxAngleSpace = angleSpace;
+                maxSpaceLine = directionLinePoints[i];
+
+                maxSpaceMesh = directionMeshPoints[i];
+
+                maxSpaceMesh = new Rotor(maxSpaceMesh,maxSpaceLine,meshAng) * maxSpaceMesh;
+                print("newMesh "+maxSpaceMesh+" "+meshAng+" "+directionMeshPoints[i]);
+            }
+        }
+
+        //print(maxDotSpace+" "+maxSpaceMesh+" "+maxSpaceLine+" "+UFunc.DistanceS(maxSpaceMesh,maxSpaceLine));
+
+        outLine = maxSpaceLine;
+        outMesh = maxSpaceMesh;
+    }
+
+
+    public void MeshClose(MeshColliderS meshCol, ref Vector4 outThis, ref Vector4 outMesh)
+    {
+        List<Vector4> checkDirections = new List<Vector4>();
+
+        for (int i = 0; i < normals.Length; i++)
+        {
+            checkDirections.Add(normals[i]);
+        }
+        for (int i = 0; i < meshCol.normals.Length; i++)
+        {
+            checkDirections.Add(meshCol.normals[i]);
+        }
+
+        for (int i = 0; i < edges.Length; i++)
+        {
+            Vector4 e1_1 = verticiesWorld[edges[i].x];
+            Vector4 e2_1 = verticiesWorld[edges[i].y];
+
+            for (int j = 0; j < meshCol.edges.Length; j++)
+            {
+                Vector4 e1_2 = meshCol.verticiesWorld[meshCol.edges[i].x];
+                Vector4 e2_2 = meshCol.verticiesWorld[meshCol.edges[i].y];
+
+
+                Vector4 close1 = new Vector4();
+                Vector4 close2 = new Vector4();
+                UFunc.DoubleArcClose(e1_1,e2_1,e1_2,e2_2, ref close1, ref close2);
+                Vector4 edgeDir = UFunc.DirectionFromTo(close1,close2);
+
+                checkDirections.Add(edgeDir);
+                checkDirections.Add(-edgeDir);
+            }
         }
 
         float maxDotSpace = -1;
-        Vector4 maxSpaceMesh = new Vector4();
-        Vector4 maxSpaceLine = new Vector4();
+        Vector4 maxSpaceDir = new Vector4();
 
         for (int i = 0; i < checkDirections.Count; i++)
         {
             Vector4 dir = checkDirections[i];
 
-            float maxMeshDot = -1;
+            float maxMeshDot1 = -1;
+            float minMeshDot1 = 1;
             for (int j = 0; j < verticiesWorld.Length; j++) {
                 float d = Vector4.Dot(verticiesWorld[j], dir);
-                maxMeshDot = Mathf.Max(d,maxMeshDot);
+                maxMeshDot1 = Mathf.Max(d,maxMeshDot1);
+                minMeshDot1 = Mathf.Min(d,minMeshDot1);
             }
 
-            float minLineDot = Mathf.Min(Vector4.Dot(v1, dir),Vector4.Dot(v2, dir));
+            float maxMeshDot2 = -1;
+            float minMeshDot2 = 1;
+            for (int j = 0; j < meshCol.verticiesWorld.Length; j++) {
+                float d = Vector4.Dot(meshCol.verticiesWorld[j], dir);
+                maxMeshDot2 = Mathf.Max(d,maxMeshDot2);
+                minMeshDot2 = Mathf.Min(d,minMeshDot2);
+            }
 
+            float space1 = minMeshDot2 - maxMeshDot1;
+            float space2 = minMeshDot1 - maxMeshDot2;
+
+            if (space1 > space2)
+            {
+                if (space1 > maxDotSpace) {
+                    maxDotSpace = space1;
+                    maxSpaceDir = dir;
+                }
+            }
+            else
+            {
+                if (space2 > maxDotSpace) {
+                    maxDotSpace = space2;
+                    maxSpaceDir = -dir;
+                }
+            }
+
+            /*
             float dotSpace = minLineDot - maxMeshDot;
 
             int edgeNum = i - triangles.Length;
             int vertNum = edgeNum - edges.Length*2;
             print(edgeNum+" "+vertNum+" "+maxMeshDot+" "+minLineDot+" "+dotSpace+" "+dir+" "+directionMeshPoints[i]+" "+directionLinePoints[i]);
 
-            if (maxMeshDot > 0.05f) continue;
-
             if (dotSpace > maxDotSpace) {
                 maxDotSpace = dotSpace;
-                maxSpaceMesh = directionMeshPoints[i];
-                maxSpaceLine = directionLinePoints[i];
+                maxSpaceDir = dir;
             }
+            */
         }
 
-        print(maxDotSpace+" "+maxSpaceMesh+" "+maxSpaceLine+" "+UFunc.DistanceS(maxSpaceMesh,maxSpaceLine));
+        //print(maxDotSpace+" "+maxSpaceMesh+" "+maxSpaceLine+" "+UFunc.DistanceS(maxSpaceMesh,maxSpaceLine));
 
-        outLine = maxSpaceLine;
-        outMesh = maxSpaceMesh;
-    }
+        //outThis = maxSpaceLine;
+        //outMesh = maxSpaceMesh;
 
-    /*
-    public void LineClose(Vector4 v1, Vector4 v2, ref Vector4 outLine, ref Vector4 outMesh)
-    {
-        //Vector4 projPoint1 = v1;
-        //Vector4 projPoint2 = v2;
+        float maxThisDot = -1;
+        float minMeshDot = 1;
 
-        Vector4 closeMesh = new Vector4();
-        Vector4 closeLine = new Vector4();
-
-        float maxFaceDot = -1;
-
-        for (int i = 0; i < triangles.Length; i++)
+        for (int i = 0; i < verticiesWorld.Length; i++)
         {
-            Vector4 norm = normals[i];
-            
-            float d1 = Vector4.Dot(v1,norm);
-            float d2 = Vector4.Dot(v2,norm);
-
-            if (Mathf.Min(d1,d2) > maxFaceDot)
+            float d = Vector4.Dot(verticiesWorld[i], maxSpaceDir);
+            if (d > maxThisDot)
             {
-                if (d1 < d2)
-                {
-                    closeMesh = (v1 - d1*norm).normalized;
-                    closeLine = v1;
-                    maxFaceDot = d1;
-                }
-                else
-                {
-                    closeMesh = (v2 - d2*norm).normalized;
-                    closeLine = v2;
-                    maxFaceDot = d2;
-                }
+                maxThisDot = d;
+                outThis = verticiesWorld[i];
             }
         }
-
-        Vector4 edgeCloseMesh = new Vector4();
-        Vector4 edgeCloseLine = new Vector4();
-        float closeEdgeDot = -1;
-
-        for (int i = 0; i < edges.Length; i++)
+        for (int i = 0; i < meshCol.verticiesWorld.Length; i++)
         {
-            Vector4 e1 = verticiesWorld[edges[i].x];
-            Vector4 e2 = verticiesWorld[edges[i].y];
-
-            Vector4 edgePoint = new Vector4();
-            Vector4 linePoint = new Vector4();
-
-            UFunc.DoubleArcClose(e1,e2,v1,v2, ref edgePoint, ref linePoint);
-            Vector4 edgeDir = UFunc.DirectionFromTo(edgePoint, linePoint);
-
-            //float edgeCloseDot = Vector4.Dot(edgePoint,linePoint);
-
-            float minDot = 1;
-            float maxDot = -1;
-            int minDotIndex = 0;
-            int maxDotIndex = 0;
-
-            for (int j = 0; j < verticiesWorld.Length; j++)
+            float d = Vector4.Dot(meshCol.verticiesWorld[i], maxSpaceDir);
+            if (d < minMeshDot)
             {
-                if (j == edges[i].x || j == edges[i].y) continue;
-
-                Vector4 vert = verticiesWorld[j];
-
-                float dot = Vector4.Dot(edgeDir,vert);
-
-
-                if (dot < minDot) 
-                {
-                    minDot = dot;
-                    minDotIndex = j;
-                }
-                if (dot > maxDot) 
-                {
-                    maxDot = dot;
-                    maxDotIndex = j;
-                }
+                minMeshDot = d;
+                outThis = meshCol.verticiesWorld[i];
             }
-
-            float v1Dot = Vector4.Dot(v1, edgeDir);
-            float v2Dot = Vector4.Dot(v2, edgeDir);
-            float disDot = Mathf.Min(v1Dot,v2Dot);
-
-            float maxDif = maxDot-disDot;
-            float minDif = minDot-disDot;
-
-            Vector4 targetPoint = new Vector4();
-
-            if (Mathf.Abs(minDif) < Mathf.Abs(maxDif))
-            {
-                edgeDir *= -1;
-
-                targetPoint = UFunc.Slerp4Angle(edgePoint,linePoint,minDot);
-            }
-            else
-            {
-                targetPoint = UFunc.Slerp4Angle(edgePoint,linePoint,maxDot);
-            }
-
-            edgeDir = new Rotor(edgePoint,targetPoint) * edgeDir;
-            float slerpDot = Vector4.Dot(edgeDir,targetPoint);
-
-            print(i+" "+edges[i]+" "+targetPoint+" "+linePoint+" "+edgeDir+" "+slerpDot);
-
-            if (slerpDot < closeEdgeDot)
-            {
-                closeEdgeDot = slerpDot;
-                edgeCloseMesh = targetPoint;
-                edgeCloseLine = linePoint;
-            }
-        }
-
-        if (maxFaceDot > closeEdgeDot)
-        {
-            outLine = closeLine;
-            outMesh = closeMesh;
-        }
-        else
-        {
-            outLine = edgeCloseLine;
-            outMesh = edgeCloseMesh;
-        }
-    }
-    */
-
-    public void MeshClose(MeshColliderS meshCol, ref Vector4 outThis, ref Vector4 outMesh)
-    {
-        List<float> pointDots = new List<float>();
-        List<Vector4> thisPoints = new List<Vector4>();
-        List<Vector4> meshPoints = new List<Vector4>();
-
-        for (int i = 0; i < normals.Length; i++)
-        {
-            Vector4 norm = normals[i];
-
-            float minDot = -1;
-            int minIndex = 0;
-            for (int j = 0; j < meshCol.verticiesWorld.Length; j++)
-            {
-                Vector4 vert = meshCol.verticiesWorld[j];
-                float dot = Vector4.Dot(vert,norm);
-                if (dot < minDot) {
-                    minDot = dot;
-                    minIndex = j;
-                }
-            }
-
-            Vector4 meshPoint = meshCol.verticiesWorld[minIndex];
-
-            pointDots.Add(minDot);
-            thisPoints.Add((meshPoint - minDot*norm).normalized);
-            meshPoints.Add(meshPoint);
-        }
-
-        for (int i = 0; i < meshCol.normals.Length; i++)
-        {
-            Vector4 norm = meshCol.normals[i];
-
-            float minDot = -1;
-            int minIndex = 0;
-            for (int j = 0; j < verticiesWorld.Length; j++)
-            {
-                Vector4 vert = verticiesWorld[j];
-                float dot = Vector4.Dot(vert,norm);
-                if (dot < minDot) {
-                    minDot = dot;
-                    minIndex = j;
-                }
-            }
-
-            Vector4 meshPoint = verticiesWorld[minIndex];
-
-            pointDots.Add(minDot);
-            thisPoints.Add(meshPoint);
-            meshPoints.Add((meshPoint - minDot*norm).normalized);
         }
     }
 }

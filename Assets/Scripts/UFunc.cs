@@ -499,7 +499,7 @@ public static class UFunc
     }
     public static void DoubleArcCloseUnclamped(Vector4 v1, Vector4 v2, Vector4 u1, Vector4 u2, ref Vector4 close1, ref Vector4 close2)
     {
-        int iterations = 5;
+        int iterations = 10;
 
         float slerpFactor = 0;
 

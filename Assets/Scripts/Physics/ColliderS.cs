@@ -316,8 +316,6 @@ public abstract class ColliderS : MonoBehaviour
 
         c2.LineClose(c1.point1, c1.point2, ref linePoint, ref meshPoint);
 
-        print(UFunc.DistanceS(meshPoint,linePoint)+" "+meshPoint+" "+linePoint);
-
         return PointRadiusContact(linePoint, c1.m_radius, meshPoint, 0, ref contact1, ref contact2, ref contactNorm);
     }
 
