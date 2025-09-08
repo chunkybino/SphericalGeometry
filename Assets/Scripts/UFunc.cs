@@ -76,6 +76,10 @@ public static class UFunc
     {
         return v1 - normal*UFunc.Dot(normal.normalized, v1);
     }
+    public static Vector4 OrthoNormal(Vector4 v1, Vector4 normal)
+    {
+        return ProjectToVectorNormal(v1,normal).normalized;
+    }
 
     public static Vector4 DirectionFromTo(Vector4 from, Vector4 to)
     {
@@ -499,6 +503,30 @@ public static class UFunc
     }
     public static void DoubleArcCloseUnclamped(Vector4 v1, Vector4 v2, Vector4 u1, Vector4 u2, ref Vector4 close1, ref Vector4 close2)
     {
+        v2 = OrthoNormal(v2,v1);
+        u2 = OrthoNormal(u2,u1);
+
+        Rotor rot1 = new Rotor(u1,new Vector4(1,0,0,0));
+
+        Vector4 rotU1 = rot1 * u1;
+        Vector4 rotU2 = rot1 * u2;
+
+        Rotor rot2 = new Rotor(rotU2,new Vector4(0,1,0,0));
+
+        rotU2 = rot2 * rotU2;
+        Vector4 rotV1 = rot2 * (rot1 * v1);
+        Vector4 rotV2 = rot2 * (rot1 * v2);
+
+        Debug.Log(rotU1+" "+rotU2+" "+rotV1+" "+rotV2);
+
+        float atanFactor = (rotV1.z*rotV2.z + rotV1.w*rotV2.w) / (rotV2.z*rotV2.z + rotV2.w*rotV2.w - rotV1.z*rotV1.z - rotV1.w*rotV1.w);
+
+        float slerpFactor = -0.5f * Mathf.Atan(2 * atanFactor);
+
+        close1 = Slerp4Angle(v1,v2,slerpFactor);
+        close2 = SlerpPointCloseUnclamped(u1,u2,close1);
+
+        /*
         int iterations = 10;
 
         float slerpFactor = 0;
@@ -517,6 +545,7 @@ public static class UFunc
 
         close1 = Slerp4Angle(v1,v2,slerpFactor);
         close2 = SlerpPointCloseUnclamped(u1,u2,close1);
+        */
 
         /*
         Vector4 sphereNorm = HyperCross(v1,v2,u1).normalized;

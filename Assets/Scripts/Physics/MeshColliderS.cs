@@ -13,7 +13,7 @@ public class MeshColliderS : ColliderS
     public Vector3Int[] triangles = new Vector3Int[0];
 
     [SerializeField] Vector4[] verticies4 = new Vector4[0];
-    [SerializeField] Vector4[] verticiesWorld = new Vector4[0];
+    public Vector4[] verticiesWorld = new Vector4[0];
     [SerializeField] Vector4[] normals = new Vector4[0];
 
     [SerializeField] Vector2Int[] edges = new Vector2Int[0];
@@ -213,6 +213,7 @@ public class MeshColliderS : ColliderS
             directionMeshPoints.Add(edgeClose);
         }
 
+        /*
         for (int i = 0; i < verticiesWorld.Length; i++)
         {
             Vector4 vert = verticiesWorld[i];
@@ -221,6 +222,7 @@ public class MeshColliderS : ColliderS
             checkDirections.Add(dir);
             directionMeshPoints.Add(vert);
         }
+        */
 
         float maxDotSpace = -1;
         Vector4 maxSpaceMesh = new Vector4();
@@ -256,7 +258,12 @@ public class MeshColliderS : ColliderS
         Vector4 maxSpaceMesh = new Vector4();
         Vector4 maxSpaceLine = new Vector4();
 
-        for (int i = 0; i < triangles.Length; i++)
+        UFunc.DoubleArcCloseUnclamped(verticiesWorld[1],verticiesWorld[2],v1,v2, ref maxSpaceMesh, ref maxSpaceLine);
+        outLine = maxSpaceLine;
+        outMesh = maxSpaceMesh;
+        return;
+
+        for (int i = 0; i < triangles.Length && false; i++)
         {
             Vector4 norm = normals[i];
 
@@ -279,11 +286,11 @@ public class MeshColliderS : ColliderS
 
             float ang = Mathf.PI/2 - Mathf.Acos(minD); 
 
-            print(i+" "+meshP+" "+lineP+" "+dot1+" "+dot2+" "+ang+" "+maxAngleSpace);
+            //print(i+" "+meshP+" "+lineP+" "+dot1+" "+dot2+" "+ang+" "+maxAngleSpace);
 
             if (ang > maxAngleSpace)
             {
-                print("new face "+ang+" "+lineP+" "+meshP);
+                //print("new face "+ang+" "+lineP+" "+meshP);
                 maxAngleSpace = ang;
                 maxSpaceLine = lineP;
                 maxSpaceMesh = meshP;
@@ -296,14 +303,70 @@ public class MeshColliderS : ColliderS
 
         for (int i = 0; i < edges.Length; i++)
         {
+            if (i != 1) continue;
+
             Vector4 e1 = verticiesWorld[edges[i].x];
             Vector4 e2 = verticiesWorld[edges[i].y];
 
             Vector4 edgeC = new Vector4();
             Vector4 lineC = new Vector4();
-            UFunc.DoubleArcClose(e1,e2,v1,v2, ref edgeC, ref lineC);
+            UFunc.DoubleArcCloseUnclamped(e1,e2,v1,v2, ref edgeC, ref lineC);
             Vector4 edgeDir = UFunc.DirectionFromTo(edgeC,lineC);
 
+            Vector4 triNorm1 = normals[edgeTriangles[i].x];
+            Vector4 triNorm2 = normals[edgeTriangles[i].y];
+ 
+            Vector4 triNormProjDir = UFunc.ProjectVectorToPlane(triNorm1,triNorm2,edgeDir);
+            bool between = UFunc.BetweenS(triNorm1,triNorm2, triNormProjDir);
+            bool betweenReverse = UFunc.BetweenS(triNorm1,triNorm2, -triNormProjDir);
+
+            print(i+" "+triNorm1+" "+triNorm2+" "+triNormProjDir+" "+between+" "+betweenReverse);
+
+            maxSpaceLine = lineC;
+            maxSpaceMesh = edgeC;
+            continue;
+
+            if (between || betweenReverse)
+            {
+                if (betweenReverse) edgeDir *= -1;
+
+                float maxMeshDot = -1;
+                for (int j = 0; j < verticiesWorld.Length; j++) {
+                    Vector4 projV = UFunc.ProjectVectorToPlane(edgeC,edgeDir, verticiesWorld[j]);
+                    float d = Vector4.Dot(projV, edgeDir);
+                    maxMeshDot = Mathf.Max(d,maxMeshDot);
+                }
+
+                float meshAng = Mathf.PI/2 - Mathf.Acos(maxMeshDot); 
+                float lineAng = Mathf.PI/2 - Mathf.Acos(Vector4.Dot(edgeDir,lineC)); 
+                float angleSpace = lineAng - meshAng;
+
+                print(i+" "+meshAng+" "+lineAng+" "+angleSpace+" "+maxAngleSpace+" "+edgeC+" "+lineC);
+
+                if (angleSpace > maxAngleSpace)
+                {
+                    maxAngleSpace = angleSpace;
+                    maxSpaceLine = lineC;
+                    maxSpaceMesh = edgeC;
+                }
+            }
+ 
+
+            /*
+            if (between)
+            {
+                checkDirections.Add(edgeDir);
+            }
+            else if (betweenReverse)
+            {
+                checkDirections.Add(-edgeDir);
+            }
+
+            directionMeshPoints.Add(edgeC);
+            directionLinePoints.Add(lineC);
+            */
+
+            /*
             print("edge "+i+" "+edgeC+" "+lineC+" "+UFunc.DistanceS(edgeC,lineC));
 
             Vector4 proj1 = UFunc.ProjectVectorToPlane(edgeC,lineC,v1);
@@ -319,7 +382,14 @@ public class MeshColliderS : ColliderS
             directionMeshPoints.Add(edgeC);
             directionLinePoints.Add(lineC);
             directionLinePoints.Add(lineC);
+            */
         }
+
+        print(maxAngleSpace+" "+maxSpaceLine+" "+maxSpaceMesh);
+
+        outLine = maxSpaceLine;
+        outMesh = maxSpaceMesh;
+        return;
 
         /*
         for (int i = 0; i < verticiesWorld.Length; i++)
