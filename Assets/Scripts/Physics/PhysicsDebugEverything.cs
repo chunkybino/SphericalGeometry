@@ -19,6 +19,8 @@ public class PhysiicsDebugEverything : MonoBehaviour
     [SerializeField] SphereColliderS sphere1;
     [SerializeField] bool meshSphereClose;
 
+    [SerializeField] int meshEdgeNum = -1;
+
     [SerializeField] Vector4 arcPos1;
     [SerializeField] Vector4 arcPos2;
     [SerializeField] Vector4 arcPos3;
@@ -36,16 +38,29 @@ public class PhysiicsDebugEverything : MonoBehaviour
             Vector4 meshPoint = new Vector4();
             mesh1.LineClose(cap1.point1,cap1.point2, ref linePoint, ref meshPoint);
 
-            UFunc.DoubleArcCloseUnclamped(cap1.point1,cap1.point2, mesh1.verticiesWorld[1], mesh1.verticiesWorld[2], ref linePoint, ref meshPoint);
+            //print(gameObject.name+" "+1+" "+linePoint+" "+meshPoint);
 
-            if (flipPos) 
-            {
-                meshPoint *= -1;
+            
+            if (meshEdgeNum >= 0) {
+                UFunc.DoubleArcCloseUnclamped(cap1.point1,cap1.point2, mesh1.verticiesWorld[mesh1.edges[1].x], mesh1.verticiesWorld[mesh1.edges[1].y], ref linePoint, ref meshPoint);
             }
+            else
+            {
+                //UFunc.DoubleArcCloseUnclamped(cap1.point1,cap1.point2, mesh1.verticiesWorld[1], mesh1.verticiesWorld[2], ref linePoint, ref meshPoint);
+            }
+            //print("not Mesh "+mesh1.verticiesWorld[mesh1.edges[1].x]+" "+ mesh1.verticiesWorld[mesh1.edges[1].y]+" "+cap1.point1+" "+cap1.point2);
+
+            //print(2+" "+linePoint+" "+meshPoint);
+
+            if (flipPos) {
+                UFunc.DoubleArcCloseUnclamped(mesh1.verticiesWorld[mesh1.edges[1].x], mesh1.verticiesWorld[mesh1.edges[1].y],cap1.point1,cap1.point2, ref meshPoint, ref linePoint);
+            }
+
+            //print(3+" "+linePoint+" "+meshPoint);
 
             float distance = UFunc.DistanceS(meshPoint,linePoint);
 
-            print(distance);
+            //print(distance);
 
             //if (distance > )
 

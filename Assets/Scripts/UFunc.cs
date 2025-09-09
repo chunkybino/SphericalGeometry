@@ -481,9 +481,63 @@ public static class UFunc
 
         UFunc.DoubleArcCloseUnclamped(v1,v2,u1,u2, ref outV, ref outU);
 
-        close1 = outV;
-        close2 = outU;
+        bool onArc1 = BetweenS(v1, v2, outV);
+        bool onArc2 = BetweenS(u1, u2, outU);
+        bool onArcFlip1 = BetweenS(v1, v2, -outV);
+        bool onArcFlip2 = BetweenS(u1, u2, -outU);
+        
+        Debug.Log(onArc1+" "+onArc2+" "+onArcFlip1+" "+onArcFlip2);
 
+        if (onArc1 && onArc2)
+        {
+            close1 = outV;
+            close2 = outU;
+            return;
+        }
+
+        if (onArcFlip1 && onArcFlip2)
+        {
+            close1 = -outV;
+            close2 = -outU;
+            return;
+        }
+
+        Vector4 pointClose1_1 = SlerpPointClose(v1,v2,u1);
+        Vector4 pointClose1_2 = SlerpPointClose(v1,v2,u2);
+        Vector4 pointClose2_1 = SlerpPointClose(u1,u2,v1);
+        Vector4 pointClose2_2 = SlerpPointClose(u1,u2,v2);
+
+        float maxDot = -1;
+
+        float dot1_1 = Vector4.Dot(pointClose1_1,u1);
+        if (dot1_1 > maxDot) {
+            maxDot = dot1_1;
+            close1 = pointClose1_1;
+            close2 = u1;
+        }
+
+        float dot1_2 = Vector4.Dot(pointClose1_2,u2);
+        if (dot1_2 > maxDot) {
+            maxDot = dot1_2;
+            close1 = pointClose1_2;
+            close2 = u2;
+        }
+
+        float dot2_1 = Vector4.Dot(pointClose2_1,v1);
+        if (dot2_1 > maxDot) {
+            maxDot = dot2_1;
+            close1 = v1;
+            close2 = pointClose2_1;
+        }
+
+        float dot2_2 = Vector4.Dot(pointClose2_2,v2);
+        if (dot2_2 > maxDot) {
+            maxDot = dot2_2;
+            close1 = v2;
+            close2 = pointClose2_2;
+        }
+
+        /*
         Vector4 close2_set1 = UFunc.ClampBetweenVectors(close2, u1,u2);
         Vector4 close1_set1 = UFunc.SlerpPointClose(v1,v2,close2_set1);
 
@@ -500,31 +554,84 @@ public static class UFunc
             close1 = close1_set2;
             close2 = close2_set2;
         }
+        */
     }
     public static void DoubleArcCloseUnclamped(Vector4 v1, Vector4 v2, Vector4 u1, Vector4 u2, ref Vector4 close1, ref Vector4 close2)
     {
-        v2 = OrthoNormal(v2,v1);
-        u2 = OrthoNormal(u2,u1);
+        Vector4 outV = new Vector4();
+        Vector4 outU = new Vector4();
 
-        Rotor rot1 = new Rotor(u1,new Vector4(1,0,0,0));
+        void Do()
+        {
+            v2 = OrthoNormal(v2,v1);
+            u2 = OrthoNormal(u2,u1);
 
-        Vector4 rotU1 = rot1 * u1;
-        Vector4 rotU2 = rot1 * u2;
+            Rotor rot1 = new Rotor(u1,new Vector4(1,0,0,0));
 
-        Rotor rot2 = new Rotor(rotU2,new Vector4(0,1,0,0));
+            Vector4 rotU1 = rot1 * u1;
+            Vector4 rotU2 = rot1 * u2;
 
-        rotU2 = rot2 * rotU2;
-        Vector4 rotV1 = rot2 * (rot1 * v1);
-        Vector4 rotV2 = rot2 * (rot1 * v2);
+            Rotor rot2 = new Rotor(rotU2,new Vector4(0,1,0,0));
 
-        Debug.Log(rotU1+" "+rotU2+" "+rotV1+" "+rotV2);
+            rotU2 = rot2 * rotU2;
+            Vector4 rotV1 = rot2 * (rot1 * v1);
+            Vector4 rotV2 = rot2 * (rot1 * v2);
 
-        float atanFactor = (rotV1.z*rotV2.z + rotV1.w*rotV2.w) / (rotV2.z*rotV2.z + rotV2.w*rotV2.w - rotV1.z*rotV1.z - rotV1.w*rotV1.w);
+            float b = (rotV2.z*rotV2.z + rotV2.w*rotV2.w - rotV1.z*rotV1.z - rotV1.w*rotV1.w);
+            float atanFactor = 2 * (rotV1.z*rotV2.z + rotV1.w*rotV2.w) / b;
 
-        float slerpFactor = -0.5f * Mathf.Atan(2 * atanFactor);
+            float slerpFactor = -0.5f*Mathf.Atan(atanFactor) + (Mathf.PI/2)*((Mathf.Sign(b)-1)/2);
 
-        close1 = Slerp4Angle(v1,v2,slerpFactor);
-        close2 = SlerpPointCloseUnclamped(u1,u2,close1);
+            //Debug.Log(rotU1+" "+rotU2+" "+rotV1+" "+rotV2+" "+slerpFactor+" "+atanFactor+" "+b);
+
+            outV = Slerp4Angle(v1,v2,slerpFactor);
+            outU = SlerpPointCloseUnclamped(u1,u2,outV);
+        }
+
+        Do();
+
+        Vector4 dir1 = DirectionFromTo(outV,v1);
+        Vector4 dir2 = DirectionFromTo(outV,outU);
+
+        float dirDot = Vector4.Dot(dir1,dir2);
+
+        if (Mathf.Abs(dirDot) > 0.01f)
+        {
+            (v1,v2,u1,u2) = (u1,u2,v1,v2);
+
+            Do();
+            (outU,outV) = (outV,outU);
+        }
+
+        //Debug.Log("angle "+dirDot + "sign " + Mathf.Sign(b));
+        //Debug.Log(Vector4.Dot(v1,u1)+" "+Vector4.Dot(rotV1,rotU1));
+
+        close1 = outV;
+        close2 = outU;
+
+        /*
+        if (dirDot > 0.1f) 
+        {
+            close1 = SlerpPointCloseUnclamped(v1,v2,close2);
+        }
+        */
+
+        /*
+        Vector4 close1_2 = Slerp4Angle(v1,v2,slerpFactor + Mathf.PI/2);
+        Vector4 close2_2 = SlerpPointCloseUnclamped(u1,u2,close1_2);
+
+        Vector4 dir1_2 = DirectionFromTo(close1_2,v1);
+        Vector4 dir2_2 = DirectionFromTo(close1_2,close2_2);
+        float dot2 = Vector4.Dot(dir1_2,dir2_2);
+        Debug.Log("angle2 "+dot2);
+
+        if (dot2 > dot1) {
+            close1 = close1_2;
+            close2 = close2_2;
+        }
+        */
+
+        //Debug.Log(rot2 * (rot1 * u2));
 
         /*
         int iterations = 10;
