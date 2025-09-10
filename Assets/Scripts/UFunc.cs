@@ -86,12 +86,12 @@ public static class UFunc
         return ProjectToVectorNormal((to-from).normalized,from).normalized;
     }
 
-    public static Vector3 SterographicProjection(Vector4 pos, float radius)
+    public static Vector3 SterographicProjection(Vector4 pos, float radius = 1)
     {
         if (pos.w == -radius) return new Vector3(9999, 0, 0);
         return radius * new Vector3(pos.x, pos.y, pos.z) / (radius + pos.w);
     }
-    public static Vector4 SterographicInverse(Vector3 pos, float radius)
+    public static Vector4 SterographicInverse(Vector3 pos, float radius = 1)
     {
         Vector4 newPos = (radius * 2 / ((pos.x*pos.x) + (pos.y*pos.y) + (pos.z*pos.z) + 1)) * new Vector4(pos.x,pos.y,pos.z,1);
         newPos.w -= radius;
@@ -485,8 +485,6 @@ public static class UFunc
         bool onArc2 = BetweenS(u1, u2, outU);
         bool onArcFlip1 = BetweenS(v1, v2, -outV);
         bool onArcFlip2 = BetweenS(u1, u2, -outU);
-        
-        Debug.Log(onArc1+" "+onArc2+" "+onArcFlip1+" "+onArcFlip2);
 
         if (onArc1 && onArc2)
         {
@@ -536,25 +534,6 @@ public static class UFunc
             close1 = v2;
             close2 = pointClose2_2;
         }
-
-        /*
-        Vector4 close2_set1 = UFunc.ClampBetweenVectors(close2, u1,u2);
-        Vector4 close1_set1 = UFunc.SlerpPointClose(v1,v2,close2_set1);
-
-        Vector4 close1_set2 = UFunc.ClampBetweenVectors(close1, v1,v2);
-        Vector4 close2_set2 = UFunc.SlerpPointClose(u1,u2,close1_set2);
-
-        if (Vector4.Dot(close1_set1,close2_set1) > Vector4.Dot(close1_set2,close2_set2))
-        {
-            close1 = close1_set1;
-            close2 = close2_set1;
-        }
-        else
-        {
-            close1 = close1_set2;
-            close2 = close2_set2;
-        }
-        */
     }
     public static void DoubleArcCloseUnclamped(Vector4 v1, Vector4 v2, Vector4 u1, Vector4 u2, ref Vector4 close1, ref Vector4 close2)
     {
@@ -582,8 +561,6 @@ public static class UFunc
 
             float slerpFactor = -0.5f*Mathf.Atan(atanFactor) + (Mathf.PI/2)*((Mathf.Sign(b)-1)/2);
 
-            //Debug.Log(rotU1+" "+rotU2+" "+rotV1+" "+rotV2+" "+slerpFactor+" "+atanFactor+" "+b);
-
             outV = Slerp4Angle(v1,v2,slerpFactor);
             outU = SlerpPointCloseUnclamped(u1,u2,outV);
         }
@@ -603,72 +580,8 @@ public static class UFunc
             (outU,outV) = (outV,outU);
         }
 
-        //Debug.Log("angle "+dirDot + "sign " + Mathf.Sign(b));
-        //Debug.Log(Vector4.Dot(v1,u1)+" "+Vector4.Dot(rotV1,rotU1));
-
         close1 = outV;
         close2 = outU;
-
-        /*
-        if (dirDot > 0.1f) 
-        {
-            close1 = SlerpPointCloseUnclamped(v1,v2,close2);
-        }
-        */
-
-        /*
-        Vector4 close1_2 = Slerp4Angle(v1,v2,slerpFactor + Mathf.PI/2);
-        Vector4 close2_2 = SlerpPointCloseUnclamped(u1,u2,close1_2);
-
-        Vector4 dir1_2 = DirectionFromTo(close1_2,v1);
-        Vector4 dir2_2 = DirectionFromTo(close1_2,close2_2);
-        float dot2 = Vector4.Dot(dir1_2,dir2_2);
-        Debug.Log("angle2 "+dot2);
-
-        if (dot2 > dot1) {
-            close1 = close1_2;
-            close2 = close2_2;
-        }
-        */
-
-        //Debug.Log(rot2 * (rot1 * u2));
-
-        /*
-        int iterations = 10;
-
-        float slerpFactor = 0;
-
-        for (int i = 0; i < iterations; i++)
-        {
-            Vector4 point = Slerp4Angle(v1,v2,slerpFactor);
-            Vector4 close = SlerpPointCloseUnclamped(u1,u2,point);
-
-            Vector4 tangent = Slerp4Angle(v1,v2,slerpFactor+Mathf.PI/2);
-            Vector4 closeDir = ProjectToVectorNormal(close,point).normalized;
-            float angleError = Mathf.PI/2 - DistanceS(tangent,closeDir);
-
-            slerpFactor += angleError;
-        }
-
-        close1 = Slerp4Angle(v1,v2,slerpFactor);
-        close2 = SlerpPointCloseUnclamped(u1,u2,close1);
-        */
-
-        /*
-        Vector4 sphereNorm = HyperCross(v1,v2,u1).normalized;
-
-        Vector4 u3 = (u2 - Vector4.Dot(u2,sphereNorm)*sphereNorm).normalized; //u2 projected onto sphere of v1,v2,u1
-
-        Vector4 sphere1 = HyperCross(v1,v2,sphereNorm).normalized;
-        Vector4 sphere2 = HyperCross(u1,u3,sphereNorm).normalized;
-
-        close1 = HyperCross(sphere1,sphere2,sphereNorm).normalized;
-        close2 = SlerpPointCloseUnclamped(u1,u2,close1);
-
-        if (Vector4.Dot(close1,close2) < 0) {
-            close2 *= -1;
-        }
-        */
     }
 
     public static Vector4 ArcPlaneIntersect(Vector4 planeNorm, Vector4 arc1, Vector4 arc2)

@@ -95,7 +95,7 @@ public class PhysiicsDebugEverything : MonoBehaviour
         {
             Vector4 close1 = new Vector4();
             Vector4 close2 = new Vector4();
-            UFunc.DoubleArcCloseUnclamped(cap1.point1,cap1.point2,cap2.point1,cap2.point2, ref close1, ref close2);
+            UFunc.DoubleArcClose(cap1.point1,cap1.point2,cap2.point1,cap2.point2, ref close1, ref close2);
 
             /*
             Vector4 close1_2 = new Vector4();

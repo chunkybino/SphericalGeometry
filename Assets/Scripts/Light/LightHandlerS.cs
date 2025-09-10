@@ -27,7 +27,10 @@ public class LightHandlerS : MonoBehaviour
     [SerializeField] ComputeBuffer shadowBuffer;
     [SerializeField] ComputeBuffer shadowCountBuffer;
 
+    [SerializeField] ComputeBuffer sphereShadowBuffer;
+
     public List<Renderer4D> staticShadowRenderers = new List<Renderer4D>();
+    public List<Renderer4D> sphereShadowRenderers = new List<Renderer4D>();
 
     public bool disableShadows;
 
@@ -119,14 +122,16 @@ public class LightHandlerS : MonoBehaviour
             {
                 shadowBuffer?.Release();
                 shadowCountBuffer?.Release();
+                sphereShadowBuffer?.Release();
                 shadowSend = new Vector4[0];
             }
         }
         else
         {
+            SetStaticShadowBuffer();
             if (shadowSend.Length == 0 && staticShadowRenderers.Count > 0)
             {
-                SetStaticShadowBuffer();
+                //SetStaticShadowBuffer();
             }
         }
         
@@ -231,6 +236,7 @@ public class LightHandlerS : MonoBehaviour
 
         shadowBuffer?.Release();
         shadowCountBuffer?.Release();
+        sphereShadowBuffer?.Release();
     }
 
     void SetStaticShadowBuffer()
@@ -288,8 +294,8 @@ public class LightHandlerS : MonoBehaviour
             Shader.SetGlobalBuffer("_ShadowData", shadowBuffer);
         }
 
-        shadowCountBuffer = new ComputeBuffer(1, sizeof(int));
-        shadowCountBuffer.SetData(new int[] {totalShadowTriLength});
+        shadowCountBuffer = new ComputeBuffer(2, sizeof(int));
+        shadowCountBuffer.SetData(new int[] {totalShadowTriLength, sphereShadowRenderers.Count});
         Shader.SetGlobalBuffer("_ShadowCount", shadowCountBuffer);
 
         void AddTri(Vector4 v1, Vector4 v2, Vector4 v3, int i)
@@ -299,21 +305,60 @@ public class LightHandlerS : MonoBehaviour
             shadowSend[4*i + 2] = UFunc.HyperCross(v2,v3,shadowSend[4*i]).normalized;
             shadowSend[4*i + 3] = UFunc.HyperCross(v3,v1,shadowSend[4*i]).normalized;
         }
+
+        //sphere profile time
+        if (sphereShadowRenderers.Count > 0)
+        {
+            float[] sphereShadowSend = new float[sphereShadowRenderers.Count*5];
+
+            for (int i = 0; i < sphereShadowRenderers.Count; i++)
+            {
+                Renderer4D ren = sphereShadowRenderers[i];
+                Vector4 pos = ren.transform4.positionNorm;
+
+                for (int j = 0; j < 4; j++) {
+                    sphereShadowSend[5*i + j] = pos[j];
+                }
+                sphereShadowSend[5*i + 4] = Mathf.Cos(ren.sphereShadowRadius);
+            }
+
+            sphereShadowBuffer = new ComputeBuffer(sphereShadowRenderers.Count, sizeof(float)*5);
+            sphereShadowBuffer.SetData(sphereShadowSend);
+            Shader.SetGlobalBuffer("_ShadowSphereData", sphereShadowBuffer);
+        }
     }
 
     public void AddStaticShadow(Renderer4D ren)
     {
-        if (staticShadowRenderers.Contains(ren)) return;
-
-        staticShadowRenderers.Add(ren);
+        if (!ren.doSphereShadowProfile)
+        {
+            if (sphereShadowRenderers.Contains(ren)) sphereShadowRenderers.Remove(ren);
+            if (staticShadowRenderers.Contains(ren)) return;
+            staticShadowRenderers.Add(ren);
+        }
+        else
+        {
+            if (staticShadowRenderers.Contains(ren)) staticShadowRenderers.Remove(ren);
+            if (sphereShadowRenderers.Contains(ren)) return;
+            sphereShadowRenderers.Add(ren);
+        }
 
         SetStaticShadowBuffer();
     }
     public void RemoveStaticShadow(Renderer4D ren)
     {
         if (!staticShadowRenderers.Contains(ren)) return;
-
-        staticShadowRenderers.Remove(ren);
+        
+        if (!ren.doSphereShadowProfile)
+        {
+            if (staticShadowRenderers.Contains(ren)) return;
+            staticShadowRenderers.Remove(ren);
+        }
+        else
+        {
+            if (sphereShadowRenderers.Contains(ren)) return;
+            sphereShadowRenderers.Remove(ren);
+        }
 
         SetStaticShadowBuffer();
     }

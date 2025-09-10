@@ -106,6 +106,13 @@ Shader "Mine/Boring"
             StructuredBuffer<int> _ShadowCount;
             StructuredBuffer<ShadowData> _ShadowData;
 
+            struct SphereShadowData
+            {
+                float4 pos;
+                float radiusCos;
+            };
+            StructuredBuffer<SphereShadowData> _ShadowSphereData;
+
             v2g vertexFunc(appdata IN)
             {
                 v2g OUT;
@@ -441,6 +448,29 @@ Shader "Mine/Boring"
                             break;
                         }
                     }
+
+                    
+                    //sphere shadows
+                    float lightToPosDot = dot(IN.positionWorld, light.position);
+                    for (int j = 0; j < _ShadowCount[1]; j++)
+                    {
+                        SphereShadowData shadow = _ShadowSphereData[j];
+
+                        float4 pos = shadow.pos;
+                        float4 sphereProj = ProjectVectorToPlane(IN.positionWorld, light.position, pos); //sphere projected onto path between light and position
+
+                        //float4 lightDir = light.position - IN.positionWorld*dot(IN.positionWorld,light.position);
+                        //if (dot(sphereProj,lightDir) < 0) continue;
+
+                        if (dot(sphereProj,IN.positionWorld) < lightToPosDot || dot(sphereProj,light.position) < lightToPosDot) continue;
+
+                        if (dot(sphereProj,pos) > shadow.radiusCos)
+                        {
+                            intensity = 0;
+                            break;
+                        }
+                    }
+                    
 
                     totalLight += max(normalLightDot*intensity,0)*light.color;
                 }

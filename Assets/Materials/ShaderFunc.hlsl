@@ -35,6 +35,14 @@ float4 HyperCross(float4 a, float4 b, float4 c)
     );
 }
 
+float4 ProjectVectorToPlane(float4 plane1, float4 plane2, float4 v)
+{
+    float4 hyperCross = HyperCross(plane1,plane2,v);
+    float4 planeNorm = normalize(-HyperCross(plane1,plane2,hyperCross));
+
+    return normalize(v - dot(v,planeNorm)*planeNorm);
+}
+
 float4 Slerp4(float4 a, float4 b, float4 angle, float arc)
 {
     if (arc == 0) return a;

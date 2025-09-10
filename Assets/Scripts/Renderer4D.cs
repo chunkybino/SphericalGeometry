@@ -40,6 +40,11 @@ public class Renderer4D : MonoBehaviour
     public bool castShadows = false;
     bool m_castShadows = false;
 
+    public bool doSphereShadowProfile;
+    bool m_doSphereShadowProfile;
+    public float shadowSphereRad = 1;
+    public float sphereShadowRadius {get{return shadowSphereRad*transform4.scale;}}
+
     void Start()
     {
         Initialize();
@@ -83,6 +88,12 @@ public class Renderer4D : MonoBehaviour
             }
         }
         m_castShadows = castShadows;
+
+        if (doSphereShadowProfile != m_doSphereShadowProfile && castShadows)
+        {
+            LightHandlerS.singleton.AddStaticShadow(this);
+        }
+        m_doSphereShadowProfile = doSphereShadowProfile;
     }
 
     void Update()
