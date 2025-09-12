@@ -5,9 +5,12 @@ using System.Collections.Generic;
 using System.Collections;
 
 [ExecuteAlways]
-public class Renderer4D : MonoBehaviour
+public class Renderer4D : MonoBehaviour, I_ShadowCaster
 {
     public Transform4D transform4;
+
+    public Vector4 GetPos() {return transform4.positionNorm;}
+    public Matrix4x4 GetMatrix() {return transform4.matrix;}
 
     new public MeshRenderer renderer;
     public MeshFilter filter;
@@ -31,8 +34,14 @@ public class Renderer4D : MonoBehaviour
     [SerializeField] Vector4[] vertex4;
     [SerializeField] Vector2[] uvs;
     [SerializeField] int[] triangles;
+
+    public Vector3[] GetVertex3() {return vertices;}
+    public Vector4[] GetVertex4() {return vertex4;}
+    public int[] GetTri() {return triangles;}
     
     public bool doVertex4;
+
+    public bool shadow_doVertex4 {get{return doVertex4;}}
 
     public bool lit = true;
     public bool doubleSideLit = false;
@@ -41,10 +50,13 @@ public class Renderer4D : MonoBehaviour
     bool m_castShadows = false;
 
     public int castShadowLevel = 0;
+    public int shadow_castShadowLevel {get{return castShadowLevel;}}
 
     public bool doSphereShadowProfile;
     bool m_doSphereShadowProfile;
     public float shadowSphereRad = 1;
+
+    public bool shadow_doSphereProfile {get{return m_doSphereShadowProfile;}}
     public float sphereShadowRadius {get{return shadowSphereRad*transform4.scale;}}
 
     void Start()
@@ -145,26 +157,11 @@ public class Renderer4D : MonoBehaviour
         renderer.bounds = newBounds;
     }
 
-    public Vector3[] GetVertex3()
-    {
-        return vertices;
-    }
-    public int[] GetTri()
-    {
-        return triangles;
-    }
-
-    public Vector4[] GetVertex4()
-    {
-        return vertex4;
-    }
-
     public struct Vertex4D
     {
         public Vector4 pos;
         public Vector2 uv;
     }
-
     public Vector4[] ReadVertex4()
     {
         Vector4[] outV = new Vector4[0];

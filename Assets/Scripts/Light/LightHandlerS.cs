@@ -29,8 +29,8 @@ public class LightHandlerS : MonoBehaviour
 
     [SerializeField] ComputeBuffer sphereShadowBuffer;
 
-    public List<Renderer4D> staticShadowRenderers = new List<Renderer4D>();
-    public List<Renderer4D> sphereShadowRenderers = new List<Renderer4D>();
+    public List<I_ShadowCaster> staticShadowRenderers = new List<I_ShadowCaster>();
+    public List<I_ShadowCaster> sphereShadowRenderers = new List<I_ShadowCaster>();
 
     public bool disableShadows;
     public int castShadowLevel;
@@ -249,7 +249,7 @@ public class LightHandlerS : MonoBehaviour
         int totalShadowTriLength = 0;
         for (int i = 0; i < staticShadowRenderers.Count; i++)
         {
-            if (staticShadowRenderers[i].castShadowLevel < castShadowLevel) continue;
+            if (staticShadowRenderers[i].shadow_castShadowLevel < castShadowLevel) continue;
             totalShadowTriLength += staticShadowRenderers[i].GetTri().Length/3;
         }
 
@@ -259,29 +259,29 @@ public class LightHandlerS : MonoBehaviour
 
         for (int j = 0; j < staticShadowRenderers.Count; j++)
         {
-            Renderer4D ren = staticShadowRenderers[j];
-            if (ren.castShadowLevel < castShadowLevel) continue;
+            I_ShadowCaster ren = staticShadowRenderers[j];
+            if (ren.shadow_castShadowLevel < castShadowLevel) continue;
 
             int[] shadowTri = ren.GetTri();
             Vector4[] shadowVertex4 = new Vector4[0];
             int shadowTriCount = shadowTri.Length/3;
 
-            Matrix4x4 mat = ren.transform4.matrix;
+            Matrix4x4 mat = ren.GetMatrix();
 
-            if (!ren.doVertex4)
+            if (!ren.shadow_doVertex4)
             {
                 Vector3[] shadowVertex = ren.GetVertex3();
                 shadowVertex4 = new Vector4[shadowVertex.Length];
 
                 for (int i = 0; i < shadowVertex.Length; i++)
                 {
-                    Vector3 p = Vector3.Scale(ren.transformScale, shadowVertex[i]);
+                    Vector3 p = Vector3.Scale(ren.GetScale(), shadowVertex[i]);
                     shadowVertex4[i] = mat * UFunc.SterographicInverse(p,1);
                 }
             }
             else
             {
-                shadowVertex4 =  ren.GetVertex4();
+                shadowVertex4 = ren.GetVertex4();
             }
 
             for (int i = 0; i < shadowTriCount; i++)
@@ -318,17 +318,17 @@ public class LightHandlerS : MonoBehaviour
 
             for (int i = 0; i < sphereShadowRenderers.Count; i++)
             {
-                Renderer4D ren = sphereShadowRenderers[i];
-                if (ren.castShadowLevel < castShadowLevel) continue;
+                I_ShadowCaster ren = sphereShadowRenderers[i];
+                if (ren.shadow_castShadowLevel < castShadowLevel) continue;
 
-                Vector4 pos = ren.transform4.positionNorm;
+                Vector4 pos = ren.GetPos();
 
                 for (int j = 0; j < 4; j++) {
                     //sphereShadowSend[5*i + j] = pos[j];
                     sphereShadowSend.Add(pos[j]);
                 }
                 //sphereShadowSend[5*i + 4] = Mathf.Cos(ren.sphereShadowRadius);
-                sphereShadowSend.Add(Mathf.Cos(ren.sphereShadowRadius));
+                sphereShadowSend.Add(Mathf.Cos(ren.shadow_sphereRadius));
             }
 
             sphereShadowBuffer = new ComputeBuffer(sphereShadowRenderers.Count, sizeof(float)*5);
@@ -337,9 +337,9 @@ public class LightHandlerS : MonoBehaviour
         }
     }
 
-    public void AddStaticShadow(Renderer4D ren)
+    public void AddStaticShadow(I_ShadowCaster ren)
     {
-        if (!ren.doSphereShadowProfile)
+        if (!ren.shadow_doSphereProfile)
         {
             if (sphereShadowRenderers.Contains(ren)) sphereShadowRenderers.Remove(ren);
             if (staticShadowRenderers.Contains(ren)) return;
@@ -354,11 +354,11 @@ public class LightHandlerS : MonoBehaviour
 
         SetStaticShadowBuffer();
     }
-    public void RemoveStaticShadow(Renderer4D ren)
+    public void RemoveStaticShadow(I_ShadowCaster ren)
     {
         if (!staticShadowRenderers.Contains(ren)) return;
         
-        if (!ren.doSphereShadowProfile)
+        if (!ren.shadow_doSphereProfile)
         {
             if (staticShadowRenderers.Contains(ren)) return;
             staticShadowRenderers.Remove(ren);
