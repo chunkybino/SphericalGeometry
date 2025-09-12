@@ -33,6 +33,7 @@ public class LightHandlerS : MonoBehaviour
     public List<Renderer4D> sphereShadowRenderers = new List<Renderer4D>();
 
     public bool disableShadows;
+    public int castShadowLevel;
 
     public bool updateFullBuffer;
 
@@ -129,10 +130,12 @@ public class LightHandlerS : MonoBehaviour
         else
         {
             SetStaticShadowBuffer();
+            /*
             if (shadowSend.Length == 0 && staticShadowRenderers.Count > 0)
             {
-                //SetStaticShadowBuffer();
+                SetStaticShadowBuffer();
             }
+            */
         }
         
     }
@@ -246,6 +249,7 @@ public class LightHandlerS : MonoBehaviour
         int totalShadowTriLength = 0;
         for (int i = 0; i < staticShadowRenderers.Count; i++)
         {
+            if (staticShadowRenderers[i].castShadowLevel < castShadowLevel) continue;
             totalShadowTriLength += staticShadowRenderers[i].GetTri().Length/3;
         }
 
@@ -256,6 +260,7 @@ public class LightHandlerS : MonoBehaviour
         for (int j = 0; j < staticShadowRenderers.Count; j++)
         {
             Renderer4D ren = staticShadowRenderers[j];
+            if (ren.castShadowLevel < castShadowLevel) continue;
 
             int[] shadowTri = ren.GetTri();
             Vector4[] shadowVertex4 = new Vector4[0];
@@ -309,17 +314,21 @@ public class LightHandlerS : MonoBehaviour
         //sphere profile time
         if (sphereShadowRenderers.Count > 0)
         {
-            float[] sphereShadowSend = new float[sphereShadowRenderers.Count*5];
+            List<float> sphereShadowSend = new List<float>();
 
             for (int i = 0; i < sphereShadowRenderers.Count; i++)
             {
                 Renderer4D ren = sphereShadowRenderers[i];
+                if (ren.castShadowLevel < castShadowLevel) continue;
+
                 Vector4 pos = ren.transform4.positionNorm;
 
                 for (int j = 0; j < 4; j++) {
-                    sphereShadowSend[5*i + j] = pos[j];
+                    //sphereShadowSend[5*i + j] = pos[j];
+                    sphereShadowSend.Add(pos[j]);
                 }
-                sphereShadowSend[5*i + 4] = Mathf.Cos(ren.sphereShadowRadius);
+                //sphereShadowSend[5*i + 4] = Mathf.Cos(ren.sphereShadowRadius);
+                sphereShadowSend.Add(Mathf.Cos(ren.sphereShadowRadius));
             }
 
             sphereShadowBuffer = new ComputeBuffer(sphereShadowRenderers.Count, sizeof(float)*5);

@@ -77,7 +77,7 @@ public class Rigidbody4D : MonoBehaviour
     PhysicsHandlerS physicsS;
 
     [SerializeField] List<Vector4> staticContactNormals = new List<Vector4>();
-    [SerializeField] List<float> staticContactVels = new List<float>();
+    //[SerializeField] List<float> staticContactVels = new List<float>();
 
     bool moveThisFixedFrame; //did we mupdate our transform this fixed frame
 
@@ -124,7 +124,8 @@ public class Rigidbody4D : MonoBehaviour
         collider?.PhysicsUpdate();
 
         staticContactNormals.Clear();
-        staticContactVels.Clear();}
+        //staticContactVels.Clear();
+    }
     public void PhysicsUpdate2()
     {
         collider?.PhysicsUpdate2();
@@ -139,6 +140,17 @@ public class Rigidbody4D : MonoBehaviour
     {
         Vector4 tangentGravity = UFunc.ProjectToVectorNormal(gravity, positionNorm);
         tangentGravity = tangentGravity.normalized * gravity.magnitude * gravityScale;
+
+        //friction
+        for (int i = 0; i < staticContactNormals.Count; i++)
+        {
+            float normDot = Vector4.Dot(tangentGravity, staticContactNormals[i]);
+            normDot = Mathf.Max(-normDot, 0);
+
+            Vector4 tangentVel = UFunc.ProjectToVectorNormal(velocity,staticContactNormals[i]);
+ 
+            velocity += -tangentVel.normalized * Mathf.Min(normDot * friction * Time.fixedDeltaTime, tangentVel.magnitude);
+        }
 
         velocity += tangentGravity * Time.fixedDeltaTime;
 
@@ -261,10 +273,12 @@ public class Rigidbody4D : MonoBehaviour
 
         angularVelocity += axis * vel.magnitude / distance;
     }
-    public void ApplyStaticForce(Vector4 direction, float attackVel, Vector4 attackPoint, float elasticity)
+    public void ApplyStaticForce(Vector4 direction, float attackVel, Vector4 attackPoint, float elasticity)//, bool doFriction = true)
     {
         Vector4 currentLinear = GetLinearVelocityAtAnchor(attackPoint);
         float linearDot = Vector4.Dot(direction, currentLinear);
+
+        //if (doFriction) ApplyFriction(attackPoint, (attackVel-linearDot)*direction);
 
         if (dontReciveAngularVelocity) {
             float newVelDot = -(linearDot-attackVel)*elasticity + attackVel;
@@ -319,6 +333,20 @@ public class Rigidbody4D : MonoBehaviour
             return UFunc.SetVectorDirectionValue(currentLinear, direction, newDot);
         }
     }
+    /*
+    public void ApplyFriction(Vector4 forcePoint, Vector4 forceVel)
+    {
+        if (friction == 0) return;
+
+        Vector4 pointVel = GetLinearVelocityAtAnchor(forcePoint);
+
+        Vector4 perpVel = pointVel - forceVel*Vector4.Dot(pointVel,forceVel)/forceVel.sqrMagnitude;
+
+        print("fric "+friction+" "+(-perpVel.normalized)+" "+Mathf.Min(forceVel.magnitude*friction,perpVel.magnitude)+" "+Vector4.Dot(perpVel,forceVel));
+
+        ApplyStaticForce(-perpVel.normalized, Mathf.Min(forceVel.magnitude*friction,perpVel.magnitude), forcePoint, 0, false);
+    }
+    */
     public void AddStaticContact(Vector4 normal, float vel, Vector4 pos)
     {
         staticContactNormals.Add(new Rotor(pos, positionNorm) * normal);

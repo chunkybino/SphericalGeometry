@@ -40,6 +40,8 @@ public class Renderer4D : MonoBehaviour
     public bool castShadows = false;
     bool m_castShadows = false;
 
+    public int castShadowLevel = 0;
+
     public bool doSphereShadowProfile;
     bool m_doSphereShadowProfile;
     public float shadowSphereRad = 1;
