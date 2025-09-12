@@ -57,7 +57,7 @@ public class Renderer4D : MonoBehaviour, I_ShadowCaster
     public float shadowSphereRad = 1;
 
     public bool shadow_doSphereProfile {get{return m_doSphereShadowProfile;}}
-    public float sphereShadowRadius {get{return shadowSphereRad*transform4.scale;}}
+    public float shadow_sphereRadius {get{return shadowSphereRad*transform4.scale;}}
 
     void Start()
     {

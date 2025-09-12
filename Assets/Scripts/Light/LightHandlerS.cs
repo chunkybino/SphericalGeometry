@@ -23,6 +23,7 @@ public class LightHandlerS : MonoBehaviour
     [SerializeField] ComputeBuffer lightCountBuffer;
 
     [SerializeField] Vector4[] shadowSend;
+    [SerializeField] List<float> sphereShadowSend = new List<float>();
 
     [SerializeField] ComputeBuffer shadowBuffer;
     [SerializeField] ComputeBuffer shadowCountBuffer;
@@ -31,6 +32,8 @@ public class LightHandlerS : MonoBehaviour
 
     public List<I_ShadowCaster> staticShadowRenderers = new List<I_ShadowCaster>();
     public List<I_ShadowCaster> sphereShadowRenderers = new List<I_ShadowCaster>();
+
+    [SerializeField] int sphereShadowCount;
 
     public bool disableShadows;
     public int castShadowLevel;
@@ -119,13 +122,11 @@ public class LightHandlerS : MonoBehaviour
 
         if (disableShadows)
         {
-            if (shadowSend.Length > 0)
-            {
-                shadowBuffer?.Release();
-                shadowCountBuffer?.Release();
-                sphereShadowBuffer?.Release();
-                shadowSend = new Vector4[0];
-            }
+            shadowBuffer?.Release();
+            shadowCountBuffer?.Release();
+            sphereShadowBuffer?.Release();
+            shadowSend = new Vector4[0];
+            sphereShadowSend.Clear();
         }
         else
         {
@@ -299,10 +300,6 @@ public class LightHandlerS : MonoBehaviour
             Shader.SetGlobalBuffer("_ShadowData", shadowBuffer);
         }
 
-        shadowCountBuffer = new ComputeBuffer(2, sizeof(int));
-        shadowCountBuffer.SetData(new int[] {totalShadowTriLength, sphereShadowRenderers.Count});
-        Shader.SetGlobalBuffer("_ShadowCount", shadowCountBuffer);
-
         void AddTri(Vector4 v1, Vector4 v2, Vector4 v3, int i)
         {
             shadowSend[4*i + 0] = UFunc.HyperCross(v1,v2,v3).normalized;
@@ -312,14 +309,18 @@ public class LightHandlerS : MonoBehaviour
         }
 
         //sphere profile time
+        sphereShadowCount = 0;
         if (sphereShadowRenderers.Count > 0)
         {
-            List<float> sphereShadowSend = new List<float>();
+            sphereShadowSend.Clear();
+            //List<float> sphereShadowSend = new List<float>();
 
             for (int i = 0; i < sphereShadowRenderers.Count; i++)
             {
                 I_ShadowCaster ren = sphereShadowRenderers[i];
                 if (ren.shadow_castShadowLevel < castShadowLevel) continue;
+
+                sphereShadowCount++;
 
                 Vector4 pos = ren.GetPos();
 
@@ -331,10 +332,18 @@ public class LightHandlerS : MonoBehaviour
                 sphereShadowSend.Add(Mathf.Cos(ren.shadow_sphereRadius));
             }
 
-            sphereShadowBuffer = new ComputeBuffer(sphereShadowRenderers.Count, sizeof(float)*5);
-            sphereShadowBuffer.SetData(sphereShadowSend);
-            Shader.SetGlobalBuffer("_ShadowSphereData", sphereShadowBuffer);
+            if (sphereShadowCount > 0)
+            {
+                sphereShadowBuffer = new ComputeBuffer(sphereShadowCount, sizeof(float)*5);
+                sphereShadowBuffer.SetData(sphereShadowSend);
+                Shader.SetGlobalBuffer("_ShadowSphereData", sphereShadowBuffer);
+            }
         }
+
+        //shadow count time
+        shadowCountBuffer = new ComputeBuffer(2, sizeof(int));
+        shadowCountBuffer.SetData(new int[] {totalShadowTriLength, sphereShadowCount});
+        Shader.SetGlobalBuffer("_ShadowCount", shadowCountBuffer);
     }
 
     public void AddStaticShadow(I_ShadowCaster ren)
@@ -355,17 +364,15 @@ public class LightHandlerS : MonoBehaviour
         SetStaticShadowBuffer();
     }
     public void RemoveStaticShadow(I_ShadowCaster ren)
-    {
-        if (!staticShadowRenderers.Contains(ren)) return;
-        
+    {        
         if (!ren.shadow_doSphereProfile)
         {
-            if (staticShadowRenderers.Contains(ren)) return;
+            if (!staticShadowRenderers.Contains(ren)) return;
             staticShadowRenderers.Remove(ren);
         }
         else
         {
-            if (sphereShadowRenderers.Contains(ren)) return;
+            if (!sphereShadowRenderers.Contains(ren)) return;
             sphereShadowRenderers.Remove(ren);
         }
 

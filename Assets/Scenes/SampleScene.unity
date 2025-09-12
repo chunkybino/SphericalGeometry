@@ -6055,8 +6055,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lights:
-  - {fileID: 992592556}
   - {fileID: 847819228}
+  - {fileID: 992592556}
   noShadowLights:
   - {fileID: 992592556}
   shadowLights:
@@ -6065,24 +6065,23 @@ MonoBehaviour:
   noShadowlightDatasCount: 1
   shadowLightDatasCount: 1
   shadowSend: []
-  staticShadowRenderers:
-  - {fileID: 1466526954}
-  - {fileID: 973035765}
-  - {fileID: 1620956661}
-  - {fileID: 785149374}
-  - {fileID: 275762486}
-  - {fileID: 380648247}
-  - {fileID: 607435940}
-  - {fileID: 670483997}
-  - {fileID: 1606570715}
-  - {fileID: 1785689453}
-  - {fileID: 1235126668}
-  - {fileID: 724789088}
-  - {fileID: 972909452}
-  - {fileID: 1026110816}
-  - {fileID: 673748455}
-  sphereShadowRenderers:
-  - {fileID: 7425060552719606059}
+  sphereShadowSend:
+  - 0
+  - 0.2885376
+  - 0.3664074
+  - 0.8845856
+  - 0.9950042
+  - 0
+  - 0.47300568
+  - 0.33716685
+  - 0.8139927
+  - 0.9950042
+  - 0.49999997
+  - 0.70710677
+  - 0.35355335
+  - 0.35355335
+  - 0.9950042
+  sphereShadowCount: 3
   disableShadows: 0
   castShadowLevel: 1
   updateFullBuffer: 0
@@ -6114,6 +6113,7 @@ GameObject:
   - component: {fileID: 1090377375}
   - component: {fileID: 1090377374}
   - component: {fileID: 1090377373}
+  - component: {fileID: 1090377377}
   m_Layer: 0
   m_Name: ball (1)
   m_TagString: Untagged
@@ -6376,6 +6376,23 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2057267737}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1090377377
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1090377371}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f1c4c56eea2d96408e8bb171e6f0d42, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  transform4: {fileID: 1090377372}
+  castShadows: 1
+  castShadowLevel: 1
+  doSphereProfile: 1
+  sphereProfileRad: 2
 --- !u!1 &1091455077
 GameObject:
   m_ObjectHideFlags: 0
@@ -6655,6 +6672,13 @@ MonoBehaviour:
   - {fileID: 14870709}
   - {fileID: 14870709}
   - {fileID: 14870709}
+  - {fileID: 14870709}
+  - {fileID: 14870709}
+  - {fileID: 14870709}
+  - {fileID: 14870709}
+  - {fileID: 14870709}
+  - {fileID: 14870709}
+  - {fileID: 14870709}
   sectors:
   - staticBodies:
     - {fileID: 607435942}
@@ -6667,12 +6691,14 @@ MonoBehaviour:
   - staticBodies: []
     dynamicBodies:
     - {fileID: 7046554381973174924}
+    - {fileID: 2057267735}
   - staticBodies: []
     dynamicBodies: []
   - staticBodies:
     - {fileID: 1466526956}
     dynamicBodies:
     - {fileID: 7046554381973174924}
+    - {fileID: 2057267735}
   - staticBodies:
     - {fileID: 1620956663}
     dynamicBodies: []
@@ -7817,6 +7843,7 @@ GameObject:
   - component: {fileID: 1451517873}
   - component: {fileID: 1451517872}
   - component: {fileID: 1451517871}
+  - component: {fileID: 1451517875}
   m_Layer: 0
   m_Name: ball
   m_TagString: Untagged
@@ -8079,6 +8106,23 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2057267737}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1451517875
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1451517869}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f1c4c56eea2d96408e8bb171e6f0d42, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  transform4: {fileID: 1451517870}
+  castShadows: 1
+  castShadowLevel: 1
+  doSphereProfile: 1
+  sphereProfileRad: 2
 --- !u!1 &1457274179
 GameObject:
   m_ObjectHideFlags: 0
@@ -11315,7 +11359,7 @@ MonoBehaviour:
       m_Calls: []
   overlapColliders: []
   thisFrameOverlapColliders: []
-  radius: 3
+  radius: 2
   length: 2
   axis: 1
 --- !u!114 &2057267735
