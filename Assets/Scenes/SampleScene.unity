@@ -6081,6 +6081,8 @@ MonoBehaviour:
   - 0.35355335
   - 0.35355335
   - 0.9950042
+  totalShadowTriLength: 0
+  staticShadowCount: 0
   sphereShadowCount: 3
   disableShadows: 0
   castShadowLevel: 1
@@ -6456,6 +6458,12 @@ MonoBehaviour:
   - {fileID: 2057267735}
   - {fileID: 1032420805}
   globalBodies:
+  - {fileID: 14870709}
+  - {fileID: 14870709}
+  - {fileID: 14870709}
+  - {fileID: 14870709}
+  - {fileID: 14870709}
+  - {fileID: 14870709}
   - {fileID: 14870709}
   - {fileID: 14870709}
   - {fileID: 14870709}
@@ -11394,7 +11402,7 @@ MonoBehaviour:
   collider: {fileID: 2057267734}
   doYUpLock: 0
   sectorIndex: 6
-  allSectors: 060000000200000004000000
+  allSectors: 0600000002000000
   globalSector: 0
   staticContactNormals: []
 --- !u!114 &2057267736
