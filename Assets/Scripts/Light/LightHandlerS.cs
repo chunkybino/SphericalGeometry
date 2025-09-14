@@ -10,7 +10,7 @@ public class LightHandlerS : MonoBehaviour
     public List<LightS> noShadowLights = new List<LightS>();
     public List<LightS> shadowLights = new List<LightS>();
 
-    LightData[] lightDataSend;
+    //LightData[] lightDataSend;
     LightData[] lightDataSendNoShadow;
     LightData[] lightDataSendShadow;
 
@@ -56,11 +56,11 @@ public class LightHandlerS : MonoBehaviour
 
         Dispose();
 
-        SetLightBuffer();
+        //SetLightBuffer();
         SetStaticShadowBuffer();
 
         //UpdateBufferSendData();
-        SetLightBuffer();
+        //SetLightBuffer();
     }
 
     void CheckSingleton()
@@ -92,16 +92,27 @@ public class LightHandlerS : MonoBehaviour
 
     void Update()
     {
+        //UpdateFullBuffer();
+
+        //print(lightDataSendNoShadow + " " + lightDataSendNoShadow.Length);
+
         UpdateBufferSendData();
+
+        /*
+        print("nope " +(lightBuffer==null));
+        if (lightBuffer != null) print(lightBuffer.IsValid());
 
         UpdateBuf(noShadowLights, lightBuffer, lightDataSendNoShadow);
         UpdateBuf(shadowLights, shadowLightBuffer, lightDataSendShadow);
+        */
 
         //SetLightBuffer();
 
         void UpdateBuf(List<LightS> light, ComputeBuffer buff, LightData[] send)
         {
-            if (buff == null) return;
+            //print(buff == null);
+            //print(buff.IsValid());
+            if (buff == null || !buff.IsValid()) return;
 
             int startIndex = 0;
             int bufferCount = 0;
@@ -139,12 +150,6 @@ public class LightHandlerS : MonoBehaviour
         else
         {
             SetStaticShadowBuffer();
-            /*
-            if (shadowSend.Length == 0 && staticShadowRenderers.Count > 0)
-            {
-                SetStaticShadowBuffer();
-            }
-            */
         }
         
         UpdateShadowBuffer();
@@ -153,20 +158,11 @@ public class LightHandlerS : MonoBehaviour
     void UpdateFullBuffer()
     {
         UpdateBufferSendData();
-
-        if (lightBuffer == null || lights.Count != lightDatasCount || noShadowLights.Count != noShadowlightDatasCount || shadowLights.Count != shadowLightDatasCount)
-        {
-            SetLightBuffer();
-        }
     }
 
     void UpdateBufferSendData()
     {
-        lightDataSend = new LightData[lights.Count];
-        for (int i = 0; i < lights.Count; i++)
-        {
-            lightDataSend[i] = lights[i].data;
-        }
+        //SetLightBuffer();
 
         lightDataSendNoShadow = new LightData[noShadowLights.Count];
         for (int i = 0; i < noShadowLights.Count; i++)
@@ -179,10 +175,20 @@ public class LightHandlerS : MonoBehaviour
         {
             lightDataSendShadow[i] = shadowLights[i].data;
         }
+
+        if (lightBuffer != null && lightBuffer.IsValid()) {
+            lightBuffer.SetData(lightDataSendNoShadow);
+        }
+        if (shadowLightBuffer != null && shadowLightBuffer.IsValid()) {
+            shadowLightBuffer.SetData(lightDataSendShadow);
+        }
     }   
 
-    void SetLightBuffer()
+    void SetLightBuffer() 
     {
+        int prevNoShadowLightCount = noShadowLights.Count;
+        int prevShadowLightCount = shadowLights.Count;
+
         noShadowLights.Clear();
         shadowLights.Clear();
         for (int i = 0; i < lights.Count; i++)
@@ -194,35 +200,59 @@ public class LightHandlerS : MonoBehaviour
             }
         }
 
-        lightDatasCount = lights.Count;
-        noShadowlightDatasCount = noShadowLights.Count;
-        shadowLightDatasCount = shadowLights.Count;
+        bool showShadowLightChange = noShadowLights.Count != prevNoShadowLightCount;
+        bool sphereShadowCasterChange = shadowLights.Count != prevShadowLightCount;
 
-        if (noShadowlightDatasCount > 0 && (noShadowlightDatasCount != noShadowLights.Count || lightBuffer == null))
+        if (noShadowlightDatasCount > 0)
         {
-            lightBuffer = new ComputeBuffer(noShadowlightDatasCount, System.Runtime.InteropServices.Marshal.SizeOf(typeof(LightData))); //System.Runtime.InteropServices.Marshal.SizeOf(typeof(LightData)));
-            //lightBuffer.SetData(lightDataSendNoShadow);
-            Shader.SetGlobalBuffer("_LightDataNoShadow", lightBuffer);
-        }
-        if (shadowLightDatasCount > 0 && (shadowLightDatasCount != shadowLights.Count || lightBuffer == null))
-        {
-            shadowLightBuffer = new ComputeBuffer(shadowLightDatasCount, System.Runtime.InteropServices.Marshal.SizeOf(typeof(LightData))); //System.Runtime.InteropServices.Marshal.SizeOf(typeof(LightData)));
-            //shadowLightBuffer.SetData(lightDataSendShadow);
-            Shader.SetGlobalBuffer("_LightDataShadow", shadowLightBuffer);
+            if (showShadowLightChange || lightBuffer == null)
+            {
+                //print(lightCountBuffer != null);
+                //if (lightCountBuffer != null) lightCountBuffer.Release();
+
+                lightBuffer = new ComputeBuffer(noShadowlightDatasCount, System.Runtime.InteropServices.Marshal.SizeOf(typeof(LightData)));
+                Shader.SetGlobalBuffer("_LightDataNoShadow", lightBuffer);
+            }
+
+            /*
+            if (lightBuffer != null && lightBuffer.IsValid()) {
+                lightBuffer.SetData(lightDataSendNoShadow);
+            }
+            */
         }
 
-        UpdateBufferSendData();
+        //print();
+        if (shadowLightDatasCount > 0)
+        {
+            if (sphereShadowCasterChange || shadowLightBuffer == null)
+            {
+                //print(lightCountBuffer != null);
+                //if (lightCountBuffer != null) lightCountBuffer.Release();
+
+                shadowLightBuffer = new ComputeBuffer(shadowLightDatasCount, System.Runtime.InteropServices.Marshal.SizeOf(typeof(LightData)));
+                Shader.SetGlobalBuffer("_LightDataShadow", shadowLightBuffer);
+            }
+
+            /*
+            if (shadowLightBuffer != null && shadowLightBuffer.IsValid()) {
+                shadowLightBuffer.SetData(lightDataSendShadow);
+            }
+            */
+        }
         
-        //lightBuffer?.SetData(lightDataSendNoShadow);
-        //shadowLightBuffer?.SetData(lightDataSendShadow);
 
-        if (lightCountBuffer == null)
+        if (lightCountBuffer == null || !lightCountBuffer.IsValid())
         {
+            //print(lightCountBuffer != null);
+            //if (lightCountBuffer != null) lightCountBuffer.Release();
             lightCountBuffer = new ComputeBuffer(2, sizeof(int));
             Shader.SetGlobalBuffer("_LightCount", lightCountBuffer);
         }
-        //print(lightCountBuffer != null);
+
         lightCountBuffer.SetData(new int[] {lightDatasCount,shadowLightDatasCount});
+        //if (showShadowLightChange || sphereShadowCasterChange) {
+        //    lightCountBuffer.SetData(new int[] {lightDatasCount,shadowLightDatasCount});
+        //}
     }
 
     public void AddLight(LightS light)
@@ -268,32 +298,34 @@ public class LightHandlerS : MonoBehaviour
         bool sphereShadowCasterChange = sphereShadowCount != prevSphereShadowCount;
         prevSphereShadowCount = sphereShadowCount;
 
-        if ((staticShadowCasterChange || shadowBuffer == null) && totalShadowTriLength > 0)
+        if (totalShadowTriLength > 0 && (staticShadowCasterChange || shadowBuffer == null))
         {
-            if (shadowBuffer != null) shadowBuffer.Release();
+            //if (shadowBuffer != null) shadowBuffer.Release();
             shadowBuffer = new ComputeBuffer(totalShadowTriLength, sizeof(float) * 16);
             Shader.SetGlobalBuffer("_ShadowData", shadowBuffer);
         }
-        shadowBuffer?.SetData(shadowSend);
-
-        if ((sphereShadowCasterChange || sphereShadowBuffer == null || !sphereShadowBuffer.IsValid()) && sphereShadowCount > 0)
+        if (sphereShadowCount > 0 && (sphereShadowCasterChange || sphereShadowBuffer == null))
         {
-            if (sphereShadowBuffer != null) sphereShadowBuffer.Release();
+            //if (sphereShadowBuffer != null) sphereShadowBuffer.Release();
             sphereShadowBuffer = new ComputeBuffer(sphereShadowCount, sizeof(float)*5);
             Shader.SetGlobalBuffer("_ShadowSphereData", sphereShadowBuffer);
         }
-        print(sphereShadowSend == null);
-        print(sphereShadowBuffer == null);
-        print(sphereShadowBuffer.IsValid());
-        sphereShadowBuffer?.SetData(sphereShadowSend);
 
-        if (shadowCountBuffer == null)
+        if (shadowBuffer != null && shadowBuffer.IsValid()) {
+            shadowBuffer.SetData(shadowSend);
+        }
+        if (sphereShadowBuffer != null && sphereShadowBuffer.IsValid()) {
+            sphereShadowBuffer.SetData(sphereShadowSend);
+        }
+
+        if (shadowCountBuffer == null || !shadowCountBuffer.IsValid())
         {
-            if (shadowCountBuffer != null) shadowCountBuffer.Release();
             shadowCountBuffer = new ComputeBuffer(2, sizeof(int));
             Shader.SetGlobalBuffer("_ShadowCount", shadowCountBuffer);
         }
-        shadowCountBuffer?.SetData(new int[] {totalShadowTriLength, sphereShadowCount});
+        if (staticShadowCasterChange || sphereShadowCasterChange) {
+            shadowCountBuffer.SetData(new int[] {totalShadowTriLength, sphereShadowCount});
+        }
     }
 
     void SetStaticShadowBuffer()
@@ -311,6 +343,7 @@ public class LightHandlerS : MonoBehaviour
 
         int triPlaceIndex = 0;
 
+        staticShadowCount = 0;
         for (int j = 0; j < staticShadowRenderers.Count; j++)
         {
             I_ShadowCaster ren = staticShadowRenderers[j];
@@ -368,9 +401,9 @@ public class LightHandlerS : MonoBehaviour
 
         //sphere profile time
         sphereShadowCount = 0;
+        sphereShadowSend.Clear();
         if (sphereShadowRenderers.Count > 0)
         {
-            sphereShadowSend.Clear();
             //List<float> sphereShadowSend = new List<float>();
 
             for (int i = 0; i < sphereShadowRenderers.Count; i++)
@@ -428,17 +461,9 @@ public class LightHandlerS : MonoBehaviour
         SetStaticShadowBuffer();
     }
     public void RemoveStaticShadow(I_ShadowCaster ren)
-    {        
-        if (!ren.shadow_doSphereProfile)
-        {
-            if (!staticShadowRenderers.Contains(ren)) return;
-            staticShadowRenderers.Remove(ren);
-        }
-        else
-        {
-            if (!sphereShadowRenderers.Contains(ren)) return;
-            sphereShadowRenderers.Remove(ren);
-        }
+    {     
+        if (staticShadowRenderers.Contains(ren)) staticShadowRenderers.Remove(ren);
+        if (sphereShadowRenderers.Contains(ren)) sphereShadowRenderers.Remove(ren);
 
         SetStaticShadowBuffer();
     }

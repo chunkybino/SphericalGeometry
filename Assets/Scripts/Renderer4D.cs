@@ -73,13 +73,13 @@ public class Renderer4D : MonoBehaviour, I_ShadowCaster
 
     void OnEnable()
     {
-        if (castShadows) {
+        if (castShadows && LightHandlerS.singleton != null) {
             LightHandlerS.singleton.AddStaticShadow(this);
         }
     }
     void OnDisable()
     {
-        if (castShadows) {
+        if (castShadows && LightHandlerS.singleton != null) {
             LightHandlerS.singleton.RemoveStaticShadow(this);
         }
     }
@@ -93,21 +93,27 @@ public class Renderer4D : MonoBehaviour, I_ShadowCaster
             Initialize();
         }
 
-        if (castShadows != m_castShadows)
+        //print(LightHandlerS.singleton == null);
+        if (LightHandlerS.singleton != null)
         {
-            if (castShadows) {
-                LightHandlerS.singleton.AddStaticShadow(this);
-            } else {
-                LightHandlerS.singleton.RemoveStaticShadow(this);
-            }
-        }
-        m_castShadows = castShadows;
 
-        if (doSphereShadowProfile != m_doSphereShadowProfile && castShadows)
-        {
-            LightHandlerS.singleton.AddStaticShadow(this);
+            if (castShadows != m_castShadows)
+            {
+                if (castShadows) {
+                    LightHandlerS.singleton.AddStaticShadow(this);
+                } else {
+                    LightHandlerS.singleton.RemoveStaticShadow(this);
+                }
+            }
+            m_castShadows = castShadows;
+
+            if (doSphereShadowProfile != m_doSphereShadowProfile && castShadows)
+            {
+                LightHandlerS.singleton.AddStaticShadow(this);
+            }
+            m_doSphereShadowProfile = doSphereShadowProfile;
+
         }
-        m_doSphereShadowProfile = doSphereShadowProfile;
     }
 
     void Update()

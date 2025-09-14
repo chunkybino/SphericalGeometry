@@ -4303,18 +4303,18 @@ MonoBehaviour:
   data:
     position: {x: 0.49377662, y: 0.43828467, z: 0.6172209, w: 0.42793694}
     color: {x: 1, y: 1, z: 1}
-    intensity: 0.6
+    intensity: 0.52
     ambience: 0
-    direction: {x: 0, y: 0, z: 0, w: 0}
+    direction: {x: 0.83546954, y: -0.18988347, z: -0.20566301, w: -0.4729033}
     rangeAngle: 3.1415927
     rangeFalloffAngleMult: 0.3183099
     falloffDegree: 0
   color: {r: 1, g: 1, b: 1, a: 0}
-  intensity: 0.6
+  intensity: 0.52
   doFalloff: 0
   falloffDegree: 0
   ambience: 0
-  direction: {x: 0, y: 0, z: 0}
+  direction: {x: 1, y: 0, z: 0}
   range: 180
   rangeFalloff: 180
   castShadows: 1
@@ -6055,8 +6055,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lights:
-  - {fileID: 847819228}
   - {fileID: 992592556}
+  - {fileID: 847819228}
   noShadowLights:
   - {fileID: 992592556}
   shadowLights:
@@ -6065,26 +6065,11 @@ MonoBehaviour:
   noShadowlightDatasCount: 1
   shadowLightDatasCount: 1
   shadowSend: []
-  sphereShadowSend:
-  - 0
-  - 0.2885376
-  - 0.3664074
-  - 0.8845856
-  - 0.9950042
-  - 0
-  - 0.47300568
-  - 0.33716685
-  - 0.8139927
-  - 0.9950042
-  - 0.49999997
-  - 0.70710677
-  - 0.35355335
-  - 0.35355335
-  - 0.9950042
-  totalShadowTriLength: 0
-  staticShadowCount: 0
-  sphereShadowCount: 3
-  disableShadows: 0
+  sphereShadowSend: []
+  totalShadowTriLength: 80
+  staticShadowCount: 1
+  sphereShadowCount: 2
+  disableShadows: 1
   castShadowLevel: 1
   updateFullBuffer: 0
 --- !u!4 &1083750112
@@ -6458,6 +6443,15 @@ MonoBehaviour:
   - {fileID: 2057267735}
   - {fileID: 1032420805}
   globalBodies:
+  - {fileID: 14870709}
+  - {fileID: 14870709}
+  - {fileID: 14870709}
+  - {fileID: 14870709}
+  - {fileID: 14870709}
+  - {fileID: 14870709}
+  - {fileID: 14870709}
+  - {fileID: 14870709}
+  - {fileID: 14870709}
   - {fileID: 14870709}
   - {fileID: 14870709}
   - {fileID: 14870709}

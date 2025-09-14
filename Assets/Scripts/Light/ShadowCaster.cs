@@ -32,13 +32,13 @@ public class ShadowCaster : MonoBehaviour, I_ShadowCaster
     {
         if (!transform4) transform4 = GetComponent<Transform4D>();
 
-        if (castShadows) {
+        if (castShadows && LightHandlerS.singleton != null) {
             LightHandlerS.singleton.AddStaticShadow(this);
         }
     }
     void OnDisable()
     {
-        if (castShadows) {
+        if (castShadows && LightHandlerS.singleton != null) {
             LightHandlerS.singleton.RemoveStaticShadow(this);
         }
     }
@@ -47,20 +47,25 @@ public class ShadowCaster : MonoBehaviour, I_ShadowCaster
     {
         if (!gameObject.activeInHierarchy) return;
 
-        if (castShadows != m_castShadows)
+        if (LightHandlerS.singleton != null)
         {
-            if (castShadows) {
-                LightHandlerS.singleton.AddStaticShadow(this);
-            } else {
-                LightHandlerS.singleton.RemoveStaticShadow(this);
-            }
-        }
-        m_castShadows = castShadows;
 
-        if (doSphereProfile != m_doSphereProfile && castShadows)
-        {
-            LightHandlerS.singleton.AddStaticShadow(this);
+            if (castShadows != m_castShadows)
+            {
+                if (castShadows) {
+                    LightHandlerS.singleton.AddStaticShadow(this);
+                } else {
+                    LightHandlerS.singleton.RemoveStaticShadow(this);
+                }
+            }
+            m_castShadows = castShadows;
+
+            if (doSphereProfile != m_doSphereProfile && castShadows)
+            {
+                LightHandlerS.singleton.AddStaticShadow(this);
+            }
+            m_doSphereProfile = doSphereProfile;
+
         }
-        m_doSphereProfile = doSphereProfile;
     }
 }
