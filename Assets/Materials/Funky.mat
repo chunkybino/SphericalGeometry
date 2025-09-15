@@ -29,7 +29,10 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _DoShadow: 1
     - _DoV4: 0
+    - _DoubleSideLit: 0
+    - _Lit: 1
     - _Radius: 1
     - _Subdivisions: 1
     m_Colors:

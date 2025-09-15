@@ -6071,25 +6071,10 @@ MonoBehaviour:
   noShadowlightDatasCount: 1
   shadowLightDatasCount: 1
   shadowSend: []
-  sphereShadowSend:
-  - 0
-  - 0.2885376
-  - 0.3664074
-  - 0.8845856
-  - 0.9950042
-  - 0
-  - 0.47300568
-  - 0.33716685
-  - 0.8139927
-  - 0.9950042
-  - 0.49999997
-  - 0.70710677
-  - 0.35355335
-  - 0.35355335
-  - 0.9950042
+  sphereShadowSend: []
   totalShadowTriLength: 0
   staticShadowCount: 0
-  sphereShadowCount: 3
+  sphereShadowCount: 0
   disableShadows: 0
   castShadowLevel: 1
   updateFullBuffer: 0
@@ -6464,6 +6449,10 @@ MonoBehaviour:
   - {fileID: 2057267735}
   - {fileID: 1032420805}
   globalBodies:
+  - {fileID: 14870709}
+  - {fileID: 14870709}
+  - {fileID: 14870709}
+  - {fileID: 14870709}
   - {fileID: 14870709}
   - {fileID: 14870709}
   - {fileID: 14870709}
@@ -11374,7 +11363,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &2057267734
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12196,7 +12185,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &5324910774709287075
 MonoBehaviour:
   m_ObjectHideFlags: 0

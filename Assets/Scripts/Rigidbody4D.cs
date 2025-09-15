@@ -78,6 +78,7 @@ public class Rigidbody4D : MonoBehaviour
     PhysicsHandlerS physicsS;
 
     [SerializeField] List<Vector4> staticContactNormals = new List<Vector4>();
+    //[SerializeField] List<Vector4> staticContactPoints = new List<Vector4>();
     //[SerializeField] List<float> staticContactVels = new List<float>();
 
     bool moveThisFixedFrame; //did we mupdate our transform this fixed frame
@@ -125,6 +126,7 @@ public class Rigidbody4D : MonoBehaviour
         collider?.PhysicsUpdate();
 
         staticContactNormals.Clear();
+        //staticContactPoints.Clear();
         //staticContactVels.Clear();
     }
     public void PhysicsUpdate2()
@@ -145,6 +147,8 @@ public class Rigidbody4D : MonoBehaviour
         //friction
         for (int i = 0; i < staticContactNormals.Count; i++)
         {
+            if (friction == 0) continue;
+
             float normDot = Vector4.Dot(tangentGravity, staticContactNormals[i]);
             normDot = Mathf.Max(-normDot, 0);
 
@@ -153,7 +157,6 @@ public class Rigidbody4D : MonoBehaviour
             velocity += -tangentVel.normalized * Mathf.Min(normDot * friction * Time.fixedDeltaTime, tangentVel.magnitude);
 
             Vector3 normal3 = transform4.RelativeDirectionTo(staticContactNormals[i]).normalized;
-
             Vector3 allignAngular = normal3*Vector3.Dot(angularVelocity,normal3);
 
             angularVelocity -= allignAngular.normalized * Mathf.Min(normDot * friction*angularFrictionMult * Time.fixedDeltaTime, allignAngular.magnitude);
@@ -340,23 +343,11 @@ public class Rigidbody4D : MonoBehaviour
             return UFunc.SetVectorDirectionValue(currentLinear, direction, newDot);
         }
     }
-    /*
-    public void ApplyFriction(Vector4 forcePoint, Vector4 forceVel)
-    {
-        if (friction == 0) return;
 
-        Vector4 pointVel = GetLinearVelocityAtAnchor(forcePoint);
-
-        Vector4 perpVel = pointVel - forceVel*Vector4.Dot(pointVel,forceVel)/forceVel.sqrMagnitude;
-
-        print("fric "+friction+" "+(-perpVel.normalized)+" "+Mathf.Min(forceVel.magnitude*friction,perpVel.magnitude)+" "+Vector4.Dot(perpVel,forceVel));
-
-        ApplyStaticForce(-perpVel.normalized, Mathf.Min(forceVel.magnitude*friction,perpVel.magnitude), forcePoint, 0, false);
-    }
-    */
     public void AddStaticContact(Vector4 normal, float vel, Vector4 pos)
     {
         staticContactNormals.Add(new Rotor(pos, positionNorm) * normal);
+        //staticContactPoints.Add(pos);
     }
 
     public void SetRelativeVelocityAxis(float vel, int axisIndex)
