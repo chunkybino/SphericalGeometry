@@ -29,6 +29,7 @@ public class Renderer4D : MonoBehaviour, I_ShadowCaster
     public Matrix4x4 transformMatrix;
     public Vector3 scaleMult = new Vector3(1,1,1);
     public Vector3 transformScale; 
+    public Vector3 GetScale() {return transformScale;}
 
     [SerializeField] Vector3[] vertices;
     [SerializeField] Vector4[] vertex4;
@@ -56,7 +57,7 @@ public class Renderer4D : MonoBehaviour, I_ShadowCaster
     bool m_doSphereShadowProfile;
     public float shadowSphereRad = 1;
 
-    public bool shadow_doSphereProfile {get{return m_doSphereShadowProfile;}}
+    public bool shadow_doSphereProfile {get{return doSphereShadowProfile;}}
     public float shadow_sphereRadius {get{return shadowSphereRad*transform4.scale;}}
 
     void Start()
@@ -76,6 +77,7 @@ public class Renderer4D : MonoBehaviour, I_ShadowCaster
         if (castShadows && LightHandlerS.singleton != null) {
             LightHandlerS.singleton.AddStaticShadow(this);
         }
+        m_doSphereShadowProfile = false;
     }
     void OnDisable()
     {
@@ -92,8 +94,15 @@ public class Renderer4D : MonoBehaviour, I_ShadowCaster
             initialize = false;
             Initialize();
         }
+    }
 
-        //print(LightHandlerS.singleton == null);
+    void Update()
+    {
+        if (!transform4 || !renderer || !filter) return;
+
+        transformMatrix = transform4.matrix.inverse;
+        transformScale = scaleMult * transform4.scale;
+
         if (LightHandlerS.singleton != null)
         {
 
@@ -114,14 +123,6 @@ public class Renderer4D : MonoBehaviour, I_ShadowCaster
             m_doSphereShadowProfile = doSphereShadowProfile;
 
         }
-    }
-
-    void Update()
-    {
-        if (!transform4 || !renderer || !filter) return;
-
-        transformMatrix = transform4.matrix.inverse;
-        transformScale = scaleMult * transform4.scale;
 
         if (matBlock == null) matBlock = new MaterialPropertyBlock();
 

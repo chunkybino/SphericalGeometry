@@ -6,7 +6,7 @@ public interface I_ShadowCaster
     public Vector3[] GetVertex3();
     public Vector4[] GetVertex4();
 
-    public virtual Vector3 GetScale() {return new Vector3(1,1,1);}
+    public Vector3 GetScale();
 
     public Vector4 GetPos();
     public Matrix4x4 GetMatrix();
@@ -14,6 +14,6 @@ public interface I_ShadowCaster
     public bool shadow_doVertex4 {get{return false;}}
     public int shadow_castShadowLevel {get{return 0;}}
 
-    public bool shadow_doSphereProfile {get{return false;}}
-    public float shadow_sphereRadius {get{return 1;}}
+    public bool shadow_doSphereProfile {get;}
+    public float shadow_sphereRadius {get;}
 }
