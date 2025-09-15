@@ -40,6 +40,7 @@ public class Rigidbody4D : MonoBehaviour
     public float bounce = 0;
 
     public float friction = 0;
+    public float angularFrictionMult = 0;
 
     public bool dontReciveAngularVelocity;
 
@@ -150,6 +151,12 @@ public class Rigidbody4D : MonoBehaviour
             Vector4 tangentVel = UFunc.ProjectToVectorNormal(velocity,staticContactNormals[i]);
  
             velocity += -tangentVel.normalized * Mathf.Min(normDot * friction * Time.fixedDeltaTime, tangentVel.magnitude);
+
+            Vector3 normal3 = transform4.RelativeDirectionTo(staticContactNormals[i]).normalized;
+
+            Vector3 allignAngular = normal3*Vector3.Dot(angularVelocity,normal3);
+
+            angularVelocity -= allignAngular.normalized * Mathf.Min(normDot * friction*angularFrictionMult * Time.fixedDeltaTime, allignAngular.magnitude);
         }
 
         velocity += tangentGravity * Time.fixedDeltaTime;
