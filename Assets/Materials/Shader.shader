@@ -340,6 +340,13 @@ Shader "Mine/Boring"
                 pixelColor = tex2D(_MainTexture, IN.uv);
                 pixelColor *= _Color;
 
+                //fog?
+                float distanceDot = dot(normalize(IN.positionWorld),UNITY_MATRIX_V[3]);
+                //distanceDot = (1-distanceDot)/2;
+                distanceDot = 0.25f*(3/(2*distanceDot+4) - 0.5f);
+                float3 fogColor = float3(0.8,0.8,0.8);
+                pixelColor.rbg = float3(lerp(pixelColor.r,fogColor.x,distanceDot),lerp(pixelColor.b,fogColor.y,distanceDot),lerp(pixelColor.g,fogColor.z,distanceDot));
+
                 if (_Lit == 0)
                 {
                     return pixelColor;
