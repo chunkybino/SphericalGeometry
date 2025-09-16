@@ -182,6 +182,39 @@ public class Rigidbody4D : MonoBehaviour
         velocity = currentTangent;
     }
 
+    public void SetRelativeVelocity(Vector3 vel)
+    {
+        velocity = new Vector4();
+        for (int i = 0; i < 3; i++) {
+            velocity += vel[i]*transform4.matrix.GetColumn(i);
+        }
+    }
+    public void SetRelativeVelocity(float vel, int axisIndex)
+    {
+        SetVelocityTowards(transform4.GetBasis(axisIndex), vel);
+    }
+    public void SetRelativeVelocityX(float vel) {
+        SetRelativeVelocity(vel, 0);
+    }
+    public void SetRelativeVelocityY(float vel) {
+        SetRelativeVelocity(vel, 1);
+    }
+    public void SetRelativeVelocityZ(float vel) {
+        SetRelativeVelocity(vel, 2);
+    }
+    public Vector3 GetRelativeVelocity()
+    {
+        Vector3 outV = new Vector3();
+        for (int i = 0; i < 3; i++) {
+            outV[i] = Vector4.Dot(velocity, transform4.matrix.GetColumn(i));
+        }
+        return outV;
+    }
+    public float GetRelativeVelocity(int component)
+    {
+        return Vector4.Dot(velocity, transform4.matrix.GetColumn(component));
+    }
+
     public void SetAngularVelocity(Vector3 ang)
     {
         angularVelocity = ang;
@@ -331,6 +364,7 @@ public class Rigidbody4D : MonoBehaviour
 
         Vector4 GetFinalVel(float newDot)
         {
+            /*
             if (elasticity != 1 && Mathf.Abs(newDot) < 0.1f)
             {
                 newDot = Mathf.MoveTowards(newDot, 0, 1*Time.fixedDeltaTime);
@@ -340,6 +374,7 @@ public class Rigidbody4D : MonoBehaviour
             {
                 //return direction * newDot;
             }
+            */
             return UFunc.SetVectorDirectionValue(currentLinear, direction, newDot);
         }
     }
@@ -348,20 +383,6 @@ public class Rigidbody4D : MonoBehaviour
     {
         staticContactNormals.Add(new Rotor(pos, positionNorm) * normal);
         //staticContactPoints.Add(pos);
-    }
-
-    public void SetRelativeVelocityAxis(float vel, int axisIndex)
-    {
-        SetVelocityTowards(transform4.GetBasis(axisIndex), vel);
-    }
-    public void SetRelativeVelocityX(float vel) {
-        SetRelativeVelocityAxis(vel, 0);
-    }
-    public void SetRelativeVelocityY(float vel) {
-        SetRelativeVelocityAxis(vel, 1);
-    }
-    public void SetRelativeVelocityZ(float vel) {
-        SetRelativeVelocityAxis(vel, 2);
     }
 
     public void OnRotor(Rotor r)
@@ -380,6 +401,7 @@ public class Rigidbody4D : MonoBehaviour
         //if (!globalSector) physicsS?.UpdateRigidbodySector(this);
     }
 
+    //bad function dont use this
     void Rotate(Vector3 rotateAmount)
     {
         transform4.RotateRelativeXZ(-rotateAmount.y);

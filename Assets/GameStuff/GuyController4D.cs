@@ -17,6 +17,8 @@ public class GuyController4D : MonoBehaviour
     [SerializeField] bool doCameraPitch;
 
     [SerializeField] float jumpForce;
+    [SerializeField] bool isJump;
+    [SerializeField] float releaseVelMult = 0.4f;
 
     [SerializeField] GroundCheck groundCheck;
 
@@ -46,6 +48,7 @@ public class GuyController4D : MonoBehaviour
         //jump
         if (input.spacePress && groundCheck.grounded) {
             rb.SetVelocityTowards(new Vector4(0,1,0,0), jumpForce);
+            isJump = true;
         }
 
         //look
@@ -58,5 +61,20 @@ public class GuyController4D : MonoBehaviour
 
         transform4.RotateRelativeXZ(-angleVector.x);
         //rb.angularVelocity = new Vector3(0, -angleVector.x, 0);
+    }
+
+    void FixedUpdate()
+    {
+        float yVel = rb.GetRelativeVelocity(1);
+
+        if (groundCheck.grounded && yVel < 0.05f) {
+            isJump = false;
+        }
+
+        if (isJump && !input.space && yVel > 0) //if space released
+        {
+            rb.SetRelativeVelocityY(yVel*releaseVelMult);
+            isJump = false;
+        }
     }
 }
