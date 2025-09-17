@@ -58,6 +58,7 @@ public class Rigidbody4D : MonoBehaviour
             }
         }
     }
+    public bool kineticStatic; //lets the rb move with velocity even while static
 
     public bool dontDoVelocity;
 
@@ -101,8 +102,17 @@ public class Rigidbody4D : MonoBehaviour
 
     public void PhysicsUpdate()
     {
-        if (isStatic) {
-            velocity = Vector4.zero;
+        if (isStatic) 
+        {
+            if (kineticStatic) 
+            {
+                MoveTangent(velocity * Time.fixedDeltaTime);
+                if (angularVelocity != Vector3.zero) Rotate(angularVelocity * Time.fixedDeltaTime);
+            }
+            else
+            {
+                velocity = Vector4.zero;
+            }
             return;
         }
 

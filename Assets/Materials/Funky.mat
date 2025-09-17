@@ -34,7 +34,7 @@ Material:
     - _DoubleSideLit: 0
     - _Lit: 1
     - _Radius: 1
-    - _Subdivisions: 1
+    - _Subdivisions: 2
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _MatC0: {r: 1, g: 1, b: 1, a: 0}
