@@ -29,6 +29,10 @@ public class PhysiicsDebugEverything : MonoBehaviour
 
     [SerializeField] bool flipPos;
 
+    [SerializeField] RingColliderS ring1;
+    [SerializeField] bool doRingSphereClose;
+    [SerializeField] bool doRingCapClose;
+
     // Update is called once per frame
     void Update()
     {
@@ -38,31 +42,16 @@ public class PhysiicsDebugEverything : MonoBehaviour
             Vector4 meshPoint = new Vector4();
             mesh1.LineClose(cap1.point1,cap1.point2, ref linePoint, ref meshPoint);
 
-            //print(gameObject.name+" "+1+" "+linePoint+" "+meshPoint);
-
             
             if (meshEdgeNum >= 0) {
                 UFunc.DoubleArcCloseUnclamped(cap1.point1,cap1.point2, mesh1.verticiesWorld[mesh1.edges[1].x], mesh1.verticiesWorld[mesh1.edges[1].y], ref linePoint, ref meshPoint);
             }
-            else
-            {
-                //UFunc.DoubleArcCloseUnclamped(cap1.point1,cap1.point2, mesh1.verticiesWorld[1], mesh1.verticiesWorld[2], ref linePoint, ref meshPoint);
-            }
-            //print("not Mesh "+mesh1.verticiesWorld[mesh1.edges[1].x]+" "+ mesh1.verticiesWorld[mesh1.edges[1].y]+" "+cap1.point1+" "+cap1.point2);
-
-            //print(2+" "+linePoint+" "+meshPoint);
 
             if (flipPos) {
                 UFunc.DoubleArcCloseUnclamped(mesh1.verticiesWorld[mesh1.edges[1].x], mesh1.verticiesWorld[mesh1.edges[1].y],cap1.point1,cap1.point2, ref meshPoint, ref linePoint);
             }
 
-            //print(3+" "+linePoint+" "+meshPoint);
-
             float distance = UFunc.DistanceS(meshPoint,linePoint);
-
-            //print(distance);
-
-            //if (distance > )
 
             if (!flipPointClose)
             {
@@ -97,18 +86,6 @@ public class PhysiicsDebugEverything : MonoBehaviour
             Vector4 close2 = new Vector4();
             UFunc.DoubleArcClose(cap1.point1,cap1.point2,cap2.point1,cap2.point2, ref close1, ref close2);
 
-            /*
-            Vector4 close1_2 = new Vector4();
-            Vector4 close2_2 = new Vector4();
-            UFunc.DoubleArcCloseUnclamped(cap2.point1,cap2.point2,cap1.point1,cap1.point2, ref close2_2, ref close1_2);
-
-            if (Vector4.Dot(close1_2,close2_2) > Vector4.Dot(close1,close2))
-            {
-                close1 = close1_2;
-                close2 = close2_2;
-            }
-            */
-
             if (flipPos) 
             {
                 close1 *= -1;
@@ -130,8 +107,30 @@ public class PhysiicsDebugEverything : MonoBehaviour
             Vector4 close1 = new Vector4();
             Vector4 close2 = new Vector4();
             UFunc.DoubleArcCloseUnclamped(arcPos1, arcPos2, arcPos3, arcPos4, ref close1, ref close2);
-            print(close1);
-            print(close2);
+        }
+
+        if (doRingSphereClose)
+        {
+            Vector4 close1 = sphere1.transform4.position;
+            Vector4 close2 = ring1.PointClose(close1);
+
+            if (flipPos) {
+                transform4.MoveRotor(new Rotor(transform4.positionNorm,close2));
+            } else {
+                transform4.MoveRotor(new Rotor(transform4.positionNorm,close1));
+            }
+        }
+        if (doRingCapClose)
+        {
+            Vector4 close1 = new Vector4();
+            Vector4 close2 = new Vector4();
+            ring1.LineClose(cap1.point1,cap1.point2,ref close1, ref close2);
+
+            if (flipPos) {
+                transform4.MoveRotor(new Rotor(transform4.positionNorm,close2));
+            } else {
+                transform4.MoveRotor(new Rotor(transform4.positionNorm,close1));
+            }
         }
     }
 }

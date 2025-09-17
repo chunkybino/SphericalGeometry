@@ -137,10 +137,28 @@ public class PhysicsHandlerS : MonoBehaviour
     {
         Vector4 pos = rb.transform4.positionNorm;
         float boundingRadius = rb.boundingRadius;
+
         //int currentSector = newObject ? -1 : rb.sectorIndex;
         List<int> allCurrentSectors = rb.allSectors;
 
         List<int> allSectors = new List<int>();
+
+        if (rb.globalSector || rb.boundingRadius > 4)
+        {
+            if (!globalBodies.Contains(rb)) globalBodies.Add(rb);
+            //remove from sectors we arnt in anymore
+            for (int i = 0; i < allCurrentSectors.Count; i++)
+            {
+                if (allCurrentSectors[i] == -1) continue;
+                if (!allSectors.Contains(allCurrentSectors[i])) 
+                {
+                    sectors[allCurrentSectors[i]].AddRemove(rb, true);    
+                }
+            }
+            rb.sectorIndex = -1;
+            rb.allSectors.Clear();
+            return;
+        }
 
         { //find sectors of center
             int vecMax = UFunc.VectorSignificant(pos);

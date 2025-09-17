@@ -45,6 +45,7 @@ public abstract class ColliderS : MonoBehaviour
     public virtual CapsuleColliderS capsule {get{return null;}}
     public virtual TriColliderS triangle {get{return null;}}
     public virtual MeshColliderS mesh {get{return null;}}
+    public virtual RingColliderS ring {get{return null;}}
 
     public abstract Vector4 PointClose(Vector4 point);
     public abstract void LineClose(Vector4 v1, Vector4 v2, ref Vector4 outLine, ref Vector4 outThis);

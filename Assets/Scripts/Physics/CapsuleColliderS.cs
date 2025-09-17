@@ -13,7 +13,7 @@ public class CapsuleColliderS : ColliderS
     public Axis axis;
     public enum Axis {X,Y,Z};
 
-    public int capsuleAxis {get{
+    public int m_axis {get{
         if (axis == Axis.X) return 0;
         if (axis == Axis.Y) return 1;
         return 2;
@@ -27,12 +27,12 @@ public class CapsuleColliderS : ColliderS
     }}
     public Vector4 point1local {get{
         Vector4 v = new Vector4(0,0,0,Mathf.Cos(m_length/Transform4D.radius));
-        v[capsuleAxis] = Mathf.Sin(m_length/Transform4D.radius);
+        v[m_axis] = Mathf.Sin(m_length/Transform4D.radius);
         return v;
     }}
     public Vector4 point2local {get{
         Vector4 v = new Vector4(0,0,0,Mathf.Cos(m_length/Transform4D.radius));
-        v[capsuleAxis] = -Mathf.Sin(m_length/Transform4D.radius);
+        v[m_axis] = -Mathf.Sin(m_length/Transform4D.radius);
         return v;
     }}
 
