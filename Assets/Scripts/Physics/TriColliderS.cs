@@ -73,7 +73,7 @@ public class TriColliderS : ColliderS
         return PointCloseTri(point, worldVertex1, worldVertex2, worldVertex3, planeCenter, edgeNormal1, edgeNormal2, edgeNormal3);
     }
 
-    public void LineClose(Vector4 v1, Vector4 v2, ref Vector4 outLine, ref Vector4 outTri)
+    public override void LineClose(Vector4 v1, Vector4 v2, ref Vector4 outLine, ref Vector4 outThis)
     {
         Vector4[] points = new Vector4[4];
 
@@ -83,10 +83,10 @@ public class TriColliderS : ColliderS
         //take the closest
         if (UFunc.Dot(points[0],points[1]) > UFunc.Dot(points[2],points[3])) {
             outLine = points[0];
-            outTri = points[1];
+            outThis = points[1];
         } else {
             outLine = points[2];
-            outTri = points[3];
+            outThis = points[3];
         }
 
         void FindMin(float startT, ref Vector4 point1, ref Vector4 point2)

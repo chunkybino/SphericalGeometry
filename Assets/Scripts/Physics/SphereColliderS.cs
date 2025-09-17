@@ -17,4 +17,11 @@ public class SphereColliderS : ColliderS
     public override Vector4 PointClose(Vector4 point) {
         return center;
     }
+
+    public override void LineClose(Vector4 v1, Vector4 v2, ref Vector4 outLine, ref Vector4 outThis)
+    {
+        Vector4 s = UFunc.SlerpPointClose(v1,v2,transform4.positionNorm);
+        outLine = UFunc.SlerpPointClose(v1,v2,s);
+        outThis = transform4.positionNorm;
+    }
 }

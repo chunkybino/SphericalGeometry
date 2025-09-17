@@ -243,7 +243,7 @@ public class MeshColliderS : ColliderS
         return maxSpaceMesh;
     }
 
-    public void LineClose(Vector4 v1, Vector4 v2, ref Vector4 outLine, ref Vector4 outMesh)
+    public override void LineClose(Vector4 v1, Vector4 v2, ref Vector4 outLine, ref Vector4 outMesh)
     {
         float maxAngleSpace = -2;
         Vector4 maxSpaceMesh = new Vector4();

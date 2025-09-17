@@ -46,13 +46,14 @@ public class CapsuleColliderS : ColliderS
         return UFunc.SlerpPointClose(point1,point2,point);
     }
 
-    public void LineClose(Vector4 v1, Vector4 v2, ref Vector4 outCap, ref Vector4 outLine)
+    public override void LineClose(Vector4 v1, Vector4 v2, ref Vector4 outLine, ref Vector4 outThis)
     {
         Vector4 close1 = new Vector4();
         Vector4 close2 = new Vector4();
 
         UFunc.DoubleArcClose(point1,point2,v1,v2, ref close1, ref close2);
 
+        /*
         Vector4 close1_2 = new Vector4();
         Vector4 close2_2 = new Vector4();
         UFunc.DoubleArcClose(v1,v2,point1,point2, ref close2_2, ref close1_2);
@@ -62,8 +63,9 @@ public class CapsuleColliderS : ColliderS
             close1 = close1_2;
             close2 = close2_2;
         }
+        */
 
-        outCap = close1;
+        outThis = close1;
         outLine = close2;
     }
 }

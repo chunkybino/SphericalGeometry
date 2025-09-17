@@ -47,6 +47,7 @@ public abstract class ColliderS : MonoBehaviour
     public virtual MeshColliderS mesh {get{return null;}}
 
     public abstract Vector4 PointClose(Vector4 point);
+    public abstract void LineClose(Vector4 v1, Vector4 v2, ref Vector4 outLine, ref Vector4 outThis);
 
     public UnityEvent<ColliderS> onTriggerEnter;
     public UnityEvent<ColliderS> onTriggerStay;
@@ -245,6 +246,8 @@ public abstract class ColliderS : MonoBehaviour
                 default: //sphere
                     return SphereOn(col1.sphere, col2, ref con1, ref con2, ref conNorm);
                 case 1: //capsule
+                    return CapsuleOn(col1.capsule, col2, ref con1, ref con2, ref conNorm);
+                    /*
                     switch (type2) {
                         default: //capsule-capsule
                             return CapsuleOnCapsule(col1.capsule, col2.capsule, ref con1, ref con2, ref conNorm);
@@ -253,6 +256,7 @@ public abstract class ColliderS : MonoBehaviour
                         case 3: //sphere-triangle
                             return CapsuleOnMesh(col1.capsule, col2.mesh, ref con1, ref con2, ref conNorm);
                     }
+                    */
                 case 3: //mesh
                     if (type2 == 3)
                     {
@@ -290,6 +294,17 @@ public abstract class ColliderS : MonoBehaviour
         return PointRadiusContact(c1.center, c1.m_radius, point2, c2.m_radius, ref contact1, ref contact2, ref contactNorm);
     }
 
+    public static float CapsuleOn(CapsuleColliderS c1, ColliderS c2, ref Vector4 contact1, ref Vector4 contact2, ref Vector4 contactNorm)
+    {
+        Vector4 close1 = new Vector4();
+        Vector4 close2 = new Vector4();
+
+        c2.LineClose(c1.point1, c1.point2, ref close1, ref close2);
+
+        return PointRadiusContact(close1, c1.m_radius, close2, c2.m_radius, ref contact1, ref contact2, ref contactNorm);
+    }
+
+    /*
     public static float CapsuleOnCapsule(CapsuleColliderS c1, CapsuleColliderS c2, ref Vector4 contact1, ref Vector4 contact2, ref Vector4 contactNorm)
     {
         Vector4 close1 = new Vector4();
@@ -299,6 +314,7 @@ public abstract class ColliderS : MonoBehaviour
 
         return PointRadiusContact(close1, c1.m_radius, close2, c2.m_radius, ref contact1, ref contact2, ref contactNorm);
     }
+    */
 
     public static float CapsuleOnTriangle(CapsuleColliderS c1, TriColliderS c2, ref Vector4 contact1, ref Vector4 contact2, ref Vector4 contactNorm)
     {
