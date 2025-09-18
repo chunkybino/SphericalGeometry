@@ -437,13 +437,29 @@ public class MeshColliderS : ColliderS
     {
         if (!drawGizmoVertex) return;
 
+        Vector4[] transformVertex = new Vector4[verticiesWorld.Length];
+        Vector3[] projVertex = new Vector3[verticiesWorld.Length];
+        Vector3[] projVertex2 = new Vector3[verticiesWorld.Length];
+        for (int i = 0; i < verticiesWorld.Length; i++) {
+            transformVertex[i] = Camera.main.worldToCameraMatrix * verticiesWorld[i];
+            projVertex[i] = UFunc.SterographicProjection(transformVertex[i]);
+            projVertex2[i] = Camera.main.worldToCameraMatrix.inverse * projVertex[i];
+        }
+
         Vector3[] edgeDraw = new Vector3[edges.Length*2] ;
 
         for (int i = 0; i < edges.Length; i++)
         {
-            edgeDraw[2*i + 0] = 2.2f*UFunc.SterographicProjection(verticiesWorld[edges[i].x]);
-            edgeDraw[2*i + 1] = 2.2f*UFunc.SterographicProjection(verticiesWorld[edges[i].y]);
+            edgeDraw[2*i + 0] = projVertex2[edges[i].x];
+            edgeDraw[2*i + 1] = projVertex2[edges[i].y];
         }
+
+        /*
+        for (int i = 0; i < verticiesWorld.Length; i++) {
+            print(i+" "+projVertex[i]);
+            print(i+" "+projVertex2[i]);
+        }
+        */
 
         Gizmos.color = Color.green;
         Gizmos.DrawLineList(edgeDraw);

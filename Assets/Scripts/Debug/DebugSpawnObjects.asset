@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rigidbodyObjects:
   - {fileID: 3124124136369669866, guid: 2a25748ef5269334282dd16329802f8c, type: 3}
+  - {fileID: 3124124136369669866, guid: 2a25748ef5269334282dd16329802f8c, type: 3}

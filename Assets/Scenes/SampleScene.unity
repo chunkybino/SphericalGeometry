@@ -257,7 +257,7 @@ MonoBehaviour:
   angularFrictionMult: 0
   dontReciveAngularVelocity: 0
   m_isStatic: 1
-  keneticStatic: 0
+  kineticStatic: 0
   dontDoVelocity: 0
   collider: {fileID: 14870708}
   doYUpLock: 0
@@ -2284,7 +2284,7 @@ MonoBehaviour:
   angularFrictionMult: 0
   dontReciveAngularVelocity: 0
   m_isStatic: 1
-  keneticStatic: 0
+  kineticStatic: 0
   dontDoVelocity: 0
   collider: {fileID: 607435941}
   doYUpLock: 0
@@ -2640,7 +2640,7 @@ MonoBehaviour:
   angularFrictionMult: 0
   dontReciveAngularVelocity: 1
   m_isStatic: 0
-  keneticStatic: 0
+  kineticStatic: 0
   dontDoVelocity: 0
   collider: {fileID: 665110788}
   doYUpLock: 1
@@ -3955,7 +3955,7 @@ MonoBehaviour:
   angularFrictionMult: 0
   dontReciveAngularVelocity: 0
   m_isStatic: 1
-  keneticStatic: 0
+  kineticStatic: 0
   dontDoVelocity: 0
   collider: {fileID: 724789089}
   doYUpLock: 0
@@ -4015,220 +4015,6 @@ Transform:
   - {fileID: 1447499145}
   - {fileID: 1457274180}
   m_Father: {fileID: 69122365}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &785149371
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 785149376}
-  - component: {fileID: 785149375}
-  - component: {fileID: 785149374}
-  - component: {fileID: 785149373}
-  - component: {fileID: 785149372}
-  m_Layer: 0
-  m_Name: Dude (4)Mid (1)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!23 &785149372
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 785149371}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: 9d07286ce5387364697f779816d47c28, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_AdditionalVertexStreams: {fileID: 0}
---- !u!33 &785149373
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 785149371}
-  m_Mesh: {fileID: 4300000, guid: af442388091514041be73133fd807282, type: 2}
---- !u!114 &785149374
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 785149371}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1228f34d9247c764299310d86c822306, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  transform4: {fileID: 785149375}
-  renderer: {fileID: 785149372}
-  filter: {fileID: 785149373}
-  meshColor: {r: 0.2663314, g: 0.31384006, b: 0.5377358, a: 1}
-  initialize: 0
-  transformMatrix:
-    e00: 1
-    e01: 0
-    e02: 0
-    e03: 0
-    e10: 0
-    e11: 1
-    e12: 0
-    e13: 0
-    e20: 0
-    e21: 0
-    e22: 1
-    e23: 0
-    e30: 0
-    e31: 0
-    e32: 0
-    e33: 1
-  scaleMult: {x: 0.15, y: 0.05, z: 0.15}
-  transformScale: {x: 0.15, y: 0.05, z: 0.15}
-  vertices:
-  - {x: 1, y: 0, z: 0}
-  - {x: 0, y: 1, z: 0}
-  - {x: 0, y: 0, z: 1}
-  - {x: -1, y: 0, z: 0}
-  - {x: 0, y: -1, z: 0}
-  - {x: 0, y: 0, z: -1}
-  vertex4:
-  - {x: 1, y: 0, z: 0, w: 0}
-  - {x: 1, y: 0, z: 0.5, w: 0.5}
-  - {x: 1, y: 0.5, z: 0, w: -1}
-  - {x: 1, y: 0.5, z: 0, w: -1}
-  - {x: 0.5, y: 0, z: 0, w: -1}
-  uvs: []
-  triangles: 000000000100000002000000000000000200000004000000000000000400000005000000000000000500000001000000030000000100000005000000030000000500000004000000030000000400000002000000030000000200000001000000020000000100000000000000040000000200000000000000050000000400000000000000010000000500000000000000050000000100000003000000040000000500000003000000020000000400000003000000010000000200000003000000
-  doVertex4: 0
-  lit: 1
-  doubleSideLit: 0
-  castShadows: 1
-  castShadowLevel: 0
-  doSphereShadowProfile: 0
-  shadowSphereRad: 1
---- !u!114 &785149375
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 785149371}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a3e9696e169808a4390b5d2c1be30c0c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  parent: {fileID: 0}
-  children:
-  - {fileID: 785149375}
-  - {fileID: 785149375}
-  - {fileID: 785149375}
-  - {fileID: 785149375}
-  - {fileID: 785149375}
-  m_matrix:
-    e00: 1
-    e01: 0
-    e02: 0
-    e03: 0
-    e10: 0
-    e11: 1
-    e12: 0
-    e13: 0
-    e20: 0
-    e21: 0
-    e22: 1
-    e23: 0
-    e30: 0
-    e31: 0
-    e32: 0
-    e33: 1
-  m_localMatrix:
-    e00: 1
-    e01: 0
-    e02: 0
-    e03: 0
-    e10: 0
-    e11: 1
-    e12: 0
-    e13: 0
-    e20: 0
-    e21: 0
-    e22: 1
-    e23: 0
-    e30: 0
-    e31: 0
-    e32: 0
-    e33: 1
-  onMatrixUpdate:
-    m_PersistentCalls:
-      m_Calls: []
-  scale: 1
-  sterographicPos: {x: 0, y: 0, z: 0}
-  lockSterographicPos: 1
-  onLeftMult:
-    m_PersistentCalls:
-      m_Calls: []
-  onRightMult:
-    m_PersistentCalls:
-      m_Calls: []
-  onRotorLeft:
-    m_PersistentCalls:
-      m_Calls: []
---- !u!4 &785149376
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 785149371}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.14999999, y: 0.14999999, z: 0.14999999}
-  m_ConstrainProportionsScale: 1
-  m_Children: []
-  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &832575517
 GameObject:
@@ -4457,7 +4243,7 @@ MonoBehaviour:
   angularFrictionMult: 0
   dontReciveAngularVelocity: 0
   m_isStatic: 0
-  keneticStatic: 0
+  kineticStatic: 0
   dontDoVelocity: 1
   collider: {fileID: 871264116}
   doYUpLock: 0
@@ -5878,7 +5664,7 @@ MonoBehaviour:
   angularFrictionMult: 0
   dontReciveAngularVelocity: 1
   m_isStatic: 1
-  keneticStatic: 0
+  kineticStatic: 0
   dontDoVelocity: 0
   collider: {fileID: 1032420804}
   doYUpLock: 0
@@ -6069,8 +5855,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lights:
-  - {fileID: 847819228}
   - {fileID: 992592556}
+  - {fileID: 847819228}
   noShadowLights:
   - {fileID: 992592556}
   shadowLights:
@@ -6079,25 +5865,10 @@ MonoBehaviour:
   noShadowlightDatasCount: 1
   shadowLightDatasCount: 1
   shadowSend: []
-  sphereShadowSend:
-  - 0
-  - 0.2885376
-  - 0.3664074
-  - 0.8845856
-  - 0.9950042
-  - 0
-  - 0.47300568
-  - 0.33716685
-  - 0.8139927
-  - 0.9950042
-  - 0.49999997
-  - 0.70710677
-  - 0.35355335
-  - 0.35355335
-  - 0.9950042
+  sphereShadowSend: []
   totalShadowTriLength: 0
   staticShadowCount: 0
-  sphereShadowCount: 3
+  sphereShadowCount: 0
   disableShadows: 0
   castShadowLevel: 1
   updateFullBuffer: 0
@@ -6455,6 +6226,8 @@ MonoBehaviour:
   - {fileID: 2057267735}
   - {fileID: 1032420805}
   - {fileID: 2078316009}
+  - {fileID: 1235126671}
+  - {fileID: 1457274186}
   staticBodies:
   - {fileID: 724789090}
   - {fileID: 1466526956}
@@ -6462,6 +6235,8 @@ MonoBehaviour:
   - {fileID: 14870709}
   - {fileID: 1620956663}
   - {fileID: 2078316009}
+  - {fileID: 1235126671}
+  - {fileID: 1457274186}
   dynamicBodies:
   - {fileID: 665110784}
   - {fileID: 0}
@@ -6742,6 +6517,8 @@ MonoBehaviour:
   - {fileID: 14870709}
   - {fileID: 2078316009}
   - {fileID: 14870709}
+  - {fileID: 14870709}
+  - {fileID: 1457274186}
   sectors:
   - staticBodies:
     - {fileID: 607435942}
@@ -6765,7 +6542,8 @@ MonoBehaviour:
   - staticBodies:
     - {fileID: 1620956663}
     dynamicBodies: []
-  - staticBodies: []
+  - staticBodies:
+    - {fileID: 1235126671}
     dynamicBodies:
     - {fileID: 0}
     - {fileID: 1688195796}
@@ -7066,6 +6844,8 @@ GameObject:
   - component: {fileID: 1235126668}
   - component: {fileID: 1235126667}
   - component: {fileID: 1235126666}
+  - component: {fileID: 1235126671}
+  - component: {fileID: 1235126670}
   m_Layer: 0
   m_Name: Dude (4)Mid
   m_TagString: Untagged
@@ -7175,8 +6955,8 @@ MonoBehaviour:
     e31: 0
     e32: 0
     e33: 1
-  scaleMult: {x: 0.15, y: 0.05, z: 0.15}
-  transformScale: {x: 0.15, y: 0.05, z: 0.15}
+  scaleMult: {x: 1, y: 0.35, z: 1}
+  transformScale: {x: 0.15, y: 0.052500002, z: 0.15}
   vertices:
   - {x: 1, y: 0, z: 0}
   - {x: 0, y: 1, z: 0}
@@ -7255,7 +7035,7 @@ MonoBehaviour:
   onMatrixUpdate:
     m_PersistentCalls:
       m_Calls: []
-  scale: 1
+  scale: 0.15
   sterographicPos: {x: 0, y: 0, z: 0}
   lockSterographicPos: 1
   onLeftMult:
@@ -7267,6 +7047,112 @@ MonoBehaviour:
   onRotorLeft:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &1235126670
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1235126664}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fef0be48b2ee4dc47a4f2d2975eefebf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  transform4: {fileID: 1235126669}
+  rigidbody4: {fileID: 1235126671}
+  isTrigger: 0
+  onTriggerEnter:
+    m_PersistentCalls:
+      m_Calls: []
+  onTriggerStay:
+    m_PersistentCalls:
+      m_Calls: []
+  onTriggerExit:
+    m_PersistentCalls:
+      m_Calls: []
+  overlapColliders: []
+  thisFrameOverlapColliders: []
+  scale: {x: 1, y: 0.35, z: 1}
+  verticies:
+  - {x: 0, y: 2, z: 0}
+  - {x: 2, y: 0, z: 0}
+  - {x: 0, y: 0, z: 2}
+  - {x: -2, y: 0, z: 0}
+  - {x: 0, y: 0, z: -2}
+  triangles:
+  - {x: 0, y: 1, z: 2}
+  - {x: 0, y: 2, z: 3}
+  - {x: 0, y: 3, z: 4}
+  - {x: 0, y: 4, z: 1}
+  verticies4:
+  - {x: 0, y: 0.10442594, z: 0, w: 0.9945327}
+  - {x: 0.28734788, y: 0, z: 0, w: 0.95782626}
+  - {x: 0, y: 0, z: 0.28734788, w: 0.95782626}
+  - {x: -0.28734788, y: 0, z: 0, w: 0.95782626}
+  - {x: 0, y: 0, z: -0.28734788, w: 0.95782626}
+  verticiesWorld:
+  - {x: 0, y: 0.10442594, z: 0, w: 0.9945327}
+  - {x: 0.28734788, y: 0, z: 0, w: 0.95782626}
+  - {x: 0, y: 0, z: 0.28734788, w: 0.95782626}
+  - {x: -0.28734788, y: 0, z: 0, w: 0.95782626}
+  - {x: 0, y: 0, z: -0.28734788, w: 0.95782626}
+  normals:
+  - {x: 0.3122978, y: 0.8922794, z: 0.31229782, w: -0.093689345}
+  - {x: -0.31229782, y: 0.8922794, z: 0.3122978, w: -0.093689345}
+  - {x: -0.3122978, y: 0.8922794, z: -0.31229782, w: -0.093689345}
+  - {x: 0.31229782, y: 0.8922794, z: -0.3122978, w: -0.093689345}
+  edges:
+  - {x: 0, y: 1}
+  - {x: 1, y: 2}
+  - {x: 2, y: 0}
+  - {x: 2, y: 3}
+  - {x: 3, y: 0}
+  - {x: 3, y: 4}
+  - {x: 4, y: 0}
+  - {x: 4, y: 1}
+  edgeTriangles: []
+  furthestVertexDistance: 0.1046163
+  calcVertex: 0
+  calcTri: 0
+  drawGizmoVertex: 0
+--- !u!114 &1235126671
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1235126664}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24dff4cfeaa0b5843ac567635c9b493d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  transform4: {fileID: 1235126669}
+  velocity: {x: 0, y: 0, z: 0, w: 0}
+  angularVelocity: {x: 0, y: 0, z: 0}
+  velocityMagnitude: 0
+  angularVelocityMagnitude: 0
+  linearMomentum: 0
+  angularMomentum: 0
+  totalMomentum: 0
+  gravityScale: 0
+  gravity: {x: 0, y: -1, z: 0, w: 0}
+  mass: 1
+  angularMassMult: 1
+  bounce: 0
+  friction: 0
+  angularFrictionMult: 0
+  dontReciveAngularVelocity: 0
+  m_isStatic: 1
+  kineticStatic: 0
+  dontDoVelocity: 0
+  collider: {fileID: 1235126670}
+  doYUpLock: 0
+  sectorIndex: 6
+  allSectors: 06000000
+  globalSector: 0
+  staticContactNormals: []
 --- !u!1 &1265622217
 GameObject:
   m_ObjectHideFlags: 0
@@ -8641,7 +8527,7 @@ MonoBehaviour:
   angularFrictionMult: 0
   dontReciveAngularVelocity: 0
   m_isStatic: 1
-  keneticStatic: 1
+  kineticStatic: 0
   dontDoVelocity: 0
   collider: {fileID: 1457274185}
   doYUpLock: 0
@@ -8891,7 +8777,7 @@ MonoBehaviour:
   angularFrictionMult: 0
   dontReciveAngularVelocity: 0
   m_isStatic: 1
-  keneticStatic: 0
+  kineticStatic: 0
   dontDoVelocity: 0
   collider: {fileID: 1466526955}
   doYUpLock: 0
@@ -9816,7 +9702,7 @@ MonoBehaviour:
   angularFrictionMult: 0
   dontReciveAngularVelocity: 0
   m_isStatic: 1
-  keneticStatic: 0
+  kineticStatic: 0
   dontDoVelocity: 0
   collider: {fileID: 1620956662}
   doYUpLock: 0
@@ -10111,7 +9997,7 @@ MonoBehaviour:
   angularFrictionMult: 0
   dontReciveAngularVelocity: 1
   m_isStatic: 0
-  keneticStatic: 0
+  kineticStatic: 0
   dontDoVelocity: 0
   collider: {fileID: 1688195795}
   doYUpLock: 0
@@ -11472,7 +11358,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &2057267734
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11531,7 +11417,7 @@ MonoBehaviour:
   angularFrictionMult: 1.5
   dontReciveAngularVelocity: 0
   m_isStatic: 0
-  keneticStatic: 0
+  kineticStatic: 0
   dontDoVelocity: 0
   collider: {fileID: 2057267734}
   doYUpLock: 0
@@ -12076,7 +11962,7 @@ MonoBehaviour:
   angularFrictionMult: 0
   dontReciveAngularVelocity: 0
   m_isStatic: 1
-  keneticStatic: 0
+  kineticStatic: 0
   dontDoVelocity: 0
   collider: {fileID: 2078316008}
   doYUpLock: 0
@@ -12363,7 +12249,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &5324910774709287075
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12488,7 +12374,7 @@ MonoBehaviour:
   angularFrictionMult: 0
   dontReciveAngularVelocity: 1
   m_isStatic: 0
-  keneticStatic: 0
+  kineticStatic: 0
   dontDoVelocity: 0
   collider: {fileID: 5324910774709287075}
   doYUpLock: 0
@@ -12650,7 +12536,6 @@ SceneRoots:
   - {fileID: 512728412}
   - {fileID: 69122365}
   - {fileID: 500118753}
-  - {fileID: 785149376}
   - {fileID: 8842470962283290252}
   - {fileID: 2057267737}
   - {fileID: 1032420807}
