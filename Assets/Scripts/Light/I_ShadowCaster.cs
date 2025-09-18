@@ -14,6 +14,8 @@ public interface I_ShadowCaster
     public bool shadow_doVertex4 {get{return false;}}
     public int shadow_castShadowLevel {get{return 0;}}
 
-    public bool shadow_doSphereProfile {get;}
+    //public bool shadow_profileType {get{return -1;}}
+    public LightHandlerS.ShadowProfileType shadow_profileType {get{return LightHandlerS.ShadowProfileType.Mesh;}}
+
     public float shadow_sphereRadius {get;}
 }

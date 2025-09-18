@@ -9,8 +9,10 @@ public class ShadowCaster : MonoBehaviour, I_ShadowCaster
     bool m_castShadows;
     public int castShadowLevel;
 
+    /*
     public bool doSphereProfile;
     bool m_doSphereProfile;
+    */
     public float sphereProfileRad;
 
     public int[] GetTri() {return null;}
@@ -25,7 +27,8 @@ public class ShadowCaster : MonoBehaviour, I_ShadowCaster
     public bool shadow_doVertex4 {get{return false;}}
     public int shadow_castShadowLevel {get{return castShadowLevel;}}
 
-    public bool shadow_doSphereProfile {get{return doSphereProfile;}}
+    //public bool shadow_doSphereProfile {get{return doSphereProfile;}}
+    public LightHandlerS.ShadowProfileType shadow_profileType {get{return LightHandlerS.ShadowProfileType.Sphere;}}
     public float shadow_sphereRadius {get{return sphereProfileRad*transform4.scale;}}
 
     void OnEnable()
@@ -60,12 +63,13 @@ public class ShadowCaster : MonoBehaviour, I_ShadowCaster
             }
             m_castShadows = castShadows;
 
+            /*
             if (doSphereProfile != m_doSphereProfile && castShadows)
             {
                 LightHandlerS.singleton.AddStaticShadow(this);
             }
             m_doSphereProfile = doSphereProfile;
-
+            */
         }
     }
 }

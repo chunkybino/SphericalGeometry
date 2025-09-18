@@ -96,13 +96,13 @@ public class MeshColliderS : ColliderS
         verticies4 = new Vector4[verticies.Length];
 
         int furthestDisIndex = 0;
-        float furthestDot = 0;
+        float furthestDot = 1;
 
         for (int i = 0; i < verticies.Length; i++) {
             verticies4[i] = UFunc.ProjectLocal3QuickS(Vector3.Scale(verticies[i], transform4.scale*scale));
 
-            float dot = verticies4[0].w;
-            if (i == 0 || dot > furthestDot) {
+            float dot = verticies4[i].w;
+            if (i == 0 || dot < furthestDot) {
                 furthestDisIndex = i;
                 furthestDot = dot;
             }

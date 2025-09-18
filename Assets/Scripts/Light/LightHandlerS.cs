@@ -22,23 +22,58 @@ public class LightHandlerS : MonoBehaviour
     [SerializeField] ComputeBuffer shadowLightBuffer;
     [SerializeField] ComputeBuffer lightCountBuffer;
 
-    [SerializeField] Vector4[] shadowSend;
-    [SerializeField] List<float> sphereShadowSend = new List<float>();
-
-    [SerializeField] ComputeBuffer shadowBuffer;
+    //[SerializeField] ComputeBuffer shadowBuffer;
     [SerializeField] ComputeBuffer shadowCountBuffer;
 
-    [SerializeField] ComputeBuffer sphereShadowBuffer;
+   // [SerializeField] ComputeBuffer sphereShadowBuffer;
 
-    public List<I_ShadowCaster> staticShadowRenderers = new List<I_ShadowCaster>();
-    public List<I_ShadowCaster> sphereShadowRenderers = new List<I_ShadowCaster>();
+    //public List<I_ShadowCaster> staticShadowRenderers = new List<I_ShadowCaster>();
+    //public List<I_ShadowCaster> sphereShadowRenderers = new List<I_ShadowCaster>();
 
     [SerializeField] int totalShadowTriLength;
 
-    [SerializeField] int staticShadowCount;
-    int prevStaticShadowCount;
-    [SerializeField] int sphereShadowCount;
-    int prevSphereShadowCount;
+    //[SerializeField] int staticShadowCount;
+    //int prevStaticShadowCount;
+    //[SerializeField] int sphereShadowCount;
+    //int prevSphereShadowCount;
+
+    public enum ShadowProfileType {Mesh,Sphere};
+
+    [SerializeField] Vector4[] shadowSend;
+    [SerializeField] List<float> sphereShadowSend = new List<float>();
+
+    [SerializeField] ShadowProfile meshProfiles;
+    [SerializeField] ShadowProfile sphereProfiles;
+
+    [System.Serializable]
+    public class ShadowProfile
+    {
+        public ShadowProfile(string name, int elementSize)
+        {
+            bufferElementSize = elementSize;
+            bufferName = name;
+            casters = new List<I_ShadowCaster>();
+        }
+
+        public int shadowCount;
+        public int prevShadowCount;
+        public List<I_ShadowCaster> casters;
+        public ComputeBuffer profileBuffer;
+
+        public int bufferElementSize = 4; //size of each element * sizeof(float)
+        public string bufferName;
+
+        public void Add(I_ShadowCaster cast)
+        {
+            if (casters == null) return;
+            if (!casters.Contains(cast)) casters.Add(cast);
+        }
+        public void Remove(I_ShadowCaster cast)
+        {
+            if (casters == null) return;
+            casters.Remove(cast);
+        }
+    }
 
     bool shadowBufferDirty;
     bool shadowBufferReady;
@@ -57,6 +92,13 @@ public class LightHandlerS : MonoBehaviour
     void OnEnable()
     {
         CheckSingleton();
+
+        if (meshProfiles == null) {
+            meshProfiles = new ShadowProfile("_ShadowData", 16);
+        }
+        if (sphereProfiles == null) {
+            meshProfiles = new ShadowProfile("_ShadowSphereData", 5);
+        }
 
         Dispose();
 
@@ -109,7 +151,6 @@ public class LightHandlerS : MonoBehaviour
 
         UpdateBuf(noShadowLights, lightBuffer, lightDataSendNoShadow);
         UpdateBuf(shadowLights, shadowLightBuffer, lightDataSendShadow);
-        */
 
         //SetLightBuffer();
 
@@ -143,12 +184,12 @@ public class LightHandlerS : MonoBehaviour
                 buff.SetData(send, startIndex, startIndex, bufferCount);
             }
         }
+        */
 
         if (disableShadows)
         {
-            shadowBuffer?.Release();
-            shadowCountBuffer?.Release();
-            sphereShadowBuffer?.Release();
+            DisposeShadow();
+
             shadowSend = new Vector4[0];
             sphereShadowSend.Clear();
         }
@@ -306,9 +347,13 @@ public class LightHandlerS : MonoBehaviour
         shadowLightBuffer?.Release();
         lightCountBuffer?.Release();
 
-        shadowBuffer?.Release();
+        DisposeShadow();
+    }
+    void DisposeShadow()
+    {
         shadowCountBuffer?.Release();
-        sphereShadowBuffer?.Release();
+        meshProfiles.profileBuffer?.Release();
+        sphereProfiles.profileBuffer?.Release();
     }
 
     void UpdateShadowBuffer()
@@ -320,98 +365,107 @@ public class LightHandlerS : MonoBehaviour
         }
         prevCastShadowLevel = castShadowLevel;
 
-        totalShadowTriLength = 0;
-        for (int i = 0; i < staticShadowRenderers.Count; i++)
+        //mesh casters
+        if (meshProfiles.casters != null)
         {
-            if (staticShadowRenderers[i].shadow_castShadowLevel < castShadowLevel) continue;
-            totalShadowTriLength += staticShadowRenderers[i].GetTri().Length/3;
-        }
-
-        Vector4[] shadowSend = new Vector4[totalShadowTriLength*4];
-
-        int triPlaceIndex = 0;
-
-        staticShadowCount = 0;
-        for (int j = 0; j < staticShadowRenderers.Count; j++)
-        {
-            I_ShadowCaster ren = staticShadowRenderers[j];
-            if (ren.shadow_castShadowLevel < castShadowLevel) continue;
-
-            staticShadowCount++;
-
-            int[] shadowTri = ren.GetTri();
-            Vector4[] shadowVertex4 = new Vector4[0];
-            int shadowTriCount = shadowTri.Length/3;
-
-            Matrix4x4 mat = ren.GetMatrix();
-
-            if (!ren.shadow_doVertex4)
+            totalShadowTriLength = 0;
+            List<I_ShadowCaster> meshCasters = meshProfiles.casters;
+            for (int i = 0; i < meshCasters.Count; i++)
             {
-                Vector3[] shadowVertex = ren.GetVertex3();
-                shadowVertex4 = new Vector4[shadowVertex.Length];
+                if (meshCasters[i].shadow_castShadowLevel < castShadowLevel) continue;
+                totalShadowTriLength += meshCasters[i].GetTri().Length/3;
+            }
+            Vector4[] shadowSend = new Vector4[totalShadowTriLength*4];
 
-                for (int i = 0; i < shadowVertex.Length; i++)
+            int triPlaceIndex = 0;
+
+            meshProfiles.shadowCount = 0;
+            for (int j = 0; j < meshCasters.Count; j++)
+            {
+                I_ShadowCaster ren = meshCasters[j];
+                if (ren.shadow_castShadowLevel < castShadowLevel) continue;
+
+                meshProfiles.shadowCount++;
+
+                int[] shadowTri = ren.GetTri();
+                Vector4[] shadowVertex4 = new Vector4[0];
+                int shadowTriCount = shadowTri.Length/3;
+
+                Matrix4x4 mat = ren.GetMatrix();
+
+                if (!ren.shadow_doVertex4)
                 {
-                    Vector3 p = Vector3.Scale(ren.GetScale(), shadowVertex[i]);
-                    shadowVertex4[i] = mat * UFunc.SterographicInverse(p,1);
+                    Vector3[] shadowVertex = ren.GetVertex3();
+                    shadowVertex4 = new Vector4[shadowVertex.Length];
+
+                    for (int i = 0; i < shadowVertex.Length; i++)
+                    {
+                        Vector3 p = Vector3.Scale(ren.GetScale(), shadowVertex[i]);
+                        shadowVertex4[i] = mat * UFunc.SterographicInverse(p,1);
+                    }
+                }
+                else
+                {
+                    shadowVertex4 = ren.GetVertex4();
+                }
+
+                for (int i = 0; i < shadowTriCount; i++)
+                {
+                    AddTri(shadowVertex4[shadowTri[3*i+0]], shadowVertex4[shadowTri[3*i+1]], shadowVertex4[shadowTri[3*i+2]], triPlaceIndex);
+                    triPlaceIndex++;
                 }
             }
-            else
-            {
-                shadowVertex4 = ren.GetVertex4();
-            }
 
-            for (int i = 0; i < shadowTriCount; i++)
+            this.shadowSend = shadowSend;
+            
+            void AddTri(Vector4 v1, Vector4 v2, Vector4 v3, int i)
             {
-                AddTri(shadowVertex4[shadowTri[3*i+0]], shadowVertex4[shadowTri[3*i+1]], shadowVertex4[shadowTri[3*i+2]], triPlaceIndex);
-                triPlaceIndex++;
+                shadowSend[4*i + 0] = UFunc.HyperCross(v1,v2,v3).normalized;
+                shadowSend[4*i + 1] = UFunc.HyperCross(v1,v2,shadowSend[4*i]).normalized;
+                shadowSend[4*i + 2] = UFunc.HyperCross(v2,v3,shadowSend[4*i]).normalized;
+                shadowSend[4*i + 3] = UFunc.HyperCross(v3,v1,shadowSend[4*i]).normalized;
             }
-        }
-
-        this.shadowSend = shadowSend;
-        
-        void AddTri(Vector4 v1, Vector4 v2, Vector4 v3, int i)
-        {
-            shadowSend[4*i + 0] = UFunc.HyperCross(v1,v2,v3).normalized;
-            shadowSend[4*i + 1] = UFunc.HyperCross(v1,v2,shadowSend[4*i]).normalized;
-            shadowSend[4*i + 2] = UFunc.HyperCross(v2,v3,shadowSend[4*i]).normalized;
-            shadowSend[4*i + 3] = UFunc.HyperCross(v3,v1,shadowSend[4*i]).normalized;
         }
 
         //sphere profile time
-        sphereShadowCount = 0;
-        sphereShadowSend.Clear();
-        if (sphereShadowRenderers.Count > 0)
+        if (sphereProfiles.casters != null)
         {
-            for (int i = 0; i < sphereShadowRenderers.Count; i++)
+            sphereProfiles.shadowCount = 0;
+            sphereShadowSend.Clear();
+            List<I_ShadowCaster> sphereCasters = sphereProfiles.casters;
+
+            if (sphereCasters.Count > 0)
             {
-                I_ShadowCaster ren = sphereShadowRenderers[i];
-                if (ren.shadow_castShadowLevel < castShadowLevel) continue;
+                for (int i = 0; i < sphereCasters.Count; i++)
+                {
+                    I_ShadowCaster ren = sphereCasters[i];
+                    if (ren.shadow_castShadowLevel < castShadowLevel) continue;
 
-                sphereShadowCount++;
+                    sphereProfiles.shadowCount++;
 
-                Vector4 pos = ren.GetPos();
+                    Vector4 pos = ren.GetPos();
 
-                for (int j = 0; j < 4; j++) {
-                    //sphereShadowSend[5*i + j] = pos[j];
-                    sphereShadowSend.Add(pos[j]);
+                    for (int j = 0; j < 4; j++) {
+                        //sphereShadowSend[5*i + j] = pos[j];
+                        sphereShadowSend.Add(pos[j]);
+                    }
+                    //sphereShadowSend[5*i + 4] = Mathf.Cos(ren.sphereShadowRadius);
+                    sphereShadowSend.Add(Mathf.Cos(ren.shadow_sphereRadius));
                 }
-                //sphereShadowSend[5*i + 4] = Mathf.Cos(ren.sphereShadowRadius);
-                sphereShadowSend.Add(Mathf.Cos(ren.shadow_sphereRadius));
             }
         }
         
-        if (staticShadowCount != prevStaticShadowCount || sphereShadowCount != prevSphereShadowCount) 
+        if (meshProfiles.shadowCount != meshProfiles.prevShadowCount || sphereProfiles.shadowCount != sphereProfiles.prevShadowCount) 
         {
             SetStaticShadowBuffer();
         }
 
         //ssetting the bufferas
-        if (shadowBuffer != null && shadowBuffer.IsValid()) {
-            shadowBuffer.SetData(shadowSend);
+        if (meshProfiles.profileBuffer != null && meshProfiles.profileBuffer.IsValid()) {
+            meshProfiles.profileBuffer.SetData(shadowSend);
         }
-        if (sphereShadowBuffer != null && sphereShadowBuffer.IsValid()) {
-            sphereShadowBuffer.SetData(sphereShadowSend);
+        if (sphereProfiles.profileBuffer != null && sphereProfiles.profileBuffer.IsValid()) {
+            sphereProfiles.profileBuffer.SetData(sphereShadowSend);
         }
     }
 
@@ -419,6 +473,34 @@ public class LightHandlerS : MonoBehaviour
     {
         if (disableShadows) return;
 
+        DoProfile(meshProfiles);
+        DoProfile(sphereProfiles);
+
+        void DoProfile(ShadowProfile prof)
+        {
+            bool change = prof.shadowCount != prof.prevShadowCount;
+            prof.prevShadowCount = prof.shadowCount;
+
+            ComputeBuffer buf = prof.profileBuffer;
+
+            if (prof.shadowCount > 0 && (change || buf == null))
+            {
+                if (buf != null) buf.Release();
+                buf = new ComputeBuffer(totalShadowTriLength, sizeof(float) * prof.bufferElementSize);
+                Shader.SetGlobalBuffer(prof.bufferName, buf);
+            }
+        }
+
+        //mesh
+        if (meshProfiles.profileBuffer != null && meshProfiles.profileBuffer.IsValid()) {
+            meshProfiles.profileBuffer.SetData(shadowSend);
+        }
+        //sphere
+        if (sphereProfiles.profileBuffer != null && sphereProfiles.profileBuffer.IsValid()) {
+            sphereProfiles.profileBuffer.SetData(sphereShadowSend);
+        }
+
+        /*
         bool staticShadowCasterChange = staticShadowCount != prevStaticShadowCount;
         prevStaticShadowCount = sphereShadowCount;
         bool sphereShadowCasterChange = sphereShadowCount != prevSphereShadowCount;
@@ -443,6 +525,7 @@ public class LightHandlerS : MonoBehaviour
         if (sphereShadowBuffer != null && sphereShadowBuffer.IsValid()) {
             sphereShadowBuffer.SetData(sphereShadowSend);
         }
+        */
 
         //shadow count time
         if (shadowCountBuffer == null)
@@ -450,15 +533,28 @@ public class LightHandlerS : MonoBehaviour
             shadowCountBuffer = new ComputeBuffer(2, sizeof(int));
             Shader.SetGlobalBuffer("_ShadowCount", shadowCountBuffer);
         }
-        //print(shadowCountBuffer.IsValid());
         if (shadowCountBuffer.IsValid()) {
-            shadowCountBuffer.SetData(new int[] {totalShadowTriLength, sphereShadowCount});
+            shadowCountBuffer.SetData(new int[] {meshProfiles.shadowCount, sphereProfiles.shadowCount});
         }
     }
 
     public void AddStaticShadow(I_ShadowCaster ren)
     {
-        //print(ren.shadow_doSphereProfile);
+        LightHandlerS.ShadowProfileType profType = ren.shadow_profileType;
+
+        if (profType == LightHandlerS.ShadowProfileType.Mesh) {
+            meshProfiles.Add(ren);
+        } else {
+            meshProfiles.Remove(ren);
+        }
+
+        if (profType == LightHandlerS.ShadowProfileType.Sphere) {
+            sphereProfiles.Add(ren);
+        } else {
+            sphereProfiles.Remove(ren);
+        }
+
+        /*
         if (!ren.shadow_doSphereProfile)
         {
             if (sphereShadowRenderers.Contains(ren)) sphereShadowRenderers.Remove(ren);
@@ -471,14 +567,18 @@ public class LightHandlerS : MonoBehaviour
             if (sphereShadowRenderers.Contains(ren)) return;
             sphereShadowRenderers.Add(ren);
         }
+        */
 
         shadowBufferDirty = true;
         //SetStaticShadowBuffer();
     }
     public void RemoveStaticShadow(I_ShadowCaster ren)
     {     
-        if (staticShadowRenderers.Contains(ren)) staticShadowRenderers.Remove(ren);
-        if (sphereShadowRenderers.Contains(ren)) sphereShadowRenderers.Remove(ren);
+        LightHandlerS.ShadowProfileType profType = ren.shadow_profileType;
+
+        if (profType == LightHandlerS.ShadowProfileType.Mesh) meshProfiles.Remove(ren);
+
+        if (profType == LightHandlerS.ShadowProfileType.Sphere) sphereProfiles.Remove(ren);
 
         shadowBufferDirty = true;
         //SetStaticShadowBuffer();

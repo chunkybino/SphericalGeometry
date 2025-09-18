@@ -95,6 +95,8 @@ Shader "Mine/Boring"
             StructuredBuffer<LightData> _LightDataNoShadow;
             StructuredBuffer<LightData> _LightDataShadow;
 
+            StructuredBuffer<int> _ShadowCount;
+
             struct ShadowData
             {
                 float4 center;
@@ -102,8 +104,6 @@ Shader "Mine/Boring"
                 float4 norm2;
                 float4 norm3;
             };
-
-            StructuredBuffer<int> _ShadowCount;
             StructuredBuffer<ShadowData> _ShadowData;
 
             struct SphereShadowData
