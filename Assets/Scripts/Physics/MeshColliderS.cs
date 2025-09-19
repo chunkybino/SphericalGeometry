@@ -26,6 +26,9 @@ public class MeshColliderS : ColliderS
     public override float boundingRadius {get{return furthestVertexDistance;}}
     [SerializeField] float furthestVertexDistance;
 
+    [SerializeField] bool readFromMesh;
+    [SerializeField] Mesh meshRead;
+
     /*
     [System.Serializable]
     struct TriData
@@ -81,6 +84,10 @@ public class MeshColliderS : ColliderS
         if (calcTri) {
             calcTri = false;
             CalcTriangles();
+        }
+        if (readFromMesh) {
+            readFromMesh = false;
+            ReadFromMesh();
         }
     }
 
@@ -189,6 +196,21 @@ public class MeshColliderS : ColliderS
                 edgeTriangles.Add(new Vector2Int(i,i));
             }
         }
+    }
+
+    public void ReadFromMesh()
+    {
+        if (readFromMesh == null) return;
+
+        verticies = meshRead.vertices;
+        int[] readTri = meshRead.triangles;
+        triangles = new Vector3Int[readTri.Length/3];
+        for (int i = 0; i < triangles.Length; i++) {
+            triangles[i] = new Vector3Int(readTri[3*i+0],readTri[3*i+1],readTri[3*i+2]);
+        }
+
+        CalcVertex();
+        CalcTriangles();
     }
 
     public override Vector4 PointClose(Vector4 point)

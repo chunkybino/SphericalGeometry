@@ -10,6 +10,8 @@ public class Transform4D_Editor : Editor
     Matrix4x4 localMat;
 
     Vector3 moveDirection;
+    Vector3 rotateDirection;
+
     float rotateAmount = Mathf.PI/4;
 
     bool showButtons;
@@ -74,15 +76,23 @@ public class Transform4D_Editor : Editor
 
     void DisplayButtons()
     {
-        moveDirection = EditorGUILayout.Vector3Field("move direction", moveDirection);
-        rotateAmount = EditorGUILayout.FloatField("rotate amount", rotateAmount);
-
         bool moved = false;
+
+        moveDirection = EditorGUILayout.Vector3Field("move direction", moveDirection);
+        rotateDirection = EditorGUILayout.Vector3Field("rotate direction", rotateDirection);
 
         if (GUILayout.Button("Move")) {
             transform.MoveRelative(-moveDirection);
             moved = true;
         }
+        if (GUILayout.Button("Rotate")) {
+            transform.RotateRelativeYZ(rotateDirection.x);
+            transform.RotateRelativeXZ(-rotateDirection.y);
+            transform.RotateRelativeXY(rotateDirection.z);
+            moved = true;
+        }
+
+        rotateAmount = EditorGUILayout.FloatField("button rotate amount", rotateAmount);
 
         if (GUILayout.Button("Reset")) {
             transform.localMatrix = Matrix4x4.identity;
