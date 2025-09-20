@@ -34,6 +34,44 @@ public class Transform4D_Editor : Editor
         showButtons = EditorGUILayout.Toggle("Show Movement Buttons", showButtons);
 
         if (showButtons) DisplayButtons();
+
+        //transform move
+        if (transform.transform.position != Vector3.zero)
+        {
+            transform.MoveRelative(transform.transform.position);
+            transform.transform.position = Vector3.zero;
+        }
+
+        if (transform.transform.eulerAngles != Vector3.zero)
+        {
+            transform.RotateRelative(transform.transform.eulerAngles*Mathf.Deg2Rad);
+            transform.transform.eulerAngles = Vector3.zero;
+        }
+    }
+
+    public void OnEnable()
+    {
+        transform = (Transform4D)target;    
+
+        transform.transform.position = Vector3.zero;
+        transform.transform.eulerAngles = Vector3.zero;
+    }
+
+    public void OnValidate()
+    {
+        if (transform == null) return;
+
+        if (transform.transform.position != Vector3.zero)
+        {
+            transform.MoveRelative(transform.transform.position);
+            transform.transform.position = Vector3.zero;
+        }
+
+        if (transform.transform.eulerAngles != Vector3.zero)
+        {
+            transform.RotateRelative(transform.transform.eulerAngles);
+            transform.transform.eulerAngles = Vector3.zero;
+        }
     }
 
     void DisplayMatrix()
@@ -130,7 +168,6 @@ public class Transform4D_Editor : Editor
         }
 
         if (moved) {
-            transform.UpdateSterographicPos();
             UnityEditor.EditorApplication.QueuePlayerLoopUpdate();
         }
     }

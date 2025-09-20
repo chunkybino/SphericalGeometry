@@ -190,8 +190,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   scale: 1
-  sterographicPos: {x: 0, y: -0.9999999, z: 0}
-  lockSterographicPos: 1
   onLeftMult:
     m_PersistentCalls:
       m_Calls: []
@@ -274,7 +272,7 @@ Transform:
   m_GameObject: {fileID: 14870706}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.9999999, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -358,8 +356,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   scale: 1
-  sterographicPos: {x: 0, y: 0, z: 0}
-  lockSterographicPos: 1
   onLeftMult:
     m_PersistentCalls:
       m_Calls: []
@@ -427,17 +423,17 @@ MonoBehaviour:
   - {fileID: 696461020}
   - {fileID: 2078316006}
   - {fileID: 1457274184}
-  - {fileID: 1578601618}
-  - {fileID: 538830359}
-  - {fileID: 1641856323}
-  - {fileID: 1086732596}
-  - {fileID: 1522366324}
-  - {fileID: 1577849950}
   - {fileID: 68174992}
+  - {fileID: 538830359}
   - {fileID: 607435943}
   - {fileID: 724789085}
+  - {fileID: 1086732596}
   - {fileID: 1466526957}
+  - {fileID: 1522366324}
+  - {fileID: 1577849950}
+  - {fileID: 1578601618}
   - {fileID: 1620956664}
+  - {fileID: 1641856323}
   - {fileID: 2098311261}
   m_matrix:
     e00: 1
@@ -477,8 +473,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   scale: 1
-  sterographicPos: {x: 0, y: 0, z: 0}
-  lockSterographicPos: 1
   onLeftMult:
     m_PersistentCalls:
       m_Calls: []
@@ -708,7 +702,7 @@ Transform:
   m_GameObject: {fileID: 275762482}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.41421354, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.14999999, y: 0.14999999, z: 0.14999999}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -882,8 +876,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   scale: 1
-  sterographicPos: {x: 0.41421354, y: 0, z: 0}
-  lockSterographicPos: 1
   onLeftMult:
     m_PersistentCalls:
       m_Calls: []
@@ -982,7 +974,7 @@ Transform:
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.30277714, y: 0.33442724, z: 0.6308779}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1121,8 +1113,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   scale: 1
-  sterographicPos: {x: 0, y: 0.17680863, z: 0}
-  lockSterographicPos: 0
   onLeftMult:
     m_PersistentCalls:
       m_Calls: []
@@ -1304,8 +1294,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   scale: 1
-  sterographicPos: {x: 0, y: 0, z: 0}
-  lockSterographicPos: 1
   onLeftMult:
     m_PersistentCalls:
       m_Calls: []
@@ -1407,8 +1395,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   scale: 1
-  sterographicPos: {x: 0, y: 0, z: -2.4142127}
-  lockSterographicPos: 1
   onLeftMult:
     m_PersistentCalls:
       m_Calls: []
@@ -1538,7 +1524,7 @@ Transform:
   m_GameObject: {fileID: 380648243}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -2.4142127}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.15, y: 0.15, z: 0.15}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -1986,8 +1972,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   scale: 1
-  sterographicPos: {x: 0, y: 0, z: 0}
-  lockSterographicPos: 1
   onLeftMult:
     m_PersistentCalls:
       m_Calls: []
@@ -2005,7 +1989,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 500118748}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2128,8 +2112,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   scale: 0.2
-  sterographicPos: {x: -1.2167461, y: -0.16730414, z: -1.4181143}
-  lockSterographicPos: 1
   onLeftMult:
     m_PersistentCalls:
       m_Calls: []
@@ -2478,7 +2460,7 @@ Transform:
   m_GameObject: {fileID: 538830358}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.2167461, y: -0.16730414, z: -1.4181143}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.14999999, y: 0.14999999, z: 0.14999999}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -2515,7 +2497,7 @@ Transform:
   m_GameObject: {fileID: 607435936}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.99999994, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.14999999, y: 0.14999999, z: 0.14999999}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -2793,8 +2775,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   scale: 0.15
-  sterographicPos: {x: 0.99999994, y: 0, z: 0}
-  lockSterographicPos: 1
   onLeftMult:
     m_PersistentCalls:
       m_Calls: []
@@ -3148,8 +3128,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   scale: 1
-  sterographicPos: {x: 0, y: 0.15113524, z: 0}
-  lockSterographicPos: 0
   onLeftMult:
     m_PersistentCalls:
       m_Calls: []
@@ -3167,8 +3145,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 665110781}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.30277714, y: -0.33442724, z: -0.21666437}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3235,7 +3213,7 @@ Transform:
   m_GameObject: {fileID: 670483993}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.41421354}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.15, y: 0.15, z: 0.15}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -3409,8 +3387,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   scale: 1
-  sterographicPos: {x: 0, y: 0, z: -0.41421354}
-  lockSterographicPos: 1
   onLeftMult:
     m_PersistentCalls:
       m_Calls: []
@@ -3449,7 +3425,7 @@ Transform:
   m_GameObject: {fileID: 673748451}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.41421354}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.15, y: 0.15, z: 0.15}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -3623,8 +3599,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   scale: 1
-  sterographicPos: {x: 0, y: 0, z: 0.41421354}
-  lockSterographicPos: 1
   onLeftMult:
     m_PersistentCalls:
       m_Calls: []
@@ -4018,8 +3992,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   scale: 1
-  sterographicPos: {x: 0, y: 0, z: 0}
-  lockSterographicPos: 1
   onLeftMult:
     m_PersistentCalls:
       m_Calls: []
@@ -4183,8 +4155,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   scale: 0.15
-  sterographicPos: {x: -0.99999994, y: 0, z: 0}
-  lockSterographicPos: 1
   onLeftMult:
     m_PersistentCalls:
       m_Calls: []
@@ -4418,7 +4388,7 @@ Transform:
   m_GameObject: {fileID: 724789084}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.99999994, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.14999999, y: 0.14999999, z: 0.14999999}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -4614,8 +4584,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   scale: 1
-  sterographicPos: {x: 0.05426366, y: 0.4835458, z: 0.081395485}
-  lockSterographicPos: 1
   onLeftMult:
     m_PersistentCalls:
       m_Calls: []
@@ -4634,7 +4602,7 @@ Transform:
   m_GameObject: {fileID: 847819227}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.05426366, y: 0.4835458, z: 0.081395485}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4776,8 +4744,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   scale: 1
-  sterographicPos: {x: 0, y: 0.075140975, z: 0}
-  lockSterographicPos: 1
   onLeftMult:
     m_PersistentCalls:
       m_Calls: []
@@ -4795,8 +4761,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 871264114}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.30277714, y: 0.40956822, z: 0.21666437}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4888,8 +4854,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   scale: 1
-  sterographicPos: {x: 0, y: 0.17680863, z: 0}
-  lockSterographicPos: 1
   onLeftMult:
     m_PersistentCalls:
       m_Calls: []
@@ -4907,8 +4871,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 927178208}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.30277714, y: 0.51123583, z: 0.21666437}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -5087,8 +5051,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   scale: 1
-  sterographicPos: {x: 0, y: 0, z: 0}
-  lockSterographicPos: 1
   onLeftMult:
     m_PersistentCalls:
       m_Calls: []
@@ -5142,7 +5104,7 @@ Transform:
   m_GameObject: {fileID: 972909448}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 2.4142127}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.15, y: 0.15, z: 0.15}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -5316,8 +5278,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   scale: 1
-  sterographicPos: {x: 0, y: 0, z: 2.4142127}
-  lockSterographicPos: 1
   onLeftMult:
     m_PersistentCalls:
       m_Calls: []
@@ -5356,7 +5316,7 @@ Transform:
   m_GameObject: {fileID: 973035761}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.41421354}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.15, y: 0.15, z: 0.15}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -5530,8 +5490,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   scale: 1
-  sterographicPos: {x: 0, y: 0, z: 0.41421354}
-  lockSterographicPos: 1
   onLeftMult:
     m_PersistentCalls:
       m_Calls: []
@@ -5611,8 +5569,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   scale: 1
-  sterographicPos: {x: 0, y: -0.16610475, z: 0}
-  lockSterographicPos: 1
   onLeftMult:
     m_PersistentCalls:
       m_Calls: []
@@ -5662,8 +5618,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 992592554}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.16610475, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5857,8 +5813,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   scale: 1
-  sterographicPos: {x: 0, y: 0, z: 0}
-  lockSterographicPos: 1
   onLeftMult:
     m_PersistentCalls:
       m_Calls: []
@@ -6172,8 +6126,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   scale: 0.1
-  sterographicPos: {x: 0.32175675, y: 0.18021408, z: 0.10725226}
-  lockSterographicPos: 1
   onLeftMult:
     m_PersistentCalls:
       m_Calls: []
@@ -6303,8 +6255,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lights:
-  - {fileID: 847819228}
   - {fileID: 992592556}
+  - {fileID: 847819228}
   noShadowLights:
   - {fileID: 992592556}
   shadowLights:
@@ -6315,28 +6267,28 @@ MonoBehaviour:
   totalShadowTriLength: 0
   shadowSend: []
   sphereShadowSend:
-  - 0.6305137
-  - 0.5936771
-  - 0.35355335
-  - 0.35355335
+  - 0.15593535
+  - 0.5754228
+  - 0.5677034
+  - 0.5677034
   - 0.9950042
-  - 0.49999997
-  - 0.70710677
-  - 0.35355335
-  - 0.35355335
+  - 0.5837432
+  - 0.7016647
+  - 0.28889444
+  - 0.28889444
   - 0.9950042
   meshProfiles:
     theHandler: {fileID: 1083750111}
     shadowCount: 0
     prevShadowCount: 0
-    casterIndicies: 0100000002000000030000000400000005000000060000000700000008000000090000000a0000000b0000000c0000000d0000000e0000000f00000010000000110000001200000013000000
+    casterIndicies: 000000000100000002000000030000000400000005000000060000000700000008000000090000000b0000000c0000000d0000000e0000000f00000010000000110000001200000013000000
     bufferElementSize: 16
     bufferName: _ShadowData
   sphereProfiles:
     theHandler: {fileID: 1083750111}
     shadowCount: 2
     prevShadowCount: 2
-    casterIndicies: 0000000014000000
+    casterIndicies: 0a00000014000000
     bufferElementSize: 5
     bufferName: _ShadowSphereData
   disableShadows: 0
@@ -6386,7 +6338,7 @@ Transform:
   m_GameObject: {fileID: 1086732591}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.67340535, y: 0, z: 0.30459085}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.14999999, y: 0.14999999, z: 0.14999999}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -6560,8 +6512,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   scale: 0.08
-  sterographicPos: {x: 0.67340535, y: 0, z: 0.30459085}
-  lockSterographicPos: 1
   onLeftMult:
     m_PersistentCalls:
       m_Calls: []
@@ -6644,8 +6594,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   scale: 0.06
-  sterographicPos: {x: 0, y: 0.15310399, z: 0.1944233}
-  lockSterographicPos: 1
   onLeftMult:
     m_PersistentCalls:
       m_Calls: []
@@ -6873,6 +6821,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1091455079}
   - component: {fileID: 1091455078}
+  - component: {fileID: 1091455080}
   m_Layer: 0
   m_Name: Physics
   m_TagString: Untagged
@@ -6912,6 +6861,9 @@ MonoBehaviour:
   - {fileID: 1235126671}
   - {fileID: 1457274186}
   - {fileID: 1641856319}
+  - {fileID: 538830361}
+  - {fileID: 1578601620}
+  - {fileID: 1106276033}
   staticBodies:
   - {fileID: 724789090}
   - {fileID: 1466526956}
@@ -6922,6 +6874,8 @@ MonoBehaviour:
   - {fileID: 1235126671}
   - {fileID: 1457274186}
   - {fileID: 1641856319}
+  - {fileID: 538830361}
+  - {fileID: 1578601620}
   dynamicBodies:
   - {fileID: 665110784}
   - {fileID: 0}
@@ -6934,6 +6888,7 @@ MonoBehaviour:
   - {fileID: 2057267735}
   - {fileID: 1032420805}
   - {fileID: 1641856319}
+  - {fileID: 1106276033}
   globalBodies:
   - {fileID: 14870709}
   - {fileID: 14870709}
@@ -7218,12 +7173,40 @@ MonoBehaviour:
   - {fileID: 14870709}
   - {fileID: 14870709}
   - {fileID: 14870709}
+  - {fileID: 14870709}
+  - {fileID: 14870709}
+  - {fileID: 14870709}
+  - {fileID: 14870709}
+  - {fileID: 14870709}
+  - {fileID: 14870709}
+  - {fileID: 14870709}
+  - {fileID: 14870709}
+  - {fileID: 14870709}
+  - {fileID: 14870709}
+  - {fileID: 14870709}
+  - {fileID: 14870709}
+  - {fileID: 14870709}
+  - {fileID: 14870709}
+  - {fileID: 14870709}
+  - {fileID: 14870709}
+  - {fileID: 14870709}
+  - {fileID: 14870709}
+  - {fileID: 14870709}
+  - {fileID: 14870709}
+  - {fileID: 14870709}
+  - {fileID: 14870709}
+  - {fileID: 14870709}
+  - {fileID: 14870709}
+  - {fileID: 14870709}
+  - {fileID: 14870709}
   sectors:
   - staticBodies:
     - {fileID: 607435942}
+    - {fileID: 1578601620}
     dynamicBodies:
     - {fileID: 0}
     - {fileID: 0}
+    - {fileID: 7046554381973174924}
   - staticBodies:
     - {fileID: 724789090}
     - {fileID: 1641856319}
@@ -7233,6 +7216,7 @@ MonoBehaviour:
     dynamicBodies:
     - {fileID: 7046554381973174924}
     - {fileID: 2057267735}
+    - {fileID: 1106276033}
   - staticBodies: []
     dynamicBodies: []
   - staticBodies:
@@ -7242,8 +7226,10 @@ MonoBehaviour:
     - {fileID: 7046554381973174924}
     - {fileID: 2057267735}
     - {fileID: 1641856319}
+    - {fileID: 1106276033}
   - staticBodies:
     - {fileID: 1620956663}
+    - {fileID: 538830361}
     dynamicBodies: []
   - staticBodies:
     - {fileID: 1235126671}
@@ -7257,8 +7243,11 @@ MonoBehaviour:
     - {fileID: 0}
     - {fileID: 2057267735}
     - {fileID: 1032420805}
+    - {fileID: 1106276033}
   - staticBodies:
     - {fileID: 1641856319}
+    - {fileID: 538830361}
+    - {fileID: 1578601620}
     dynamicBodies:
     - {fileID: 1641856319}
   totalCollisionChecks: 0
@@ -7278,6 +7267,36 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1091455080
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1091455077}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0da3eb5c6c45a64aa050f2d4f6c29e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneCamMatrix:
+    e00: 0.5309694
+    e01: 0.12431359
+    e02: -0.59988683
+    e03: 0.5855133
+    e10: -0.008540428
+    e11: 0.98648643
+    e12: 0.04204945
+    e13: -0.15859047
+    e20: 0.73828644
+    e21: -0.1000288
+    e22: -0.018005991
+    e23: -0.6668474
+    e30: 0.4158604
+    e31: 0.039156433
+    e32: 0.79879385
+    e33: 0.43296143
+  camSpeed: 0.5
 --- !u!1 &1106276027
 GameObject:
   m_ObjectHideFlags: 0
@@ -7371,22 +7390,22 @@ MonoBehaviour:
   meshColor: {r: 0.38959596, g: 0.62743336, b: 0.8018868, a: 1}
   initialize: 0
   transformMatrix:
-    e00: 0.6930118
-    e01: -0.1404804
-    e02: -0.5
-    e03: -0.5
-    e10: -0.34955287
+    e00: 0.9238488
+    e01: 0.20267212
+    e02: -0.22959422
+    e03: -0.22959422
+    e10: -0.3495528
     e11: 0.7923464
-    e12: -0.35355338
-    e13: -0.35355338
+    e12: -0.3535531
+    e13: -0.3535531
     e20: 0
     e21: 0
     e22: 0.70710677
-    e23: -0.7071067
-    e30: 0.63051367
-    e31: 0.593677
-    e32: 0.35355338
-    e33: 0.35355338
+    e23: -0.70710677
+    e30: 0.15593499
+    e31: 0.57542217
+    e32: 0.5677024
+    e33: 0.5677024
   scaleMult: {x: 1, y: 1, z: 1}
   transformScale: {x: 0.05, y: 0.05, z: 0.05}
   vertices:
@@ -7537,8 +7556,8 @@ MonoBehaviour:
   dontDoVelocity: 0
   collider: {fileID: 1106276032}
   doYUpLock: 0
-  sectorIndex: 0
-  allSectors: 0000000002000000
+  sectorIndex: 2
+  allSectors: 020000000400000006000000
   globalSector: 0
   staticContactNormals: []
 --- !u!114 &1106276034
@@ -7561,45 +7580,43 @@ MonoBehaviour:
   - {fileID: 1106276034}
   - {fileID: 1106276034}
   m_matrix:
-    e00: 0.6930117
-    e01: -0.34955284
+    e00: 0.92384917
+    e01: -0.34955308
     e02: 0
-    e03: 0.6305137
-    e10: -0.14048043
-    e11: 0.7923464
+    e03: 0.15593535
+    e10: 0.20267217
+    e11: 0.7923466
     e12: 0
-    e13: 0.5936771
-    e20: -0.49999997
+    e13: 0.5754228
+    e20: -0.22959428
     e21: -0.35355335
     e22: 0.70710677
-    e23: 0.35355335
-    e30: -0.49999997
+    e23: 0.5677034
+    e30: -0.22959428
     e31: -0.35355335
     e32: -0.70710677
-    e33: 0.35355335
+    e33: 0.5677034
   m_localMatrix:
-    e00: 0.6930117
-    e01: -0.34955284
+    e00: 0.92384917
+    e01: -0.34955308
     e02: 0
-    e03: 0.6305137
-    e10: -0.14048043
-    e11: 0.7923464
+    e03: 0.15593535
+    e10: 0.20267217
+    e11: 0.7923466
     e12: 0
-    e13: 0.5936771
-    e20: -0.49999997
+    e13: 0.5754228
+    e20: -0.22959428
     e21: -0.35355335
     e22: 0.70710677
-    e23: 0.35355335
-    e30: -0.49999997
+    e23: 0.5677034
+    e30: -0.22959428
     e31: -0.35355335
     e32: -0.70710677
-    e33: 0.35355335
+    e33: 0.5677034
   onMatrixUpdate:
     m_PersistentCalls:
       m_Calls: []
   scale: 0.05
-  sterographicPos: {x: 0.46582112, y: 0.43860638, z: 0.26120386}
-  lockSterographicPos: 1
   onLeftMult:
     m_PersistentCalls:
       m_Calls: []
@@ -7617,8 +7634,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1106276027}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.46582112, y: 0.43860638, z: 0.26120386}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -8087,8 +8104,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   scale: 0.15
-  sterographicPos: {x: 0, y: 0, z: 0}
-  lockSterographicPos: 1
   onLeftMult:
     m_PersistentCalls:
       m_Calls: []
@@ -8821,8 +8836,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   scale: 1
-  sterographicPos: {x: 0, y: 0, z: 0}
-  lockSterographicPos: 1
   onLeftMult:
     m_PersistentCalls:
       m_Calls: []
@@ -8905,8 +8918,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   scale: 0.06
-  sterographicPos: {x: 0, y: 0.26075387, z: 0.18587005}
-  lockSterographicPos: 1
   onLeftMult:
     m_PersistentCalls:
       m_Calls: []
@@ -9155,7 +9166,7 @@ Transform:
   m_GameObject: {fileID: 1457274179}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.000000059604645}
+  m_LocalPosition: {x: 0, y: 0, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -9510,8 +9521,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   scale: 1
-  sterographicPos: {x: 0, y: 0, z: 0.99999994}
-  lockSterographicPos: 1
   onLeftMult:
     m_PersistentCalls:
       m_Calls: []
@@ -9618,7 +9627,7 @@ Transform:
   m_GameObject: {fileID: 1466526950}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.99999994}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.14999999, y: 0.14999999, z: 0.14999999}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -9896,8 +9905,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   scale: 0.15
-  sterographicPos: {x: 0, y: 0, z: 0.99999994}
-  lockSterographicPos: 1
   onLeftMult:
     m_PersistentCalls:
       m_Calls: []
@@ -9936,7 +9943,7 @@ Transform:
   m_GameObject: {fileID: 1522366319}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.10248887, y: 0, z: 0.25622216}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.14999999, y: 0.14999999, z: 0.14999999}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -10110,8 +10117,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   scale: 0.04
-  sterographicPos: {x: 0.10248887, y: 0, z: 0.25622216}
-  lockSterographicPos: 1
   onLeftMult:
     m_PersistentCalls:
       m_Calls: []
@@ -10187,7 +10192,7 @@ Transform:
   m_GameObject: {fileID: 1577849945}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.2182819, y: 0, z: 0.2315796}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.14999999, y: 0.14999999, z: 0.14999999}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -10361,8 +10366,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   scale: 0.05
-  sterographicPos: {x: -0.2182819, y: 0, z: 0.2315796}
-  lockSterographicPos: 1
   onLeftMult:
     m_PersistentCalls:
       m_Calls: []
@@ -10451,8 +10454,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   scale: 0.2
-  sterographicPos: {x: 2.0169182, y: -0.45951152, z: -1.1128422}
-  lockSterographicPos: 1
   onLeftMult:
     m_PersistentCalls:
       m_Calls: []
@@ -10801,7 +10802,7 @@ Transform:
   m_GameObject: {fileID: 1578601617}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2.0169182, y: -0.45951152, z: -1.1128422}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.14999999, y: 0.14999999, z: 0.14999999}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -10836,7 +10837,7 @@ Transform:
   m_GameObject: {fileID: 1606570711}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.41421354, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.14999999, y: 0.14999999, z: 0.14999999}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -11010,8 +11011,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   scale: 1
-  sterographicPos: {x: -0.41421354, y: 0, z: 0}
-  lockSterographicPos: 1
   onLeftMult:
     m_PersistentCalls:
       m_Calls: []
@@ -11230,8 +11229,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   scale: 1
-  sterographicPos: {x: 0.000000013633092, y: 0.17680864, z: -0.000000025943658}
-  lockSterographicPos: 1
   onLeftMult:
     m_PersistentCalls:
       m_Calls: []
@@ -11408,7 +11405,7 @@ Transform:
   m_GameObject: {fileID: 1620956657}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.99999994}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.14999999, y: 0.14999999, z: 0.14999999}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -11686,8 +11683,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   scale: 0.15
-  sterographicPos: {x: 0, y: 0, z: -0.99999994}
-  lockSterographicPos: 1
   onLeftMult:
     m_PersistentCalls:
       m_Calls: []
@@ -11728,7 +11723,7 @@ Transform:
   m_GameObject: {fileID: 1641856316}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.4446789, y: -0.43396455, z: 1.3402888}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.14999999, y: 0.14999999, z: 0.14999999}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -12121,8 +12116,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   scale: 0.2
-  sterographicPos: {x: -1.4446789, y: -0.43396455, z: 1.3402888}
-  lockSterographicPos: 1
   onLeftMult:
     m_PersistentCalls:
       m_Calls: []
@@ -12416,8 +12409,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   scale: 1
-  sterographicPos: {x: 0.21395932, y: 0.19767264, z: 0.1826257}
-  lockSterographicPos: 1
   onLeftMult:
     m_PersistentCalls:
       m_Calls: []
@@ -12514,8 +12505,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   scale: 1
-  sterographicPos: {x: -7.384384e-11, y: 0.12565517, z: -0.0000000026181328}
-  lockSterographicPos: 1
   onLeftMult:
     m_PersistentCalls:
       m_Calls: []
@@ -12691,7 +12680,7 @@ Transform:
   m_GameObject: {fileID: 1785689449}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.41421354}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.15, y: 0.15, z: 0.15}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -12865,8 +12854,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   scale: 1
-  sterographicPos: {x: 0, y: 0, z: -0.41421354}
-  lockSterographicPos: 1
   onLeftMult:
     m_PersistentCalls:
       m_Calls: []
@@ -13234,8 +13221,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   scale: 1
-  sterographicPos: {x: 0, y: 0, z: 0.41421354}
-  lockSterographicPos: 1
   onLeftMult:
     m_PersistentCalls:
       m_Calls: []
@@ -13484,8 +13469,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   scale: 1
-  sterographicPos: {x: 0, y: 0, z: 0}
-  lockSterographicPos: 1
   onLeftMult:
     m_PersistentCalls:
       m_Calls: []
@@ -13870,8 +13853,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   scale: 0.05
-  sterographicPos: {x: 0, y: 0.20645937, z: 0.1907436}
-  lockSterographicPos: 1
   onLeftMult:
     m_PersistentCalls:
       m_Calls: []
@@ -14269,8 +14250,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   scale: 1
-  sterographicPos: {x: 0, y: 0, z: 0}
-  lockSterographicPos: 1
   onLeftMult:
     m_PersistentCalls:
       m_Calls: []
@@ -14555,8 +14534,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   scale: 1
-  sterographicPos: {x: 0, y: 0, z: 0}
-  lockSterographicPos: 1
   onLeftMult:
     m_PersistentCalls:
       m_Calls: []
@@ -14688,45 +14665,43 @@ MonoBehaviour:
   - {fileID: 5683908495260059317}
   - {fileID: 5683908495260059317}
   m_matrix:
-    e00: 0.70710677
-    e01: -0.49999997
+    e00: 0.6397238
+    e01: -0.500001
     e02: 0
-    e03: 0.49999997
-    e10: 0
-    e11: 0.70710677
+    e03: 0.5837432
+    e10: -0.087591425
+    e11: 0.7071062
     e12: 0
-    e13: 0.70710677
-    e20: -0.49999997
-    e21: -0.35355335
-    e22: 0.70710677
-    e23: 0.35355335
-    e30: -0.49999997
-    e31: -0.35355335
-    e32: -0.70710677
-    e33: 0.35355335
+    e13: 0.7016647
+    e20: -0.5399448
+    e21: -0.35355258
+    e22: 0.7071066
+    e23: 0.28889444
+    e30: -0.5399448
+    e31: -0.35355258
+    e32: -0.7071066
+    e33: 0.28889444
   m_localMatrix:
-    e00: 0.70710677
-    e01: -0.49999997
+    e00: 0.6397238
+    e01: -0.500001
     e02: 0
-    e03: 0.49999997
-    e10: 0
-    e11: 0.70710677
+    e03: 0.5837432
+    e10: -0.087591425
+    e11: 0.7071062
     e12: 0
-    e13: 0.70710677
-    e20: -0.49999997
-    e21: -0.35355335
-    e22: 0.70710677
-    e23: 0.35355335
-    e30: -0.49999997
-    e31: -0.35355335
-    e32: -0.70710677
-    e33: 0.35355335
+    e13: 0.7016647
+    e20: -0.5399448
+    e21: -0.35355258
+    e22: 0.7071066
+    e23: 0.28889444
+    e30: -0.5399448
+    e31: -0.35355258
+    e32: -0.7071066
+    e33: 0.28889444
   onMatrixUpdate:
     m_PersistentCalls:
       m_Calls: []
   scale: 0.05
-  sterographicPos: {x: 0.36939806, y: 0.52240777, z: 0.26120386}
-  lockSterographicPos: 1
   onLeftMult:
     m_PersistentCalls:
       m_Calls: []
@@ -14770,7 +14745,7 @@ MonoBehaviour:
   collider: {fileID: 5324910774709287075}
   doYUpLock: 0
   sectorIndex: 2
-  allSectors: 02000000
+  allSectors: 0200000000000000
   globalSector: 0
   staticContactNormals: []
 --- !u!114 &7425060552719606059
@@ -14791,22 +14766,22 @@ MonoBehaviour:
   meshColor: {r: 1, g: 1, b: 1, a: 1}
   initialize: 0
   transformMatrix:
-    e00: 0.70710677
-    e01: 0
-    e02: -0.49999994
-    e03: -0.49999994
-    e10: -0.49999997
-    e11: 0.70710677
-    e12: -0.35355338
-    e13: -0.35355338
-    e20: 0.000000084293696
-    e21: 0.000000084293696
-    e22: 0.70710677
-    e23: -0.7071067
-    e30: 0.5
-    e31: 0.70710677
-    e32: 0.3535534
-    e33: 0.3535534
+    e00: 0.6397232
+    e01: -0.08759088
+    e02: -0.5399456
+    e03: -0.53994554
+    e10: -0.500001
+    e11: 0.7071065
+    e12: -0.35355374
+    e13: -0.35355368
+    e20: -0
+    e21: -0
+    e22: 0.70710695
+    e23: -0.70710695
+    e30: 0.5837376
+    e31: 0.7016577
+    e32: 0.28889215
+    e33: 0.28889215
   scaleMult: {x: 1, y: 1, z: 1}
   transformScale: {x: 0.05, y: 0.05, z: 0.05}
   vertices:
@@ -14905,8 +14880,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3693806780504609437}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.36939806, y: 0.52240777, z: 0.26120386}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []

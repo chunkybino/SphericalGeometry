@@ -19,6 +19,9 @@ public class Transform4D : MonoBehaviour
 
     void OnEnable()
     {
+        transform.transform.position = Vector3.zero;
+        transform.transform.eulerAngles = Vector3.zero;
+
         FindParent();
     }
     void OnDestroy()
@@ -142,14 +145,16 @@ public class Transform4D : MonoBehaviour
         return UFunc.SterographicProjection(position, radius);
     }
 
+    /*
     [SerializeField] Vector3 sterographicPos;
-
     public bool lockSterographicPos = true;
+    */
 
     [HideInInspector] public UnityEvent<Matrix4x4> onLeftMult;
     [HideInInspector] public UnityEvent<Matrix4x4> onRightMult;
     [HideInInspector] public UnityEvent<Rotor> onRotorLeft;
 
+    /*
     void OnValidate()
     {
         UpdateSterographicPos();
@@ -165,6 +170,7 @@ public class Transform4D : MonoBehaviour
         sterographicPos = Sterographic();
         if (lockSterographicPos) transform.position = sterographicPos;
     }
+    */
 
     public void MoveTo(Vector4 pos)
     {
@@ -200,7 +206,13 @@ public class Transform4D : MonoBehaviour
         LeftMult(mat);
     }
 
-    public void RotateRelativeXY(float angle) 
+    public void RotateRelative(Vector3 ang)
+    {
+        RotateRelativeYZ(ang.x);
+        RotateRelativeXZ(-ang.y);
+        RotateRelativeXY(ang.z);
+    }
+    public void RotateRelativeXY(float angle)
     {
         RightMult(UFunc.MatXYRot(angle));
     }

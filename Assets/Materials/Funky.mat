@@ -32,6 +32,7 @@ Material:
     - _DoShadow: 1
     - _DoV4: 0
     - _DoubleSideLit: 0
+    - _IsSceneCam: 0
     - _Lit: 1
     - _Radius: 1
     - _Subdivisions: 2
@@ -42,6 +43,7 @@ Material:
     - _MatC2: {r: 1, g: 1, b: 1, a: 0}
     - _MatC3: {r: 1, g: 1, b: 1, a: 0}
     - _Scale: {r: 0.25, g: 0.25, b: 0.25, a: -0.06}
+    - _SceneMatC0: {r: 0, g: 0, b: 0, a: 1}
     - _WorldLight: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

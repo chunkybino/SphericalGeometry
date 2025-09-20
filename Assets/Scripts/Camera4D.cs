@@ -30,4 +30,13 @@ public class Camera4D : MonoBehaviour
         //viewMatrix.SetRow(2, viewMatrix.GetRow(2)*-1);
         camera.worldToCameraMatrix = viewMatrix.inverse;
     }
+
+    void OnPreRender()
+    {
+        Shader.SetGlobalFloat("_IsSceneCam", 0f);
+    }
+    void OnPostRender()
+    {
+        Shader.SetGlobalFloat("_IsSceneCam", 1f);
+    }
 }
