@@ -32,6 +32,8 @@ public class SceneCamera4D
 
     static void PreRender(ScriptableRenderContext context, Camera cam)
     {
+        if (SceneCameraWindow.disableSphericalSceneCam) return;
+
         if (SceneView.lastActiveSceneView == null) return;
         if (cam != SceneView.lastActiveSceneView.camera) return;
 

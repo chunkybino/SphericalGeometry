@@ -3,6 +3,8 @@ using UnityEditor;
 
 public class SceneCameraWindow : EditorWindow
 {
+    public static bool disableSphericalSceneCam;
+
     public static Matrix4x4 sceneCamMatrix = Matrix4x4.identity;
 
     public static float camSpeed = 0.5f;
@@ -15,6 +17,14 @@ public class SceneCameraWindow : EditorWindow
 
     void OnGUI()
     {
+        bool prevDisable = disableSphericalSceneCam;
+        disableSphericalSceneCam = EditorGUILayout.Toggle("Disable Spherical Camera", disableSphericalSceneCam);
+        if (!prevDisable && disableSphericalSceneCam)
+        {
+            sceneCamMatrix = Matrix4x4.identity;
+            SceneView.lastActiveSceneView.camera.worldToCameraMatrix = sceneCamMatrix;
+        }
+
         camSpeed = EditorGUILayout.FloatField("Camera Speed", camSpeed);
         DisplayMatrix();
     }
