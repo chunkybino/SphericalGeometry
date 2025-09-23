@@ -371,7 +371,8 @@ Shader "Mine/Boring"
                     if (light.falloffDegree != 0)
                     {
                         float distance = acos(clamp(dot(light.position,IN.positionWorld), -1,1));//1.57*(1-disDot);
-                        precise float falloffIntesity = pow(_Radius*(1.57)*sin(distance/_Radius) + 1, -light.falloffDegree);
+                        //precise float falloffIntesity = pow(_Radius*(1.57)*sin(distance/_Radius) + 1, -light.falloffDegree);
+                        falloffIntesity = 1 / (light.falloffDegree*distance + 1);
                     }
                     /*
                     if (false)//light.doFalloff)
@@ -409,7 +410,9 @@ Shader "Mine/Boring"
                     if (light.falloffDegree != 0)
                     {
                         float distance = acos(clamp(dot(light.position,IN.positionWorld), -1,1));//1.57*(1-disDot);
-                        precise float falloffIntesity = pow(_Radius*(1.57)*sin(distance/_Radius) + 1, -light.falloffDegree);
+                        //falloffIntesity = pow(_Radius*(1.57)*sin(distance/_Radius) + 1, -light.falloffDegree);
+
+                        falloffIntesity = (1-distance);
                     }
 
                     /*
