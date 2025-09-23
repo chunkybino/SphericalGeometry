@@ -431,6 +431,8 @@ Shader "Mine/Boring"
                     //shadowtime
                     for (int j = 0; j < _ShadowCount[0]; j++)
                     {
+                        //if (j > 4) break;
+
                         ShadowData shadow = _ShadowData[j];
 
                         precise float lightPlaneAngle = 1.57 - acos(dot(shadow.center, light.position));
@@ -441,13 +443,17 @@ Shader "Mine/Boring"
                             continue;
                         }
 
+                        //intensity = 0;
+
                         precise float4 planePos = Slerp4(IN.positionWorld,light.position,abs(posPlaneAngle),abs(lightPlaneAngle-posPlaneAngle));
 
                         float dot1 = dot(planePos,shadow.norm1);
                         float dot2 = dot(planePos,shadow.norm2);
                         float dot3 = dot(planePos,shadow.norm3);
 
-                        //intensity = 0;
+                        //intensity = 1;
+                        //pixelColor.rgb = float3(dot1,dot2,dot3);
+                        //continue;
 
                         if (dot1 < 0 && dot2 < 0 && dot3 < 0)
                         {

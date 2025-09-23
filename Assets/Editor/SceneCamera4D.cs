@@ -2,15 +2,24 @@ using UnityEngine;
 using UnityEditor;
 using UnityEngine.Rendering;
 
-[ExecuteAlways]
-public class SceneCamera4D : MonoBehaviour
+[InitializeOnLoad]
+public class SceneCamera4D
 {
     //private static readonly int _isSceneCamID = Shader.PropertyToID("_IsSceneCam");
 
-    [SerializeField] Matrix4x4 sceneCamMatrix;
+    //Matrix4x4 sceneCamMatrix;
 
-    [SerializeField] float camSpeed = 0.5f;
+    //float camSpeed = 0.5f;
 
+    static Matrix4x4 sceneCamMatrix {get{return SceneCameraWindow.sceneCamMatrix;} set{SceneCameraWindow.sceneCamMatrix = value;}}
+    static float camSpeed {get{return SceneCameraWindow.camSpeed;}}
+
+    static SceneCamera4D()
+    {
+        RenderPipelineManager.beginCameraRendering += PreRender;
+    }
+
+    /*
     void OnEnable()
     {
         RenderPipelineManager.beginCameraRendering += PreRender;
@@ -19,15 +28,17 @@ public class SceneCamera4D : MonoBehaviour
     {
         RenderPipelineManager.beginCameraRendering -= PreRender;
     }
+    */
 
-    void PreRender(ScriptableRenderContext context, Camera cam)
+    static void PreRender(ScriptableRenderContext context, Camera cam)
     {
+        if (SceneView.lastActiveSceneView == null) return;
         if (cam != SceneView.lastActiveSceneView.camera) return;
 
         UpdateSceneViewMatrix();
     }
 
-    void UpdateSceneViewMatrix()
+    static void UpdateSceneViewMatrix()
     {
         SceneView sceneView = SceneView.lastActiveSceneView;
 

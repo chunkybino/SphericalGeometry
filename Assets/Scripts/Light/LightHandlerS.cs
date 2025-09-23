@@ -25,17 +25,7 @@ public class LightHandlerS : MonoBehaviour
     //[SerializeField] ComputeBuffer shadowBuffer;
     [SerializeField] ComputeBuffer shadowCountBuffer;
 
-   // [SerializeField] ComputeBuffer sphereShadowBuffer;
-
-    //public List<I_ShadowCaster> staticShadowRenderers = new List<I_ShadowCaster>();
-    //public List<I_ShadowCaster> sphereShadowRenderers = new List<I_ShadowCaster>();
-
     [SerializeField] int totalShadowTriLength;
-
-    //[SerializeField] int staticShadowCount;
-    //int prevStaticShadowCount;
-    //[SerializeField] int sphereShadowCount;
-    //int prevSphereShadowCount;
 
     public enum ShadowProfileType {Mesh,Sphere};
 
@@ -53,7 +43,7 @@ public class LightHandlerS : MonoBehaviour
     {
         public ShadowProfile(string name, int elementSize, LightHandlerS handler)
         {
-            bufferElementSize = elementSize;
+            bufferElementSize = sizeof(float)*elementSize;
             bufferName = name;
             casterIndicies = new List<int>();
 
@@ -93,6 +83,9 @@ public class LightHandlerS : MonoBehaviour
             }
         }
     }
+
+    bool lightBufferDirty;
+    bool lightBufferReady;
 
     bool shadowBufferDirty;
     bool shadowBufferReady;
@@ -166,52 +159,16 @@ public class LightHandlerS : MonoBehaviour
 
     void Update()
     {
-        //UpdateFullBuffer();
-
-        //print(lightDataSendNoShadow + " " + lightDataSendNoShadow.Length);
-
-        UpdateBufferSendData();
-
-        /*
-        print("nope " +(lightBuffer==null));
-        if (lightBuffer != null) print(lightBuffer.IsValid());
-
-        UpdateBuf(noShadowLights, lightBuffer, lightDataSendNoShadow);
-        UpdateBuf(shadowLights, shadowLightBuffer, lightDataSendShadow);
-
-        //SetLightBuffer();
-
-        void UpdateBuf(List<LightS> light, ComputeBuffer buff, LightData[] send)
-        {
-            //print(buff == null);
-            //print(buff.IsValid());
-            if (buff == null || !buff.IsValid()) return;
-
-            int startIndex = 0;
-            int bufferCount = 0;
-            for (int i = 0; i < light.Count; i++)
-            {
-                if (light[i].dirty)
-                {
-                    if (bufferCount == 0) {
-                        startIndex = i;
-                    }
-                    bufferCount++;
-                    light[i].dirty = false;
-                }
-                else
-                {
-                    if (bufferCount > 0) {
-                        buff.SetData(send, startIndex, startIndex, bufferCount);
-                        bufferCount = 0;
-                    }
-                }
+        if (lightBufferDirty) {
+            if (shadowBufferReady) {
+                lightBufferDirty = false;
+                shadowBufferReady = false;
+                UpdateBufferSendData();
             }
-            if (bufferCount > 0) {
-                buff.SetData(send, startIndex, startIndex, bufferCount);
+            else {
+                shadowBufferReady = true;
             }
         }
-        */
 
         if (disableShadows)
         {
@@ -219,6 +176,9 @@ public class LightHandlerS : MonoBehaviour
 
             shadowSend = new Vector4[0];
             sphereShadowSend.Clear();
+
+            meshProfiles.prevShadowCount = 0;
+            sphereProfiles.prevShadowCount = 0;
         }
         else
         {
@@ -240,19 +200,14 @@ public class LightHandlerS : MonoBehaviour
         UpdateShadowBuffer();
     }
 
-    void FixedUpdate()
+    void LateUpdate()
     {
-
-    }
-
-    void UpdateFullBuffer()
-    {
-        UpdateBufferSendData();
+        lightBufferDirty = true;
     }
 
     void UpdateBufferSendData()
     {
-        //SetLightBuffer();
+        SetLightBuffer();
 
         lightDataSendNoShadow = new LightData[noShadowLights.Count];
         for (int i = 0; i < noShadowLights.Count; i++)
@@ -276,8 +231,8 @@ public class LightHandlerS : MonoBehaviour
 
     void SetLightBuffer() 
     {
-        int prevNoShadowLightCount = noShadowLights.Count;
-        int prevShadowLightCount = shadowLights.Count;
+        int prevNoShadowLightCount = noShadowlightDatasCount;
+        int prevShadowLightCount = shadowLightDatasCount;
 
         noShadowLights.Clear();
         shadowLights.Clear();
@@ -290,59 +245,40 @@ public class LightHandlerS : MonoBehaviour
             }
         }
 
-        bool showShadowLightChange = noShadowLights.Count != prevNoShadowLightCount;
-        bool sphereShadowCasterChange = shadowLights.Count != prevShadowLightCount;
+        bool noShadowChange = noShadowLights.Count != prevNoShadowLightCount;
+        bool shadowChange = shadowLights.Count != prevShadowLightCount;
+
+        noShadowlightDatasCount = noShadowLights.Count;
+        shadowLightDatasCount = shadowLights.Count;
 
         if (noShadowlightDatasCount > 0)
         {
-            if (showShadowLightChange || lightBuffer == null)
+            if (noShadowChange || lightBuffer == null)
             {
-                //print(lightCountBuffer != null);
-                //if (lightCountBuffer != null) lightCountBuffer.Release();
-
                 lightBuffer = new ComputeBuffer(noShadowlightDatasCount, System.Runtime.InteropServices.Marshal.SizeOf(typeof(LightData)));
                 Shader.SetGlobalBuffer("_LightDataNoShadow", lightBuffer);
             }
-
-            /*
-            if (lightBuffer != null && lightBuffer.IsValid()) {
-                lightBuffer.SetData(lightDataSendNoShadow);
-            }
-            */
         }
 
-        //print();
         if (shadowLightDatasCount > 0)
         {
-            if (sphereShadowCasterChange || shadowLightBuffer == null)
+            if (shadowChange || shadowLightBuffer == null)
             {
-                //print(lightCountBuffer != null);
-                //if (lightCountBuffer != null) lightCountBuffer.Release();
-
                 shadowLightBuffer = new ComputeBuffer(shadowLightDatasCount, System.Runtime.InteropServices.Marshal.SizeOf(typeof(LightData)));
                 Shader.SetGlobalBuffer("_LightDataShadow", shadowLightBuffer);
             }
-
-            /*
-            if (shadowLightBuffer != null && shadowLightBuffer.IsValid()) {
-                shadowLightBuffer.SetData(lightDataSendShadow);
-            }
-            */
         }
         
 
         if (lightCountBuffer == null)
         {
-            //print(lightCountBuffer != null);
-            //if (lightCountBuffer != null) lightCountBuffer.Release();
             lightCountBuffer = new ComputeBuffer(2, sizeof(int));
             Shader.SetGlobalBuffer("_LightCount", lightCountBuffer);
         }
 
-        lightCountBuffer.SetData(new int[] {lightDatasCount,shadowLightDatasCount});
-        //if (showShadowLightChange || sphereShadowCasterChange) {
-        //    lightCountBuffer.SetData(new int[] {lightDatasCount,shadowLightDatasCount});
-        //}
+        if (lightCountBuffer != null) {
+            lightCountBuffer?.SetData(new int[] {lightDatasCount,shadowLightDatasCount});
+        }
     }
 
     public void AddLight(LightS light)
@@ -351,7 +287,7 @@ public class LightHandlerS : MonoBehaviour
 
         lights.Add(light);
 
-        UpdateFullBuffer();
+        lightBufferDirty = true;
     }
     public void RemoveLight(LightS light)
     {
@@ -359,11 +295,11 @@ public class LightHandlerS : MonoBehaviour
 
         lights.Remove(light);
 
-        UpdateFullBuffer();
+        lightBufferDirty = true;
     }
     public void UpdateLightCastShadow()
     {
-        SetLightBuffer();
+        lightBufferDirty = true;
     }
 
     void Dispose()
@@ -407,13 +343,13 @@ public class LightHandlerS : MonoBehaviour
 
             int triPlaceIndex = 0;
 
-            meshProfiles.shadowCount = 0;
+            meshProfiles.shadowCount = totalShadowTriLength;
             for (int j = 0; j < meshCasters.Count; j++)
             {
                 I_ShadowCaster ren = allShadowCasters[meshCasters[j]];
                 if (ren.shadow_castShadowLevel < castShadowLevel) continue;
 
-                meshProfiles.shadowCount++;
+                //meshProfiles.shadowCount++;
 
                 int[] shadowTri = ren.GetTri();
                 Vector4[] shadowVertex4 = new Vector4[0];
@@ -512,7 +448,7 @@ public class LightHandlerS : MonoBehaviour
             if (prof.shadowCount > 0 && (change || prof.profileBuffer == null))
             {
                 if (prof.profileBuffer != null) prof.profileBuffer.Release();
-                prof.profileBuffer = new ComputeBuffer(prof.shadowCount, sizeof(float) * prof.bufferElementSize);
+                prof.profileBuffer = new ComputeBuffer(prof.shadowCount, prof.bufferElementSize);
                 Shader.SetGlobalBuffer(prof.bufferName, prof.profileBuffer);
             }
         }
@@ -526,35 +462,8 @@ public class LightHandlerS : MonoBehaviour
             sphereProfiles.profileBuffer.SetData(sphereShadowSend);
         }
 
-        /*
-        bool staticShadowCasterChange = staticShadowCount != prevStaticShadowCount;
-        prevStaticShadowCount = sphereShadowCount;
-        bool sphereShadowCasterChange = sphereShadowCount != prevSphereShadowCount;
-        prevSphereShadowCount = sphereShadowCount;
-
-        if (totalShadowTriLength > 0 && (staticShadowCasterChange || shadowBuffer == null))
-        {
-            if (shadowBuffer != null) shadowBuffer.Release();
-            shadowBuffer = new ComputeBuffer(totalShadowTriLength, sizeof(float) * 16);
-            Shader.SetGlobalBuffer("_ShadowData", shadowBuffer);
-        }
-        if (sphereShadowCount > 0 && (sphereShadowCasterChange || sphereShadowBuffer == null))
-        {
-            if (sphereShadowBuffer != null) sphereShadowBuffer.Release();
-            sphereShadowBuffer = new ComputeBuffer(sphereShadowCount, sizeof(float)*5);
-            Shader.SetGlobalBuffer("_ShadowSphereData", sphereShadowBuffer);
-        }
-
-        if (shadowBuffer != null && shadowBuffer.IsValid()) {
-            shadowBuffer.SetData(shadowSend);
-        }
-        if (sphereShadowBuffer != null && sphereShadowBuffer.IsValid()) {
-            sphereShadowBuffer.SetData(sphereShadowSend);
-        }
-        */
-
         //shadow count time
-        if (shadowCountBuffer == null)
+        if (shadowCountBuffer == null || !shadowCountBuffer.IsValid())
         {
             shadowCountBuffer = new ComputeBuffer(2, sizeof(int));
             Shader.SetGlobalBuffer("_ShadowCount", shadowCountBuffer);
