@@ -24,6 +24,8 @@ public class DebugMenu : MonoBehaviour
 
     public DebugSpawnObjects_SO debugSpawnObjects;
 
+    public DebugRBLabel debugLabels;
+
     void OnEnable()
     {
         if (inputs == null) inputs = new PlayerInputActions();
@@ -140,6 +142,9 @@ public class DebugMenu : MonoBehaviour
             case "gameRule":
                 ConsoleGameRule(command);
                 break;
+            case "debug":
+                ConsoleDebug(command);
+                break;
             case "set":
                 ConsoleSet(command);
                 break;
@@ -163,10 +168,13 @@ public class DebugMenu : MonoBehaviour
                 "--- COMMAND LIST --- use \"help {command}\" for more info",
                 "clear",
                 "gameRule {rule} {state}",
+                "debug {misc}",
                 "set {object name} {property}",
                 "spawnRB {object type} {object name} {posX} {posY} {posZ} {posW} {scale}",
                 "cloneRB {object name} {number}",
-                "--- random = $R[{lower},{upper}] ---"
+                "---    ---",
+                "random value = $R[{lower},{upper}]",
+                "for {object name} parameter, use \"debug showRBLabels\" to see names, use quotations if name contains spaces"
             };
 
             WriteToConsole(write);
@@ -185,6 +193,12 @@ public class DebugMenu : MonoBehaviour
                         "--- COMMAND gameRule ---",
                         "gameRule {rule} {state}",
                         "gameRule disableShadows {state}"
+                    });
+                    break;
+                case "debug":
+                    WriteToConsole(new string[] {
+                        "--- COMMAND debug --- extra commands for debugging",
+                        "debug showRBLabels {state}"
                     });
                     break;
                 case "set":
@@ -215,7 +229,8 @@ public class DebugMenu : MonoBehaviour
                     WriteToConsole(new string[] {
                         "--- COMMAND spawnRB --- spawns a dynamic physics object",
                         "spawnRB {object type} {object name} {posX} {posY} {posZ} {posW} {scale}",
-                        "object types --- ball"
+                        "object types:",
+                        "   ball"
                     });
                     break;
                 case "cloneRB":
@@ -266,6 +281,43 @@ public class DebugMenu : MonoBehaviour
             lightHandler.disableShadows = ruleState;
 
             WriteToConsole("set gameRule disableShadows to "+ruleState);
+        }
+    }
+
+    void ConsoleDebug(List<string> command)
+    {
+        if (command.Count < 2) {
+            WriteToConsole("error: not enough parameters");
+            return;
+        }
+
+        string commandType = command[1];
+        command.RemoveAt(0);
+        command.RemoveAt(0);
+
+        switch (commandType)
+        {
+            case "showRBLabels":
+                SetShowRBLabels(command);
+                break;
+            default:
+                WriteToConsole("error: debug command dont exist");
+                break;
+        }
+        
+        void SetShowRBLabels(List<string> command)
+        {
+            bool state = true;
+
+            if (command.Count > 0)
+            {
+                print(command[0] + " " + ParseToBool(command[0]));
+                state = ParseToBool(command[0]);
+            }
+
+            debugLabels.SetActive(state);
+
+            WriteToConsole("set debug showRBLabels to "+state);
         }
     }
 
