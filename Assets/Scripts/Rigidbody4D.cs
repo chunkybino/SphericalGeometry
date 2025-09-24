@@ -220,6 +220,10 @@ public class Rigidbody4D : MonoBehaviour
         }
         return outV;
     }
+    public Vector2 GetRelativeVelocityXZ()
+    {
+        return new Vector2(GetRelativeVelocity(0), GetRelativeVelocity(2));
+    }
     public float GetRelativeVelocity(int component)
     {
         return Vector4.Dot(velocity, transform4.matrix.GetColumn(component));

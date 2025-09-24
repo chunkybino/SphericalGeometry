@@ -3181,6 +3181,10 @@ MonoBehaviour:
   camera: {fileID: 330585548}
   input: {fileID: 665110782}
   speed: 1
+  acceleration: 4
+  opposeAccelMult: 4
+  airDeccelerationMult: 0.5
+  airDeccelerationVelocityThreshold: 0.5
   moveVector: {x: 0, y: 0, z: 0}
   lookSpeed: 0.002
   doCameraPitch: 1
@@ -3188,6 +3192,20 @@ MonoBehaviour:
   isJump: 0
   releaseVelMult: 0.4
   groundCheck: {fileID: 871264119}
+  dashTime: 0.4
+  dashTimer: 0
+  dashSpeedCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  dashControlCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!114 &665110784
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5049,7 +5067,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &871264115
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6992,6 +7010,10 @@ MonoBehaviour:
   - {fileID: 14870709}
   - {fileID: 14870709}
   - {fileID: 1457274186}
+  - {fileID: 14870709}
+  - {fileID: 14870709}
+  - {fileID: 14870709}
+  - {fileID: 14870709}
   - {fileID: 14870709}
   - {fileID: 14870709}
   - {fileID: 14870709}
