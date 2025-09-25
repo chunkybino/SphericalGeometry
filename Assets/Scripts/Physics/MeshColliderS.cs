@@ -106,7 +106,7 @@ public class MeshColliderS : ColliderS
         float furthestDot = 1;
 
         for (int i = 0; i < verticies.Length; i++) {
-            verticies4[i] = UFunc.ProjectLocal3QuickS(Vector3.Scale(verticies[i], transform4.scale*scale));
+            verticies4[i] = UFunc.ProjectLocal3QuickS(Vector3.Scale(verticies[i], transform4.scale*scale) * Transform4D.radius);
 
             float dot = verticies4[i].w;
             if (i == 0 || dot < furthestDot) {

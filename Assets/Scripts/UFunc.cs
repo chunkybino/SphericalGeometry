@@ -426,7 +426,7 @@ public static class UFunc
 
     public static float DistanceS(Vector4 v1, Vector4 v2)
     {
-        return Mathf.Acos(Clamp1(Dot(v1, v2)));
+        return Mathf.Acos(Clamp1(Dot(v1, v2))) * Transform4D.radius;
     }
 
     public static bool BetweenS(Vector4 v1, Vector4 v2, Vector4 v3) //is v3 (along the line of v1-v2), between the 2 vectors in spherical space

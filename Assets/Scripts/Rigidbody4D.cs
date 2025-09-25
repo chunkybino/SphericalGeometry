@@ -378,17 +378,6 @@ public class Rigidbody4D : MonoBehaviour
 
         Vector4 GetFinalVel(float newDot)
         {
-            /*
-            if (elasticity != 1 && Mathf.Abs(newDot) < 0.1f)
-            {
-                newDot = Mathf.MoveTowards(newDot, 0, 1*Time.fixedDeltaTime);
-                //if (Mathf.Abs(newDot) < 0.01f) newDot = 0;
-            }
-            if (velocity.magnitude == 0 || UFunc.CloseTo(Mathf.Abs(linearDot/velocity.magnitude),1,0.05f))
-            {
-                //return direction * newDot;
-            }
-            */
             return UFunc.SetVectorDirectionValue(currentLinear, direction, newDot);
         }
     }

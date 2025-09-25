@@ -137,7 +137,26 @@ public class Transform4D : MonoBehaviour
         }
     }
 
-    public float scale = 1;
+    //public float scale = 1;
+    public float m_scale = 1;
+    public bool scaleWithWorldRadius;
+
+    public float scale {
+        get{
+            if (scaleWithWorldRadius) return m_scale * radius;
+            return m_scale; 
+        }
+        set{
+           if (scaleWithWorldRadius)
+           {
+                m_scale = value * radius;
+           }
+           else
+           {
+                m_scale = value;
+           }
+        }
+    }
 
     //stereographically project the points into 3d space
     public Vector3 Sterographic()

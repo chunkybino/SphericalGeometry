@@ -414,7 +414,8 @@ public class LightHandlerS : MonoBehaviour
                         sphereShadowSend.Add(pos[j]);
                     }
                     //sphereShadowSend[5*i + 4] = Mathf.Cos(ren.sphereShadowRadius);
-                    sphereShadowSend.Add(Mathf.Cos(ren.shadow_sphereRadius));
+                    print(ren.shadow_sphereRadius*Transform4D.radius);
+                    sphereShadowSend.Add(Mathf.Cos(ren.shadow_sphereRadius/Transform4D.radius));
                 }
             }
         }

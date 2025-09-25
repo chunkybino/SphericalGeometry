@@ -29,7 +29,7 @@ public class ShadowCaster : MonoBehaviour, I_ShadowCaster
 
     //public bool shadow_doSphereProfile {get{return doSphereProfile;}}
     public LightHandlerS.ShadowProfileType shadow_profileType {get{return LightHandlerS.ShadowProfileType.Sphere;}}
-    public float shadow_sphereRadius {get{return sphereProfileRad*transform4.scale;}}
+    public float shadow_sphereRadius {get{return sphereProfileRad*transform4.scale/Transform4D.radius;}}
 
     void OnEnable()
     {
