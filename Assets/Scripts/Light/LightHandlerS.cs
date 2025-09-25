@@ -410,11 +410,9 @@ public class LightHandlerS : MonoBehaviour
                     Vector4 pos = ren.GetPos();
 
                     for (int j = 0; j < 4; j++) {
-                        //sphereShadowSend[5*i + j] = pos[j];
                         sphereShadowSend.Add(pos[j]);
                     }
-                    //sphereShadowSend[5*i + 4] = Mathf.Cos(ren.sphereShadowRadius);
-                    print(ren.shadow_sphereRadius*Transform4D.radius);
+                    
                     sphereShadowSend.Add(Mathf.Cos(ren.shadow_sphereRadius/Transform4D.radius));
                 }
             }

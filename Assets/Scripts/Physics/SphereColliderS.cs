@@ -3,9 +3,12 @@ using UnityEngine;
 public class SphereColliderS : ColliderS
 {
     public float radius = 1;
-    public override float m_radius {get{return radius*transform4.scale;}}
+    public override float m_radius {get{return radius*transform4.scale/Transform4D.radius;}}
 
-    public override float boundingRadius {get{return m_radius;}}
+    public override float boundingRadius {get{
+        if (transform4.scaleWithWorldRadius) print(transform4.scale+" "+m_radius);
+        return m_radius;
+        }}
 
     public Vector4 center {get{
         return transform4.positionNorm;
