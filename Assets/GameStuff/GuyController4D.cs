@@ -9,6 +9,7 @@ public class GuyController4D : MonoBehaviour
 
     [SerializeField] PlayerInput input;
 
+    Vector4 prevPosition; //position we were last fixed frame
 
     //movement
     [SerializeField] float speed = 1;
@@ -21,8 +22,9 @@ public class GuyController4D : MonoBehaviour
     [SerializeField] Vector3 moveVector;
     Vector2 moveVector2 { get { return new Vector2(moveVector.x, moveVector.z); } }
 
-    [SerializeField] float lookSpeed = 0.02f;
+    [SerializeField] float gravity = 1;
 
+    [SerializeField] float lookSpeed = 0.02f;
     [SerializeField] bool doCameraPitch;
 
     //jump
@@ -31,14 +33,17 @@ public class GuyController4D : MonoBehaviour
     [SerializeField] float releaseVelMult = 0.4f;
 
     [SerializeField] GroundCheck groundCheck;
+    bool grounded {get{return groundCheck.grounded;}}
 
     //dash
     bool isDash { get { return dashTimer > 0; } }
     [SerializeField] float dashTime = 0.4f;
     [SerializeField] float dashTimer;
+    Vector4 dashDirection;
     float dashProgress { get { return 1 - dashTimer / dashTime; } }
+    [SerializeField] float dashSpeed = 3f;
     [SerializeField] AnimationCurve dashSpeedCurve;
-    [SerializeField] AnimationCurve dashControlCurve;
+    [SerializeField] AnimationCurve dashGravCurve;
 
     void Awake()
     {
@@ -77,13 +82,32 @@ public class GuyController4D : MonoBehaviour
 
         transform4.RotateRelativeXZ(-angleVector.x);
         //rb.angularVelocity = new Vector3(0, -angleVector.x, 0);
+
+        if (!isDash && input.shiftPress)
+        {
+            StartDash();
+        }
     }
 
     void FixedUpdate()
     {
+        if (isDash && prevPosition != transform4.positionNorm)
+        {
+            dashDirection = new Rotor(prevPosition, transform4.positionNorm) * dashDirection;
+            dashDirection = UFunc.ProjectToVectorNormal(dashDirection, transform4.yBasis);
+            dashDirection = dashDirection.normalized;
+        }
+        UFunc.TickTimerFixed(ref dashTimer);
+
+        rb.gravityScale = gravity;
+        if (isDash)
+        {
+            rb.gravityScale *= dashGravCurve.Evaluate(dashProgress);
+        }
+
         float yVel = rb.GetRelativeVelocity(1);
 
-        if (groundCheck.grounded && yVel < 0.05f)
+        if (grounded && yVel < 0.05f)
         {
             isJump = false;
         }
@@ -93,15 +117,20 @@ public class GuyController4D : MonoBehaviour
             rb.SetRelativeVelocityY(yVel * releaseVelMult);
             isJump = false;
         }
-
         VelocityFunc();
+
+        prevPosition = transform4.positionNorm;
     }
 
     void VelocityFunc()
     {
         Vector2 relativeVel = rb.GetRelativeVelocityXZ();
+        Vector2 newVel = new Vector2();
 
         Vector2 targetSpeed = moveVector2 * speed;
+        if (!grounded) {
+            targetSpeed = moveVector2 * Mathf.Max(speed, Vector2.Dot(moveVector2,relativeVel));
+        }
 
         float accel = acceleration;
 
@@ -112,18 +141,41 @@ public class GuyController4D : MonoBehaviour
         }
         else
         {
-            if (!groundCheck.grounded && relativeVel.magnitude < airDeccelerationVelocityThreshold * speed)
+            if (!grounded && relativeVel.magnitude < airDeccelerationVelocityThreshold * speed)
             {
                 accel *= airDeccelerationMult;
             }
         }
 
-        Vector2 newVel = new Vector2(
+        newVel = new Vector2(
             Mathf.MoveTowards(relativeVel.x, targetSpeed.x, accel * Time.fixedDeltaTime),
             Mathf.MoveTowards(relativeVel.y, targetSpeed.y, accel * Time.fixedDeltaTime)
         );
+        
+        if (isDash)
+        {
+            newVel = dashDirection;
+            Vector3 relativeDashDir = transform4.RelativeDirectionTo(dashDirection);
+
+            newVel = new Vector2(relativeDashDir.x,relativeDashDir.z) * dashSpeedCurve.Evaluate(dashProgress) * dashSpeed;
+        }
 
         rb.SetRelativeVelocityX(newVel.x);
         rb.SetRelativeVelocityZ(newVel.y);
+    }
+
+    void StartDash()
+    {
+        dashTimer = dashTime;
+        rb.SetVelocityTowards(new Vector4(0,1,0,0), 0);
+
+        if (moveVector2 == Vector2.zero)
+        {
+            dashDirection = -transform4.zBasis;
+        }
+        else
+        {
+            dashDirection = transform4.xBasis*moveVector.x + transform4.zBasis*moveVector.z;
+        }
     }
 }

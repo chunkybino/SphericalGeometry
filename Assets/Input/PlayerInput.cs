@@ -26,6 +26,9 @@ public class PlayerInput : MonoBehaviour
     public bool space {get{return m_space.IsPressed();}}
     public bool spacePress {get{return m_space.triggered;}}
 
+    public bool shift {get{return m_shift.IsPressed();}}
+    public bool shiftPress {get{return m_shift.triggered;}}
+
     public Vector2 mouseDelta {get{return m_mouse.ReadValue<Vector2>();}}
 
     [HideInInspector] public InputAction m_up;
@@ -41,6 +44,10 @@ public class PlayerInput : MonoBehaviour
     [HideInInspector] public InputAction m_rightArrow;
 
     [HideInInspector] public InputAction m_space;
+    [HideInInspector] public InputAction m_shift;
+
+    [HideInInspector] public InputAction m_leftClick;
+    [HideInInspector] public InputAction m_rightClick;
 
     [HideInInspector] public InputAction m_mouse;
 
@@ -76,6 +83,8 @@ public class PlayerInput : MonoBehaviour
         m_rightArrow = inputs.Player.RightArrow;
 
         m_space = inputs.Player.Space;
+
+        m_shift = inputs.Player.Shift;
 
         m_mouse = inputs.Player.MouseDelta;
     }

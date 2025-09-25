@@ -423,18 +423,18 @@ MonoBehaviour:
   - {fileID: 696461020}
   - {fileID: 2078316006}
   - {fileID: 1457274184}
-  - {fileID: 68174992}
-  - {fileID: 538830359}
-  - {fileID: 607435943}
-  - {fileID: 724789085}
-  - {fileID: 1086732596}
-  - {fileID: 1466526957}
-  - {fileID: 1522366324}
-  - {fileID: 1577849950}
-  - {fileID: 1578601618}
-  - {fileID: 1620956664}
   - {fileID: 1641856323}
+  - {fileID: 1522366324}
+  - {fileID: 538830359}
+  - {fileID: 1620956664}
   - {fileID: 2098311261}
+  - {fileID: 68174992}
+  - {fileID: 724789085}
+  - {fileID: 607435943}
+  - {fileID: 1577849950}
+  - {fileID: 1466526957}
+  - {fileID: 1086732596}
+  - {fileID: 1578601618}
   m_matrix:
     e00: 1
     e01: 0
@@ -3155,6 +3155,33 @@ MonoBehaviour:
     m_Interactions: 
     m_SingletonActionBindings: []
     m_Flags: 0
+  m_shift:
+    m_Name: 
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 170e92ce-ceb9-46a3-abbe-512a22bf6131
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  m_leftClick:
+    m_Name: 
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 5faa5643-d66d-477e-b96c-76bd3d7d05e8
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  m_rightClick:
+    m_Name: 
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: a9e9a264-30d1-4993-a659-439f5630df2e
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
   m_mouse:
     m_Name: 
     m_Type: 0
@@ -3181,22 +3208,84 @@ MonoBehaviour:
   camera: {fileID: 330585548}
   input: {fileID: 665110782}
   speed: 1
-  acceleration: 4
-  opposeAccelMult: 4
-  airDeccelerationMult: 0.5
+  acceleration: 8
+  opposeAccelMult: 3
+  airDeccelerationMult: 0.4
   airDeccelerationVelocityThreshold: 0.5
   moveVector: {x: 0, y: 0, z: 0}
+  gravity: 1
   lookSpeed: 0.002
   doCameraPitch: 1
   jumpForce: 0.8
   isJump: 0
   releaseVelMult: 0.4
   groundCheck: {fileID: 871264119}
-  dashTime: 0.4
+  dashTime: 0.25
   dashTimer: 0
+  dashSpeed: 2
   dashSpeedCurve:
     serializedVersion: 2
-    m_Curve: []
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: -0.05421741
+      outSlope: -0.05421741
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.401946
+    - serializedVersion: 3
+      time: 0.4766012
+      value: 0.8306412
+      inSlope: -0.72918075
+      outSlope: -0.72918075
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.10687791
+    - serializedVersion: 3
+      time: 1
+      value: 0.6
+      inSlope: -0.1606982
+      outSlope: -0.1606982
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.30098847
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  dashGravCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.7775351
+      value: 0.405646
+      inSlope: 1.3621919
+      outSlope: 1.3621919
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 3.5158525
+      outSlope: 3.5158525
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.034416854
+      outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
@@ -3258,9 +3347,9 @@ MonoBehaviour:
   parent: {fileID: 0}
   children:
   - {fileID: 1774161676}
-  - {fileID: 871264117}
   - {fileID: 927178209}
   - {fileID: 1612277668}
+  - {fileID: 871264117}
   m_matrix:
     e00: 1
     e01: 0
@@ -6107,6 +6196,11 @@ MonoBehaviour:
   totalShadowTriLength: 0
   shadowSend: []
   sphereShadowSend:
+  - 0.5837432
+  - 0.7016647
+  - 0.28889444
+  - 0.28889444
+  - 0.9950042
   - 0.36226684
   - 0.7554444
   - 0.37069514
@@ -6117,23 +6211,18 @@ MonoBehaviour:
   - 0.3074519
   - -0.776675
   - 0.971338
-  - 0.5837432
-  - 0.7016647
-  - 0.28889444
-  - 0.28889444
-  - 0.9950042
   meshProfiles:
     theHandler: {fileID: 1083750111}
     shadowCount: 0
     prevShadowCount: 0
-    casterIndicies: 0100000002000000030000000500000006000000070000000800000009000000
+    casterIndicies: 000000000100000003000000050000000600000008000000090000000a000000
     bufferElementSize: 64
     bufferName: _ShadowData
   sphereProfiles:
     theHandler: {fileID: 1083750111}
     shadowCount: 3
     prevShadowCount: 3
-    casterIndicies: 00000000040000000a000000
+    casterIndicies: 020000000400000007000000
     bufferElementSize: 20
     bufferName: _ShadowSphereData
   disableShadows: 0
@@ -7010,6 +7099,17 @@ MonoBehaviour:
   - {fileID: 14870709}
   - {fileID: 14870709}
   - {fileID: 1457274186}
+  - {fileID: 14870709}
+  - {fileID: 14870709}
+  - {fileID: 14870709}
+  - {fileID: 14870709}
+  - {fileID: 14870709}
+  - {fileID: 14870709}
+  - {fileID: 14870709}
+  - {fileID: 14870709}
+  - {fileID: 14870709}
+  - {fileID: 14870709}
+  - {fileID: 14870709}
   - {fileID: 14870709}
   - {fileID: 14870709}
   - {fileID: 14870709}

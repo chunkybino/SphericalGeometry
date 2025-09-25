@@ -145,32 +145,10 @@ public class Transform4D : MonoBehaviour
         return UFunc.SterographicProjection(position, radius);
     }
 
-    /*
-    [SerializeField] Vector3 sterographicPos;
-    public bool lockSterographicPos = true;
-    */
 
     [HideInInspector] public UnityEvent<Matrix4x4> onLeftMult;
     [HideInInspector] public UnityEvent<Matrix4x4> onRightMult;
     [HideInInspector] public UnityEvent<Rotor> onRotorLeft;
-
-    /*
-    void OnValidate()
-    {
-        UpdateSterographicPos();
-    }
-
-    public virtual void Update()
-    {
-        UpdateSterographicPos();
-    }
-
-    public void UpdateSterographicPos()
-    {
-        sterographicPos = Sterographic();
-        if (lockSterographicPos) transform.position = sterographicPos;
-    }
-    */
 
     public void MoveTo(Vector4 pos)
     {
@@ -189,10 +167,6 @@ public class Transform4D : MonoBehaviour
         Rotor r = new Rotor(positionNorm,UFunc.Slerp4(positionNorm,target, move.magnitude*(2/Mathf.PI)));
         matrix = r * matrix;
         onRotorLeft?.Invoke(r);
-
-        //Matrix4x4 mat = UFunc.MatrixBiReflect(positionNorm, UFunc.Slerp4(positionNorm,target, move.magnitude*(1/Mathf.PI)));
-
-        //LeftMult(mat);
     }
 
     //move relative to our orientation
