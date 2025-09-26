@@ -29,14 +29,6 @@ public class Transform4D_Editor : Editor
 
         DisplayMatrix();
 
-        float newRadius = Mathf.Max(EditorGUILayout.FloatField("World Radius", Transform4D.radius), 0.01f);
-
-        if (newRadius != Transform4D.radius)
-        {
-            Transform4D.radius = newRadius;
-            Transform4D.onRadiusChange?.Invoke();
-        }
-
         showButtons = EditorGUILayout.Toggle("Show Movement Buttons", showButtons);
 
         if (showButtons) DisplayButtons();
@@ -50,7 +42,7 @@ public class Transform4D_Editor : Editor
 
         if (transform.transform.eulerAngles != Vector3.zero)
         {
-            transform.RotateRelative(transform.transform.eulerAngles*Mathf.Deg2Rad);
+            transform.RotateRelative(transform.transform.eulerAngles * Mathf.Deg2Rad);
             transform.transform.eulerAngles = Vector3.zero;
         }
     }

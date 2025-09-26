@@ -78,13 +78,13 @@ public class MeshColliderS : ColliderS
 
     void OnEnable()
     {
-        Transform4D.onRadiusChange.AddListener(CalcVertex);
+        SphericalSceneProperties.onRadiusChange.AddListener(CalcVertex);
 
         CalcVertex();
     }
     void OnDisable()
     {
-        Transform4D.onRadiusChange.RemoveListener(CalcVertex);
+        SphericalSceneProperties.onRadiusChange.RemoveListener(CalcVertex);
     }
 
     void OnValidate() {
@@ -116,8 +116,11 @@ public class MeshColliderS : ColliderS
         int furthestDisIndex = 0;
         float furthestDot = 1;
 
-        for (int i = 0; i < verticies.Length; i++) {
-            verticies4[i] = UFunc.ProjectLocal3QuickS(Vector3.Scale(verticies[i], transform4.scale*scale) / Transform4D.radius);
+        for (int i = 0; i < verticies.Length; i++)
+        {
+            Vector3 scaleV3 = Vector3.Scale(verticies[i], scale) * transform4.scale / Transform4D.radius;
+
+            verticies4[i] = UFunc.Slerp4Angle(new Vector4(0, 0, 0, 1), new Vector4(scaleV3.x, scaleV3.y, scaleV3.z).normalized, scaleV3.magnitude);
 
             float dot = verticies4[i].w;
             if (i == 0 || dot < furthestDot) {

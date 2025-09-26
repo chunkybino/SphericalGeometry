@@ -9,8 +9,11 @@ public class Transform4D : MonoBehaviour
     [HideInInspector] public Transform4D parent;
     [HideInInspector] public List<Transform4D> children = new List<Transform4D>();
 
-    public static float radius = 1;
-    public static UnityEvent onRadiusChange = new UnityEvent();
+    public static float radius { get
+        {
+            if (SphericalSceneProperties.singleton != null) return SphericalSceneProperties.singleton.worldRadius;
+            return 1;
+    } }
 
     Transform4D()
     {
@@ -138,7 +141,11 @@ public class Transform4D : MonoBehaviour
         }
     }
 
-    //public float scale = 1;
+    public bool doLocalPosition3; //define the transform of this object as a projection of a 3d posiiton into 4d from origin, rather than a pure 4d point
+    public Vector3 localPos3;
+    Vector3 prevLocalPos3;
+
+
     public float m_scale = 1;
     public bool scaleWithWorldRadius;
 
@@ -241,6 +248,18 @@ public class Transform4D : MonoBehaviour
         return lookMatrix * new Vector4(relativeDirection.x,relativeDirection.y,relativeDirection.z,0);
     }
 
+    void Update()
+    {
+        if (doLocalPosition3)
+        {
+            if (localPos3 != prevLocalPos3)
+            {
+                prevLocalPos3 = localPos3;
+                Vector4 newPos = UFunc.ProjectLocal3QuickS(localPos3);
+                localMatrix = UFunc.MatrixBiReflect(new Vector4(0,0,0,1), newPos);
+            }
+        }
+    }
 
     void OnDrawGizmosSelected()
     {

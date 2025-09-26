@@ -189,6 +189,8 @@ MonoBehaviour:
   onMatrixUpdate:
     m_PersistentCalls:
       m_Calls: []
+  doLocalPosition3: 0
+  localPos3: {x: 0, y: 0, z: 0}
   m_scale: 1
   scaleWithWorldRadius: 1
   onLeftMult:
@@ -356,6 +358,8 @@ MonoBehaviour:
   onMatrixUpdate:
     m_PersistentCalls:
       m_Calls: []
+  doLocalPosition3: 0
+  localPos3: {x: 0, y: 0, z: 0}
   m_scale: 1
   scaleWithWorldRadius: 0
   onLeftMult:
@@ -474,6 +478,8 @@ MonoBehaviour:
   onMatrixUpdate:
     m_PersistentCalls:
       m_Calls: []
+  doLocalPosition3: 0
+  localPos3: {x: 0, y: 0, z: 0}
   m_scale: 1
   scaleWithWorldRadius: 0
   onLeftMult:
@@ -878,6 +884,8 @@ MonoBehaviour:
   onMatrixUpdate:
     m_PersistentCalls:
       m_Calls: []
+  doLocalPosition3: 0
+  localPos3: {x: 0, y: 0, z: 0}
   m_scale: 1
   scaleWithWorldRadius: 0
   onLeftMult:
@@ -1116,6 +1124,8 @@ MonoBehaviour:
   onMatrixUpdate:
     m_PersistentCalls:
       m_Calls: []
+  doLocalPosition3: 0
+  localPos3: {x: 0, y: 0, z: 0}
   m_scale: 1
   scaleWithWorldRadius: 0
   onLeftMult:
@@ -1298,6 +1308,8 @@ MonoBehaviour:
   onMatrixUpdate:
     m_PersistentCalls:
       m_Calls: []
+  doLocalPosition3: 0
+  localPos3: {x: 0, y: 0, z: 0}
   m_scale: 1
   scaleWithWorldRadius: 0
   onLeftMult:
@@ -1400,6 +1412,8 @@ MonoBehaviour:
   onMatrixUpdate:
     m_PersistentCalls:
       m_Calls: []
+  doLocalPosition3: 0
+  localPos3: {x: 0, y: 0, z: 0}
   m_scale: 1
   scaleWithWorldRadius: 0
   onLeftMult:
@@ -1889,6 +1903,8 @@ MonoBehaviour:
   onMatrixUpdate:
     m_PersistentCalls:
       m_Calls: []
+  doLocalPosition3: 0
+  localPos3: {x: 0, y: 0, z: 0}
   m_scale: 0.08
   scaleWithWorldRadius: 0
   onLeftMult:
@@ -2028,7 +2044,7 @@ MonoBehaviour:
     e32: 0
     e33: 1
   scaleMult: {x: 1, y: 1, z: 1}
-  transformScale: {x: 2, y: 2, z: 2}
+  transformScale: {x: 1, y: 1, z: 1}
   vertices: []
   vertex4:
   - {x: 0, y: 0, z: 0, w: 1}
@@ -2254,6 +2270,8 @@ MonoBehaviour:
   onMatrixUpdate:
     m_PersistentCalls:
       m_Calls: []
+  doLocalPosition3: 0
+  localPos3: {x: 0, y: 0, z: 0}
   m_scale: 1
   scaleWithWorldRadius: 1
   onLeftMult:
@@ -2359,6 +2377,8 @@ MonoBehaviour:
   onMatrixUpdate:
     m_PersistentCalls:
       m_Calls: []
+  doLocalPosition3: 0
+  localPos3: {x: 0, y: 0, z: 0}
   m_scale: 0.2
   scaleWithWorldRadius: 1
   onLeftMult:
@@ -2671,7 +2691,7 @@ MonoBehaviour:
     e32: -0.6275545
     e33: -0.5574329
   scaleMult: {x: 1.3, y: 1, z: 1}
-  transformScale: {x: 0.52, y: 0.4, z: 0.4}
+  transformScale: {x: 0.26, y: 0.2, z: 0.2}
   vertices:
   - {x: 0, y: 0, z: 1}
   - {x: 0.89442724, y: 0, z: 0.44721356}
@@ -3023,6 +3043,8 @@ MonoBehaviour:
   onMatrixUpdate:
     m_PersistentCalls:
       m_Calls: []
+  doLocalPosition3: 0
+  localPos3: {x: 0, y: 0, z: 0}
   m_scale: 0.15
   scaleWithWorldRadius: 0
   onLeftMult:
@@ -3394,6 +3416,8 @@ MonoBehaviour:
   onMatrixUpdate:
     m_PersistentCalls:
       m_Calls: []
+  doLocalPosition3: 0
+  localPos3: {x: 0, y: 0, z: 0}
   m_scale: 1
   scaleWithWorldRadius: 0
   onLeftMult:
@@ -3654,6 +3678,8 @@ MonoBehaviour:
   onMatrixUpdate:
     m_PersistentCalls:
       m_Calls: []
+  doLocalPosition3: 0
+  localPos3: {x: 0, y: 0, z: 0}
   m_scale: 1
   scaleWithWorldRadius: 0
   onLeftMult:
@@ -3867,6 +3893,8 @@ MonoBehaviour:
   onMatrixUpdate:
     m_PersistentCalls:
       m_Calls: []
+  doLocalPosition3: 0
+  localPos3: {x: 0, y: 0, z: 0}
   m_scale: 1
   scaleWithWorldRadius: 0
   onLeftMult:
@@ -4261,6 +4289,8 @@ MonoBehaviour:
   onMatrixUpdate:
     m_PersistentCalls:
       m_Calls: []
+  doLocalPosition3: 0
+  localPos3: {x: 0, y: 0, z: 0}
   m_scale: 1
   scaleWithWorldRadius: 0
   onLeftMult:
@@ -4350,6 +4380,8 @@ MonoBehaviour:
   onMatrixUpdate:
     m_PersistentCalls:
       m_Calls: []
+  doLocalPosition3: 0
+  localPos3: {x: 0, y: 0, z: 0}
   m_scale: 0.15
   scaleWithWorldRadius: 0
   onLeftMult:
@@ -4910,6 +4942,8 @@ MonoBehaviour:
   onMatrixUpdate:
     m_PersistentCalls:
       m_Calls: []
+  doLocalPosition3: 0
+  localPos3: {x: 0, y: 0, z: 0}
   m_scale: 0.12
   scaleWithWorldRadius: 0
   onLeftMult:
@@ -5125,6 +5159,8 @@ MonoBehaviour:
   onMatrixUpdate:
     m_PersistentCalls:
       m_Calls: []
+  doLocalPosition3: 0
+  localPos3: {x: 0, y: 0, z: 0}
   m_scale: 1
   scaleWithWorldRadius: 0
   onLeftMult:
@@ -5286,6 +5322,8 @@ MonoBehaviour:
   onMatrixUpdate:
     m_PersistentCalls:
       m_Calls: []
+  doLocalPosition3: 0
+  localPos3: {x: 0, y: 0, z: 0}
   m_scale: 1
   scaleWithWorldRadius: 0
   onLeftMult:
@@ -5397,6 +5435,8 @@ MonoBehaviour:
   onMatrixUpdate:
     m_PersistentCalls:
       m_Calls: []
+  doLocalPosition3: 0
+  localPos3: {x: 0, y: 0, z: 0}
   m_scale: 1
   scaleWithWorldRadius: 0
   onLeftMult:
@@ -5595,6 +5635,8 @@ MonoBehaviour:
   onMatrixUpdate:
     m_PersistentCalls:
       m_Calls: []
+  doLocalPosition3: 0
+  localPos3: {x: 0, y: 0, z: 0}
   m_scale: 1
   scaleWithWorldRadius: 0
   onLeftMult:
@@ -5823,6 +5865,8 @@ MonoBehaviour:
   onMatrixUpdate:
     m_PersistentCalls:
       m_Calls: []
+  doLocalPosition3: 0
+  localPos3: {x: 0, y: 0, z: 0}
   m_scale: 1
   scaleWithWorldRadius: 0
   onLeftMult:
@@ -6036,6 +6080,8 @@ MonoBehaviour:
   onMatrixUpdate:
     m_PersistentCalls:
       m_Calls: []
+  doLocalPosition3: 0
+  localPos3: {x: 0, y: 0, z: 0}
   m_scale: 1
   scaleWithWorldRadius: 0
   onLeftMult:
@@ -6116,6 +6162,8 @@ MonoBehaviour:
   onMatrixUpdate:
     m_PersistentCalls:
       m_Calls: []
+  doLocalPosition3: 0
+  localPos3: {x: 0, y: 0, z: 0}
   m_scale: 1
   scaleWithWorldRadius: 0
   onLeftMult:
@@ -6220,17 +6268,17 @@ MonoBehaviour:
   - 0.7554444
   - 0.37069514
   - -0.40082592
-  - 0.99680173
+  - 0.98722726
   - 0.17486228
   - 0.5212318
   - 0.3074519
   - -0.776675
-  - 0.99280864
+  - 0.971338
   - 0.5837432
   - 0.7016647
   - 0.28889444
   - 0.28889444
-  - 0.99875027
+  - 0.9950042
   meshProfiles:
     theHandler: {fileID: 1083750111}
     shadowCount: 0
@@ -6465,6 +6513,8 @@ MonoBehaviour:
   onMatrixUpdate:
     m_PersistentCalls:
       m_Calls: []
+  doLocalPosition3: 0
+  localPos3: {x: 0, y: 0, z: 0}
   m_scale: 0.08
   scaleWithWorldRadius: 0
   onLeftMult:
@@ -6548,6 +6598,8 @@ MonoBehaviour:
   onMatrixUpdate:
     m_PersistentCalls:
       m_Calls: []
+  doLocalPosition3: 0
+  localPos3: {x: 0, y: 0, z: 0}
   m_scale: 0.06
   scaleWithWorldRadius: 0
   onLeftMult:
@@ -6777,6 +6829,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1091455079}
   - component: {fileID: 1091455078}
+  - component: {fileID: 1091455080}
   m_Layer: 0
   m_Name: Physics
   m_TagString: Untagged
@@ -7197,6 +7250,13 @@ MonoBehaviour:
   - {fileID: 14870709}
   - {fileID: 14870709}
   - {fileID: 14870709}
+  - {fileID: 14870709}
+  - {fileID: 14870709}
+  - {fileID: 14870709}
+  - {fileID: 14870709}
+  - {fileID: 14870709}
+  - {fileID: 14870709}
+  - {fileID: 14870709}
   sectors:
   - staticBodies:
     - {fileID: 607435942}
@@ -7272,6 +7332,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1091455080
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1091455077}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce26c4b5ed8ee4f478bb764f25737de1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  worldRadius: 1
 --- !u!1 &1235126664
 GameObject:
   m_ObjectHideFlags: 0
@@ -7476,6 +7549,8 @@ MonoBehaviour:
   onMatrixUpdate:
     m_PersistentCalls:
       m_Calls: []
+  doLocalPosition3: 0
+  localPos3: {x: 0, y: 0, z: 0}
   m_scale: 0.15
   scaleWithWorldRadius: 0
   onLeftMult:
@@ -7972,6 +8047,8 @@ MonoBehaviour:
   onMatrixUpdate:
     m_PersistentCalls:
       m_Calls: []
+  doLocalPosition3: 0
+  localPos3: {x: 0, y: 0, z: 0}
   m_scale: 1
   scaleWithWorldRadius: 0
   onLeftMult:
@@ -8055,6 +8132,8 @@ MonoBehaviour:
   onMatrixUpdate:
     m_PersistentCalls:
       m_Calls: []
+  doLocalPosition3: 0
+  localPos3: {x: 0, y: 0, z: 0}
   m_scale: 0.06
   scaleWithWorldRadius: 0
   onLeftMult:
@@ -8659,6 +8738,8 @@ MonoBehaviour:
   onMatrixUpdate:
     m_PersistentCalls:
       m_Calls: []
+  doLocalPosition3: 0
+  localPos3: {x: 0, y: 0, z: 0}
   m_scale: 1
   scaleWithWorldRadius: 0
   onLeftMult:
@@ -9044,6 +9125,8 @@ MonoBehaviour:
   onMatrixUpdate:
     m_PersistentCalls:
       m_Calls: []
+  doLocalPosition3: 0
+  localPos3: {x: 0, y: 0, z: 0}
   m_scale: 0.15
   scaleWithWorldRadius: 0
   onLeftMult:
@@ -9257,6 +9340,8 @@ MonoBehaviour:
   onMatrixUpdate:
     m_PersistentCalls:
       m_Calls: []
+  doLocalPosition3: 0
+  localPos3: {x: 0, y: 0, z: 0}
   m_scale: 0.04
   scaleWithWorldRadius: 0
   onLeftMult:
@@ -9470,6 +9555,8 @@ MonoBehaviour:
   onMatrixUpdate:
     m_PersistentCalls:
       m_Calls: []
+  doLocalPosition3: 0
+  localPos3: {x: 0, y: 0, z: 0}
   m_scale: 0.05
   scaleWithWorldRadius: 0
   onLeftMult:
@@ -9559,6 +9646,8 @@ MonoBehaviour:
   onMatrixUpdate:
     m_PersistentCalls:
       m_Calls: []
+  doLocalPosition3: 0
+  localPos3: {x: 0, y: 0, z: 0}
   m_scale: 0.2
   scaleWithWorldRadius: 1
   onLeftMult:
@@ -9871,7 +9960,7 @@ MonoBehaviour:
     e32: -0.34150413
     e33: -0.6930591
   scaleMult: {x: 1.26, y: 1.28, z: 0.91}
-  transformScale: {x: 0.504, y: 0.512, z: 0.36400002}
+  transformScale: {x: 0.252, y: 0.256, z: 0.18200001}
   vertices:
   - {x: 0, y: 0, z: 1}
   - {x: 0.89442724, y: 0, z: 0.44721356}
@@ -10117,6 +10206,8 @@ MonoBehaviour:
   onMatrixUpdate:
     m_PersistentCalls:
       m_Calls: []
+  doLocalPosition3: 0
+  localPos3: {x: 0, y: 0, z: 0}
   m_scale: 1
   scaleWithWorldRadius: 0
   onLeftMult:
@@ -10336,6 +10427,8 @@ MonoBehaviour:
   onMatrixUpdate:
     m_PersistentCalls:
       m_Calls: []
+  doLocalPosition3: 0
+  localPos3: {x: 0, y: 0, z: 0}
   m_scale: 1
   scaleWithWorldRadius: 0
   onLeftMult:
@@ -10655,6 +10748,8 @@ MonoBehaviour:
   onMatrixUpdate:
     m_PersistentCalls:
       m_Calls: []
+  doLocalPosition3: 0
+  localPos3: {x: 0, y: 0, z: 0}
   m_scale: 0.15
   scaleWithWorldRadius: 0
   onLeftMult:
@@ -11004,7 +11099,7 @@ MonoBehaviour:
     e32: 0.5285263
     e33: -0.60566247
   scaleMult: {x: 1, y: 1, z: 1}
-  transformScale: {x: 0.4, y: 0.4, z: 0.4}
+  transformScale: {x: 0.2, y: 0.2, z: 0.2}
   vertices:
   - {x: 0, y: 0, z: 1}
   - {x: 0.89442724, y: 0, z: 0.44721356}
@@ -11089,6 +11184,8 @@ MonoBehaviour:
   onMatrixUpdate:
     m_PersistentCalls:
       m_Calls: []
+  doLocalPosition3: 0
+  localPos3: {x: 0, y: 0, z: 0}
   m_scale: 0.2
   scaleWithWorldRadius: 1
   onLeftMult:
@@ -11171,6 +11268,8 @@ MonoBehaviour:
   onMatrixUpdate:
     m_PersistentCalls:
       m_Calls: []
+  doLocalPosition3: 0
+  localPos3: {x: 0, y: 0, z: 0}
   m_scale: 1
   scaleWithWorldRadius: 0
   onLeftMult:
@@ -11521,6 +11620,8 @@ MonoBehaviour:
   onMatrixUpdate:
     m_PersistentCalls:
       m_Calls: []
+  doLocalPosition3: 0
+  localPos3: {x: 0, y: 0, z: 0}
   m_scale: 1
   scaleWithWorldRadius: 0
   onLeftMult:
@@ -11755,6 +11856,8 @@ MonoBehaviour:
   onMatrixUpdate:
     m_PersistentCalls:
       m_Calls: []
+  doLocalPosition3: 0
+  localPos3: {x: 0, y: 0, z: 0}
   m_scale: 1
   scaleWithWorldRadius: 0
   onLeftMult:
@@ -11983,6 +12086,8 @@ MonoBehaviour:
   onMatrixUpdate:
     m_PersistentCalls:
       m_Calls: []
+  doLocalPosition3: 0
+  localPos3: {x: 0, y: 0, z: 0}
   m_scale: 0.05
   scaleWithWorldRadius: 0
   onLeftMult:
@@ -12381,6 +12486,8 @@ MonoBehaviour:
   onMatrixUpdate:
     m_PersistentCalls:
       m_Calls: []
+  doLocalPosition3: 0
+  localPos3: {x: 0, y: 0, z: 0}
   m_scale: 1
   scaleWithWorldRadius: 0
   onLeftMult:
@@ -12666,6 +12773,8 @@ MonoBehaviour:
   onMatrixUpdate:
     m_PersistentCalls:
       m_Calls: []
+  doLocalPosition3: 0
+  localPos3: {x: 0, y: 0, z: 0}
   m_scale: 1
   scaleWithWorldRadius: 0
   onLeftMult:
@@ -12835,6 +12944,8 @@ MonoBehaviour:
   onMatrixUpdate:
     m_PersistentCalls:
       m_Calls: []
+  doLocalPosition3: 0
+  localPos3: {x: 0, y: 0, z: 0}
   m_scale: 0.05
   scaleWithWorldRadius: 0
   onLeftMult:
@@ -12880,7 +12991,7 @@ MonoBehaviour:
   collider: {fileID: 5324910774709287075}
   doYUpLock: 0
   sectorIndex: 2
-  allSectors: 02000000
+  allSectors: 0200000000000000
   globalSector: 0
   staticContactNormals: []
 --- !u!114 &7425060552719606059
