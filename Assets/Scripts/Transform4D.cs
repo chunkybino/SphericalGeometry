@@ -10,6 +10,7 @@ public class Transform4D : MonoBehaviour
     [HideInInspector] public List<Transform4D> children = new List<Transform4D>();
 
     public static float radius = 1;
+    public static UnityEvent onRadiusChange = new UnityEvent();
 
     Transform4D()
     {

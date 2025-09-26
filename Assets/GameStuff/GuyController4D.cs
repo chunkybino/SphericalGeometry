@@ -39,11 +39,15 @@ public class GuyController4D : MonoBehaviour
     bool isDash { get { return dashTimer > 0; } }
     [SerializeField] float dashTime = 0.4f;
     [SerializeField] float dashTimer;
+    float timeSinceDash;
     Vector4 dashDirection;
     float dashProgress { get { return 1 - dashTimer / dashTime; } }
     [SerializeField] float dashSpeed = 3f;
     [SerializeField] AnimationCurve dashSpeedCurve;
     [SerializeField] AnimationCurve dashGravCurve;
+    [SerializeField] float afterDashAccelMult = 0.4f;
+    [SerializeField] float afterDashAccelTime = 0.2f;
+    bool isAfterDashAccel { get { return timeSinceDash < afterDashAccelTime; } }
 
     void Awake()
     {
@@ -99,6 +103,8 @@ public class GuyController4D : MonoBehaviour
         }
         UFunc.TickTimerFixed(ref dashTimer);
 
+        if (!isDash) timeSinceDash += Time.fixedDeltaTime;
+
         rb.gravityScale = gravity;
         if (isDash)
         {
@@ -132,6 +138,7 @@ public class GuyController4D : MonoBehaviour
             targetSpeed = moveVector2 * Mathf.Max(speed, Vector2.Dot(moveVector2,relativeVel));
         }
 
+        //all the acceleration mults
         float accel = acceleration;
 
         if (targetSpeed != Vector2.zero)
@@ -146,6 +153,10 @@ public class GuyController4D : MonoBehaviour
                 accel *= airDeccelerationMult;
             }
         }
+
+        if (isAfterDashAccel) accel *= afterDashAccelMult;
+
+        ///
 
         newVel = new Vector2(
             Mathf.MoveTowards(relativeVel.x, targetSpeed.x, accel * Time.fixedDeltaTime),

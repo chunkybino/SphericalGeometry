@@ -76,6 +76,17 @@ public class MeshColliderS : ColliderS
         transform4.onMatrixUpdate.AddListener((Matrix4x4 mat) => CalcWorldVertex());
     }
 
+    void OnEnable()
+    {
+        Transform4D.onRadiusChange.AddListener(CalcVertex);
+
+        CalcVertex();
+    }
+    void OnDisable()
+    {
+        Transform4D.onRadiusChange.RemoveListener(CalcVertex);
+    }
+
     void OnValidate() {
         if (calcVertex) {
             calcVertex = false;

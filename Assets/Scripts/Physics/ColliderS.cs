@@ -275,7 +275,7 @@ public abstract class ColliderS : MonoBehaviour
     {
         //find angle between positions of both
         float dot = UFunc.Dot(p1, p2);
-        float dis = Mathf.Acos(Mathf.Clamp(dot,-1,1)) * Transform4D.radius;
+        float dis = Mathf.Acos(Mathf.Clamp(dot,-1,1));
 
         float overlap = r1 + r2 - dis;
 
@@ -304,18 +304,6 @@ public abstract class ColliderS : MonoBehaviour
 
         return PointRadiusContact(close1, c1.m_radius, close2, c2.m_radius, ref contact1, ref contact2, ref contactNorm);
     }
-
-    /*
-    public static float CapsuleOnCapsule(CapsuleColliderS c1, CapsuleColliderS c2, ref Vector4 contact1, ref Vector4 contact2, ref Vector4 contactNorm)
-    {
-        Vector4 close1 = new Vector4();
-        Vector4 close2 = new Vector4();
-
-        c1.LineClose(c2.point1, c2.point2, ref close1, ref close2);
-
-        return PointRadiusContact(close1, c1.m_radius, close2, c2.m_radius, ref contact1, ref contact2, ref contactNorm);
-    }
-    */
 
     public static float CapsuleOnTriangle(CapsuleColliderS c1, TriColliderS c2, ref Vector4 contact1, ref Vector4 contact2, ref Vector4 contactNorm)
     {

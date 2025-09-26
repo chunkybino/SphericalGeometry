@@ -29,7 +29,13 @@ public class Transform4D_Editor : Editor
 
         DisplayMatrix();
 
-        Transform4D.radius = Mathf.Max(EditorGUILayout.FloatField("World Radius", Transform4D.radius), 0.01f);
+        float newRadius = Mathf.Max(EditorGUILayout.FloatField("World Radius", Transform4D.radius), 0.01f);
+
+        if (newRadius != Transform4D.radius)
+        {
+            Transform4D.radius = newRadius;
+            Transform4D.onRadiusChange?.Invoke();
+        }
 
         showButtons = EditorGUILayout.Toggle("Show Movement Buttons", showButtons);
 
