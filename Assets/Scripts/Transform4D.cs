@@ -143,7 +143,9 @@ public class Transform4D : MonoBehaviour
 
     public bool doLocalPosition3; //define the transform of this object as a projection of a 3d posiiton into 4d from origin, rather than a pure 4d point
     public Vector3 localPos3;
+    public Vector3 localAngle3;
     Vector3 prevLocalPos3;
+    Vector3 prevLocalAngle3;
 
 
     public float m_scale = 1;
@@ -252,11 +254,15 @@ public class Transform4D : MonoBehaviour
     {
         if (doLocalPosition3)
         {
-            if (localPos3 != prevLocalPos3)
+            if (localPos3 != prevLocalPos3 || localAngle3 != prevLocalAngle3)
             {
                 prevLocalPos3 = localPos3;
-                Vector4 newPos = UFunc.ProjectLocal3QuickS(localPos3);
-                localMatrix = UFunc.MatrixBiReflect(new Vector4(0,0,0,1), newPos);
+                prevLocalAngle3 = localAngle3;
+
+                Matrix4x4 rotMat = Matrix4x4.Rotate(Quaternion.Euler(localAngle3.x,localAngle3.y,localAngle3.z));
+
+                Vector4 newPos = UFunc.ProjectLocal3QuickS(localPos3 / radius);
+                localMatrix = UFunc.MatrixBiReflect(new Vector4(0,0,0,1), newPos) * rotMat;
             }
         }
     }

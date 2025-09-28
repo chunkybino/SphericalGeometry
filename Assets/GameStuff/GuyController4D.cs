@@ -49,6 +49,17 @@ public class GuyController4D : MonoBehaviour
     [SerializeField] float afterDashAccelTime = 0.2f;
     bool isAfterDashAccel { get { return timeSinceDash < afterDashAccelTime; } }
 
+    //swing
+    bool isSwingCharge;
+    bool swingActive;
+    [SerializeField] float swingActiveTime = 0.2f;
+    [SerializeField] ColliderS swingCollider;
+    [SerializeField] float swingSpeed = 2.5f;
+
+    //anim
+    [SerializeField] Animator animator;
+    [SerializeField] int racketAnimLayer = 0;
+
     void Awake()
     {
         Cursor.lockState = CursorLockMode.Locked;
@@ -91,6 +102,16 @@ public class GuyController4D : MonoBehaviour
         {
             StartDash();
         }
+
+        if (input.leftClick) 
+        {
+            StartSwingCharge();
+        }
+        if (isSwingCharge && !input.leftClickDown)
+        {
+            isSwingCharge = false;
+            ReleaseSwing();
+        }
     }
 
     void FixedUpdate()
@@ -126,6 +147,8 @@ public class GuyController4D : MonoBehaviour
         VelocityFunc();
 
         prevPosition = transform4.positionNorm;
+
+        if (swingActive) CheckSwingCollider();
     }
 
     void VelocityFunc()
@@ -187,6 +210,49 @@ public class GuyController4D : MonoBehaviour
         else
         {
             dashDirection = transform4.xBasis*moveVector.x + transform4.zBasis*moveVector.z;
+        }
+    }
+
+    void StartSwingCharge()
+    {
+        isSwingCharge = true;
+        animator.Play("Charge",racketAnimLayer);
+    }
+    void ReleaseSwing()
+    {
+        isSwingCharge = false;
+        animator.Play("Swing",racketAnimLayer);
+
+        swingActive = true;
+
+        swingCollider.gameObject.SetActive(true);
+
+        Invoke("EndActiveSwing", swingActiveTime);
+    }
+    void EndActiveSwing()
+    {
+        swingCollider.gameObject.SetActive(false);
+
+        swingActive = false;
+        animator.Play("Hold",racketAnimLayer);
+    }
+
+    void CheckSwingCollider()
+    {
+        Vector4 attackDir = -camTransform.matrix.GetColumn(2);
+        Vector4 attackPos = camTransform.positionNorm;
+
+        foreach (ColliderS c in swingCollider.overlapColliders)
+        {
+            if (c.isTrigger) continue;
+
+            Rigidbody4D colliderRB = c.rigidbody4;
+            if (!colliderRB) continue;
+            if (colliderRB == rb) continue;
+
+            Vector4 rbAttackDir = new Rotor(attackPos, colliderRB.transform4.positionNorm) * attackDir;
+
+            colliderRB.SetVelocityTowards(rbAttackDir, swingSpeed);
         }
     }
 }

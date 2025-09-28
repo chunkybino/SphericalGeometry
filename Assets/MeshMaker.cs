@@ -24,6 +24,7 @@ public class MeshMaker : MonoBehaviour
     public bool saveTri;
     public bool readTri;
     public bool doubleTri;
+    public bool reverseTri;
 
     public bool readVertex3;
 
@@ -95,6 +96,15 @@ public class MeshMaker : MonoBehaviour
             for (int i = 0; i < triangles.Length; i++) {
                 newTri[i] = triangles[i];
                 newTri[i+triangles.Length] = new Vector3Int(triangles[i].z,triangles[i].y,triangles[i].x);
+            }
+            triangles = newTri;
+        }
+        if (reverseTri)
+        {
+            reverseTri = false;
+            Vector3Int[] newTri = new Vector3Int[triangles.Length];
+            for (int i = 0; i < triangles.Length; i++) {
+                newTri[i] = new Vector3Int(triangles[i].z,triangles[i].y,triangles[i].x);
             }
             triangles = newTri;
         }
