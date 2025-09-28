@@ -34,7 +34,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localPos3.x
-    path: Bat
+    path: BatParent/Bat
     classID: 114
     script: {fileID: 11500000, guid: a3e9696e169808a4390b5d2c1be30c0c, type: 3}
     flags: 0
@@ -44,7 +44,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.035
+        value: 0.012
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -55,7 +55,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localPos3.y
-    path: Bat
+    path: BatParent/Bat
     classID: 114
     script: {fileID: 11500000, guid: a3e9696e169808a4390b5d2c1be30c0c, type: 3}
     flags: 0
@@ -76,7 +76,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localPos3.z
-    path: Bat
+    path: BatParent/Bat
     classID: 114
     script: {fileID: 11500000, guid: a3e9696e169808a4390b5d2c1be30c0c, type: 3}
     flags: 0
@@ -97,7 +97,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localAngle3.x
-    path: Bat
+    path: BatParent/Bat
     classID: 114
     script: {fileID: 11500000, guid: a3e9696e169808a4390b5d2c1be30c0c, type: 3}
     flags: 0
@@ -118,7 +118,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localAngle3.y
-    path: Bat
+    path: BatParent/Bat
     classID: 114
     script: {fileID: 11500000, guid: a3e9696e169808a4390b5d2c1be30c0c, type: 3}
     flags: 0
@@ -139,7 +139,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localAngle3.z
-    path: Bat
+    path: BatParent/Bat
     classID: 114
     script: {fileID: 11500000, guid: a3e9696e169808a4390b5d2c1be30c0c, type: 3}
     flags: 0
@@ -152,7 +152,7 @@ AnimationClip:
   m_ClipBindingConstant:
     genericBindings:
     - serializedVersion: 2
-      path: 2815520639
+      path: 1949541460
       attribute: 965647817
       script: {fileID: 11500000, guid: a3e9696e169808a4390b5d2c1be30c0c, type: 3}
       typeID: 114
@@ -161,7 +161,7 @@ AnimationClip:
       isIntCurve: 0
       isSerializeReferenceCurve: 0
     - serializedVersion: 2
-      path: 2815520639
+      path: 1949541460
       attribute: 1317645663
       script: {fileID: 11500000, guid: a3e9696e169808a4390b5d2c1be30c0c, type: 3}
       typeID: 114
@@ -170,7 +170,7 @@ AnimationClip:
       isIntCurve: 0
       isSerializeReferenceCurve: 0
     - serializedVersion: 2
-      path: 2815520639
+      path: 1949541460
       attribute: 3615554789
       script: {fileID: 11500000, guid: a3e9696e169808a4390b5d2c1be30c0c, type: 3}
       typeID: 114
@@ -179,7 +179,7 @@ AnimationClip:
       isIntCurve: 0
       isSerializeReferenceCurve: 0
     - serializedVersion: 2
-      path: 2815520639
+      path: 1949541460
       attribute: 2218706726
       script: {fileID: 11500000, guid: a3e9696e169808a4390b5d2c1be30c0c, type: 3}
       typeID: 114
@@ -188,7 +188,7 @@ AnimationClip:
       isIntCurve: 0
       isSerializeReferenceCurve: 0
     - serializedVersion: 2
-      path: 2815520639
+      path: 1949541460
       attribute: 4080662448
       script: {fileID: 11500000, guid: a3e9696e169808a4390b5d2c1be30c0c, type: 3}
       typeID: 114
@@ -197,7 +197,7 @@ AnimationClip:
       isIntCurve: 0
       isSerializeReferenceCurve: 0
     - serializedVersion: 2
-      path: 2815520639
+      path: 1949541460
       attribute: 1781573130
       script: {fileID: 11500000, guid: a3e9696e169808a4390b5d2c1be30c0c, type: 3}
       typeID: 114
@@ -244,7 +244,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localPos3.x
-    path: Bat
+    path: BatParent/Bat
     classID: 114
     script: {fileID: 11500000, guid: a3e9696e169808a4390b5d2c1be30c0c, type: 3}
     flags: 0
@@ -254,7 +254,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.035
+        value: 0.012
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -265,7 +265,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localPos3.y
-    path: Bat
+    path: BatParent/Bat
     classID: 114
     script: {fileID: 11500000, guid: a3e9696e169808a4390b5d2c1be30c0c, type: 3}
     flags: 0
@@ -286,7 +286,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localPos3.z
-    path: Bat
+    path: BatParent/Bat
     classID: 114
     script: {fileID: 11500000, guid: a3e9696e169808a4390b5d2c1be30c0c, type: 3}
     flags: 0
@@ -307,7 +307,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localAngle3.x
-    path: Bat
+    path: BatParent/Bat
     classID: 114
     script: {fileID: 11500000, guid: a3e9696e169808a4390b5d2c1be30c0c, type: 3}
     flags: 0
@@ -328,7 +328,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localAngle3.y
-    path: Bat
+    path: BatParent/Bat
     classID: 114
     script: {fileID: 11500000, guid: a3e9696e169808a4390b5d2c1be30c0c, type: 3}
     flags: 0
@@ -349,7 +349,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localAngle3.z
-    path: Bat
+    path: BatParent/Bat
     classID: 114
     script: {fileID: 11500000, guid: a3e9696e169808a4390b5d2c1be30c0c, type: 3}
     flags: 0

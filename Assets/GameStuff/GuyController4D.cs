@@ -52,9 +52,13 @@ public class GuyController4D : MonoBehaviour
     //swing
     bool isSwingCharge;
     bool swingActive;
+    bool swingCharged;
+    float timeChargingSwing;
+    [SerializeField] float swingChargeTime = 0.4f; //how long we need to charge to get a charged swing
     [SerializeField] float swingActiveTime = 0.2f;
     [SerializeField] ColliderS swingCollider;
-    [SerializeField] float swingSpeed = 2.5f;
+    [SerializeField] float swingSpeed = 2;
+    [SerializeField] float swingSpeedCharged = 3f;
 
     //anim
     [SerializeField] Animator animator;
@@ -107,10 +111,20 @@ public class GuyController4D : MonoBehaviour
         {
             StartSwingCharge();
         }
-        if (isSwingCharge && !input.leftClickDown)
+        if (isSwingCharge)
         {
-            isSwingCharge = false;
-            ReleaseSwing();
+            timeChargingSwing += Time.deltaTime;
+
+            if (timeChargingSwing > swingChargeTime) {
+                swingCharged = true;
+                animator.Play("ChargeCharged",racketAnimLayer);
+            }
+
+            if (!input.leftClickDown)
+            {
+                isSwingCharge = false;
+                ReleaseSwing();
+            }
         }
     }
 
@@ -217,6 +231,9 @@ public class GuyController4D : MonoBehaviour
     {
         isSwingCharge = true;
         animator.Play("Charge",racketAnimLayer);
+
+        timeChargingSwing = 0;
+        swingCharged = false;
     }
     void ReleaseSwing()
     {
@@ -242,6 +259,9 @@ public class GuyController4D : MonoBehaviour
         Vector4 attackDir = -camTransform.matrix.GetColumn(2);
         Vector4 attackPos = camTransform.positionNorm;
 
+        float spd = swingSpeed;
+        if (swingCharged) spd = swingSpeedCharged;
+
         foreach (ColliderS c in swingCollider.overlapColliders)
         {
             if (c.isTrigger) continue;
@@ -252,7 +272,7 @@ public class GuyController4D : MonoBehaviour
 
             Vector4 rbAttackDir = new Rotor(attackPos, colliderRB.transform4.positionNorm) * attackDir;
 
-            colliderRB.SetVelocityTowards(rbAttackDir, swingSpeed);
+            colliderRB.SetVelocityTowards(rbAttackDir, spd);
         }
     }
 }
