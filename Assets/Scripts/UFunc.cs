@@ -244,14 +244,17 @@ public static class UFunc
 
     public static Matrix4x4 MatrixBiReflect(Vector4 v1, Vector4 v2)
     {
+        return MatrixBiReflect(Matrix4x4.identity,v1,v2);
+    }
+    public static Matrix4x4 MatrixBiReflect(Matrix4x4 mat, Vector4 v1, Vector4 v2)
+    {
         v1 = v1.normalized;
         v2 = v2.normalized;
 
-        Matrix4x4 mat = new Matrix4x4();
-        mat.SetColumn(0, BiReflectVector(new Vector4(1, 0, 0, 0), v1, v2));
-        mat.SetColumn(1, BiReflectVector(new Vector4(0, 1, 0, 0), v1, v2));
-        mat.SetColumn(2, BiReflectVector(new Vector4(0, 0, 1, 0), v1, v2));
-        mat.SetColumn(3, BiReflectVector(new Vector4(0, 0, 0, 1), v1, v2));
+        for (int i = 0; i < 4; i++)
+        {
+            mat.SetColumn(i, BiReflectVector(mat.GetColumn(i), v1, v2));
+        }
 
         return mat;
     }
