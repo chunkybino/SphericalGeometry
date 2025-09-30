@@ -91,6 +91,11 @@ public class LineRendererS : MonoBehaviour
         positions.Add(pos.normalized);
         posNormals.Add(norm.normalized);
     }
+    public void RemovePos()
+    {
+        positions.RemoveAt(0);
+        posNormals.RemoveAt(0);
+    }
 
     void SetVertex()
     {

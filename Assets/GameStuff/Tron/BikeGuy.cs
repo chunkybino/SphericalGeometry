@@ -16,8 +16,10 @@ public class BikeGuy : MonoBehaviour
     [SerializeField] Vector3 turnInput;
 
     [SerializeField] LineRendererS lineRen;
-    [SerializeField] int lineFrameInterval = 5;
-    int lineFrameTimer;
+    [SerializeField] float lineFrameInterval = 0.1f;
+    float lineFrameTimer;
+
+    [SerializeField] float lineTime = 10;
 
     void Update()
     {
@@ -37,7 +39,7 @@ public class BikeGuy : MonoBehaviour
 
     void FixedUpdate()
     {
-        lineFrameTimer--;
+        lineFrameTimer -= Time.fixedDeltaTime;
         if (lineFrameTimer <= 0)
         {
             lineFrameTimer = lineFrameInterval;
@@ -45,6 +47,8 @@ public class BikeGuy : MonoBehaviour
             if (lineRen)
             {
                 lineRen.AddPos(transform4.positionNorm, transform4.yBasis);
+
+                if (lineRen.positions.Count > lineTime / lineFrameInterval) lineRen.RemovePos();
             }
         }
     }

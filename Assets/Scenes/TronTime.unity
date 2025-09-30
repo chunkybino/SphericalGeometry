@@ -2921,7 +2921,8 @@ MonoBehaviour:
   turnSpeed: 1
   turnInput: {x: 0, y: 0, z: 0}
   lineRen: {fileID: 277510669}
-  lineFrameInterval: 5
+  lineFrameInterval: 0.1
+  lineTime: 10
 --- !u!1 &696461015
 GameObject:
   m_ObjectHideFlags: 0
@@ -8342,7 +8343,7 @@ MonoBehaviour:
     e32: 0
     e33: 0.46656018
   scaleMult: {x: 1, y: 1, z: 1}
-  transformScale: {x: 1, y: 1, z: 1}
+  transformScale: {x: 0.1, y: 0.1, z: 0.1}
   vertices:
   - {x: 0, y: 0, z: 1}
   - {x: 0.89442724, y: 0, z: 0.44721356}
@@ -8430,7 +8431,7 @@ MonoBehaviour:
   doLocalPosition3: 0
   localPos3: {x: 0, y: 0, z: 0}
   localAngle3: {x: 0, y: 0, z: 0}
-  m_scale: 1
+  m_scale: 0.1
   scaleWithWorldRadius: 0
   onLeftMult:
     m_PersistentCalls:
