@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class BikeGuy : MonoBehaviour
 {
-    [SerializeField] Transform4D transform4;
+    public Transform4D transform4;
     [SerializeField] Rigidbody4D rb;
     [SerializeField] new Camera4D camera;
     Transform4D camTransform { get { return camera.transform4; } }
@@ -14,12 +14,6 @@ public class BikeGuy : MonoBehaviour
 
 
     [SerializeField] Vector3 turnInput;
-
-    [SerializeField] LineRendererS lineRen;
-    [SerializeField] float lineFrameInterval = 0.1f;
-    float lineFrameTimer;
-
-    [SerializeField] float lineTime = 10;
 
     void Update()
     {
@@ -35,21 +29,5 @@ public class BikeGuy : MonoBehaviour
         Matrix4x4 rotMat = UFunc.MatrixBiReflect(new Vector4(0, 0, 1, 0), newPos);
 
         transform4.matrix = transform4.matrix * rotMat;
-    }
-
-    void FixedUpdate()
-    {
-        lineFrameTimer -= Time.fixedDeltaTime;
-        if (lineFrameTimer <= 0)
-        {
-            lineFrameTimer = lineFrameInterval;
-
-            if (lineRen)
-            {
-                lineRen.AddPos(transform4.positionNorm, transform4.yBasis);
-
-                if (lineRen.positions.Count > lineTime / lineFrameInterval) lineRen.RemovePos();
-            }
-        }
     }
 }
