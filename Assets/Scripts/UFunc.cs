@@ -244,7 +244,7 @@ public static class UFunc
 
     public static Matrix4x4 MatrixBiReflect(Vector4 v1, Vector4 v2)
     {
-        return MatrixBiReflect(Matrix4x4.identity,v1,v2);
+        return MatrixBiReflect(Matrix4x4.identity, v1, v2);
     }
     public static Matrix4x4 MatrixBiReflect(Matrix4x4 mat, Vector4 v1, Vector4 v2)
     {
@@ -430,6 +430,11 @@ public static class UFunc
     public static float DistanceS(Vector4 v1, Vector4 v2)
     {
         return Mathf.Acos(Clamp1(Dot(v1, v2)));
+    }
+    public static float DistanceSRad(Vector4 v1, Vector4 v2) //distanceS but multiplied by world radius
+    {
+        if (!SphericalSceneProperties.singleton) return Mathf.Acos(Clamp1(Dot(v1, v2)));
+        return Mathf.Acos(Clamp1(Dot(v1, v2))) * SphericalSceneProperties.singleton.worldRadius;
     }
 
     public static bool BetweenS(Vector4 v1, Vector4 v2, Vector4 v3) //is v3 (along the line of v1-v2), between the 2 vectors in spherical space
@@ -774,5 +779,15 @@ public static class UFunc
     {
         time = Mathf.Max(time - Time.fixedDeltaTime, 0);
         return time;
+    }
+
+    public static Vector4 RandPosS()
+    {
+        Vector4 v = new Vector4();
+        for (int i = 0; i < 4; i++)
+        {
+            v[i] = Random.Range(-1f, 1f);
+        }
+        return v.normalized;
     }
 }

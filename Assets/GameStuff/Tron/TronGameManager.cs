@@ -59,6 +59,7 @@ public class TronGameManager : MonoBehaviour
         {
             BikeGuy bikeType = bikePrefabs[Random.Range(0, bikePrefabs.Length - 1)];
             BikeGuy bike = Instantiate(bikeType);
+            bike.bikeIndex = i;
 
             playerBikes.Add(bike);
 

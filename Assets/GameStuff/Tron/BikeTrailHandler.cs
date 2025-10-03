@@ -14,21 +14,24 @@ public class BikeTrailHandler : MonoBehaviour
     [SerializeField] float lineFrameInterval = 0.1f;
     float lineFrameTimer;
 
-    [SerializeField] float lineTime = 10;
+    [SerializeField] float defaultLineTime = 10;
 
     public List<List<Vector4>> collisionPoints = new List<List<Vector4>>();
+
+    public List<BikeTrail> trailDatas = new List<BikeTrail>();
+
+    [System.Serializable]
+    public class BikeTrail
+    {
+        public BikeGuy bike;
+        public LineRendererS line;
+        public List<Vector4> collisionPoints;
+        public float lineTime;
+    }
 
     void OnEnable()
     {
         CheckSingleton();
-        
-        /*
-        BikeGuy[] bikesFound = FindObjectsOfType<BikeGuy>();
-        for (int i = 0; i < bikesFound.Length; i++)
-        {
-            AddBike(bikesFound[i]);
-        }
-        */
 
         gameManager = TronGameManager.singleton;
     }
@@ -50,9 +53,20 @@ public class BikeTrailHandler : MonoBehaviour
         if (!bikes.Contains(bike))
         {
             bikes.Add(bike);
-            lines.Add(Instantiate(linePrefab));
-            collisionPoints.Add(new List<Vector4>());
+
+            BikeTrail trailData = new BikeTrail();
+            trailData.bike = bike;
+            trailData.line = Instantiate(linePrefab);
+            trailData.collisionPoints = new List<Vector4>();
+            trailData.lineTime = defaultLineTime;
+
+            trailDatas.Add(trailData);
         }
+    }
+
+    public void UpdateBike(int i)
+    {
+        trailDatas[i].lineTime = defaultLineTime + trailDatas[i].bike.lengthIncreaseGet;
     }
 
     void FixedUpdate()
@@ -70,21 +84,23 @@ public class BikeTrailHandler : MonoBehaviour
         {
             lineFrameTimer = lineFrameInterval;
 
-            for (int i = 0; i < bikes.Count; i++)
+            for (int i = 0; i < trailDatas.Count; i++)
             {
-                BikeGuy bike = bikes[i];
-                LineRendererS line = lines[i];
+                BikeGuy bike = trailDatas[i].bike;
+                LineRendererS line = trailDatas[i].line;
 
                 Vector4 pos = bike.transform4.positionNorm;
                 Vector4 norm = bike.transform4.yBasis;
 
                 line.AddPos(pos, norm);
-                collisionPoints[i].Add(pos);
+                trailDatas[i].collisionPoints.Add(pos);
 
-                if (line.positions.Count > lineTime / lineFrameInterval)
+                trailDatas[i].lineTime = defaultLineTime + bike.lengthIncreaseGet;
+
+                if (line.positions.Count > trailDatas[i].lineTime / lineFrameInterval)
                 {
                     line.RemovePos();
-                    collisionPoints[i].RemoveAt(0);
+                    trailDatas[i].collisionPoints.RemoveAt(0);
                 }
             }
         }
@@ -103,9 +119,9 @@ public class BikeTrailHandler : MonoBehaviour
         bool CheckBike(BikeGuy bike)
         {
             bool collisionYes = false;
-            for (int j = 0; j < collisionPoints.Count; j++)
+            for (int j = 0; j < trailDatas.Count; j++)
             {
-                List<Vector4> points = collisionPoints[j];
+                List<Vector4> points = trailDatas[j].collisionPoints;
                 for (int i = 0; i < points.Count - 5; i++)
                 {
                     float dot = Vector4.Dot(bike.transform4.position, points[i]);

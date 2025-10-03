@@ -248,6 +248,7 @@ GameObject:
   m_Component:
   - component: {fileID: 134793095}
   - component: {fileID: 134793094}
+  - component: {fileID: 134793096}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -290,6 +291,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &134793096
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 134793093}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb3f9883ed78f524caaf9c131ab1cbed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bikes: []
+  foods: []
+  foodPrefab: {fileID: 2709473534990084697, guid: 7b57f248abd293e47bdfa1d630edc700, type: 3}
+  foodSpawnNum: 1
 --- !u!1 &161632702
 GameObject:
   m_ObjectHideFlags: 0
@@ -360,7 +377,8 @@ MonoBehaviour:
   lines: []
   linePrefab: {fileID: 1215036925504846605, guid: c2163e3c9909b624d94ec87e314de6d8, type: 3}
   lineFrameInterval: 0.1
-  lineTime: 10
+  defaultLineTime: 10
+  trailDatas: []
 --- !u!4 &180253381
 Transform:
   m_ObjectHideFlags: 0

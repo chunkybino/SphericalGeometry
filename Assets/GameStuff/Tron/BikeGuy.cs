@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class BikeGuy : MonoBehaviour
 {
+    BikeTrailHandler trailHandler;
+
     public Transform4D transform4;
     [SerializeField] Rigidbody4D rb;
 
@@ -14,8 +16,27 @@ public class BikeGuy : MonoBehaviour
 
 
     [SerializeField] Vector3 turnInput;
-
     public bool gameActive;
+
+    public int bikeIndex;
+    int m_lengthIncreaseGet;
+    public int lengthIncreaseGet {
+        get
+        {
+            return m_lengthIncreaseGet;
+        }
+        set
+        {
+            m_lengthIncreaseGet = value;
+            trailHandler.UpdateBike(bikeIndex);
+        }
+    }
+
+
+    void OnEnable()
+    {
+        trailHandler = BikeTrailHandler.singleton;
+    }
 
     void Update()
     {
