@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 using System.Collections.Generic;
 
 [ExecuteAlways]
@@ -18,6 +19,7 @@ public class TronGameManager : MonoBehaviour
     public bool spawnPlayersNow;
     public bool startRound;
 
+    public bool gameStarted;
     public bool roundStarted;
 
     void OnEnable()
@@ -52,6 +54,28 @@ public class TronGameManager : MonoBehaviour
         }
     }
 
+    void Update()
+    {
+        if (!gameStarted)
+        {
+            if (Input.GetKeyDown("space"))
+            {
+                StartCoroutine("StartGameCoroutine");
+            }
+        }
+    }
+
+    IEnumerator StartGameCoroutine()
+    {
+        gameStarted = true;
+
+        SpawnPlayers();
+
+        yield return new WaitForSeconds(3);
+
+        StartRound();
+    }
+
 
     public void SpawnPlayers()
     {
@@ -60,6 +84,9 @@ public class TronGameManager : MonoBehaviour
             BikeGuy bikeType = bikePrefabs[Random.Range(0, bikePrefabs.Length - 1)];
             BikeGuy bike = Instantiate(bikeType);
             bike.bikeIndex = i;
+            bike.transform4.MoveTo(UFunc.RandPosS());
+
+            bike.controlIndex = i;
 
             playerBikes.Add(bike);
 

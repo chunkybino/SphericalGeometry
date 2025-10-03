@@ -268,13 +268,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91a35fa3e71acac42a072f22bd9676af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerCount: 1
+  playerCount: 2
   playerBikes: []
   bikePrefabs:
   - {fileID: 2821580732527778645, guid: 66d37e40c1f076b44b716942240b1510, type: 3}
   cameraFollow: {fileID: 330585550}
   spawnPlayersNow: 0
   startRound: 0
+  gameStarted: 0
   roundStarted: 0
 --- !u!4 &134793095
 Transform:

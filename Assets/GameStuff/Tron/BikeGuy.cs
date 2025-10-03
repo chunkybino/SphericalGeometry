@@ -18,6 +18,7 @@ public class BikeGuy : MonoBehaviour
     [SerializeField] Vector3 turnInput;
     public bool gameActive;
 
+
     public int bikeIndex;
     int m_lengthIncreaseGet;
     public int lengthIncreaseGet {
@@ -29,6 +30,56 @@ public class BikeGuy : MonoBehaviour
         {
             m_lengthIncreaseGet = value;
             trailHandler.UpdateBike(bikeIndex);
+        }
+    }
+
+    public int controlIndex;
+    bool up { get
+        {
+            switch (controlIndex)
+            {
+                case 0:
+                    return input.forward;
+                case 1:
+                    return input.upArrow;
+            }
+            return false;
+        }
+    }
+    bool down { get
+        {
+            switch (controlIndex)
+            {
+                case 0:
+                    return input.backward;
+                case 1:
+                    return input.downArrow;
+            }
+            return false;
+        }
+    }
+    bool left { get
+        {
+            switch (controlIndex)
+            {
+                case 0:
+                    return input.left;
+                case 1:
+                    return input.leftArrow;
+            }
+            return false;
+        }
+    }
+    bool right { get
+        {
+            switch (controlIndex)
+            {
+                case 0:
+                    return input.right;
+                case 1:
+                    return input.rightArrow;
+            }
+            return false;
         }
     }
 
@@ -45,10 +96,10 @@ public class BikeGuy : MonoBehaviour
         rb.velocity = -transform4.zBasis * speed;
 
         turnInput = Vector2.zero;
-        if (input.left) turnInput.x--;
-        if (input.right) turnInput.x++;
-        if (input.backward) turnInput.y--;
-        if (input.forward) turnInput.y++;
+        if (left) turnInput.x--;
+        if (right) turnInput.x++;
+        if (down) turnInput.y--;
+        if (up) turnInput.y++;
 
         Vector4 newPos = UFunc.Slerp4Angle(new Vector4(0, 0, 1, 0), new Vector4(-turnInput.x, -turnInput.y, 0, 0), turnSpeed * Time.deltaTime);
         Matrix4x4 rotMat = UFunc.MatrixBiReflect(new Vector4(0, 0, 1, 0), newPos);

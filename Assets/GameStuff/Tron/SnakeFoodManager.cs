@@ -62,8 +62,6 @@ public class SnakeFoodManager : MonoBehaviour
             {
                 float dis = UFunc.DistanceSRad(bikes[i].transform4.positionNorm, foods[j].positionNorm);
 
-                print(dis);
-
                 if (dis <= foods[j].radius)
                 {
                     FoodEat(bikes[i], foods[j]);
