@@ -14,6 +14,7 @@ public class TronGameManager : MonoBehaviour
 
 
     public CameraFollow cameraFollow;
+    public List<CameraFollow> cameras;
 
 
     public bool spawnPlayersNow;
@@ -93,9 +94,22 @@ public class TronGameManager : MonoBehaviour
             if (i == 0)
             {
                 cameraFollow.followTransform = bike.camTransform;
+                cameras.Add(cameraFollow);
+            }
+            else
+            {
+                CameraFollow newCam = Instantiate(cameraFollow);
+                newCam.followTransform = bike.camTransform;
+                cameras.Add(newCam);
             }
 
             BikeTrailHandler.singleton.AddBike(bike);
+        }
+
+        if (cameras.Count > 1)
+        {
+            cameras[0].camObj.rect = new Rect(0.0f, 0.5f, 1.0f, 1.0f);
+            cameras[1].camObj.rect = new Rect(0.0f, 0.0f, 1.0f, 0.5f);
         }
     }
 

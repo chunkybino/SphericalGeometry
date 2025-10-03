@@ -7,8 +7,8 @@ public class CameraFollow : MonoBehaviour
 
     [SerializeField] Transform4D transform4;
 
-    [SerializeField] Camera4D camera;
-    [SerializeField] Camera camObj;
+    public Camera4D camera;
+    public Camera camObj;
 
     void Update()
     {
