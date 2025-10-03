@@ -10,6 +10,7 @@ public class Camera4D : MonoBehaviour
 
     public Matrix4x4 viewMatrix;
 
+    public bool doPitchAngle;
     public float pitchAngle;
 
     void Awake()
@@ -24,7 +25,7 @@ public class Camera4D : MonoBehaviour
     {
         if (transform4 == null) return;
 
-        transform4.localMatrix = UFunc.MatZYRot(pitchAngle);
+        if (doPitchAngle) transform4.localMatrix = UFunc.MatZYRot(pitchAngle);
 
         viewMatrix = transform4.matrix; //* UFunc.MatZYRot(pitchAngle);
         //viewMatrix.SetRow(2, viewMatrix.GetRow(2)*-1);

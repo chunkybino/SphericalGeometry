@@ -4,8 +4,8 @@ public class BikeGuy : MonoBehaviour
 {
     public Transform4D transform4;
     [SerializeField] Rigidbody4D rb;
-    [SerializeField] new Camera4D camera;
-    Transform4D camTransform { get { return camera.transform4; } }
+
+    public Transform4D camTransform;
 
     [SerializeField] PlayerInput input;
 
@@ -15,8 +15,12 @@ public class BikeGuy : MonoBehaviour
 
     [SerializeField] Vector3 turnInput;
 
+    public bool gameActive;
+
     void Update()
     {
+        if (!gameActive) return;
+
         rb.velocity = -transform4.zBasis * speed;
 
         turnInput = Vector2.zero;
@@ -29,5 +33,12 @@ public class BikeGuy : MonoBehaviour
         Matrix4x4 rotMat = UFunc.MatrixBiReflect(new Vector4(0, 0, 1, 0), newPos);
 
         transform4.matrix = transform4.matrix * rotMat;
+    }
+
+    public void BlowUp()
+    {
+        rb.velocity = Vector4.zero;
+
+        gameObject.SetActive(false);
     }
 }

@@ -1,8 +1,11 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-public class BikeTrialHandler : MonoBehaviour
+public class BikeTrailHandler : MonoBehaviour
 {
+    public static BikeTrailHandler singleton;
+    TronGameManager gameManager;
+
     public List<BikeGuy> bikes = new List<BikeGuy>();
     public List<LineRendererS> lines = new List<LineRendererS>();
 
@@ -17,10 +20,28 @@ public class BikeTrialHandler : MonoBehaviour
 
     void OnEnable()
     {
+        CheckSingleton();
+        
+        /*
         BikeGuy[] bikesFound = FindObjectsOfType<BikeGuy>();
         for (int i = 0; i < bikesFound.Length; i++)
         {
             AddBike(bikesFound[i]);
+        }
+        */
+
+        gameManager = TronGameManager.singleton;
+    }
+
+    void CheckSingleton()
+    {
+        if (singleton == null)
+        {
+            singleton = this;
+        }
+        else if (singleton != this)
+        {
+            Destroy(this);
         }
     }
 
@@ -36,6 +57,8 @@ public class BikeTrialHandler : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (!gameManager.roundStarted) return;
+
         CheckCollision();
         DrawLine();
     }
@@ -73,10 +96,11 @@ public class BikeTrialHandler : MonoBehaviour
 
         for (int i = 0; i < bikes.Count; i++)
         {
-            CheckBike(bikes[i]);
+            bool hit = CheckBike(bikes[i]);
+            if (hit) gameManager.PlayerDie(i);
         }
 
-        void CheckBike(BikeGuy bike)
+        bool CheckBike(BikeGuy bike)
         {
             bool collisionYes = false;
             for (int j = 0; j < collisionPoints.Count; j++)
@@ -88,13 +112,12 @@ public class BikeTrialHandler : MonoBehaviour
 
                     if (dot > boundingDot)
                     {
-                        collisionYes = true;
-                        break;
+                        return true;
                     }
                 }
             }
 
-            print(collisionYes);
+            return false;
         }
     }
 }
