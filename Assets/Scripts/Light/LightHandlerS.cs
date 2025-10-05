@@ -304,7 +304,7 @@ public class LightHandlerS : MonoBehaviour
 
     void Dispose()
     {
-        print("dispose");
+        //print("dispose");
 
         lightBuffer?.Release();
         shadowLightBuffer?.Release();
@@ -412,7 +412,7 @@ public class LightHandlerS : MonoBehaviour
                     for (int j = 0; j < 4; j++) {
                         sphereShadowSend.Add(pos[j]);
                     }
-                    
+
                     sphereShadowSend.Add(Mathf.Cos(ren.shadow_sphereRadius/Transform4D.radius));
                 }
             }

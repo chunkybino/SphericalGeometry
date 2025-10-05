@@ -100,6 +100,15 @@ public class Rigidbody4D : MonoBehaviour
         transform4.onRotorLeft.AddListener(OnRotor);
     }
 
+    void OnDisable()
+    {
+        physicsS?.RemoveRigidbody(this);
+
+        transform4.onLeftMult.RemoveListener(OnTransformLeftMult);
+        transform4.onMatrixUpdate.RemoveListener(OnMatrixUpdate);
+        transform4.onRotorLeft.RemoveListener(OnRotor);
+    }
+
     public void PhysicsUpdate()
     {
         if (isStatic) 

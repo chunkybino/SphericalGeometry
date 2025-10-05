@@ -20,7 +20,19 @@ public class SnakeFoodManager : MonoBehaviour
         CheckSingleton();
 
         gameManager = TronGameManager.singleton;
-        //trailHandler = BikeTrailHandler.singleton;
+    }
+
+    public void Reset()
+    {
+        for (int i = 0; i < foods.Count; i++) {
+            Destroy(foods[i].gameObject);
+        }
+        foods.Clear();
+    }
+
+    public void RoundStart()
+    {
+        Reset();
 
         for (int i = 0; i < foodSpawnNum; i++)
         {
@@ -56,15 +68,17 @@ public class SnakeFoodManager : MonoBehaviour
         gameManager = TronGameManager.singleton;
         bikes = gameManager.playerBikes;
 
-        for (int i = 0; i < bikes.Count; i++)
+        for (int i = 0; i < gameManager.alivePlayers.Count; i++)
         {
+            BikeGuy bike = bikes[gameManager.alivePlayers[i]];
+
             for (int j = 0; j < foods.Count; j++)
             {
-                float dis = UFunc.DistanceSRad(bikes[i].transform4.positionNorm, foods[j].positionNorm);
+                float dis = UFunc.DistanceSRad(bike.transform4.positionNorm, foods[j].positionNorm);
 
                 if (dis <= foods[j].radius)
                 {
-                    FoodEat(bikes[i], foods[j]);
+                    FoodEat(bike, foods[j]);
                 }
             }
         }

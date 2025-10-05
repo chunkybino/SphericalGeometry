@@ -58,6 +58,8 @@ public class PhysicsHandlerS : MonoBehaviour
         staticBodies.Clear();
         dynamicBodies.Clear();
         globalBodies.Clear();
+
+        if (sectors.Length != 8) sectors = new Sector[8];
         foreach (Sector s in sectors) {
             s.Clear();
         }
@@ -112,6 +114,13 @@ public class PhysicsHandlerS : MonoBehaviour
         {
             globalBodies.Add(rb);
         }
+    }
+    public void RemoveRigidbody(Rigidbody4D rb)
+    {
+        rigidbodyList.Remove(rb);
+        staticBodies.Remove(rb);
+        dynamicBodies.Remove(rb);
+        globalBodies.Remove(rb);
     }
 
     public void UpdateRigidbodyStatic(Rigidbody4D rb)

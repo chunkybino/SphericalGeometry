@@ -7,7 +7,7 @@ public class BikeTrailHandler : MonoBehaviour
     TronGameManager gameManager;
 
     public List<BikeGuy> bikes = new List<BikeGuy>();
-    public List<LineRendererS> lines = new List<LineRendererS>();
+    //public List<LineRendererS> lines = new List<LineRendererS>();
 
     [SerializeField] LineRendererS linePrefab;
 
@@ -112,10 +112,11 @@ public class BikeTrailHandler : MonoBehaviour
     {
         float boundingDot = Mathf.Cos(0.1f);
 
-        for (int i = 0; i < bikes.Count; i++)
-        {
-            bool hit = CheckBike(bikes[i]);
-            if (hit) gameManager.PlayerDie(i);
+        for (int i = 0; i < gameManager.alivePlayers.Count; i++)
+        {  
+            int playerIndex = gameManager.alivePlayers[i];
+            bool hit = CheckBike(bikes[playerIndex]);
+            if (hit) gameManager.PlayerDie(playerIndex);
         }
 
         bool CheckBike(BikeGuy bike)
@@ -137,5 +138,17 @@ public class BikeTrailHandler : MonoBehaviour
 
             return false;
         }
+    }
+
+    public void Reset()
+    {
+        for (int i = 0; i < trailDatas.Count; i++)
+        {
+            Destroy(trailDatas[i].line.gameObject);
+        }
+
+        bikes.Clear();
+        trailDatas.Clear();
+        collisionPoints.Clear();
     }
 }
