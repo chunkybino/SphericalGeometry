@@ -60,6 +60,8 @@ public class BikeTrailHandler : MonoBehaviour
             trailData.collisionPoints = new List<Vector4>();
             trailData.lineTime = defaultLineTime;
 
+            trailData.line.color = gameManager.teamColors.GetColor(bikes.Count-1);
+
             trailDatas.Add(trailData);
         }
     }

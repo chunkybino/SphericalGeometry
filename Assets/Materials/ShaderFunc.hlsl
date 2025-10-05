@@ -43,6 +43,13 @@ float4 ProjectVectorToPlane(float4 plane1, float4 plane2, float4 v)
     return normalize(v - dot(v,planeNorm)*planeNorm);
 }
 
+float4 ReflectVector(float4 v1, float reflectV)
+{
+    float dotV = dot(v1,reflectV);
+    return -v1 - 2*dotV*reflectV;
+}
+
+
 float4 Slerp4(float4 a, float4 b, float4 angle, float arc)
 {
     if (arc == 0) return a;

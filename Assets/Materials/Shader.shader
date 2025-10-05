@@ -162,7 +162,7 @@ Shader "Mine/Boring"
 
                 outV[0].uv = IN[0].uv;
                 outV[1].uv = IN[1].uv;
-                outV[2].uv = IN[2].uv;
+                outV[2].uv = IN[2].uv;sl
 
                 outV[0].position = mul(UNITY_MATRIX_P, SteroProject(IN[0].position4, _Radius));
                 outV[1].position = mul(UNITY_MATRIX_P, SteroProject(IN[1].position4, _Radius));

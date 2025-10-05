@@ -16,6 +16,8 @@ public class TronGameManager : MonoBehaviour
     public CameraFollow cameraFollow;
     public List<CameraFollow> cameras;
 
+    public TeamColor_SO teamColors;
+
 
     public bool spawnPlayersNow;
     public bool startRound;
