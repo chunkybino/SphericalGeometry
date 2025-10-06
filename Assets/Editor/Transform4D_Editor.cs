@@ -167,6 +167,7 @@ public class Transform4D_Editor : Editor
 
         if (moved) {
             UnityEditor.EditorApplication.QueuePlayerLoopUpdate();
+            EditorUtility.SetDirty(transform);
         }
     }
 }

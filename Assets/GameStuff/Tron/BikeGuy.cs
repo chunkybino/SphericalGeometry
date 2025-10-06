@@ -18,7 +18,6 @@ public class BikeGuy : MonoBehaviour
     [SerializeField] Vector3 turnInput;
     public bool gameActive;
 
-
     public int bikeIndex;
     int m_lengthIncreaseGet;
     public int lengthIncreaseGet {
@@ -82,6 +81,11 @@ public class BikeGuy : MonoBehaviour
             return false;
         }
     }
+
+    public float wide = 0.05f;
+
+    public Vector4 widePoint1 {get{return UFunc.Slerp4Angle(transform4.positionNorm, transform4.xBasis, wide);}}
+    public Vector4 widePoint2 {get{return UFunc.Slerp4Angle(transform4.positionNorm, transform4.xBasis, -wide);}}
 
 
     void OnEnable()

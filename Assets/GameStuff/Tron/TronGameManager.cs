@@ -126,18 +126,26 @@ public class TronGameManager : MonoBehaviour
 
             playerBikes.Add(bike);
 
-            if (i == 0)
+            if (i >= cameras.Count)
             {
-                cameraFollow.followTransform = bike.camTransform;
-                //cameras.Add(cameraFollow);
-                player.camera = cameraFollow;
+                if (i == 0)
+                {
+                    cameraFollow.followTransform = bike.camTransform;
+                    cameras.Add(cameraFollow);
+                    player.camera = cameraFollow;
+                }
+                else
+                {
+                    CameraFollow newCam = Instantiate(cameraFollow);
+                    newCam.followTransform = bike.camTransform;
+                    cameras.Add(newCam);
+                    player.camera = newCam;
+                }
             }
             else
             {
-                CameraFollow newCam = Instantiate(cameraFollow);
-                newCam.followTransform = bike.camTransform;
-                //cameras.Add(newCam);
-                player.camera = newCam;
+                cameras[i].followTransform = bike.camTransform;
+                player.camera = cameras[i];
             }
 
             BikeTrailHandler.singleton.AddBike(bike);

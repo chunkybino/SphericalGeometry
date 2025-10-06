@@ -381,7 +381,7 @@ MonoBehaviour:
   bikes: []
   linePrefab: {fileID: 1215036925504846605, guid: c2163e3c9909b624d94ec87e314de6d8, type: 3}
   lineFrameInterval: 0.1
-  defaultLineTime: 10
+  defaultLineTime: 5
   trailDatas: []
 --- !u!4 &180253381
 Transform:
