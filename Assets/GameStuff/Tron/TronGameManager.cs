@@ -8,6 +8,8 @@ public class TronGameManager : MonoBehaviour
     public static TronGameManager singleton;
 
     public int playerCount = 1;
+    public int foodNum = 1;
+    public float moveSpeed = 1;
 
     public List<PlayerProfile> players = new List<PlayerProfile>();
 
@@ -71,6 +73,7 @@ public class TronGameManager : MonoBehaviour
         }
     }
 
+    /*
     void Update()
     {
         if (!gameStarted)
@@ -80,6 +83,14 @@ public class TronGameManager : MonoBehaviour
                 StartCoroutine("StartGameCoroutine");
             }
         }
+    }
+    */
+
+    public void InitializeGame()
+    {
+        SnakeFoodManager.singleton.foodSpawnNum = foodNum;
+
+        StartCoroutine("StartGameCoroutine");
     }
 
     IEnumerator StartGameCoroutine()
@@ -99,14 +110,14 @@ public class TronGameManager : MonoBehaviour
     public void CreatePlayerProfiles()
     {
         players = new List<PlayerProfile>();
-        for (int i = 0; i < playerCount; i++) {players.Add(new PlayerProfile());}
+        for (int i = 0; i < playerCount; i++) { players.Add(new PlayerProfile()); }
     }
 
     public void SpawnPlayers()
     {
         if (players == null || players.Count != playerCount) CreatePlayerProfiles();
 
-        for (int i = 0; i < playerBikes.Count; i++) {Destroy(playerBikes[i].gameObject);}
+        for (int i = 0; i < playerBikes.Count; i++) { Destroy(playerBikes[i].gameObject); }
 
         alivePlayers = new List<int>();
         playerBikes.Clear();
@@ -147,6 +158,8 @@ public class TronGameManager : MonoBehaviour
                 cameras[i].followTransform = bike.camTransform;
                 player.camera = cameras[i];
             }
+
+            player.camera.gameObject.SetActive(true);
 
             BikeTrailHandler.singleton.AddBike(bike);
 

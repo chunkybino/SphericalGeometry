@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class BikeGuy : MonoBehaviour
 {
+    TronGameManager gameManager;
     BikeTrailHandler trailHandler;
 
     public Transform4D transform4;
@@ -11,8 +12,8 @@ public class BikeGuy : MonoBehaviour
 
     [SerializeField] PlayerInput input;
 
-    [SerializeField] float speed = 1f;
-    [SerializeField] float turnSpeed = 1;
+    public float speed = 1;
+    public float turnSpeed = 1;
 
 
     [SerializeField] Vector3 turnInput;
@@ -91,6 +92,7 @@ public class BikeGuy : MonoBehaviour
 
     void OnEnable()
     {
+        gameManager = TronGameManager.singleton;
         trailHandler = BikeTrailHandler.singleton;
     }
 
@@ -98,7 +100,7 @@ public class BikeGuy : MonoBehaviour
     {
         if (!gameActive) return;
 
-        rb.velocity = -transform4.zBasis * speed;
+        rb.velocity = -transform4.zBasis * speed * gameManager.moveSpeed;
 
         turnInput = Vector2.zero;
         if (left) turnInput.x--;
