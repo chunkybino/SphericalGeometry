@@ -25,7 +25,7 @@ public class TriColliderS : ColliderS
 
     [SerializeField] Vector4 planeCenter;
 
-    public override float boundingRadius {get{return furthestVertexDistance;}}
+    public override float boundingRadius { get { return furthestVertexDistance; } }
     [SerializeField] float furthestVertexDistance;
 
     void OnValidate()
@@ -52,21 +52,22 @@ public class TriColliderS : ColliderS
         worldVertex2 = transform4.matrix * localVertex2;
         worldVertex3 = transform4.matrix * localVertex3;
 
-        planeCenter = UFunc.HyperCross(worldVertex1,worldVertex2,worldVertex3).normalized;
+        planeCenter = UFunc.HyperCross(worldVertex1, worldVertex2, worldVertex3).normalized;
 
-        edgeNormal1 = UFunc.HyperCross(worldVertex1,worldVertex2,planeCenter).normalized;
-        edgeNormal2 = UFunc.HyperCross(worldVertex2,worldVertex3,planeCenter).normalized;
-        edgeNormal3 = UFunc.HyperCross(worldVertex3,worldVertex1,planeCenter).normalized;
+        edgeNormal1 = UFunc.HyperCross(worldVertex1, worldVertex2, planeCenter).normalized;
+        edgeNormal2 = UFunc.HyperCross(worldVertex2, worldVertex3, planeCenter).normalized;
+        edgeNormal3 = UFunc.HyperCross(worldVertex3, worldVertex1, planeCenter).normalized;
 
-        if (UFunc.Dot(edgeNormal1, worldVertex3) > 0) {
+        if (UFunc.Dot(edgeNormal1, worldVertex3) > 0)
+        {
             edgeNormal1 *= -1;
             edgeNormal2 *= -1;
             edgeNormal3 *= -1;
         }
     }
 
-    public override int colliderType {get{return 2;}}
-    public override TriColliderS triangle {get{return this;}}
+    public override int colliderType { get { return 2; } }
+    public override TriColliderS triangle { get { return this; } }
 
     public override Vector4 PointClose(Vector4 point)
     {
@@ -81,10 +82,13 @@ public class TriColliderS : ColliderS
         FindMin(1, ref points[2], ref points[3]);
 
         //take the closest
-        if (UFunc.Dot(points[0],points[1]) > UFunc.Dot(points[2],points[3])) {
+        if (UFunc.Dot(points[0], points[1]) > UFunc.Dot(points[2], points[3]))
+        {
             outLine = points[0];
             outThis = points[1];
-        } else {
+        }
+        else
+        {
             outLine = points[2];
             outThis = points[3];
         }
@@ -93,13 +97,13 @@ public class TriColliderS : ColliderS
         {
             int iterations = 6;
 
-            point1 = UFunc.Slerp4(v1,v2,startT);
+            point1 = UFunc.Slerp4(v1, v2, startT);
             Vector4 prev1 = point1;
 
             for (int i = 0; i < iterations; i++)
             {
                 point2 = PointClose(point1);
-                point1 = UFunc.SlerpPointClose(v1,v2,point2);
+                point1 = UFunc.SlerpPointClose(v1, v2, point2);
                 if (prev1 == point1) return; //if we get back the same point, stop here
                 prev1 = point1;
             }
@@ -109,23 +113,24 @@ public class TriColliderS : ColliderS
     //static funcition, where we define the triagnle too
     public static Vector4 PointCloseTri(Vector4 point, Vector4 p1, Vector4 p2, Vector4 p3)
     {
-        Vector4 pCenter = UFunc.HyperCross(p1,p2,p3).normalized;
-        Vector4 edgeNorm1 = UFunc.HyperCross(p1,p2,pCenter).normalized;
-        Vector4 edgeNorm2 = UFunc.HyperCross(p2,p3,pCenter).normalized;
-        Vector4 edgeNorm3 = UFunc.HyperCross(p3,p1,pCenter).normalized;
-        return PointCloseTri(point,p1,p2,p3,pCenter,edgeNorm1,edgeNorm2,edgeNorm3);
+        Vector4 pCenter = UFunc.HyperCross(p1, p2, p3).normalized;
+        Vector4 edgeNorm1 = UFunc.HyperCross(p1, p2, pCenter).normalized;
+        Vector4 edgeNorm2 = UFunc.HyperCross(p2, p3, pCenter).normalized;
+        Vector4 edgeNorm3 = UFunc.HyperCross(p3, p1, pCenter).normalized;
+        return PointCloseTri(point, p1, p2, p3, pCenter, edgeNorm1, edgeNorm2, edgeNorm3);
     }
     public static Vector4 PointCloseTri(Vector4 point, Vector4 p1, Vector4 p2, Vector4 p3, Vector4 pCenter, Vector4 edgeNorm1, Vector4 edgeNorm2, Vector4 edgeNorm3)
     {
         //point projected onto the plane of our tri
-        Vector4 projPoint = (point - pCenter*UFunc.Dot(point, pCenter)).normalized;
+        Vector4 projPoint = (point - pCenter * UFunc.Dot(point, pCenter)).normalized;
 
         float edgeDot1 = UFunc.Dot(edgeNorm1, projPoint);
         float edgeDot2 = UFunc.Dot(edgeNorm2, projPoint);
         float edgeDot3 = UFunc.Dot(edgeNorm3, projPoint);
 
         //if all dots negative, the point is inside the triangle
-        if (edgeDot1 < 0 && edgeDot2 < 0 && edgeDot3 < 0) {
+        if (edgeDot1 < 0 && edgeDot2 < 0 && edgeDot3 < 0)
+        {
             return projPoint;
         }
 
@@ -141,18 +146,18 @@ public class TriColliderS : ColliderS
 
         if (edgeDot1 > 0)
         {
-            Vector4 edgePoint = (projPoint - edgeNorm1*edgeDot1).normalized;
-            if (UFunc.BetweenS(p1,p2, edgePoint)) validEdge.Add(edgePoint);
+            Vector4 edgePoint = (projPoint - edgeNorm1 * edgeDot1).normalized;
+            if (UFunc.BetweenS(p1, p2, edgePoint)) validEdge.Add(edgePoint);
         }
         if (edgeDot2 > 0)
         {
-            Vector4 edgePoint = (projPoint - edgeNorm2*edgeDot2).normalized;
-            if (UFunc.BetweenS(p2,p3, edgePoint)) validEdge.Add(edgePoint);
+            Vector4 edgePoint = (projPoint - edgeNorm2 * edgeDot2).normalized;
+            if (UFunc.BetweenS(p2, p3, edgePoint)) validEdge.Add(edgePoint);
         }
         if (edgeDot3 > 0)
         {
-            Vector4 edgePoint = (projPoint - edgeNorm3*edgeDot3).normalized;
-            if (UFunc.BetweenS(p3,p1, edgePoint)) validEdge.Add(edgePoint);
+            Vector4 edgePoint = (projPoint - edgeNorm3 * edgeDot3).normalized;
+            if (UFunc.BetweenS(p3, p1, edgePoint)) validEdge.Add(edgePoint);
         }
 
         if (edgeDot2 < 0) validEdge.Add(p1);
@@ -160,10 +165,13 @@ public class TriColliderS : ColliderS
         if (edgeDot1 < 0) validEdge.Add(p3);
 
         Vector4 close = new Vector4();
-        if (validEdge.Count > 0) {
+        if (validEdge.Count > 0)
+        {
             close = validEdge[0];
-            foreach (Vector4 v in validEdge) {
-                if (UFunc.Dot(point,v) > UFunc.Dot(point,close)) {
+            foreach (Vector4 v in validEdge)
+            {
+                if (UFunc.Dot(point, v) > UFunc.Dot(point, close))
+                {
                     close = v;
                 }
             }
@@ -171,5 +179,69 @@ public class TriColliderS : ColliderS
         }
 
         return projPoint; //ya dont messed up your math if it gets here
+    }
+
+    public static float LineCloseTri(Vector4 line1, Vector4 line2, Vector4 tri1, Vector4 tri2, Vector4 tri3, ref Vector4 outLine, ref Vector4 outTri)
+    {
+        Vector4 triNorm = UFunc.HyperCross(tri1, tri2, tri3).normalized;
+        Vector4 sideNorm1 = UFunc.HyperCross(tri1, tri2, triNorm).normalized;
+        Vector4 sideNorm2 = UFunc.HyperCross(tri2, tri3, triNorm).normalized;
+        Vector4 sideNorm3 = UFunc.HyperCross(tri3, tri1, triNorm).normalized;
+
+        float closeDot = -1;
+
+        float lineDot1 = Vector4.Dot(line1, triNorm);
+        float lineDot2 = Vector4.Dot(line2, triNorm);
+
+        if (Mathf.Abs(lineDot1) < Mathf.Abs(lineDot2))
+        {
+            closeDot = Mathf.Abs(lineDot1);
+            outLine = line1;
+            outTri = UFunc.ProjectToVectorNormal(line1, triNorm).normalized;
+        }
+        else
+        {
+            closeDot = Mathf.Abs(lineDot2);
+            outLine = line2;
+            outTri = UFunc.ProjectToVectorNormal(line2, triNorm).normalized;
+        }
+
+        if (Mathf.Sign(lineDot1) != Mathf.Sign(lineDot2))
+        {
+            closeDot *= -1;
+        }
+
+        Vector4 v1 = tri1; 
+        Vector4 v2 = tri2; 
+        Vector4 v3 = tri3;
+
+        for (int i = 0; i < 3; i++)
+        {
+            Vector4 closeLine = new Vector4();
+            Vector4 closeEdge = new Vector4();
+            UFunc.DoubleArcClose(line1, line2, v1, v2, ref closeLine, ref closeEdge);
+
+            Vector4 dir = UFunc.ProjectToVectorNormal(closeEdge, closeLine).normalized;
+            float dot = Vector4.Dot(dir, closeEdge);
+
+            float triDot3 = Vector4.Dot(dir, v3);
+
+            if (triDot3 > 0) // if the third point is in this direction, flip the outward direction chief
+            {
+                dot *= -1;
+            }
+
+            if (dot > closeDot)
+            {
+                closeDot = dot;
+                outLine = closeLine;
+                outTri = closeEdge;
+            }
+
+            (v1, v2) = (v2, v1);
+            (v1, v3) = (v3, v1);
+        }
+
+        return closeDot;
     }
 }

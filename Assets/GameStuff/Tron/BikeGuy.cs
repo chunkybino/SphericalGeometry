@@ -83,8 +83,9 @@ public class BikeGuy : MonoBehaviour
     }
 
     public float wide = 0.05f;
+    public float radius = 0.01f;
 
-    public Vector4 widePoint1 {get{return UFunc.Slerp4Angle(transform4.positionNorm, transform4.xBasis, wide);}}
+    public Vector4 widePoint1 { get { return UFunc.Slerp4Angle(transform4.positionNorm, transform4.xBasis, wide); } }
     public Vector4 widePoint2 {get{return UFunc.Slerp4Angle(transform4.positionNorm, transform4.xBasis, -wide);}}
 
 

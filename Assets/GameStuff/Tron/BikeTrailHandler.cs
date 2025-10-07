@@ -127,7 +127,7 @@ public class BikeTrailHandler : MonoBehaviour
 
         bool CheckBike(BikeGuy bike)
         {
-            float boundingDot = Mathf.Cos(trailThick + bike.wide);
+            float boundingDot = Mathf.Cos(trailThick + bike.wide + bike.radius);
 
             bool collisionYes = false;
             for (int j = 0; j < trailDatas.Count; j++)
@@ -150,17 +150,31 @@ public class BikeTrailHandler : MonoBehaviour
             bool CheckPlane(int index, BikeTrail trail)
             {
                 Vector4 pos1 = trail.collisionPoints[index];
-                Vector4 pos2 = trail.collisionPoints[index+1];
+                Vector4 pos2 = trail.collisionPoints[index + 1];
                 Vector4 binorm1 = trail.collisionBinorms[index];
-                Vector4 binorm2 = trail.collisionBinorms[index+1];
+                Vector4 binorm2 = trail.collisionBinorms[index + 1];
 
-                Vector4 point1 = UFunc.Slerp4Angle(pos1,binorm1,trailThick);
-                Vector4 point2 = UFunc.Slerp4Angle(pos1,binorm1,-trailThick);
-                Vector4 point3 = UFunc.Slerp4Angle(pos2,binorm2,trailThick);
-                Vector4 point4 = UFunc.Slerp4Angle(pos2,binorm2,-trailThick);
+                Vector4 point1 = UFunc.Slerp4Angle(pos1, binorm1, trailThick);
+                Vector4 point2 = UFunc.Slerp4Angle(pos1, binorm1, -trailThick);
+                Vector4 point3 = UFunc.Slerp4Angle(pos2, binorm2, trailThick);
+                Vector4 point4 = UFunc.Slerp4Angle(pos2, binorm2, -trailThick);
 
-                Vector4 tangent = UFunc.ProjectToVectorNormal(pos2-pos1, pos1).normalized;
+                //Vector4 tangent = UFunc.ProjectToVectorNormal(pos2-pos1, pos1).normalized;
 
+                Vector4 bikeClose = new Vector4();
+                Vector4 triClose = new Vector4();
+
+                float overlap1 = TriColliderS.LineCloseTri(bike.widePoint1, bike.widePoint2, point1, point2, point3, ref bikeClose, ref triClose);
+                float overlap2 = TriColliderS.LineCloseTri(bike.widePoint1, bike.widePoint2, point3, point4, point2, ref bikeClose, ref triClose);
+
+
+                if (overlap1 < bike.radius || overlap2 < bike.radius)
+                {
+                    return true;
+                }
+                return false;
+
+                /*
                 Vector4 norm = trail.collisionNorms[index];
                 Vector4 bikeNorm = bike.transform4.yBasis;
 
@@ -188,6 +202,7 @@ public class BikeTrailHandler : MonoBehaviour
                 }
 
                 return !sameSign;
+                */
             }
         }
     }
