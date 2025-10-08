@@ -14,9 +14,16 @@ public class BikeGuy : MonoBehaviour
 
     public float speed = 1;
     public float turnSpeed = 1;
+    public float spinSpeed = 0.75f;
 
 
     [SerializeField] Vector3 turnInput;
+
+    [SerializeField] Vector2 turnMomentum;
+    [SerializeField] float spinMomentum;
+    [SerializeField] float turnAcceleration = 12;
+    [SerializeField] float spinAcceleration = 12;
+
     public bool gameActive;
 
     public int bikeIndex;
@@ -83,6 +90,17 @@ public class BikeGuy : MonoBehaviour
         }
     }
 
+    bool twistLeft { get
+        {
+            return input.leftArrow;
+        }
+    }
+    bool twistRight { get
+        {
+            return input.rightArrow;
+        }
+    }
+
     public float wide = 0.05f;
     public float radius = 0.01f;
 
@@ -102,16 +120,29 @@ public class BikeGuy : MonoBehaviour
 
         rb.velocity = -transform4.zBasis * speed * gameManager.moveSpeed;
 
-        turnInput = Vector2.zero;
+        turnInput = Vector3.zero;
         if (left) turnInput.x--;
         if (right) turnInput.x++;
         if (down) turnInput.y--;
         if (up) turnInput.y++;
 
-        Vector4 newPos = UFunc.Slerp4Angle(new Vector4(0, 0, 1, 0), new Vector4(-turnInput.x, -turnInput.y, 0, 0), turnSpeed * Time.deltaTime * gameManager.moveSpeed);
-        Matrix4x4 rotMat = UFunc.MatrixBiReflect(new Vector4(0, 0, 1, 0), newPos);
+        if (twistLeft) turnInput.z--;
+        if (twistRight) turnInput.z++;
 
-        transform4.matrix = transform4.matrix * rotMat;
+        turnMomentum += ((Vector2)turnInput - turnMomentum/turnSpeed) * turnAcceleration * Time.deltaTime;
+        
+        turnMomentum.x = Mathf.Clamp(turnMomentum.x, -turnSpeed, turnSpeed);
+        turnMomentum.y = Mathf.Clamp(turnMomentum.y, -turnSpeed, turnSpeed);
+
+        spinMomentum += (turnInput.z - spinMomentum/spinSpeed) * spinAcceleration * Time.deltaTime;
+
+        spinMomentum = Mathf.Clamp(spinMomentum, -spinSpeed, spinSpeed);
+
+        Vector4 newPos = UFunc.Slerp4Angle(new Vector4(0, 0, 1, 0), new Vector4(-turnMomentum.x, -turnMomentum.y, 0, 0).normalized, turnMomentum.magnitude * Time.deltaTime * gameManager.moveSpeed);
+        Matrix4x4 rotMat = UFunc.MatrixBiReflect(new Vector4(0, 0, 1, 0), newPos);
+        Matrix4x4 spinMat = UFunc.MatXYRot(spinMomentum * Time.deltaTime);
+
+        transform4.matrix = transform4.matrix * rotMat * spinMat;
     }
 
     public void BlowUp()

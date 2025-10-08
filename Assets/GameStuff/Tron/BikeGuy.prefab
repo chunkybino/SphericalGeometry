@@ -958,8 +958,13 @@ MonoBehaviour:
   camTransform: {fileID: 4494552819953898214}
   input: {fileID: 4093443161871033387}
   speed: 1
-  turnSpeed: 1
+  turnSpeed: 1.25
+  spinSpeed: 3
   turnInput: {x: 0, y: 0, z: 0}
+  turnMomentum: {x: 0, y: 0}
+  spinMomentum: 0
+  turnAcceleration: 12
+  spinAcceleration: 18
   gameActive: 0
   bikeIndex: 0
   controlIndex: 0
