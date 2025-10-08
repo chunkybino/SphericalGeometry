@@ -527,7 +527,7 @@ MonoBehaviour:
   onMatrixUpdate:
     m_PersistentCalls:
       m_Calls: []
-  doLocalPosition3: 0
+  doLocalPosition3: 1
   localPos3: {x: 0, y: 0, z: 0}
   localAngle3: {x: 0, y: 0, z: 0}
   m_scale: 1

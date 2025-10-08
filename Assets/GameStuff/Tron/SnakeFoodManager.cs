@@ -15,6 +15,8 @@ public class SnakeFoodManager : MonoBehaviour
 
     public int foodSpawnNum = 2;
 
+    public float foodSpawnBoundRadius = 1f; //when spawn food, make sures its not too close to any trails, multiplier on food radius
+
     void OnEnable()
     {
         CheckSingleton();
@@ -57,6 +59,13 @@ public class SnakeFoodManager : MonoBehaviour
         SnakeFood food = Instantiate(foodPrefab);
 
         Vector4 newPos = UFunc.RandPosS();
+        for (int i = 0; i < 10; i++)
+        {
+            bool check = BikeTrailHandler.singleton.CheckCollisionPoint(newPos, food.radius * foodSpawnBoundRadius);
+            print(check);
+            if (!check) break;
+            newPos = UFunc.RandPosS();
+        }
 
         food.transform4.MoveTo(newPos);
 

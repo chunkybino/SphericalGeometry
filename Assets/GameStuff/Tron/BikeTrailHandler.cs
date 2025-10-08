@@ -22,6 +22,8 @@ public class BikeTrailHandler : MonoBehaviour
 
     float trailThick = 0.1f;
 
+    public float worldRingCollisionRadius = 0.05f;
+
     [System.Serializable]
     public class BikeTrail
     {
@@ -145,6 +147,15 @@ public class BikeTrailHandler : MonoBehaviour
                 }
             }
 
+            for (int i = 0; i < 3; i++)
+            {
+                for (int j = i + 1; j < 4; j++)
+                {
+                    bool yeah = CheckRing(i, j);
+                    if (yeah) return true;
+                }
+            }
+
             return false;
 
             bool CheckPlane(int index, BikeTrail trail)
@@ -173,37 +184,91 @@ public class BikeTrailHandler : MonoBehaviour
                     return true;
                 }
                 return false;
-
-                /*
-                Vector4 norm = trail.collisionNorms[index];
-                Vector4 bikeNorm = bike.transform4.yBasis;
-
-                Vector4 bikePoint1 = bike.widePoint1;
-                Vector4 bikePoint2 = bike.widePoint2;
-
-                //norm1
-                float bikeDot1 = Vector4.Dot(bikePoint1,norm);
-                float bikeDot2 = Vector4.Dot(bikePoint2,norm);
-                print(bikeDot1+" "+bikeDot2);
-                if (Mathf.Sign(bikeDot1) == Mathf.Sign(bikeDot2))
-                {
-                    return false;
-                }
-
-                bool sameSign = true;
-                float dotSign = Mathf.Sign(Vector4.Dot(point1,bikeNorm));
-                if (dotSign != Mathf.Sign(Vector4.Dot(point2,bikeNorm))) sameSign = false;
-                if (dotSign != Mathf.Sign(Vector4.Dot(point3,bikeNorm))) sameSign = false;
-                if (dotSign != Mathf.Sign(Vector4.Dot(point4,bikeNorm))) sameSign = false;
-
-                if (!sameSign)
-                {
-                    print(Vector4.Dot(point1,bikeNorm)+" "+Vector4.Dot(point2,bikeNorm)+" "+Vector4.Dot(point3,bikeNorm)+" "+Vector4.Dot(point4,bikeNorm));
-                }
-
-                return !sameSign;
-                */
             }
+
+            bool CheckRing(int axis1, int axis2)
+            {
+                float rad = worldRingCollisionRadius + bike.radius;
+
+                Vector4 bike1 = bike.widePoint1;
+                Vector4 bike2 = bike.widePoint2;
+
+                Vector4 ring1 = new Vector4();
+                Vector4 ring2 = new Vector4();
+                ring1[axis1] = 1;
+                ring2[axis2] = 1;
+
+                Vector4 bikeClose = new Vector4();
+                Vector4 ringClose = new Vector4();
+                UFunc.DoubleArcCloseUnclamped(bike.widePoint1, bike.widePoint2, ring1, ring2, ref bikeClose, ref ringClose);
+
+                bool between = UFunc.BetweenS(bike1,bike2,bikeClose);
+                if (!between)
+                {
+                    bikeClose *= -1;
+                    ringClose *= -1;
+                    between = UFunc.BetweenS(bike1,bike2,bikeClose);
+                }
+
+                if (between)
+                {
+                    if (UFunc.DistanceS(bikeClose, ringClose) < bike.radius) return true;
+                }
+
+                Vector4 closeEnd1 = UFunc.SlerpPointCloseUnclamped(ring1, ring2, bike1);
+                Vector4 closeEnd2 = UFunc.SlerpPointCloseUnclamped(ring1, ring2, bike1);
+
+                if (UFunc.DistanceS(bike1, closeEnd1) < rad) return true;
+                if (UFunc.DistanceS(bike2, closeEnd2) < rad) return true;
+
+                return false;
+            }
+        }
+    }
+
+    public bool CheckCollisionPoint(Vector4 checkPoint, float radius)
+    {
+        float boundingDot = Mathf.Cos(trailThick + radius);
+
+        bool collisionYes = false;
+        for (int j = 0; j < trailDatas.Count; j++)
+        {
+            List<Vector4> points = trailDatas[j].collisionPoints;
+            for (int i = 0; i < points.Count - 5; i++)
+            {
+                float dot = Vector4.Dot(checkPoint, points[i]);
+
+                if (dot > boundingDot)
+                {
+                    bool yeah = CheckPlane(i, trailDatas[j]);
+                    if (yeah) return true;
+                }
+            }
+        }
+
+        return false;
+
+        bool CheckPlane(int index, BikeTrail trail)
+        {
+            Vector4 pos1 = trail.collisionPoints[index];
+            Vector4 pos2 = trail.collisionPoints[index + 1];
+            Vector4 binorm1 = trail.collisionBinorms[index];
+            Vector4 binorm2 = trail.collisionBinorms[index + 1];
+
+            Vector4 point1 = UFunc.Slerp4Angle(pos1, binorm1, trailThick);
+            Vector4 point2 = UFunc.Slerp4Angle(pos1, binorm1, -trailThick);
+            Vector4 point3 = UFunc.Slerp4Angle(pos2, binorm2, trailThick);
+            Vector4 point4 = UFunc.Slerp4Angle(pos2, binorm2, -trailThick);
+
+            Vector4 close1 = TriColliderS.PointCloseTri(checkPoint, point1, point2, point3);
+            Vector4 close2 = TriColliderS.PointCloseTri(checkPoint, point3, point4, point2);
+
+
+            if (UFunc.DistanceS(close1, checkPoint) < radius || UFunc.DistanceS(close1, checkPoint) < radius)
+            {
+                return true;
+            }
+            return false;
         }
     }
 
