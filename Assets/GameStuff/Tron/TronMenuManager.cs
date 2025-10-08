@@ -20,9 +20,18 @@ public class TronMenuManager : MonoBehaviour
     public List<MenuButton> menuButtons = new List<MenuButton>();
     MenuButton selectedButton { get { return menuButtons[buttonSelected]; } }
 
+    public MenuButton playerNumButton;
     public MenuButton foodNumButton;
     public MenuButton speedButton;
     public MenuButton startButton;
+
+    public RectTransform buttonSelection;
+    public float buttonSelectorMoveTime = 1;
+    float buttonSelectorMoveTimer = 1;
+    public AnimationCurve buttonSelectorMoveCurve;
+    public RectTransform buttonSelectorFromRect;
+    public RectTransform buttonSelectorTargetRect;
+    public float buttonSelectorMargin = 15;
 
     void Awake()
     {
@@ -73,11 +82,15 @@ public class TronMenuManager : MonoBehaviour
         {
             buttonSelected++;
             if (buttonSelected >= menuButtons.Count) buttonSelected = 0;
+
+            SetButtonSelectorTarget(selectedButton);
         }
         if (Input.GetKeyDown("s"))
         {
             buttonSelected--;
             if (buttonSelected < 0) buttonSelected = menuButtons.Count - 1;
+
+            SetButtonSelectorTarget(selectedButton);
         }
 
         if (Input.GetKeyDown("space"))
@@ -91,6 +104,32 @@ public class TronMenuManager : MonoBehaviour
         if (Input.GetKeyDown("d"))
         {
             selectedButton.DoRight();
+        }
+
+        //the button selector
+
+        if (buttonSelectorFromRect != null && buttonSelectorTargetRect != null)
+        {
+            float progress = buttonSelectorMoveCurve.Evaluate(1 - buttonSelectorMoveTimer / buttonSelectorMoveTime);
+
+            Vector3[] fourCornersFrom = new Vector3[4];
+            Vector3[] fourCornersTarget = new Vector3[4];
+            buttonSelectorFromRect.GetWorldCorners(fourCornersFrom);
+            buttonSelectorTargetRect.GetWorldCorners(fourCornersTarget);
+
+            Vector2[] slerpCorners = new Vector2[4];
+            for (int i = 0; i < 4; i++)
+            {
+                slerpCorners[i] = Vector2.Lerp((Vector2)fourCornersFrom[i], (Vector2)fourCornersTarget[i], progress);
+            }
+
+            buttonSelection.anchoredPosition = (slerpCorners[0]+slerpCorners[1]+slerpCorners[2]+slerpCorners[3])/4;
+            buttonSelection.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, buttonSelectorMargin + slerpCorners[2].x - slerpCorners[0].x);
+            buttonSelection.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, buttonSelectorMargin + slerpCorners[2].y - slerpCorners[0].y);
+            //buttonSelection.anchorMin = slerpCorners[0];
+            //buttonSelection.anchorMax = slerpCorners[2];
+
+            UFunc.TickTimer(ref buttonSelectorMoveTimer);
         }
     }
 
@@ -106,6 +145,8 @@ public class TronMenuManager : MonoBehaviour
 
         menuObject.SetActive(true);
         isMenu = true;
+
+        SetButtonSelectorTarget(selectedButton);
     }
 
     public void StartSnake()
@@ -116,8 +157,9 @@ public class TronMenuManager : MonoBehaviour
 
         tronGameManager = TronGameManager.singleton;
 
-        tronGameManager.foodNum = Mathf.RoundToInt(foodNumButton.ReadValue());
-        tronGameManager.moveSpeed = speedButton.ReadValue();
+        tronGameManager.foodNum = foodNumButton.ReadInt();
+        tronGameManager.moveSpeed = speedButton.ReadFloat();
+        tronGameManager.playerCount = playerNumButton.ReadInt();
 
         tronGameManager.InitializeGame();
     }
@@ -126,5 +168,14 @@ public class TronMenuManager : MonoBehaviour
     {
         isMenu = false;
         menuObject.SetActive(false);
+    }
+
+    void SetButtonSelectorTarget(MenuButton button)
+    {
+        buttonSelectorFromRect = buttonSelectorTargetRect;
+        buttonSelectorTargetRect = button.buttonRect;
+        if (buttonSelectorFromRect == null) buttonSelectorFromRect = buttonSelectorTargetRect;
+
+        buttonSelectorMoveTimer = buttonSelectorMoveTime;
     }
 }

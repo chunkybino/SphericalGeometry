@@ -19,10 +19,12 @@ public class MenuButton : MonoBehaviour
     public string[] displayStrings;
     public TextMeshProUGUI text;
 
-    public float ReadValue() { return values[valueIndex]; }
+    public float ReadFloat() { return values[valueIndex]; }
+    public int ReadInt() { return Mathf.RoundToInt(values[valueIndex]); }
 
     public bool incrementOnLeftRight;
 
+    public RectTransform buttonRect;
 
     public void Press()
     {

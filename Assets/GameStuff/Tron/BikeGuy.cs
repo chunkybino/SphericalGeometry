@@ -108,7 +108,7 @@ public class BikeGuy : MonoBehaviour
         if (down) turnInput.y--;
         if (up) turnInput.y++;
 
-        Vector4 newPos = UFunc.Slerp4Angle(new Vector4(0, 0, 1, 0), new Vector4(-turnInput.x, -turnInput.y, 0, 0), turnSpeed * Time.deltaTime);
+        Vector4 newPos = UFunc.Slerp4Angle(new Vector4(0, 0, 1, 0), new Vector4(-turnInput.x, -turnInput.y, 0, 0), turnSpeed * Time.deltaTime * gameManager.moveSpeed);
         Matrix4x4 rotMat = UFunc.MatrixBiReflect(new Vector4(0, 0, 1, 0), newPos);
 
         transform4.matrix = transform4.matrix * rotMat;
