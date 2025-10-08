@@ -30,6 +30,8 @@ public class BikeTrailHandler : MonoBehaviour
         public BikeGuy bike;
         public LineRendererS line;
         public List<Vector4> collisionPoints;
+        public List<Vector4> collisionTopPoints;
+        public List<Vector4> collisionBottomPoints;
         public List<Vector4> collisionBinorms;
         public List<Vector4> collisionNorms;
         public float lineTime;
@@ -64,6 +66,8 @@ public class BikeTrailHandler : MonoBehaviour
             trailData.bike = bike;
             trailData.line = Instantiate(linePrefab);
             trailData.collisionPoints = new List<Vector4>();
+            trailData.collisionTopPoints = new List<Vector4>();
+            trailData.collisionBottomPoints = new List<Vector4>();
             trailData.collisionBinorms = new List<Vector4>();
             trailData.collisionNorms = new List<Vector4>();
             trailData.lineTime = defaultLineTime;
@@ -102,10 +106,16 @@ public class BikeTrailHandler : MonoBehaviour
                 Vector4 pos = bike.transform4.positionNorm;
                 Vector4 binorm = bike.transform4.xBasis;
 
-                line.AddPos(pos, binorm);
                 trailDatas[i].collisionPoints.Add(pos);
+                trailDatas[i].collisionTopPoints.Add(UFunc.Slerp4Angle(pos,binorm,trailThick));
+                trailDatas[i].collisionBottomPoints.Add(UFunc.Slerp4Angle(pos,binorm,-trailThick));
                 trailDatas[i].collisionBinorms.Add(binorm);
                 trailDatas[i].collisionNorms.Add(bike.transform4.yBasis);
+
+                if (trailDatas[i].collisionPoints.Count > 3)
+                {
+                    line.AddPos(trailDatas[i].collisionPoints[^3], binorm);
+                }
 
                 trailDatas[i].lineTime = defaultLineTime + bike.lengthIncreaseGet;
 
@@ -170,19 +180,21 @@ public class BikeTrailHandler : MonoBehaviour
                 Vector4 point3 = UFunc.Slerp4Angle(pos2, binorm2, trailThick);
                 Vector4 point4 = UFunc.Slerp4Angle(pos2, binorm2, -trailThick);
 
-                //Vector4 tangent = UFunc.ProjectToVectorNormal(pos2-pos1, pos1).normalized;
+                //float overlap1 = TriColliderS.LineCloseTri(bike.widePoint1, bike.widePoint2, point1, point2, point3, ref bikeClose, ref triClose);
+                //float overlap2 = TriColliderS.LineCloseTri(bike.widePoint1, bike.widePoint2, point3, point4, point2, ref bikeClose, ref triClose);
 
-                Vector4 bikeClose = new Vector4();
-                Vector4 triClose = new Vector4();
+                Vector4 close1 = TriColliderS.PointCloseTri(bike.transform4.positionNorm, point1, point2, point3);
+                Vector4 close2 = TriColliderS.PointCloseTri(bike.widePoint1, point1, point2, point3);
+                Vector4 close3 = TriColliderS.PointCloseTri(bike.widePoint2, point1, point2, point3);
 
-                float overlap1 = TriColliderS.LineCloseTri(bike.widePoint1, bike.widePoint2, point1, point2, point3, ref bikeClose, ref triClose);
-                float overlap2 = TriColliderS.LineCloseTri(bike.widePoint1, bike.widePoint2, point3, point4, point2, ref bikeClose, ref triClose);
+                float distance1 = UFunc.DistanceS(close1, bike.transform4.positionNorm);
+                float distance2 = UFunc.DistanceS(close2, bike.widePoint1);
+                float distance3 = UFunc.DistanceS(close3, bike.widePoint2);
 
+                float minDis = Mathf.Min(distance1, distance2, distance3);
 
-                if (overlap1 < bike.radius || overlap2 < bike.radius)
-                {
-                    return true;
-                }
+                if (minDis < bike.radius) return true;
+
                 return false;
             }
 

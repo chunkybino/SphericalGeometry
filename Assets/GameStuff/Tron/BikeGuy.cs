@@ -104,8 +104,11 @@ public class BikeGuy : MonoBehaviour
     public float wide = 0.05f;
     public float radius = 0.01f;
 
-    public Vector4 widePoint1 { get { return UFunc.Slerp4Angle(transform4.positionNorm, transform4.xBasis, wide); } }
-    public Vector4 widePoint2 {get{return UFunc.Slerp4Angle(transform4.positionNorm, transform4.xBasis, -wide);}}
+    [HideInInspector] public Vector4 widePoint1;
+    [HideInInspector] public Vector4 widePoint2;
+
+    [HideInInspector] public Vector4 prevWidePoint1;
+    [HideInInspector] public Vector4 prevWidePoint2;
 
 
     void OnEnable()
@@ -143,6 +146,14 @@ public class BikeGuy : MonoBehaviour
         Matrix4x4 spinMat = UFunc.MatXYRot(spinMomentum * Time.deltaTime);
 
         transform4.matrix = transform4.matrix * rotMat * spinMat;
+    }
+
+    void FixedUpdate()
+    {
+        prevWidePoint1 = widePoint1;
+        prevWidePoint1 = widePoint2;
+        widePoint1 = UFunc.Slerp4Angle(transform4.positionNorm, transform4.xBasis, wide);
+        widePoint2 = UFunc.Slerp4Angle(transform4.positionNorm, transform4.xBasis, -wide);
     }
 
     public void BlowUp()
