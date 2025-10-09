@@ -91,7 +91,7 @@ public class SnakeFoodManager : MonoBehaviour
 
         MoveFood(food);
 
-        bike.lengthIncreaseGet++;
+        bike.EatFood();
     }
 
     void MoveFood(SnakeFood food)

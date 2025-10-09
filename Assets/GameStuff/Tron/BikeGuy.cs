@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 public class BikeGuy : MonoBehaviour
 {
@@ -24,6 +25,8 @@ public class BikeGuy : MonoBehaviour
     [SerializeField] float turnAcceleration = 12;
     [SerializeField] float spinAcceleration = 12;
 
+    [SerializeField] float spinTurnAccelerationBoost = 1.3f; //multiplier on turn accelration
+
     public bool gameActive;
 
     public int bikeIndex;
@@ -38,6 +41,13 @@ public class BikeGuy : MonoBehaviour
             m_lengthIncreaseGet = value;
             trailHandler.UpdateBike(bikeIndex);
         }
+    }
+
+    public UnityEvent onEatFood;
+    public void EatFood()
+    {
+        lengthIncreaseGet = lengthIncreaseGet + 1;
+        onEatFood?.Invoke();
     }
 
     public int controlIndex;
@@ -132,10 +142,15 @@ public class BikeGuy : MonoBehaviour
         if (twistLeft) turnInput.z--;
         if (twistRight) turnInput.z++;
 
-        turnMomentum += ((Vector2)turnInput - turnMomentum/turnSpeed) * turnAcceleration * Time.deltaTime;
+        float spinTurnBoost = Mathf.Lerp(1,spinTurnAccelerationBoost, Mathf.Abs(spinMomentum)/spinSpeed);
+
+        float realTurnAccel = turnAcceleration * spinTurnBoost;
+        float realTurnSpeed = turnSpeed * spinTurnBoost;
+
+        turnMomentum += ((Vector2)turnInput - turnMomentum/realTurnSpeed) * realTurnAccel * Time.deltaTime;
         
-        turnMomentum.x = Mathf.Clamp(turnMomentum.x, -turnSpeed, turnSpeed);
-        turnMomentum.y = Mathf.Clamp(turnMomentum.y, -turnSpeed, turnSpeed);
+        turnMomentum.x = Mathf.Clamp(turnMomentum.x, -realTurnSpeed, realTurnSpeed);
+        turnMomentum.y = Mathf.Clamp(turnMomentum.y, -realTurnSpeed, realTurnSpeed);
 
         spinMomentum += (turnInput.z - spinMomentum/spinSpeed) * spinAcceleration * Time.deltaTime;
 

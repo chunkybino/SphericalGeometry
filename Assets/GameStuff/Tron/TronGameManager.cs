@@ -7,6 +7,8 @@ public class TronGameManager : MonoBehaviour
 {
     public static TronGameManager singleton;
 
+    public TronUI tronUI;
+
     public int playerCount = 1;
     public int foodNum = 1;
     public float moveSpeed = 1;
@@ -90,6 +92,8 @@ public class TronGameManager : MonoBehaviour
     {
         SnakeFoodManager.singleton.foodSpawnNum = foodNum;
 
+        tronUI = FindObjectOfType<TronUI>();
+
         StartCoroutine("StartGameCoroutine");
     }
 
@@ -99,6 +103,8 @@ public class TronGameManager : MonoBehaviour
 
         BikeTrailHandler.singleton.Reset();
         SnakeFoodManager.singleton.Reset();
+
+        tronUI.ResetScore();
 
         SpawnPlayers();
 
@@ -165,6 +171,8 @@ public class TronGameManager : MonoBehaviour
 
             alivePlayers.Add(i);
         }
+
+        tronUI.targetBike = playerBikes[0];
 
         if (cameras.Count > 1)
         {

@@ -121,64 +121,27 @@ public class TriColliderS : ColliderS
     }
     public static Vector4 PointCloseTri(Vector4 point, Vector4 p1, Vector4 p2, Vector4 p3, Vector4 pCenter, Vector4 edgeNorm1, Vector4 edgeNorm2, Vector4 edgeNorm3)
     {
-        //point projected onto the plane of our tri
-        Vector4 projPoint = (point - pCenter * UFunc.Dot(point, pCenter)).normalized;
+        Vector4 projCenter = UFunc.ProjectToVectorNormal(point, pCenter).normalized;
 
-        float edgeDot1 = UFunc.Dot(edgeNorm1, projPoint);
-        float edgeDot2 = UFunc.Dot(edgeNorm2, projPoint);
-        float edgeDot3 = UFunc.Dot(edgeNorm3, projPoint);
-
-        //if all dots negative, the point is inside the triangle
-        if (edgeDot1 < 0 && edgeDot2 < 0 && edgeDot3 < 0)
+        float edgeDot = Vector4.Dot(projCenter, edgeNorm1);
+        if (edgeDot > 0)
         {
-            return projPoint;
+            projCenter = UFunc.ProjectToVectorNormal(projCenter, edgeNorm1).normalized;
         }
 
-        //check edges
-
-        Vector4[] edgePoints = new Vector4[] {
-            (projPoint - edgeNorm1*edgeDot1).normalized,
-            (projPoint - edgeNorm2*edgeDot2).normalized,
-            (projPoint - edgeNorm3*edgeDot3).normalized
-        };
-
-        List<Vector4> validEdge = new List<Vector4>();
-
-        if (edgeDot1 > 0)
+        edgeDot = Vector4.Dot(projCenter, edgeNorm2);
+        if (edgeDot > 0)
         {
-            Vector4 edgePoint = (projPoint - edgeNorm1 * edgeDot1).normalized;
-            if (UFunc.BetweenS(p1, p2, edgePoint)) validEdge.Add(edgePoint);
-        }
-        if (edgeDot2 > 0)
-        {
-            Vector4 edgePoint = (projPoint - edgeNorm2 * edgeDot2).normalized;
-            if (UFunc.BetweenS(p2, p3, edgePoint)) validEdge.Add(edgePoint);
-        }
-        if (edgeDot3 > 0)
-        {
-            Vector4 edgePoint = (projPoint - edgeNorm3 * edgeDot3).normalized;
-            if (UFunc.BetweenS(p3, p1, edgePoint)) validEdge.Add(edgePoint);
+            projCenter = UFunc.ProjectToVectorNormal(projCenter, edgeNorm2).normalized;
         }
 
-        if (edgeDot2 < 0) validEdge.Add(p1);
-        if (edgeDot3 < 0) validEdge.Add(p2);
-        if (edgeDot1 < 0) validEdge.Add(p3);
-
-        Vector4 close = new Vector4();
-        if (validEdge.Count > 0)
+        edgeDot = Vector4.Dot(projCenter, edgeNorm3);
+        if (edgeDot > 0)
         {
-            close = validEdge[0];
-            foreach (Vector4 v in validEdge)
-            {
-                if (UFunc.Dot(point, v) > UFunc.Dot(point, close))
-                {
-                    close = v;
-                }
-            }
-            return close;
+            projCenter = UFunc.ProjectToVectorNormal(projCenter, edgeNorm3).normalized;
         }
 
-        return projPoint; //ya dont messed up your math if it gets here
+        return projCenter;
     }
 
     public static float LineCloseTri(Vector4 line1, Vector4 line2, Vector4 tri1, Vector4 tri2, Vector4 tri3, ref Vector4 outLine, ref Vector4 outTri)

@@ -136,10 +136,7 @@ public class TronMenuManager : MonoBehaviour
 
     public void InitialzeMenu()
     {
-        menuCamera.transform4.matrix = menuCamerStartMatrix; //Matrix4x4.identity;
-        //menuCamera.transform4.MoveTo(new Vector4(0.707f, 0f, 0.5f, 0.5f).normalized);
-        //Rotor orientRotor = new Rotor(menuCamera.transform4.zBasis, UFunc.Slerp4Angle(menuCamera.transform4.positionNorm, new Vector4(0, 0.707f, -0.5f, 0.5f), Mathf.PI/2));
-        //menuCamera.transform4.MoveRotor(orientRotor);
+        menuCamera.transform4.matrix = menuCamerStartMatrix;
 
         menuCamera.gameObject.SetActive(true);
 
@@ -147,6 +144,8 @@ public class TronMenuManager : MonoBehaviour
         isMenu = true;
 
         SetButtonSelectorTarget(selectedButton);
+
+        FindObjectOfType<TronUI>().SetUIActive(false);
     }
 
     public void StartSnake()
@@ -159,9 +158,11 @@ public class TronMenuManager : MonoBehaviour
 
         tronGameManager.foodNum = foodNumButton.ReadInt();
         tronGameManager.moveSpeed = speedButton.ReadFloat();
-        tronGameManager.playerCount = playerNumButton.ReadInt();
+        //tronGameManager.playerCount = playerNumButton.ReadInt();
 
         tronGameManager.InitializeGame();
+
+        FindObjectOfType<TronUI>().SetUIActive(true);
     }
 
     public void DisableMenu()

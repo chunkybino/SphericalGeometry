@@ -357,8 +357,8 @@ MonoBehaviour:
     e31: 0.42977026
     e32: 0.42977026
     e33: 0.6130839
-  scaleMult: {x: 1, y: 1, z: 1}
-  transformScale: {x: 0.01, y: 0.01, z: 0.01}
+  scaleMult: {x: 1, y: 1, z: 5}
+  transformScale: {x: 0.01, y: 0.01, z: 0.049999997}
   vertices:
   - {x: 0, y: 0, z: 1}
   - {x: 0.89442724, y: 0, z: 0.44721356}
@@ -709,8 +709,8 @@ MonoBehaviour:
     e31: 0.44736093
     e32: 0.44736093
     e33: 0.67899257
-  scaleMult: {x: 1, y: 1, z: 1}
-  transformScale: {x: 0.01, y: 0.01, z: 0.01}
+  scaleMult: {x: 1, y: 1, z: 5}
+  transformScale: {x: 0.01, y: 0.01, z: 0.049999997}
   vertices:
   - {x: 0, y: 0, z: 1}
   - {x: 0.89442724, y: 0, z: 0.44721356}
@@ -1033,8 +1033,12 @@ MonoBehaviour:
   gameActive: 0
   bikeIndex: 0
   controlIndex: 0
-  wide: 0.04
+  wide: 0.07
   radius: 0.008
+  widePoint1: {x: 0, y: 0, z: 0, w: 0}
+  widePoint2: {x: 0, y: 0, z: 0, w: 0}
+  prevWidePoint1: {x: 0, y: 0, z: 0, w: 0}
+  prevWidePoint2: {x: 0, y: 0, z: 0, w: 0}
 --- !u!114 &4093443161871033387
 MonoBehaviour:
   m_ObjectHideFlags: 0
