@@ -26,7 +26,8 @@ public class SnakeFoodManager : MonoBehaviour
 
     public void Reset()
     {
-        for (int i = 0; i < foods.Count; i++) {
+        for (int i = 0; i < foods.Count; i++)
+        {
             Destroy(foods[i].gameObject);
         }
         foods.Clear();
@@ -58,16 +59,7 @@ public class SnakeFoodManager : MonoBehaviour
     {
         SnakeFood food = Instantiate(foodPrefab);
 
-        Vector4 newPos = UFunc.RandPosS();
-        for (int i = 0; i < 10; i++)
-        {
-            bool check = BikeTrailHandler.singleton.CheckCollisionPoint(newPos, food.radius * foodSpawnBoundRadius);
-            print(check);
-            if (!check) break;
-            newPos = UFunc.RandPosS();
-        }
-
-        food.transform4.MoveTo(newPos);
+        MoveFood(food);
 
         foods.Add(food);
     }
@@ -97,8 +89,20 @@ public class SnakeFoodManager : MonoBehaviour
     {
         Vector4 newPos = UFunc.RandPosS();
 
-        food.transform4.MoveTo(newPos);
+        MoveFood(food);
 
         bike.lengthIncreaseGet++;
+    }
+
+    void MoveFood(SnakeFood food)
+    {
+        Vector4 newPos = UFunc.RandPosS();
+        for (int i = 0; i < 10; i++)
+        {
+            bool check = BikeTrailHandler.singleton.CheckCollisionPoint(newPos, food.radius * foodSpawnBoundRadius);
+            if (!check) break;
+            newPos = UFunc.RandPosS();
+        }
+        food.transform4.MoveTo(newPos);
     }
 }

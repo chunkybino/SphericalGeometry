@@ -180,18 +180,40 @@ public class BikeTrailHandler : MonoBehaviour
                 Vector4 point3 = UFunc.Slerp4Angle(pos2, binorm2, trailThick);
                 Vector4 point4 = UFunc.Slerp4Angle(pos2, binorm2, -trailThick);
 
+                /*
+                Vector4 norm = UFunc.HyperCross(point1,point2,point3).normalized;
+
+                Vector4 edgeNorm1 = UFunc.HyperCross(point1,point2,norm).normalized;
+                Vector4 edgeNorm2 = UFunc.HyperCross(point2,point3,norm).normalized;
+                Vector4 edgeNorm3 = UFunc.HyperCross(point3,point1,norm).normalized;
+                */
+
                 //float overlap1 = TriColliderS.LineCloseTri(bike.widePoint1, bike.widePoint2, point1, point2, point3, ref bikeClose, ref triClose);
                 //float overlap2 = TriColliderS.LineCloseTri(bike.widePoint1, bike.widePoint2, point3, point4, point2, ref bikeClose, ref triClose);
 
-                Vector4 close1 = TriColliderS.PointCloseTri(bike.transform4.positionNorm, point1, point2, point3);
-                Vector4 close2 = TriColliderS.PointCloseTri(bike.widePoint1, point1, point2, point3);
-                Vector4 close3 = TriColliderS.PointCloseTri(bike.widePoint2, point1, point2, point3);
+                float minDis = 1;
+            
+                CheckPoint(bike.transform4.positionNorm);
 
-                float distance1 = UFunc.DistanceS(close1, bike.transform4.positionNorm);
-                float distance2 = UFunc.DistanceS(close2, bike.widePoint1);
-                float distance3 = UFunc.DistanceS(close3, bike.widePoint2);
+                for (int i = 0; i < 2; i++)
+                {
+                    float slerpProgress = (i + 1) / 2;
 
-                float minDis = Mathf.Min(distance1, distance2, distance3);
+                    Vector4 p1 = UFunc.Slerp4(bike.prevWidePoint1, bike.widePoint1, slerpProgress);
+                    Vector4 p2 = UFunc.Slerp4(bike.prevWidePoint2, bike.widePoint2, slerpProgress);
+
+                    CheckPoint(p1);
+                    CheckPoint(p2);
+                }
+
+                void CheckPoint(Vector4 p)
+                {
+                    Vector4 close1 = TriColliderS.PointCloseTri(p, point1, point2, point3);
+                    Vector4 close2 = TriColliderS.PointCloseTri(p, point1, point2, point3);
+
+                    minDis = Mathf.Min(minDis, UFunc.DistanceS(p, close1));
+                    minDis = Mathf.Min(minDis, UFunc.DistanceS(p, close2));
+                }
 
                 if (minDis < bike.radius) return true;
 

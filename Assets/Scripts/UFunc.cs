@@ -518,7 +518,7 @@ public static class UFunc
         Vector4 outV = new Vector4();
         Vector4 outU = new Vector4();
 
-        UFunc.DoubleArcCloseUnclamped(v1, v2, u1, u2, ref outV, ref outU);
+        DoubleArcCloseUnclamped(v1, v2, u1, u2, ref outV, ref outU);
 
         bool onArc1 = BetweenS(v1, v2, outV);
         bool onArc2 = BetweenS(u1, u2, outU);

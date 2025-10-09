@@ -12,6 +12,4 @@ public class SnakeFood : MonoBehaviour
     {
         transform4 = GetComponent<Transform4D>();
     }
-
-
 }

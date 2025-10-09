@@ -151,7 +151,7 @@ public class BikeGuy : MonoBehaviour
     void FixedUpdate()
     {
         prevWidePoint1 = widePoint1;
-        prevWidePoint1 = widePoint2;
+        prevWidePoint2 = widePoint2;
         widePoint1 = UFunc.Slerp4Angle(transform4.positionNorm, transform4.xBasis, wide);
         widePoint2 = UFunc.Slerp4Angle(transform4.positionNorm, transform4.xBasis, -wide);
     }
