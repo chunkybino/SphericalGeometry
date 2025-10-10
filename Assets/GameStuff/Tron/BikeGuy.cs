@@ -158,7 +158,7 @@ public class BikeGuy : MonoBehaviour
 
         Vector4 newPos = UFunc.Slerp4Angle(new Vector4(0, 0, 1, 0), new Vector4(-turnMomentum.x, -turnMomentum.y, 0, 0).normalized, turnMomentum.magnitude * Time.deltaTime * gameManager.moveSpeed);
         Matrix4x4 rotMat = UFunc.MatrixBiReflect(new Vector4(0, 0, 1, 0), newPos);
-        Matrix4x4 spinMat = UFunc.MatXYRot(spinMomentum * Time.deltaTime);
+        Matrix4x4 spinMat = UFunc.MatXYRot(spinMomentum * gameManager.moveSpeed * Time.deltaTime);
 
         transform4.matrix = transform4.matrix * rotMat * spinMat;
     }
