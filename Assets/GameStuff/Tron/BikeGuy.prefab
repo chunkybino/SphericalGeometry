@@ -86,7 +86,7 @@ MonoBehaviour:
   onMatrixUpdate:
     m_PersistentCalls:
       m_Calls: []
-  doLocalPosition3: 0
+  doLocalPosition3: 1
   localPos3: {x: 0, y: 0, z: 0}
   localAngle3: {x: 0, y: 0, z: 0}
   m_scale: 0.02
@@ -235,7 +235,6 @@ GameObject:
   - component: {fileID: 6318902923378709713}
   - component: {fileID: 4982188803556555223}
   - component: {fileID: 3639893664396465757}
-  - component: {fileID: 3161168970719427293}
   m_Layer: 0
   m_Name: ball (2)
   m_TagString: Untagged
@@ -273,44 +272,44 @@ MonoBehaviour:
   parent: {fileID: 3105997814727630906}
   children: []
   m_matrix:
-    e00: 0.84718436
-    e01: -0.117380105
-    e02: -0.117380105
-    e03: 0.5047006
-    e10: -0.15000437
+    e00: 0.91492796
+    e01: -0.11738011
+    e02: -0.11738011
+    e03: 0.36790037
+    e10: -0.08187712
     e11: 0.88261986
-    e12: -0.11738013
-    e13: 0.4297709
-    e20: -0.15000437
-    e21: -0.11738013
+    e12: -0.11738011
+    e13: 0.44777256
+    e20: -0.08187712
+    e21: -0.11738011
     e22: 0.88261986
-    e23: 0.4297709
-    e30: -0.48710966
-    e31: -0.43980205
-    e32: -0.43980205
-    e33: 0.6130844
+    e23: 0.44777256
+    e30: -0.38665104
+    e31: -0.43980214
+    e32: -0.43980214
+    e33: 0.6809178
   m_localMatrix:
-    e00: 0.99718875
-    e01: -0.000000031887865
-    e02: -0.000000031887865
-    e03: 0.07492981
-    e10: -0.000000010558874
-    e11: 0.99999994
-    e12: -0.000000054239607
-    e13: 0.000000070259524
-    e20: -0.000000010558874
-    e21: -0.000000054239607
-    e22: 0.99999994
-    e23: 0.000000070259524
-    e30: -0.07492967
-    e31: 0.00000004738688
-    e32: 0.00000004738688
-    e33: 0.9971892
+    e00: 0.99680513
+    e01: 0
+    e02: 0
+    e03: -0.079872206
+    e10: 0
+    e11: 1
+    e12: 0
+    e13: 0
+    e20: 0
+    e21: 0
+    e22: 1
+    e23: 0
+    e30: 0.079872206
+    e31: 0
+    e32: 0
+    e33: 0.9968051
   onMatrixUpdate:
     m_PersistentCalls:
       m_Calls: []
-  doLocalPosition3: 0
-  localPos3: {x: 0, y: 0, z: 0}
+  doLocalPosition3: 1
+  localPos3: {x: -0.04, y: 0, z: 0}
   localAngle3: {x: 0, y: 0, z: 0}
   m_scale: 0.01
   scaleWithWorldRadius: 0
@@ -341,22 +340,22 @@ MonoBehaviour:
   meshColor: {r: 0, g: 0.8488977, b: 0.9056604, a: 1}
   initialize: 0
   transformMatrix:
-    e00: 0.8471845
-    e01: -0.15000439
-    e02: -0.15000439
-    e03: -0.48710987
+    e00: 0.9149279
+    e01: -0.08187717
+    e02: -0.0818772
+    e03: -0.38665113
     e10: -0.11738016
-    e11: 0.88262
-    e12: -0.117380105
-    e13: -0.43980235
-    e20: -0.11738012
-    e21: -0.11738008
-    e22: 0.8826199
-    e23: -0.43980232
-    e30: 0.50469995
-    e31: 0.42977026
-    e32: 0.42977026
-    e33: 0.6130839
+    e11: 0.8826198
+    e12: -0.11738017
+    e13: -0.43980223
+    e20: -0.117380165
+    e21: -0.117380165
+    e22: 0.88261986
+    e23: -0.4398023
+    e30: 0.36790022
+    e31: 0.44777244
+    e32: 0.44777247
+    e33: 0.68091774
   scaleMult: {x: 1, y: 1, z: 5}
   transformScale: {x: 0.01, y: 0.01, z: 0.049999997}
   vertices:
@@ -445,38 +444,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &3161168970719427293
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4096289132622894215}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b0d3c5384fe237645ac378bcda77ebfd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  transform4: {fileID: 115859635437337528}
-  data:
-    position: {x: 0.37243178, y: 0.44736156, z: 0.44736156, w: 0.6789926}
-    color: {x: 1, y: 0.09570472, z: 0}
-    intensity: 10
-    ambience: 0
-    direction: {x: 0.72865444, y: 0.023535533, z: -0.6835713, w: 0.035199888}
-    rangeAngle: 0.08726646
-    rangeFalloffAngleMult: 5.729578
-    falloffDegree: 36
-  color: {r: 1, g: 0.09570472, b: 0, a: 0}
-  intensity: 10
-  doFalloff: 1
-  falloffDegree: 36
-  ambience: 0
-  direction: {x: 1, y: 0, z: -1}
-  range: 5
-  rangeFalloff: 10
-  castShadows: 0
-  dirty: 1
 --- !u!1 &4380382575167429612
 GameObject:
   m_ObjectHideFlags: 0
@@ -587,7 +554,6 @@ GameObject:
   - component: {fileID: 462595084559092483}
   - component: {fileID: 1501846915629435209}
   - component: {fileID: 6094305855566147552}
-  - component: {fileID: 3359585104742456875}
   m_Layer: 0
   m_Name: ball (1)
   m_TagString: Untagged
@@ -625,44 +591,44 @@ MonoBehaviour:
   parent: {fileID: 3105997814727630906}
   children: []
   m_matrix:
-    e00: 0.91309285
-    e01: -0.11738017
-    e02: -0.11738017
-    e03: 0.37243178
-    e10: -0.084095925
+    e00: 0.844672
+    e01: -0.11738011
+    e02: -0.11738011
+    e03: 0.50889397
+    e10: -0.15213308
     e11: 0.88261986
-    e12: -0.117380194
-    e13: 0.44736156
-    e20: -0.084095925
-    e21: -0.117380194
+    e12: -0.11738011
+    e13: 0.42902175
+    e20: -0.15213308
+    e21: -0.11738011
     e22: 0.88261986
-    e23: 0.44736156
-    e30: -0.39002192
-    e31: -0.43980208
-    e32: -0.43980208
-    e33: 0.6789926
+    e23: 0.42902175
+    e30: -0.490143
+    e31: -0.43980214
+    e32: -0.43980214
+    e33: 0.61066186
   m_localMatrix:
-    e00: 0.99718875
-    e01: -0.000000092311
-    e02: -0.000000092311
-    e03: -0.07492942
-    e10: -0.000000010719343
-    e11: 0.9999999
-    e12: -0.00000011466274
-    e13: 0.0000003491812
-    e20: -0.000000010719343
-    e21: -0.00000011466274
-    e22: 0.9999999
-    e23: 0.0000003491812
-    e30: 0.074929684
-    e31: 0.00000004668094
-    e32: 0.00000004668094
-    e33: 0.9971896
+    e00: 0.99680513
+    e01: 0
+    e02: 0
+    e03: 0.079872206
+    e10: 0
+    e11: 1
+    e12: 0
+    e13: 0
+    e20: 0
+    e21: 0
+    e22: 1
+    e23: 0
+    e30: -0.079872206
+    e31: 0
+    e32: 0
+    e33: 0.9968051
   onMatrixUpdate:
     m_PersistentCalls:
       m_Calls: []
-  doLocalPosition3: 0
-  localPos3: {x: 0, y: 0, z: 0}
+  doLocalPosition3: 1
+  localPos3: {x: 0.04, y: 0, z: 0}
   localAngle3: {x: 0, y: 0, z: 0}
   m_scale: 0.01
   scaleWithWorldRadius: 0
@@ -693,22 +659,22 @@ MonoBehaviour:
   meshColor: {r: 0, g: 0.8488977, b: 0.9056604, a: 1}
   initialize: 0
   transformMatrix:
-    e00: 0.9130929
-    e01: -0.08409594
-    e02: -0.084095955
-    e03: -0.39002216
-    e10: -0.11738025
+    e00: 0.84467196
+    e01: -0.15213309
+    e02: -0.15213308
+    e03: -0.49014306
+    e10: -0.11738014
     e11: 0.88261986
-    e12: -0.11738018
-    e13: -0.43980253
-    e20: -0.11738023
-    e21: -0.11738016
-    e22: 0.88261974
-    e23: -0.43980247
-    e30: 0.3724312
-    e31: 0.44736078
-    e32: 0.44736078
-    e33: 0.6789922
+    e12: -0.117380135
+    e13: -0.43980223
+    e20: -0.11738013
+    e21: -0.11738013
+    e22: 0.8826199
+    e23: -0.4398022
+    e30: 0.5088938
+    e31: 0.42902157
+    e32: 0.42902157
+    e33: 0.61066175
   scaleMult: {x: 1, y: 1, z: 5}
   transformScale: {x: 0.01, y: 0.01, z: 0.049999997}
   vertices:
@@ -797,38 +763,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &3359585104742456875
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4762776250850606764}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b0d3c5384fe237645ac378bcda77ebfd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  transform4: {fileID: 115859635437337528}
-  data:
-    position: {x: 0.37243178, y: 0.44736156, z: 0.44736156, w: 0.6789926}
-    color: {x: 1, y: 0.09570472, z: 0}
-    intensity: 10
-    ambience: 0
-    direction: {x: -0.56265384, y: 0.14246513, z: -0.56464165, w: 0.5867742}
-    rangeAngle: 0.08726646
-    rangeFalloffAngleMult: 5.729578
-    falloffDegree: 36
-  color: {r: 1, g: 0.09570472, b: 0, a: 0}
-  intensity: 10
-  doFalloff: 1
-  falloffDegree: 36
-  ambience: 0
-  direction: {x: -1, y: 0, z: -1}
-  range: 5
-  rangeFalloff: 10
-  castShadows: 0
-  dirty: 1
 --- !u!1 &5078856929466986462
 GameObject:
   m_ObjectHideFlags: 0

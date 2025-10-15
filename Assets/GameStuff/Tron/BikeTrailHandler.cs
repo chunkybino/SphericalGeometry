@@ -265,20 +265,33 @@ public class BikeTrailHandler : MonoBehaviour
         float boundingDot = Mathf.Cos(trailThick + radius);
 
         bool collisionYes = false;
-        for (int j = 0; j < trailDatas.Count; j++)
-        {
-            List<Vector4> points = trailDatas[j].collisionPoints;
-            for (int i = 0; i < points.Count - 5; i++)
-            {
-                float dot = Vector4.Dot(checkPoint, points[i]);
 
-                if (dot > boundingDot)
+        for (int i = 0; i < 3; i++)
+        {
+            for (int j = i + 1; j < 4; j++)
+            {
+                float dis = Mathf.Acos(Mathf.Sqrt(checkPoint[i] * checkPoint[i] + checkPoint[j] * checkPoint[j]));
+                if (dis < radius + worldRingCollisionRadius)
                 {
-                    bool yeah = CheckPlane(i, trailDatas[j]);
-                    if (yeah) return true;
+                    return true;
                 }
             }
         }
+
+        for (int j = 0; j < trailDatas.Count; j++)
+            {
+                List<Vector4> points = trailDatas[j].collisionPoints;
+                for (int i = 0; i < points.Count - 5; i++)
+                {
+                    float dot = Vector4.Dot(checkPoint, points[i]);
+
+                    if (dot > boundingDot)
+                    {
+                        bool yeah = CheckPlane(i, trailDatas[j]);
+                        if (yeah) return true;
+                    }
+                }
+            }
 
         return false;
 

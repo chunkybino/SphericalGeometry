@@ -6,6 +6,12 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/GameStuff/Tron/Scenes/TronMenu.unity
+    guid: f0bb0406c64618f43a8770c515c08cf0
+  - enabled: 1
+    path: Assets/GameStuff/Tron/Scenes/TronSnake.unity
+    guid: 9585c96a982616c4ea4c668ed638bb3f
+  - enabled: 1
     path: Assets/Scenes/SampleScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
   m_configObjects:

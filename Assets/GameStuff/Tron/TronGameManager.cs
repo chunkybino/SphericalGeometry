@@ -93,6 +93,7 @@ public class TronGameManager : MonoBehaviour
         SnakeFoodManager.singleton.foodSpawnNum = foodNum;
 
         tronUI = FindObjectOfType<TronUI>();
+        tronUI.SetUIActive(true);
 
         StartCoroutine("StartGameCoroutine");
     }
