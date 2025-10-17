@@ -195,9 +195,9 @@ public class BikeTrailHandler : MonoBehaviour
             
                 CheckPoint(bike.transform4.positionNorm);
 
-                for (int i = 0; i < 2; i++)
+                for (int i = 0; i < 4; i++)
                 {
-                    float slerpProgress = (i + 1) / 2;
+                    float slerpProgress = (i + 1) / 4;
 
                     Vector4 p1 = UFunc.Slerp4(bike.prevWidePoint1, bike.widePoint1, slerpProgress);
                     Vector4 p2 = UFunc.Slerp4(bike.prevWidePoint2, bike.widePoint2, slerpProgress);

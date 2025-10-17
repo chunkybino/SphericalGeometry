@@ -20,6 +20,10 @@ Shader "MineTron/Boring"
         _DoubleSideLit("DoubelSideLit", Float) = 0
 
         _DoShadow("DoShadow", Float) = 1
+
+        _DoGlow("DoGlow", Float) = 0
+        _GlowIntensity("GlowIntensity", float) = 1
+        _GlowColor("GlowColor", Color) = (1,1,1)
     }
 
     SubShader
@@ -71,6 +75,10 @@ Shader "MineTron/Boring"
 
             float _Lit;
             float _DoubleSideLit;
+
+            float _DoGlow;
+            float _GlowIntensity;
+            fixed4 _GlowColor;
 
             struct LightData
             {
@@ -314,6 +322,13 @@ Shader "MineTron/Boring"
                 pixelColor = tex2D(_MainTexture, IN.uv);
                 pixelColor *= _Color;
 
+                if (_DoGlow == 1) {
+                    pixelColor.r *= _GlowColor.r;
+                    pixelColor.b *= _GlowColor.b;
+                    pixelColor.g *= _GlowColor.g;
+                    pixelColor *= _GlowIntensity;
+                }
+
                 //fog?
                 float distanceDot = dot(normalize(IN.positionWorld),UNITY_MATRIX_V[3]);
                 //distanceDot = (1-distanceDot)/2;
@@ -321,9 +336,6 @@ Shader "MineTron/Boring"
                 if (darkScale < 0) darkScale = 0;
                 float tanScale = 0.25f*(3/(2*distanceDot+4) - 0.5f);
                 float3 fogColor = float3(0.8,0.8,0.8);
-
-                //pixelColor = pixelColor.rbg + tanScale*(fogColor - pixelColor.rbg);
-                //pixelColor = pixelColor.rbg + darkScale*(float3(0,0,0) - pixelColor.rbg);
 
                 pixelColor.rbg = float3(lerp(pixelColor.r,fogColor.x,tanScale),lerp(pixelColor.b,fogColor.y,tanScale),lerp(pixelColor.g,fogColor.z,tanScale));
                 pixelColor *= 1-darkScale;
