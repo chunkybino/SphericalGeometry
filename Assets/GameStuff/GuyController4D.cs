@@ -50,6 +50,8 @@ public class GuyController4D : MonoBehaviour
     bool isAfterDashAccel { get { return timeSinceDash < afterDashAccelTime; } }
 
     //swing
+    [SerializeField] bool disableSwing;
+
     bool isSwingCharge;
     bool swingActive;
     bool swingCharged;
@@ -59,6 +61,7 @@ public class GuyController4D : MonoBehaviour
     [SerializeField] ColliderS swingCollider;
     [SerializeField] float swingSpeed = 2;
     [SerializeField] float swingSpeedCharged = 3f;
+    [SerializeField] float swingMass = 1;
 
     //anim
     [SerializeField] Animator animator;
@@ -107,6 +110,22 @@ public class GuyController4D : MonoBehaviour
             StartDash();
         }
 
+        if (!disableSwing)
+        {
+            SwingFunc();
+        }
+        else
+        {
+            if (isSwingCharge || swingActive)
+            {
+                isSwingCharge = false;
+                EndActiveSwing();
+            }
+        }
+    }
+
+    void SwingFunc()
+    {
         if (input.leftClick) 
         {
             StartSwingCharge();
@@ -272,7 +291,8 @@ public class GuyController4D : MonoBehaviour
 
             Vector4 rbAttackDir = new Rotor(attackPos, colliderRB.transform4.positionNorm) * attackDir;
 
-            colliderRB.SetVelocityTowards(rbAttackDir, spd);
+            colliderRB.CollidePointMass(transform4.positionNorm, rbAttackDir*spd, swingMass);
+            //colliderRB.SetVelocityTowards(rbAttackDir, spd);
         }
     }
 }

@@ -22,6 +22,14 @@ public class Rigidbody4D : MonoBehaviour
 
     public Vector4 velocity;
     public Vector3 angularVelocity;
+    public Vector4 angularVelocity4
+    {
+        get { return transform4.matrix * new Vector4(angularVelocity.x, angularVelocity.y, angularVelocity.z, 0); }
+        set
+        {
+            angularVelocity = transform4.RelativeDirectionTo(value);
+        }
+    }
 
     [SerializeField] float velocityMagnitude;
     [SerializeField] float angularVelocityMagnitude;
@@ -390,6 +398,41 @@ public class Rigidbody4D : MonoBehaviour
             return UFunc.SetVectorDirectionValue(currentLinear, direction, newDot);
         }
     }
+
+    public void CollidePointMass(Vector4 attackPoint, Vector4 attackVel, float attackMass)
+    {
+        if (isStatic) return;
+
+        float totalMass = mass + attackMass;
+        float mass1 = mass / totalMass;
+        float mass2 = attackMass / totalMass;
+
+        Vector4 centroid = UFunc.Slerp4(positionNorm, attackPoint, mass1);
+
+        float thisCentroidDis = UFunc.DistanceS(positionNorm, centroid);
+        float attackCentroidDis = UFunc.DistanceS(attackPoint, centroid);
+        Vector4 directionCentroidToAttack = UFunc.DirectionFromTo(centroid, attackPoint).normalized * attackCentroidDis;
+
+        Vector4 attackVelCentroid = new Rotor(attackPoint, centroid) * attackVel;
+        Vector4 thisVelCentroid = GetLinearVelocityAtAnchor(centroid);
+
+        Vector4 totalLinearMomentum = thisVelCentroid * mass1 + attackVelCentroid * mass2;
+
+        Vector4 thisAngularCentroid = new Rotor(positionNorm, centroid) * angularVelocity4;
+        float thisAngularMass = mass1 * (angularMassMult + thisCentroidDis * thisCentroidDis);
+
+        Vector4 attackAngularMomentum = mass2 * UFunc.HyperCross(directionCentroidToAttack, attackVelCentroid, centroid);
+
+        Vector4 totalAngularMomentum = thisAngularCentroid * thisAngularMass + attackAngularMomentum;
+        float totalAngularMass = thisAngularMass + mass2 * attackCentroidDis * attackCentroidDis;
+
+        Vector4 linearVel = new Rotor(centroid, positionNorm) * totalLinearMomentum;
+        Vector4 angularVel = new Rotor(centroid, positionNorm) * totalAngularMomentum / totalAngularMass;
+
+        velocity = linearVel;
+        angularVelocity4 = angularVel;
+    }
+    
 
     public void AddStaticContact(Vector4 normal, float vel, Vector4 pos)
     {

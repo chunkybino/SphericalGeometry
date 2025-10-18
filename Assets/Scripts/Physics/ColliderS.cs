@@ -107,8 +107,8 @@ public abstract class ColliderS : MonoBehaviour
     }
 
     public static bool CollisionPhysic(ColliderS c1, ColliderS c2)
-    { 
-        ContactData conData = FindCollisionType(c1,c2);
+    {
+        ContactData conData = FindCollisionType(c1, c2);
 
         float overlap = conData.overlap;
         Vector4 contact1 = conData.contact1;
@@ -124,19 +124,82 @@ public abstract class ColliderS : MonoBehaviour
         if (c1.isStatic) mass2 = 0;
         if (c2.isStatic) mass1 = 0;
 
-        float totalMass = mass1+mass2;
+        float totalMass = mass1 + mass2;
 
-        float push1 = mass2/totalMass; 
-        float push2 = mass1/totalMass;  //the percent of push for c1 and c2
+        float push1 = mass1 / totalMass;
+        float push2 = mass2 / totalMass;  //the percent of push for c1 and c2
 
-        float bounce = 1 - (1-c1.bounce)*(1-c2.bounce);
+        float bounce = 1 - (1 - c1.bounce) * (1 - c2.bounce);
 
-        Vector4 contact = UFunc.Slerp4(contact1, contact2, push1);
+        Vector4 contact = UFunc.Slerp4(contact1, contact2, push2);
 
         contactNormal = UFunc.ProjectToVectorNormal(contactNormal, contact).normalized;
 
         if (!c1.isStatic) c1.transform4.LeftMult(UFunc.RotateTowardsMatrix(contact1, contact));
         if (!c2.isStatic) c2.transform4.LeftMult(UFunc.RotateTowardsMatrix(contact2, contact));
+
+
+        //the new stuff here
+
+        //rb 1
+        float centerDis1 = UFunc.DistanceS(c1.transform4.positionNorm, contact);
+        Vector4 dirContactToRb1 = UFunc.DirectionFromTo(contact, c1.transform4.positionNorm) * centerDis1;
+        Vector4 linearVel1 = new Rotor(c1.transform4.positionNorm, contact) * c1.rigidbody4.velocity;
+        Vector4 angularVel1 = new Rotor(c1.transform4.positionNorm, contact) * c1.rigidbody4.angularVelocity4;
+
+        //float linearDot1 = Vector4.Dot(linearVel1, contactNormal);
+        Vector4 linearMomentum1 = linearVel1 * push1;
+
+        float perpAxisDis1 = UFunc.HyperCross(dirContactToRb1, angularVel1.normalized, contact).magnitude;
+        float angularMass1 = push1 * (c1.angularMassMult + perpAxisDis1*perpAxisDis1);
+
+        Vector4 angularMomentum1 = angularVel1 * angularMass1;
+
+        //rb2
+        float centerDis2 = UFunc.DistanceS(c2.transform4.positionNorm, contact);
+        Vector4 dirContactToRb2 = UFunc.DirectionFromTo(contact, c2.transform4.positionNorm) * centerDis2;
+        Vector4 linearVel2 = new Rotor(c2.transform4.positionNorm, contact) * c2.rigidbody4.velocity;
+        Vector4 angularVel2 = new Rotor(c2.transform4.positionNorm, contact) * c2.rigidbody4.angularVelocity4;
+
+        //float linearDot2 = Vector4.Dot(linearVel2, contactNormal);
+        Vector4 linearMomentum2 = linearVel2 * push2;
+
+        float perpAxisDis2 = UFunc.HyperCross(dirContactToRb2, angularVel2.normalized, contact).magnitude;
+        float angularMass2 = push2 * (c2.angularMassMult + perpAxisDis2*perpAxisDis2);
+
+        Vector4 angularMomentum2 = angularVel2 * angularMass2;
+
+        //the totals
+        Vector4 totalLinearMomentum = linearMomentum1 + linearMomentum2;
+        Vector4 totalAngularMomentum = angularMomentum1 + angularMomentum2;
+
+        Vector4 totalLinearVelocity = totalLinearMomentum / 1;
+
+        Vector4 finalLinearVel1 = new Rotor(contact, c1.transform4.positionNorm) * totalLinearVelocity;
+        Vector4 finalLinearVel2 = new Rotor(contact, c2.transform4.positionNorm) * totalLinearVelocity;
+
+        float newPerpAxisDis1 = UFunc.HyperCross(dirContactToRb1, totalAngularMomentum.normalized, contact).magnitude;
+        float newAngularMass1 = push1 * (c1.angularMassMult + newPerpAxisDis1*newPerpAxisDis1);
+
+        float newPerpAxisDis2 = UFunc.HyperCross(dirContactToRb2, totalAngularMomentum.normalized, contact).magnitude;
+        float newAngularMass2 = push2 * (c1.angularMassMult + newPerpAxisDis1*newPerpAxisDis1);
+
+        Vector4 totalAngularVelocity = totalAngularMomentum / (newAngularMass1 + newAngularMass2);
+
+        Vector4 finalAngularVel1 = new Rotor(contact, c1.transform4.positionNorm) * totalAngularVelocity;
+        Vector4 finalAngularVel2 = new Rotor(contact, c2.transform4.positionNorm) * totalAngularVelocity;
+
+        c1.rigidbody4.velocity = finalLinearVel1;
+        c1.rigidbody4.angularVelocity4 = finalAngularVel1;
+
+        c2.rigidbody4.velocity = finalLinearVel1;
+        c2.rigidbody4.angularVelocity4 = finalAngularVel2;
+
+
+        return true;
+
+
+        /*
 
         //velocity stuff
 
@@ -156,7 +219,7 @@ public abstract class ColliderS : MonoBehaviour
 
         if (vel1 < vel2) return true; //if the velDifference is negative, then the objects arnt moving towards eachotjher, so doint do velocity calucations
 
-        if (c1.isStatic) 
+        if (c1.isStatic)
         {
             c2.rigidbody4.ApplyStaticForce(contactNormal, 0, contact, bounce);
 
@@ -168,8 +231,8 @@ public abstract class ColliderS : MonoBehaviour
             c2.rigidbody4.AddStaticContact(contactNormal, 0, contact);
 
             return true;
-        } 
-        else if (c2.isStatic) 
+        }
+        else if (c2.isStatic)
         {
             c1.rigidbody4.ApplyStaticForce(-contactNormal, 0, contact, bounce);
 
@@ -187,8 +250,8 @@ public abstract class ColliderS : MonoBehaviour
             float angularPush1 = c1.angularMass / (c1.angularMass + c2.angularMass);
             float angularPush2 = c2.angularMass / (c1.angularMass + c2.angularMass);
 
-            float linearVel = linDot1*(push2) + linDot2*(push1);
-            float angularVel = angDot1*angularPush1 + angDot2*angularPush2;
+            float linearVel = linDot1 * (push2) + linDot2 * (push1);
+            float angularVel = angDot1 * angularPush1 + angDot2 * angularPush2;
             float vel = linearVel + angularVel;
 
             c1.rigidbody4.ApplyStaticForce(-contactNormal, -vel, contact, bounce);
@@ -196,6 +259,7 @@ public abstract class ColliderS : MonoBehaviour
         }
 
         return true;
+        */
     }
 
     struct ContactData

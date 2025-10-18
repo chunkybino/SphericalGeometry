@@ -551,18 +551,18 @@ MonoBehaviour:
     e01: 0.33534414
     e02: -0.193567
     e03: 0.09366103
-    e10: -0.25503832
-    e11: 0.81201696
-    e12: 0.37568337
-    e13: 0.36666852
+    e10: -0.25503835
+    e11: 0.812017
+    e12: 0.3756834
+    e13: 0.36666864
     e20: 0.30190253
     e21: -0.26719642
     e22: 0.90629363
     e23: -0.12685756
     e30: 0.0500657
-    e31: -0.39595288
-    e32: -0.0050729522
-    e33: 0.91689116
+    e31: -0.395953
+    e32: -0.0050729215
+    e33: 0.9168916
   m_localMatrix:
     e00: 1
     e01: 0
@@ -669,21 +669,21 @@ MonoBehaviour:
   initialize: 0
   transformMatrix:
     e00: 0.9172261
-    e01: -0.25503835
+    e01: -0.25503832
     e02: 0.3019025
-    e03: 0.050065704
-    e10: 0.33534417
+    e03: 0.05006572
+    e10: 0.3353442
     e11: 0.81201714
-    e12: -0.2671964
-    e13: -0.39595282
+    e12: -0.26719642
+    e13: -0.3959528
     e20: -0.19356696
-    e21: 0.37568337
+    e21: 0.37568334
     e22: 0.9062936
-    e23: -0.0050730086
+    e23: -0.005073031
     e30: 0.09366102
-    e31: 0.36666837
+    e31: 0.36666825
     e32: -0.12685755
-    e33: 0.9168907
+    e33: 0.91689026
   scaleMult: {x: 0.1, y: 1, z: 0.1}
   transformScale: {x: 0.0050000004, y: 0.05, z: 0.0050000004}
   vertices:
@@ -1280,6 +1280,7 @@ MonoBehaviour:
     e31: -0.34289783
     e32: 0
     e33: 0.9393729
+  doPitchAngle: 1
   pitchAngle: 0
 --- !u!114 &330585549
 MonoBehaviour:
@@ -1822,7 +1823,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!23 &440735189
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -2191,18 +2192,18 @@ MonoBehaviour:
     e01: 0.34301436
     e02: -0.193567
     e03: 0.059743103
-    e10: -0.25503832
-    e11: 0.84454244
-    e12: 0.37568337
-    e13: 0.28384054
+    e10: -0.25503835
+    e11: 0.8445425
+    e12: 0.3756834
+    e13: 0.28384066
     e20: 0.30190253
     e21: -0.2785179
     e22: 0.90629363
     e23: -0.09957185
     e30: 0.0500657
-    e31: -0.3025176
-    e32: -0.0050729522
-    e33: 0.95181465
+    e31: -0.30251765
+    e32: -0.0050729215
+    e33: 0.95181507
   m_localMatrix:
     e00: 0.9172261
     e01: 0.34301436
@@ -3627,11 +3628,13 @@ MonoBehaviour:
     m_RotationOrder: 4
   afterDashAccelMult: 0.4
   afterDashAccelTime: 0.3
+  disableSwing: 0
   swingChargeTime: 0.4
   swingActiveTime: 0.2
   swingCollider: {fileID: 1238272060}
   swingSpeed: 2
   swingSpeedCharged: 3.5
+  swingMass: 1
   animator: {fileID: 665110789}
   racketAnimLayer: 0
 --- !u!114 &665110784
@@ -3686,10 +3689,10 @@ MonoBehaviour:
   parent: {fileID: 0}
   children:
   - {fileID: 1774161676}
-  - {fileID: 1786605945}
   - {fileID: 871264117}
   - {fileID: 927178209}
   - {fileID: 1612277668}
+  - {fileID: 1786605945}
   m_matrix:
     e00: 1
     e01: 0
@@ -4983,7 +4986,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!23 &730136459
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -6610,34 +6613,19 @@ MonoBehaviour:
   shadowLightDatasCount: 1
   totalShadowTriLength: 0
   shadowSend: []
-  sphereShadowSend:
-  - 0.36226684
-  - 0.7554444
-  - 0.37069514
-  - -0.40082592
-  - 0.98722726
-  - 0.17486228
-  - 0.5212318
-  - 0.3074519
-  - -0.776675
-  - 0.971338
-  - 0.5837432
-  - 0.7016647
-  - 0.28889444
-  - 0.28889444
-  - 0.9950042
+  sphereShadowSend: []
   meshProfiles:
     theHandler: {fileID: 1083750111}
     shadowCount: 0
     prevShadowCount: 0
-    casterIndicies: 0100000002000000030000000500000006000000070000000800000009000000
+    casterIndicies: 0000000001000000020000000300000004000000050000000600000007000000
     bufferElementSize: 64
     bufferName: _ShadowData
   sphereProfiles:
     theHandler: {fileID: 1083750111}
-    shadowCount: 3
-    prevShadowCount: 3
-    casterIndicies: 00000000040000000a000000
+    shadowCount: 0
+    prevShadowCount: 0
+    casterIndicies: 
     bufferElementSize: 20
     bufferName: _ShadowSphereData
   disableShadows: 0
@@ -7528,6 +7516,10 @@ MonoBehaviour:
   - {fileID: 14870709}
   - {fileID: 14870709}
   - {fileID: 1457274186}
+  - {fileID: 14870709}
+  - {fileID: 14870709}
+  - {fileID: 14870709}
+  - {fileID: 14870709}
   - {fileID: 14870709}
   - {fileID: 14870709}
   - {fileID: 14870709}
@@ -12355,17 +12347,17 @@ MonoBehaviour:
     e02: 0
     e03: 0
     e10: 0
-    e11: 0.9393727
+    e11: 0.9393728
     e12: 0
-    e13: 0.34289786
+    e13: 0.34289798
     e20: 0
     e21: 0
     e22: 1
     e23: 0
     e30: 0
-    e31: -0.34289783
+    e31: -0.3428979
     e32: 0
-    e33: 0.9393729
+    e33: 0.9393733
   m_localMatrix:
     e00: 1
     e01: 0
@@ -13631,7 +13623,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &5324910774709287075
 MonoBehaviour:
   m_ObjectHideFlags: 0

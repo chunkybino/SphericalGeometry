@@ -643,6 +643,10 @@ public static class UFunc
         return (v - Vector4.Dot(v, planeNorm) * planeNorm).normalized;
     }
 
+    public static Vector4 SetVectorDirectionValue(Vector4 vec, Vector4 direction)
+    {
+        return SetVectorDirectionValue(vec, direction, direction.magnitude);
+    }
     public static Vector4 SetVectorDirectionValue(Vector4 vec, Vector4 direction, float value)
     {
         if (direction == Vector4.zero) return vec;
