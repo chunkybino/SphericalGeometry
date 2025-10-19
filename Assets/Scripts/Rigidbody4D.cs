@@ -290,21 +290,10 @@ public class Rigidbody4D : MonoBehaviour
     }
     public Vector4 GetVelocityAtAnchor(Vector4 anchor)
     {
-        Matrix4x4 mat = UFunc.RotateTowardsMatrix(positionNorm, anchor);
+        Rotor rot = new Rotor(positionNorm,anchor);
+        Vector4 directionTo = UFunc.DirectionFromTo(positionNorm,anchor).normalized;
 
-        Vector4 linear = mat * velocity;
-
-        Vector4 anchorRel = transform4.matrix.transpose * anchor;
-        Vector3 anchor3 = new Vector3(anchorRel.x,anchorRel.y,anchorRel.z);
-
-        if (angularVelocityMagnitude == 0) return linear;
-
-        Vector3 angularDir3 = Vector3.Cross(angularVelocity, anchor3);
-        Vector4 angularDir = new Vector4(angularDir3.x,angularDir3.y,angularDir3.z,0).normalized;
-
-        Vector4 angular = angularDir * angularVelocity.magnitude * UFunc.DistanceS(positionNorm,anchor);
-
-        return linear + angular;
+        return rot * (velocity + UFunc.HyperCross(directionTo,angularVelocity4,positionNorm));
     }
 
     public void AddLinearVelocityAtAnchor(Vector4 vel, Vector4 anchor)
@@ -397,6 +386,46 @@ public class Rigidbody4D : MonoBehaviour
         {
             return UFunc.SetVectorDirectionValue(currentLinear, direction, newDot);
         }
+    }
+
+    public void AddImpulse(Vector4 impulse, Vector4 attackPoint)
+    {
+        if (isStatic) return;
+
+        Vector4 toAttackPoint = UFunc.DirectionFromTo(positionNorm, attackPoint).normalized * UFunc.DistanceS(positionNorm, attackPoint);
+        impulse = new Rotor(attackPoint, positionNorm) * impulse;
+
+        Vector4 direction = impulse.normalized;
+
+        Vector4 angularAlign = UFunc.HyperCross(toAttackPoint, direction, positionNorm);
+
+        float currentVel = Vector4.Dot(velocity,direction) + Vector4.Dot(angularVelocity4, angularAlign);
+        float impulseNeed = -currentVel / (1/mass + angularAlign.sqrMagnitude/angularMass);
+        //impulse = direction * impulseNeed;
+
+        Vector4 linearAdd = impulse/mass;
+        Vector4 angularAdd = UFunc.HyperCross(toAttackPoint, impulse, positionNorm)/angularMass;
+
+        if (!dontReciveAngularVelocity)
+        {
+            print(impulse.magnitude+" "+impulseNeed);
+            print(currentVel+" current "+(1/mass + angularAlign.sqrMagnitude/angularMass)+" "+angularAlign.sqrMagnitude);
+            print(angularVelocity4+" "+angularAlign+" "+angularAdd+" "+(-angularAdd));
+
+            Vector4 velAtPoint = GetVelocityAtAnchor(attackPoint);
+            print(velAtPoint+" "+velAtPoint.magnitude);
+
+            velocity += linearAdd;
+            angularVelocity4 += angularAdd;
+
+            velAtPoint = GetVelocityAtAnchor(attackPoint);
+            print(velAtPoint+" "+UFunc.Dot(velAtPoint,impulse.normalized));
+
+            return;
+        }
+
+        velocity += linearAdd;
+        angularVelocity4 += angularAdd;
     }
 
     public void CollidePointMass(Vector4 attackPoint, Vector4 attackVel, float attackMass)
