@@ -79,7 +79,7 @@ public static class UFunc
 
     public static Vector4 ProjectToVectorNormal(Vector4 v1, Vector4 normal)
     {
-        return v1 - normal * UFunc.Dot(normal.normalized, v1);
+        return v1 - normal * Vector4.Dot(normal.normalized, v1);
     }
     public static Vector4 OrthoNormal(Vector4 v1, Vector4 normal)
     {

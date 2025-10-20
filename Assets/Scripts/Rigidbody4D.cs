@@ -48,7 +48,7 @@ public class Rigidbody4D : MonoBehaviour
     public float bounce = 0;
 
     public float friction = 0;
-    public float angularFrictionMult = 0;
+    public float rollingFrictionMult = 0;
 
     public bool dontReciveAngularVelocity;
 
@@ -87,7 +87,7 @@ public class Rigidbody4D : MonoBehaviour
     PhysicsHandlerS physicsS;
 
     [SerializeField] List<Vector4> staticContactNormals = new List<Vector4>();
-    //[SerializeField] List<Vector4> staticContactPoints = new List<Vector4>();
+    [SerializeField] List<Vector4> staticContactPoints = new List<Vector4>();
     //[SerializeField] List<float> staticContactVels = new List<float>();
 
     bool moveThisFixedFrame; //did we mupdate our transform this fixed frame
@@ -153,7 +153,7 @@ public class Rigidbody4D : MonoBehaviour
         collider?.PhysicsUpdate();
 
         staticContactNormals.Clear();
-        //staticContactPoints.Clear();
+        staticContactPoints.Clear();
         //staticContactVels.Clear();
     }
     public void PhysicsUpdate2()
@@ -176,6 +176,14 @@ public class Rigidbody4D : MonoBehaviour
         {
             if (friction == 0) continue;
 
+            Vector4 norm = staticContactNormals[i];
+            Vector4 pos = staticContactPoints[i];
+
+            Vector4 gravNormalForce = Vector4.Project(new Rotor(positionNorm, pos) * tangentGravity, norm);
+
+            FrictionImpulse(gravNormalForce * mass * Time.fixedDeltaTime, pos, friction);
+
+            /*
             float normDot = Vector4.Dot(tangentGravity, staticContactNormals[i]);
             normDot = Mathf.Max(-normDot, 0);
 
@@ -187,6 +195,7 @@ public class Rigidbody4D : MonoBehaviour
             Vector3 allignAngular = normal3*Vector3.Dot(angularVelocity,normal3);
 
             angularVelocity -= allignAngular.normalized * Mathf.Min(normDot * friction*angularFrictionMult * Time.fixedDeltaTime, allignAngular.magnitude);
+            */
         }
 
         velocity += tangentGravity * Time.fixedDeltaTime;
@@ -293,7 +302,7 @@ public class Rigidbody4D : MonoBehaviour
         Rotor rot = new Rotor(positionNorm,anchor);
         Vector4 directionTo = UFunc.DirectionFromTo(positionNorm,anchor).normalized;
 
-        return rot * (velocity + UFunc.HyperCross(directionTo,angularVelocity4,positionNorm));
+        return rot * (velocity - UFunc.HyperCross(directionTo,angularVelocity4,positionNorm));
     }
 
     public void AddLinearVelocityAtAnchor(Vector4 vel, Vector4 anchor)
@@ -388,6 +397,28 @@ public class Rigidbody4D : MonoBehaviour
         }
     }
 
+    public void FrictionImpulse(Vector4 impulse, Vector4 attackPoint, float fric)
+    {
+        Rotor posToAttack = new Rotor(positionNorm, attackPoint);
+        Rotor attackToPos = new Rotor(attackPoint, positionNorm);
+
+        Vector4 dirToRb = UFunc.DirectionFromTo(attackPoint, positionNorm);
+
+        Vector4 vel = posToAttack * velocity;
+        Vector4 ang = posToAttack * angularVelocity4;
+
+        Vector4 tangentVel = UFunc.ProjectToVectorNormal(vel, impulse.normalized);
+        Vector4 tangentAng = UFunc.HyperCross(dirToRb, ang, attackPoint);
+
+        Vector4 velDirection = UFunc.ProjectToVectorNormal(tangentVel + tangentAng, impulse).normalized;
+
+        Vector4 fricImpulse = -velDirection * fric * impulse.magnitude;
+
+        AddImpulse(fricImpulse, attackPoint);
+
+        velocity = velocity.normalized * Mathf.Max(velocity.magnitude - fric * rollingFrictionMult * impulse.magnitude, 0);
+        angularVelocity = angularVelocity.normalized * Mathf.Max(angularVelocity.magnitude - fric * rollingFrictionMult * impulse.magnitude, 0);
+    }
     public void AddImpulse(Vector4 impulse, Vector4 attackPoint)
     {
         if (isStatic) return;
@@ -395,37 +426,11 @@ public class Rigidbody4D : MonoBehaviour
         Vector4 toAttackPoint = UFunc.DirectionFromTo(positionNorm, attackPoint).normalized * UFunc.DistanceS(positionNorm, attackPoint);
         impulse = new Rotor(attackPoint, positionNorm) * impulse;
 
-        Vector4 direction = impulse.normalized;
-
-        Vector4 angularAlign = UFunc.HyperCross(toAttackPoint, direction, positionNorm);
-
-        float currentVel = Vector4.Dot(velocity,direction) + Vector4.Dot(angularVelocity4, angularAlign);
-        float impulseNeed = -currentVel / (1/mass + angularAlign.sqrMagnitude/angularMass);
-        //impulse = direction * impulseNeed;
-
-        Vector4 linearAdd = impulse/mass;
-        Vector4 angularAdd = UFunc.HyperCross(toAttackPoint, impulse, positionNorm)/angularMass;
-
-        if (!dontReciveAngularVelocity)
-        {
-            print(impulse.magnitude+" "+impulseNeed);
-            print(currentVel+" current "+(1/mass + angularAlign.sqrMagnitude/angularMass)+" "+angularAlign.sqrMagnitude);
-            print(angularVelocity4+" "+angularAlign+" "+angularAdd+" "+(-angularAdd));
-
-            Vector4 velAtPoint = GetVelocityAtAnchor(attackPoint);
-            print(velAtPoint+" "+velAtPoint.magnitude);
-
-            velocity += linearAdd;
-            angularVelocity4 += angularAdd;
-
-            velAtPoint = GetVelocityAtAnchor(attackPoint);
-            print(velAtPoint+" "+UFunc.Dot(velAtPoint,impulse.normalized));
-
-            return;
-        }
+        Vector4 linearAdd = impulse / mass;
+        Vector4 angularAdd = UFunc.HyperCross(toAttackPoint, impulse, positionNorm) / angularMass;
 
         velocity += linearAdd;
-        angularVelocity4 += angularAdd;
+        if (!dontReciveAngularVelocity) angularVelocity4 += angularAdd;
     }
 
     public void CollidePointMass(Vector4 attackPoint, Vector4 attackVel, float attackMass)
@@ -466,7 +471,7 @@ public class Rigidbody4D : MonoBehaviour
     public void AddStaticContact(Vector4 normal, float vel, Vector4 pos)
     {
         staticContactNormals.Add(new Rotor(pos, positionNorm) * normal);
-        //staticContactPoints.Add(pos);
+        staticContactPoints.Add(pos);
     }
 
     public void OnRotor(Rotor r)

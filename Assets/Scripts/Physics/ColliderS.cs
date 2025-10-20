@@ -144,8 +144,6 @@ public abstract class ColliderS : MonoBehaviour
         if (!c2.isStatic) c2.transform4.LeftMult(UFunc.RotateTowardsMatrix(contact2, contact));
 
 
-        //print(c1.rigidbody4.gameObject.name+" "+c2.rigidbody4.gameObject.name);
-
         //the new stuff here
 
         //rb 1
@@ -175,106 +173,32 @@ public abstract class ColliderS : MonoBehaviour
         float totalVelocityDifference = (linearDot2 - linearDot1) + (angularDot2 - angularDot1);
         float theBottomHalf1 = (1 + angularAllign1.sqrMagnitude/c1.angularMassMult)/mass1; //not sure what this part acutally represents, but its part the bottom half of the equation i ended up with for calculating the needed impulse
         float theBottomHalf2 = (1 + angularAllign2.sqrMagnitude/c2.angularMassMult)/mass2;
+
+        if (c1.rigidbody4.dontReciveAngularVelocity) theBottomHalf1 = 1 / mass1;
+        if (c2.rigidbody4.dontReciveAngularVelocity) theBottomHalf2 = 1 / mass2;
         if (c1.isStatic) theBottomHalf1 = 0;
         if (c2.isStatic) theBottomHalf2 = 0;
 
-        float impulse = -totalVelocityDifference / (theBottomHalf1 + theBottomHalf2);
+        float minImpulse = -totalVelocityDifference / (theBottomHalf1 + theBottomHalf2); //impulse that keeps the contect point going at the same speed for both objects
 
-        print(totalVelocityDifference+" "+theBottomHalf1+" "+theBottomHalf2+" "+angularAllign2.sqrMagnitude+" "+angularDot2);
+        float maxImpulse = 2 * minImpulse;
+
+        float impulse = Mathf.Lerp(minImpulse, maxImpulse, bounce);
 
         c1.rigidbody4.AddImpulse(-contactNormal*impulse, contact);
         c2.rigidbody4.AddImpulse(contactNormal*impulse, contact);
-
-        /*
-        if (!c1.isStatic && !c2.isStatic)
-        {
-            c1.rigidbody4.angularVelocity4 = finalAngularVel1 + contactToRb1*angularOutComponent1;
-            c2.rigidbody4.angularVelocity4 = finalAngularVel2 + contactToRb2*angularOutComponent2;
-        }
-        */
-
-        /*
-        //linear bounce
-
-        float bounceSign = linearDot2 > linearDot1 ? 1 : -1;
-        bounce = 0;
-        //difference of velocity, times other mass, diveded by total mass (1), gives to add to both side to preserve energy. Multiply by bounce factor
-        float finalLinearVel1 = totalLinearVelocity + bounceSign * bounce * push2*Mathf.Abs(linearDot1-linearDot2);
-        float finalLinearVel2 = totalLinearVelocity - bounceSign * bounce * push1*Mathf.Abs(linearDot1-linearDot2);
-
-
-        c1.rigidbody4.velocity = UFunc.SetVectorDirectionValue(c1.rigidbody4.velocity, contactToRb1 * contactNormal, finalLinearVel1);
-        c1.rigidbody4.angularVelocity4 = finalAngularVel1;
-
-        c2.rigidbody4.velocity = UFunc.SetVectorDirectionValue(c2.rigidbody4.velocity, contactToRb2 * contactNormal, finalLinearVel2);
-        c2.rigidbody4.angularVelocity4 = finalAngularVel2;
-        */
-
-
-        return true;
-
-
-        /*
-
-        //velocity stuff
-
-        float centerDis1 = UFunc.DistanceS(c1.transform4.positionNorm, contact);
-        Vector4 linVel1 = c1.rigidbody4.GetLinearVelocityAtAnchor(contact);
-        Vector4 angVel1 = -c1.rigidbody4.GetAngularVelocityAtAnchor(contact);
-        float linDot1 = UFunc.Dot(linVel1, contactNormal);
-        float angDot1 = UFunc.Dot(angVel1, contactNormal);
-        float vel1 = linDot1 + angDot1;
-
-        float centerDis2 = UFunc.DistanceS(c2.transform4.positionNorm, contact);
-        Vector4 linVel2 = c2.rigidbody4.GetLinearVelocityAtAnchor(contact);
-        Vector4 angVel2 = -c2.rigidbody4.GetAngularVelocityAtAnchor(contact);
-        float linDot2 = UFunc.Dot(linVel2, contactNormal);
-        float angDot2 = UFunc.Dot(angVel2, contactNormal);
-        float vel2 = linDot2 + angDot2;
-
-        if (vel1 < vel2) return true; //if the velDifference is negative, then the objects arnt moving towards eachotjher, so doint do velocity calucations
-
+   
         if (c1.isStatic)
         {
-            c2.rigidbody4.ApplyStaticForce(contactNormal, 0, contact, bounce);
-
-            //Vector4 tanLin2 = linVel2 - linDot2*contactNormal;
-            //Vector4 tanAng2 = angVel2 - angDot2*contactNormal;
-            //Vector4 tanVel2 = tanLin2 + tanAng2;
-
-            //c2.rigidbody4.ApplyStaticForce(-tanVel2.normalized, -tanVel2.magnitude*Mathf.Pow(1-c2.friction,Time.fixedDeltaTime), contact, 0);
             c2.rigidbody4.AddStaticContact(contactNormal, 0, contact);
-
-            return true;
         }
-        else if (c2.isStatic)
+        if (c2.isStatic)
         {
-            c1.rigidbody4.ApplyStaticForce(-contactNormal, 0, contact, bounce);
-
-            //Vector4 tanLin1 = linVel1 - linDot1*contactNormal;
-            //Vector4 tanAng1 = angVel1 - angDot1*contactNormal;
-            //Vector4 tanVel1 = tanLin1 + tanAng1;
-
-            //c1.rigidbody4.ApplyStaticForce(-tanVel1.normalized, -tanVel1.magnitude*Mathf.Pow(1-c1.friction,Time.fixedDeltaTime), contact, 0);
             c1.rigidbody4.AddStaticContact(-contactNormal, 0, contact);
-
-            return true;
+            
         }
-        else
-        {
-            float angularPush1 = c1.angularMass / (c1.angularMass + c2.angularMass);
-            float angularPush2 = c2.angularMass / (c1.angularMass + c2.angularMass);
-
-            float linearVel = linDot1 * (push2) + linDot2 * (push1);
-            float angularVel = angDot1 * angularPush1 + angDot2 * angularPush2;
-            float vel = linearVel + angularVel;
-
-            c1.rigidbody4.ApplyStaticForce(-contactNormal, -vel, contact, bounce);
-            c2.rigidbody4.ApplyStaticForce(contactNormal, vel, contact, bounce);
-        }
-
+        
         return true;
-        */
     }
 
     struct ContactData
