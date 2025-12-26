@@ -3645,7 +3645,7 @@ MonoBehaviour:
     m_RotationOrder: 4
   afterDashAccelMult: 0.4
   afterDashAccelTime: 0.3
-  disableSwing: 0
+  disableSwing: 1
   swingChargeTime: 0.4
   swingActiveTime: 0.2
   swingCollider: {fileID: 1238272060}
@@ -3707,10 +3707,10 @@ MonoBehaviour:
   parent: {fileID: 0}
   children:
   - {fileID: 1774161676}
+  - {fileID: 1786605945}
   - {fileID: 871264117}
   - {fileID: 927178209}
   - {fileID: 1612277668}
-  - {fileID: 1786605945}
   m_matrix:
     e00: 1
     e01: 0
@@ -7000,16 +7000,16 @@ MonoBehaviour:
   - 0.9950042
   meshProfiles:
     theHandler: {fileID: 1083750111}
-    shadowCount: 13
-    prevShadowCount: 13
-    casterIndicies: 000000000100000002000000030000000400000005000000060000000700000008000000090000000a0000000b0000000c000000
+    shadowCount: 8
+    prevShadowCount: 8
+    casterIndicies: 0000000001000000020000000400000006000000070000000800000009000000
     bufferElementSize: 64
     bufferName: _ShadowData
   sphereProfiles:
     theHandler: {fileID: 1083750111}
-    shadowCount: 1
-    prevShadowCount: 1
-    casterIndicies: 0d000000
+    shadowCount: 3
+    prevShadowCount: 3
+    casterIndicies: 03000000050000000a000000
     bufferElementSize: 20
     bufferName: _ShadowSphereData
   disableShadows: 0
@@ -8716,7 +8716,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1265622218
 RectTransform:
   m_ObjectHideFlags: 0
@@ -12338,6 +12338,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: TownHall
       objectReference: {fileID: 0}
+    - target: {fileID: 7794111661127920532, guid: 0a0ff91d80bfb88458790d92d5e189dc, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8374221306927901482, guid: 0a0ff91d80bfb88458790d92d5e189dc, type: 3}
       propertyPath: parent
       value: 
@@ -12818,7 +12822,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1786605943
 Transform:
   m_ObjectHideFlags: 0
@@ -13250,7 +13254,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &2057267734
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14272,7 +14276,7 @@ MonoBehaviour:
   mass: 0.2
   angularMassMult: 0.05
   bounce: 0.75
-  friction: 1
+  friction: 0
   rollingFrictionMult: 0.1
   dontReciveAngularVelocity: 0
   m_isStatic: 0
