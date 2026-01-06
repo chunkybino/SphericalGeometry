@@ -4223,7 +4223,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: BIG NUMBER
+  m_text: Score
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
@@ -5301,7 +5301,7 @@ MonoBehaviour:
   angularMassMult: 1
   bounce: 0
   friction: 0
-  angularFrictionMult: 0
+  rollingFrictionMult: 0
   dontReciveAngularVelocity: 0
   m_isStatic: 1
   kineticStatic: 0
@@ -5312,6 +5312,7 @@ MonoBehaviour:
   allSectors: 
   globalSector: 0
   staticContactNormals: []
+  staticContactPoints: []
 --- !u!114 &1457274187
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7374,7 +7375,7 @@ MonoBehaviour:
   angularMassMult: 1
   bounce: 0
   friction: 0
-  angularFrictionMult: 0
+  rollingFrictionMult: 0
   dontReciveAngularVelocity: 0
   m_isStatic: 1
   kineticStatic: 0
@@ -7385,6 +7386,7 @@ MonoBehaviour:
   allSectors: 06000000
   globalSector: 0
   staticContactNormals: []
+  staticContactPoints: []
 --- !u!114 &2078316010
 MonoBehaviour:
   m_ObjectHideFlags: 0

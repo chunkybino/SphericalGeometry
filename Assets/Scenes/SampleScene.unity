@@ -1837,7 +1837,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!23 &440735189
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -2068,8 +2068,8 @@ MonoBehaviour:
   angularMassMult: 0.01
   bounce: 0.6
   friction: 0.5
-  rollingFrictionMult: 0.1
-  dontReciveAngularVelocity: 0
+  rollingFrictionMult: 0
+  dontReciveAngularVelocity: 1
   m_isStatic: 0
   kineticStatic: 0
   dontDoVelocity: 0
@@ -5016,7 +5016,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!23 &730136459
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -5247,7 +5247,7 @@ MonoBehaviour:
   angularMassMult: 0.05
   bounce: 0.3
   friction: 0.4
-  rollingFrictionMult: 0.1
+  rollingFrictionMult: 0
   dontReciveAngularVelocity: 1
   m_isStatic: 0
   kineticStatic: 0
@@ -7002,14 +7002,14 @@ MonoBehaviour:
     theHandler: {fileID: 1083750111}
     shadowCount: 8
     prevShadowCount: 8
-    casterIndicies: 0000000001000000020000000400000006000000070000000800000009000000
+    casterIndicies: 0100000002000000030000000600000008000000090000000a0000000b000000
     bufferElementSize: 64
     bufferName: _ShadowData
   sphereProfiles:
     theHandler: {fileID: 1083750111}
-    shadowCount: 3
-    prevShadowCount: 3
-    casterIndicies: 03000000050000000a000000
+    shadowCount: 5
+    prevShadowCount: 5
+    casterIndicies: 000000000400000005000000070000000c000000
     bufferElementSize: 20
     bufferName: _ShadowSphereData
   disableShadows: 0
@@ -7551,7 +7551,6 @@ GameObject:
   - component: {fileID: 1091455079}
   - component: {fileID: 1091455078}
   - component: {fileID: 1091455080}
-  - component: {fileID: 1091455081}
   m_Layer: 0
   m_Name: Physics
   m_TagString: Untagged
@@ -8104,109 +8103,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   worldRadius: 1
---- !u!114 &1091455081
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1091455077}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62ea67bb9c2e9cd4ca9847ce83460a3f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  vertices:
-  - {x: 0.5, y: -0.5, z: 0.5}
-  - {x: -0.5, y: -0.5, z: 0.5}
-  - {x: 0.5, y: 0.5, z: 0.5}
-  - {x: -0.5, y: 0.5, z: 0.5}
-  - {x: 0.5, y: 0.5, z: -0.5}
-  - {x: -0.5, y: 0.5, z: -0.5}
-  - {x: 0.5, y: -0.5, z: -0.5}
-  - {x: -0.5, y: -0.5, z: -0.5}
-  - {x: 0.5, y: 0.5, z: 0.5}
-  - {x: -0.5, y: 0.5, z: 0.5}
-  - {x: 0.5, y: 0.5, z: -0.5}
-  - {x: -0.5, y: 0.5, z: -0.5}
-  - {x: 0.5, y: -0.5, z: -0.5}
-  - {x: 0.5, y: -0.5, z: 0.5}
-  - {x: -0.5, y: -0.5, z: 0.5}
-  - {x: -0.5, y: -0.5, z: -0.5}
-  - {x: -0.5, y: -0.5, z: 0.5}
-  - {x: -0.5, y: 0.5, z: 0.5}
-  - {x: -0.5, y: 0.5, z: -0.5}
-  - {x: -0.5, y: -0.5, z: -0.5}
-  - {x: 0.5, y: -0.5, z: -0.5}
-  - {x: 0.5, y: 0.5, z: -0.5}
-  - {x: 0.5, y: 0.5, z: 0.5}
-  - {x: 0.5, y: -0.5, z: 0.5}
-  uv:
-  - {x: 0, y: 0}
-  - {x: 1, y: 0}
-  - {x: 0, y: 1}
-  - {x: 1, y: 1}
-  - {x: 0, y: 1}
-  - {x: 1, y: 1}
-  - {x: 0, y: 1}
-  - {x: 1, y: 1}
-  - {x: 0, y: 0}
-  - {x: 1, y: 0}
-  - {x: 0, y: 0}
-  - {x: 1, y: 0}
-  - {x: 0, y: 0}
-  - {x: 0, y: 1}
-  - {x: 1, y: 1}
-  - {x: 1, y: 0}
-  - {x: 0, y: 0}
-  - {x: 0, y: 1}
-  - {x: 1, y: 1}
-  - {x: 1, y: 0}
-  - {x: 0, y: 0}
-  - {x: 0, y: 1}
-  - {x: 1, y: 1}
-  - {x: 1, y: 0}
-  triangles:
-  - {x: 0, y: 2, z: 3}
-  - {x: 0, y: 3, z: 1}
-  - {x: 8, y: 4, z: 5}
-  - {x: 8, y: 5, z: 9}
-  - {x: 10, y: 6, z: 7}
-  - {x: 10, y: 7, z: 11}
-  - {x: 12, y: 13, z: 14}
-  - {x: 12, y: 14, z: 15}
-  - {x: 16, y: 17, z: 18}
-  - {x: 16, y: 18, z: 19}
-  - {x: 20, y: 21, z: 22}
-  - {x: 20, y: 22, z: 23}
-  - {x: 3, y: 2, z: 0}
-  - {x: 1, y: 3, z: 0}
-  - {x: 5, y: 4, z: 8}
-  - {x: 9, y: 5, z: 8}
-  - {x: 7, y: 6, z: 10}
-  - {x: 11, y: 7, z: 10}
-  - {x: 14, y: 13, z: 12}
-  - {x: 15, y: 14, z: 12}
-  - {x: 18, y: 17, z: 16}
-  - {x: 19, y: 18, z: 16}
-  - {x: 22, y: 21, z: 20}
-  - {x: 23, y: 22, z: 20}
-  trianglesInt: 0000000002000000030000000000000003000000010000000800000004000000050000000800000005000000090000000a00000006000000070000000a000000070000000b0000000c0000000d0000000e0000000c0000000e0000000f00000010000000110000001200000010000000120000001300000014000000150000001600000014000000160000001700000003000000020000000000000001000000030000000000000005000000040000000800000009000000050000000800000007000000060000000a0000000b000000070000000a0000000e0000000d0000000c0000000f0000000e0000000c000000120000001100000010000000130000001200000010000000160000001500000014000000170000001600000014000000
-  makeNew: 0
-  makeNewName: NewMesh
-  mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
-  saveMesh: 0
-  readMesh: 0
-  saveTri: 0
-  readTri: 0
-  doubleTri: 0
-  reverseTri: 0
-  readVertex3: 0
-  subdivide3: 0
-  vert3To4: 0
-  vert3To4BlankAxis: 0
-  doVertex4: 0
-  vertices4: []
 --- !u!1 &1235126664
 GameObject:
   m_ObjectHideFlags: 0
@@ -14277,7 +14173,7 @@ MonoBehaviour:
   angularMassMult: 0.05
   bounce: 0.75
   friction: 0
-  rollingFrictionMult: 0.1
+  rollingFrictionMult: 0
   dontReciveAngularVelocity: 0
   m_isStatic: 0
   kineticStatic: 0

@@ -241,7 +241,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1383921585278078105
 Transform:
   m_ObjectHideFlags: 0
@@ -560,7 +560,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2916657600843566125
 Transform:
   m_ObjectHideFlags: 0
@@ -929,7 +929,7 @@ MonoBehaviour:
   angularMassMult: 1
   bounce: 0
   friction: 0
-  angularFrictionMult: 0
+  rollingFrictionMult: 0
   dontReciveAngularVelocity: 1
   m_isStatic: 0
   kineticStatic: 0
@@ -940,6 +940,7 @@ MonoBehaviour:
   allSectors: 06000000
   globalSector: 0
   staticContactNormals: []
+  staticContactPoints: []
 --- !u!114 &2821580732527778645
 MonoBehaviour:
   m_ObjectHideFlags: 0

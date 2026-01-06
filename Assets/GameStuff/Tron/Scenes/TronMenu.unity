@@ -1901,7 +1901,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Abort
+  m_text: Back
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -5041,7 +5041,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Super Abort
+  m_text: Exit
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -5813,9 +5813,9 @@ MonoBehaviour:
   - 1.25
   - 1.75
   displayStrings:
-  - boring
-  - Speed
-  - bigSpeed
+  - Boring Speed
+  - Normal Speed
+  - Big Speed
   - Super Speed
   text: {fileID: 1573572009}
   incrementOnLeftRight: 1
@@ -7035,7 +7035,7 @@ MonoBehaviour:
   angularMassMult: 1
   bounce: 0
   friction: 0
-  angularFrictionMult: 0
+  rollingFrictionMult: 0
   dontReciveAngularVelocity: 0
   m_isStatic: 1
   kineticStatic: 0
@@ -7046,6 +7046,7 @@ MonoBehaviour:
   allSectors: 
   globalSector: 0
   staticContactNormals: []
+  staticContactPoints: []
 --- !u!114 &1457274187
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8085,7 +8086,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Please Start The Game
+  m_text: Start Game
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -9491,7 +9492,7 @@ MonoBehaviour:
   angularMassMult: 1
   bounce: 0
   friction: 0
-  angularFrictionMult: 0
+  rollingFrictionMult: 0
   dontReciveAngularVelocity: 0
   m_isStatic: 1
   kineticStatic: 0
@@ -9502,6 +9503,7 @@ MonoBehaviour:
   allSectors: 06000000
   globalSector: 0
   staticContactNormals: []
+  staticContactPoints: []
 --- !u!114 &2078316010
 MonoBehaviour:
   m_ObjectHideFlags: 0

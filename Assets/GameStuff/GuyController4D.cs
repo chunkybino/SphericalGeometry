@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GuyController4D : MonoBehaviour
 {
@@ -74,6 +75,11 @@ public class GuyController4D : MonoBehaviour
 
     void Update()
     {
+        if (Input.GetKeyDown("escape"))
+        {   
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
+
         //move
         moveVector = Vector3.zero;
 
